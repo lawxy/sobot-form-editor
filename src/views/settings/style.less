@@ -4,11 +4,18 @@
     background-color: white;
     height: 100%;
     overflow: visible;
+    position: relative;
+    .ant-tabs-tab-btn[aria-selected='true'] {
+      color: var(--primary-color) !important;
+    }
+    .ant-tabs {
+      overflow: visible;
+    }
     // .ant-tabs-content {
     //   overflow: auto;
     // }
     .fe-form-setting-tab > .ant-tabs-nav {
-      margin-bottom: 0;
+      margin-bottom: 0 !important;
     }
     .ant-tabs-nav {
       height: 40px;

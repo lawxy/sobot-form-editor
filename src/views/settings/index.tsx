@@ -1,5 +1,5 @@
-import { Tabs } from 'antd';
-import type { TabsProps } from 'antd';
+import { Tabs } from '@sobot/soil-ui';
+import type { TabsProps } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
@@ -10,9 +10,6 @@ import { FormService } from '@/components';
 import { prefixCls } from '@/const';
 import { tabStore } from '@/store';
 import './style.less';
-
-// console.log('prefixCls', prefixCls);
-// debugger;
 
 const items: TabsProps['items'] = [
   {

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Input, Modal, Typography } from 'antd';
+import { Input, Modal, Typography } from '@sobot/soil-ui';
 import { EditOutlined } from '@ant-design/icons';
 import { prefixCls } from '@/const';
 
@@ -22,7 +22,7 @@ export const EditInput: React.FC<{
       <EditOutlined onClick={() => setOpen(true)} />
 
       <Modal
-        open={open}
+        visible={open}
         title="编辑名称"
         onCancel={() => setOpen(false)}
         onOk={() => {

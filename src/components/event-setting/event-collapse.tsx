@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import type { PropsWithChildren, FC } from 'react';
-import { Collapse, Dropdown, Popconfirm } from 'antd';
+import { Collapse, Dropdown, Popconfirm } from '@sobot/soil-ui';
 import { MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
-import { Sortable } from '@roddan/ui';
+import { Sortable } from '@sobot/form-editor-ui';
 
 import { prefixCls } from '@/const';
 import { eventTypeChinese, type TCustomEvent } from '@/types';

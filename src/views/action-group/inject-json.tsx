@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import type { FC, PropsWithChildren } from 'react';
-import { Modal, message } from 'antd';
-import { MonacoEditor } from '@roddan/ui';
+import { Modal, message } from '@sobot/soil-ui';
+import { MonacoEditor } from '@sobot/form-editor-ui';
 import { injectSchema } from '@/index';
 
 export const InjectJson: FC<PropsWithChildren> = ({ children }) => {
@@ -18,7 +18,7 @@ export const InjectJson: FC<PropsWithChildren> = ({ children }) => {
 
       <Modal
         width={600}
-        open={open}
+        visible={open}
         onCancel={() => {
           setOpen(false);
         }}

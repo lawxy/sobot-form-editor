@@ -1,20 +1,20 @@
 import { defineConfig } from 'dumi';
 import { webpackConfig } from './src/webpack-config';
+import externals from '@sobot/soil-ui/lib/externals';
+import theme from '@sobot/soil-ui/lib/theme';
 
 export default defineConfig({
-  outputPath: 'docs-dist',
-  base: '/editor/',
-  publicPath: '/editor/',
-  themeConfig: {
-    socialLinks: {
-      github: 'https://github.com/lawxy/form-editor',
-    },
-    footer: `form-editor Powered by <a href="https://github.com/lawxy/form-editor">Roddan</a> | 框架 Powered by <a href="https://d.umijs.org">dumi</a>`,
-  },
+  // outputPath: 'docs-dist',
+  // base: '/editor/',
+  // publicPath: '/editor/',
   alias: {
     '@': '/src',
   },
-  ...webpackConfig,
+  theme: {
+    ...theme,
+  },
+  // externals,
+  // ...webpackConfig,
   analyze: {
     analyzerMode: 'server',
     analyzerPort: 9999,

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Switch } from 'antd';
+import { Switch } from '@sobot/soil-ui';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { isNil } from 'lodash-es';
 

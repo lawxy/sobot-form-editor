@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormEditor, FormCanvas } from '@roddan/form-editor';
+import { FormEditor, FormCanvas } from '@sobot/form-editor';
 import { customElement } from '../common/customEl';
 
 const Comp = () => {

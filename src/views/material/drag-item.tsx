@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from 'antd';
+import { Typography } from '@sobot/soil-ui';
 import { prefixCls } from '@/const';
 import type { IDragElementProp } from '@/types';
 

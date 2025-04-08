@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, Space } from 'antd';
+import { Checkbox, Space } from '@sobot/soil-ui';
 
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction, type TElementRender } from '@/types';

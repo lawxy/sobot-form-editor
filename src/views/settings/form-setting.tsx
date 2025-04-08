@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, InputNumber } from 'antd';
+import { Input, InputNumber, Select } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 
 import {
@@ -8,12 +8,12 @@ import {
   EventSetting,
   CustomCssSetting,
 } from '@/components';
-import { EEventAction, EEventType } from '@/types';
+import { EEventAction, EEventType, TJustify, TAlign } from '@/types';
 import store from '@/store';
-import { prefixCls } from '@/const';
+import { prefixCls, JustifyOptions, AlignOptions} from '@/const';
 
 const FormSetting = () => {
-  const { id, formName, horizontalGap, verticalGap } = store.formAttrs;
+  const { id, formName, horizontalGap, verticalGap, justify, align } = store.formAttrs;
 
   return (
     <div className={prefixCls('form-setting')}>
@@ -28,12 +28,32 @@ const FormSetting = () => {
           />
         </SettingItem>
 
+        <SettingItem label="水平对齐">
+          <Select
+            options={JustifyOptions}
+            value={justify}
+            onChange={(val) => {
+              store.setFormAttr<'justify'>('justify', val as TJustify);
+            }}
+          />
+        </SettingItem>
+
         <SettingItem label="水平间隔">
           <InputNumber
             value={horizontalGap}
             min={0}
             onChange={(val) => {
               store.setFormAttr<'horizontalGap'>('horizontalGap', Number(val));
+            }}
+          />
+        </SettingItem>
+
+        <SettingItem label="垂直对齐">
+        <Select
+            options={AlignOptions}
+            value={align}
+            onChange={(val) => {
+              store.setFormAttr<'align'>('align', val as TAlign);
             }}
           />
         </SettingItem>

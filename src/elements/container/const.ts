@@ -12,4 +12,8 @@ export const initialData: Partial<IBaseElement> = {
   gridLayout: true,
   children: [],
   isContainer: true,
+  justify: 'start',
+  align: 'top',
+  horizontalGap: 0,
+  verticalGap: 0,
 };

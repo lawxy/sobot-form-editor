@@ -1,12 +1,15 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { Input, Space, Popconfirm, Select } from 'antd';
+import { Input, Space, Popconfirm, Select, Switch } from 'antd';
+import { cloneDeep } from 'lodash-es';
 import { MinusCircleOutlined } from '@ant-design/icons';
 import { SettingWrap, PlusIcon, SettingItem } from '@/components';
-import { TableSortable } from '@roddan/ui';
+import { TableSortable } from '@sobot/form-editor-ui';
 import store from '@/store';
 import { createPanel } from './render-tabs';
 import type { TElementSetting } from '@/types';
+import { prefixCls } from '@/const';
+import './style.less';
 
 const ObserverInput: React.FC<{ idx: number }> = observer(({ idx }) => {
   const current = store.selectedElement.children![idx];
@@ -21,7 +24,7 @@ const ObserverInput: React.FC<{ idx: number }> = observer(({ idx }) => {
 });
 
 export const SettingTabs: TElementSetting = ({ element, setElementProp }) => {
-  const { children, id, tabType } = element;
+  const { children, id, tabType, underline } = element;
   const { length } = children!;
 
   const handleAddPanel = () => {
@@ -51,6 +54,7 @@ export const SettingTabs: TElementSetting = ({ element, setElementProp }) => {
                 onConfirm={() => {
                   store.deleteEl(children![idx]);
                 }}
+                overlayClassName={prefixCls('setting-popconfirm')}
               >
                 <MinusCircleOutlined
                   style={{ color: '#D40000', cursor: 'pointer' }}
@@ -72,13 +76,19 @@ export const SettingTabs: TElementSetting = ({ element, setElementProp }) => {
       <SettingItem label="tab类型">
         <Select
           value={tabType}
-          options={['line', 'card'].map((item) => ({
+          options={['line', 'card', 'split'].map((item) => ({
             label: item,
             value: item,
           }))}
           onChange={(val) => {
-            setElementProp('tabType', val);
+            setElementProp('tabType', val as 'line' | 'card' | 'split');
           }}
+        />
+      </SettingItem>
+      <SettingItem label="下划线">
+        <Switch
+          checked={underline}
+          onChange={(checked) => setElementProp('underline', checked)}
         />
       </SettingItem>
       <TableSortable
@@ -87,7 +97,7 @@ export const SettingTabs: TElementSetting = ({ element, setElementProp }) => {
         onSort={(newChildren: any) => {
           setElementProp('children', newChildren);
         }}
-        dataSource={children}
+        dataSource={cloneDeep(children)}
         pagination={false}
         scroll={{ y: 300 }}
         // children字段在tabs组件中有用

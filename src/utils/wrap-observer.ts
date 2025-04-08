@@ -7,6 +7,8 @@ import type {
 import { hasObservered } from '@/utils'
 
 export const wrapObserver = (elements: TDragElement, custom?: boolean) => {
+  console.log('elements', elements);
+  console.log('custom', custom);
   if (Array.isArray(elements)) {
     elements = elements.reduce(
       (memo: TDragElementObject, el: IDragElementProp) => {

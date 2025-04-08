@@ -40,8 +40,8 @@ export { ELEMENT_SELECT, RenderSelect, SettingSelect, SELECT_TEXT } from './sele
 import { ELEMENT_SWITCH, RenderSwitch, SettingSwitch, SWITCH_TEXT, initialData as Switch_initData, eventActions as Switch_eventActions, Icon as SWITCH_Icon } from './switch'
 export { ELEMENT_SWITCH, RenderSwitch, SettingSwitch, SWITCH_TEXT } from './switch'
         
-import { ELEMENT_TABLE, RenderTable, SettingTable, TABLE_TEXT, initialData as Table_initData, eventActions as Table_eventActions, Icon as TABLE_Icon } from './table'
-export { ELEMENT_TABLE, RenderTable, SettingTable, TABLE_TEXT } from './table'
+// import { ELEMENT_TABLE, RenderTable, SettingTable, TABLE_TEXT, initialData as Table_initData, eventActions as Table_eventActions, Icon as TABLE_Icon } from './table'
+// export { ELEMENT_TABLE, RenderTable, SettingTable, TABLE_TEXT } from './table'
         
 import { ELEMENT_TABS, RenderTabs, SettingTabs, TABS_TEXT, initialData as Tabs_initData, eventActions as Tabs_eventActions, Icon as TABS_Icon } from './tabs'
 export { ELEMENT_TABS, RenderTabs, SettingTabs, TABS_TEXT } from './tabs'
@@ -177,15 +177,15 @@ export const ElementsMap: Record<string, IDragElementProp> = {
     Icon: UPLOAD_Icon
   },
 
-  [ELEMENT_TABLE]: {
-    type: ELEMENT_TABLE,
-    render: RenderTable,
-    setting: SettingTable,
-    text: TABLE_TEXT,
-    eventActions: Table_eventActions,
-    initialData: Table_initData,
-    Icon: TABLE_Icon
-  },
+  // [ELEMENT_TABLE]: {
+  //   type: ELEMENT_TABLE,
+  //   render: RenderTable,
+  //   setting: SettingTable,
+  //   text: TABLE_TEXT,
+  //   eventActions: Table_eventActions,
+  //   initialData: Table_initData,
+  //   Icon: TABLE_Icon
+  // },
 
   [ELEMENT_CONTAINER]: {
     type: ELEMENT_CONTAINER,

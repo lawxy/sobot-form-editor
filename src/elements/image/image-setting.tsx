@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Switch } from 'antd';
+import { Input, Switch } from '@sobot/soil-ui';
 import { SettingWrap, SettingItem, DefaultValueSetting } from '@/components';
 import type { TElementSetting } from '@/types';
 

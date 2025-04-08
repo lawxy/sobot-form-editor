@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { Popconfirm, Space } from 'antd';
+import { Popconfirm, Space } from '@sobot/soil-ui';
 import c from 'classnames';
 import { cloneDeep } from 'lodash-es';
-import { ReactSortable } from '@roddan/ui';
+import { ReactSortable } from '@sobot/form-editor-ui';
 import { arrayMoveImmutable } from 'array-move';
 
 import { MinusIcon, PlusIcon, QuestionPopover } from '@/components';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Input, Button, Popconfirm } from 'antd';
+import { Switch, Input, Button, Popconfirm } from '@sobot/soil-ui';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
 import { cloneDeep } from 'lodash-es';

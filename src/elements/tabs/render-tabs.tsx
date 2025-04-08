@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Tabs } from 'antd';
+import { Tabs } from '@sobot/soil-ui';
 
 import store from '@/store';
 import type { TElementRender } from '@/types';
@@ -19,7 +19,7 @@ export const createPanel = (props = {}) => {
 };
 
 export const RenderTabs: TElementRender = ({ element, customStyle }) => {
-  const { children } = element;
+  const { children, underline } = element;
 
   const items = children?.map((child) => {
     store.flatElement(child);
@@ -37,5 +37,5 @@ export const RenderTabs: TElementRender = ({ element, customStyle }) => {
     }
   }, [children?.length]);
 
-  return <Tabs items={items} type={element.tabType} style={customStyle} />;
+  return <Tabs items={items} type={element.tabType} style={customStyle} underline={underline} />;
 };

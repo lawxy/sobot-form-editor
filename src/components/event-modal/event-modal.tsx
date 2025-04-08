@@ -1,11 +1,10 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
-import { MenuProps, message, Modal } from 'antd';
+import { MenuProps, message, Modal } from '@sobot/soil-ui';
 import type { FC, PropsWithChildren } from 'react';
 
 import { ActionConfig } from './action-config';
 import { EventModalContext } from './context';
 import { SelectComponent } from './select-component';
-import { AntdStaticFunctions } from '../antd-static-function';
 
 import { prefixCls } from '@/const';
 import {
@@ -44,7 +43,6 @@ export const EventModal: FC<
   sourceId,
   eventTypeOptions,
 }) => {
-  const { modal } = AntdStaticFunctions;
   const [open, setOpen] = useState(false);
   const [tempEvent, setTempEvent] = useState<TCustomEvent>(
     event || getNewEvent(),
@@ -76,6 +74,7 @@ export const EventModal: FC<
       return menuItem;
     });
   }, [eventActions, type, event?.eventAction]);
+  console.log('eventActionsMenus', eventActionsMenus);
 
   // 选择对应动作 菜单项
   const eventTypeMenus: MenuItem[] = useMemo(() => {
@@ -103,7 +102,7 @@ export const EventModal: FC<
   ) => {
     if ((field === 'eventAction' || field === 'eventType') && edit.current) {
       if (tempEvent[field] === value) return;
-      modal.confirm({
+      Modal.confirm({
         title: '编辑数据未保存，切换后将清除数据，确认切换？',
         onOk() {
           setEdit(false);
@@ -139,7 +138,7 @@ export const EventModal: FC<
         })}
       <Modal
         width={840}
-        open={open}
+        visible={open}
         title={`${type === EChangeType.ADD ? '新增' : '编辑'}事件`}
         maskClosable={false}
         onCancel={() => {

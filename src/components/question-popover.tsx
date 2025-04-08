@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popover } from 'antd';
+import { Popover } from '@sobot/soil-ui';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 
 export const QuestionPopover: React.FC<{

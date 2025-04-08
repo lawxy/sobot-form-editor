@@ -1,4 +1,4 @@
-import type { FormInstance } from 'antd';
+import type { FormInstance } from '@sobot/soil-ui';
 import type {
   IBaseElement,
   IFormAttributesProps,

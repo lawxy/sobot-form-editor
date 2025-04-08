@@ -14,7 +14,7 @@ order: 1
 安装依赖
 
 ```sh
-yarn add @roddan/form-editor
+yarn add @sobot/form-editor
 ```
 
 ## 代码编写
@@ -28,7 +28,7 @@ import {
   Material,
   Settings,
   FormCanvas,
-} from '@roddan/form-editor';
+} from '@sobot/form-editor';
 
 const Editor = () => {
   const ref = useRef();
@@ -67,7 +67,7 @@ export default Editor;
 
 ```javascript
 import React from 'react';
-import { FormEditor, FormCanvas } from '@roddan/form-editor';
+import { FormEditor, FormCanvas } from '@sobot/form-editor';
 
 const Editor = () => {
   const ref = useRef();

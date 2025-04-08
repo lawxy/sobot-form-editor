@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Popconfirm } from 'antd';
+import { Popconfirm, message } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import { cloneDeep } from 'lodash-es';
 import { useEditorContext } from '@/context';
@@ -8,7 +8,6 @@ import store from '@/store';
 import eventStore from '@/store/eventStore';
 import { PreviewJson } from './preview-json';
 import { InjectJson } from './inject-json';
-import { AntdStaticFunctions } from '@/components';
 import './style.less';
 
 const ActionItem: React.FC<
@@ -25,11 +24,10 @@ const ActionItem: React.FC<
 
 const ActionGroup = () => {
   const { actionProp } = useEditorContext();
-  const { message } = AntdStaticFunctions;
 
   const handleSave = useCallback(() => {
     /**
-     * todo 组件属性校验(暂时没这个需求)
+     * todo 组件属性校验
      * const form = Form.useFormInstance();
      */
     // const hasErrorEl = store.validateSettringAttr()

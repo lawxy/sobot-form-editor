@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Input, Switch } from 'antd';
+import { Input, Switch } from '@sobot/soil-ui';
 import { isNil } from 'lodash-es';
 import { SettingItem, SettingWrap, DefaultValueSetting } from '@/components';
 import type { TElementSetting } from '@/types';

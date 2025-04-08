@@ -6,13 +6,13 @@ import { handleSort } from '@/utils';
 import store from '@/store';
 import { RenderElementWithLayout } from '@/components';
 import type { IBaseElement, TElementRender } from '@/types';
-import { ReactSortable } from '@roddan/ui';
+import { ReactSortable } from '@sobot/form-editor-ui';
 import './style.less';
 
 export const RenderContainer: TElementRender = ({ element, customStyle }) => {
-  const { horizontalGap, verticalGap, id } = store.formAttrs;
+  const { id } = store.formAttrs;
   const { mode, ElementsMap } = useEditorContext();
-  const { parentId } = element;
+  const { parentId, horizontalGap = 0, verticalGap = 0, align, justify } = element;
 
   return (
     <ReactSortable<IBaseElement>
@@ -28,6 +28,8 @@ export const RenderContainer: TElementRender = ({ element, customStyle }) => {
           [`${prefixCls('row-empty')}`]:
             mode === 'design' && !element.children?.length,
         }),
+        align,
+        justify,
         gutter: [horizontalGap, verticalGap],
         'data-id': element.id,
         'data-parent-id': parentId || id,

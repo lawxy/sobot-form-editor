@@ -1,5 +1,5 @@
 import React from 'react';
-import { Upload, Button, message } from 'antd';
+import { Upload, Button, message } from '@sobot/soil-ui';
 import { UploadOutlined } from '@ant-design/icons';
 import type { TElementRender } from '@/types';
 

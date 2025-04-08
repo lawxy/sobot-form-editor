@@ -1,6 +1,6 @@
 import React, { useState, type FC, type PropsWithChildren } from 'react';
-import { Modal, Button } from 'antd';
-import { MonacoEditor } from '@roddan/ui';
+import { Modal, Button } from '@sobot/soil-ui';
+import { MonacoEditor } from '@sobot/form-editor-ui';
 import store from '@/store';
 
 export const PreviewJson: FC<PropsWithChildren> = ({ children }) => {
@@ -15,7 +15,7 @@ export const PreviewJson: FC<PropsWithChildren> = ({ children }) => {
 
       <Modal
         width={600}
-        open={openCode}
+        visible={openCode}
         onCancel={() => {
           setOpenCode(false);
         }}

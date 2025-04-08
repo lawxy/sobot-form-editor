@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { FC, PropsWithChildren } from 'react';
-import { FormInstance, Modal, message } from 'antd';
+import { FormInstance, Modal, message } from '@sobot/soil-ui';
 import { type AxiosRequestConfig } from 'axios';
 import { QueryMethod, DEFAULT_ERROR_MESSAGE } from '@/const';
 import { parseEsmString, createRequest } from '@/utils';
@@ -44,7 +44,7 @@ export const Preview: FC<
           loading,
         })}
       <Modal
-        open={open}
+        visible={open}
         title="预览结果"
         onCancel={() => {
           setOpen(false);

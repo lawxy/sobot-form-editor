@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import type { FC, PropsWithChildren } from 'react';
-import { Modal, message } from 'antd';
+import { Modal, message } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
-import { MonacoEditor } from '@roddan/ui';
+import { MonacoEditor } from '@sobot/form-editor-ui';
 
 export const AttributesSetting: FC<
   PropsWithChildren<{
@@ -29,7 +29,7 @@ export const AttributesSetting: FC<
         })}
       <Modal
         width={600}
-        open={open}
+        visible={open}
         title={title}
         onCancel={() => {
           setOpen(false);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Flex, Form, Input, Modal, Select } from 'antd';
+import { Button, Form, Input, Modal, Select } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import type { FC, PropsWithChildren } from 'react';
 
@@ -43,8 +43,6 @@ const ServiceModal: FC<
 > = ({ children, service }) => {
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
-  Form.useWatch('previewData', form);
-  Form.useWatch('interceptors', form);
 
   const methodOptions = RequestMethod.map((item) => ({
     label: item,
@@ -70,39 +68,62 @@ const ServiceModal: FC<
           onClick: () => setOpen(true),
         })}
       <Modal
-        open={open}
+        visible={open}
         title={`${service ? '编辑' : '新增'}服务`}
         maskClosable={false}
         destroyOnClose
-        styles={{
-          body: {
-            height: 500,
-            overflow: 'auto',
-          },
+        bodyStyle={{
+          height: 500,
+          overflow: 'auto',
         }}
         onCancel={() => {
           setOpen(false);
         }}
-        onOk={async () => {
-          await form.validateFields();
-          const serviceValue = form.getFieldsValue();
-          if (service) {
-            store.setService(service.id, serviceValue);
-          } else {
-            serviceValue.id = idCreator('service');
-            store.addService(serviceValue);
-          }
-          setOpen(false);
-        }}
-        footer={(_, { OkBtn, CancelBtn }) => (
-          <>
-            <CancelBtn />
-            <Preview form={form}>
-              <Button>预览</Button>
-            </Preview>
-            <OkBtn />
-          </>
-        )}
+        // onOk={async () => {
+        //   await form.validateFields();
+        //   const serviceValue = form.getFieldsValue();
+        //   if (service) {
+        //     store.setService(service.id, serviceValue);
+        //   } else {
+        //     serviceValue.id = idCreator('service');
+        //     store.addService(serviceValue);
+        //   }
+        //   setOpen(false);
+        // }}
+        footer={[
+          <Button key="cancel" onClick={() => setOpen(false)}>
+            取消
+          </Button>,
+          <Preview form={form} key="preview">
+            <Button>预览</Button>
+          </Preview>,
+          <Button
+            key="ok"
+            type="primary"
+            onClick={async () => {
+              await form.validateFields();
+              const serviceValue = form.getFieldsValue();
+              if (service) {
+                store.setService(service.id, serviceValue);
+              } else {
+                serviceValue.id = idCreator('service');
+                store.addService(serviceValue);
+              }
+              setOpen(false);
+            }}
+          >
+            确定
+          </Button>,
+        ]}
+        // footer={(_, { OkBtn, CancelBtn }) => (
+        //   <>
+        //     <CancelBtn />
+        //     <Preview form={form}>
+        //       <Button>预览</Button>
+        //     </Preview>
+        //     <OkBtn />
+        //   </>
+        // )}
       >
         <Form
           form={form}
@@ -124,16 +145,10 @@ const ServiceModal: FC<
             rules={[
               {
                 required: true,
-                // validator(_, val) {
-                //   if (
-                //     val.match(
-                //       /^https?:\/\/((localhost:\d{1,5})|([\w\-_]+(\.[\w\-_]+)+))([\w\-.,@?^=%&amp;:/~+#]*[\w\-@?^=%&amp;/~+#])?$/,
-                //     )
-                //   ) {
-                //     return Promise.resolve();
-                //   }
-                //   return Promise.reject('格式不正确, 请以http或者https开头');
-                // },
+              },
+              {
+                type: 'url',
+                message: '格式不正确, 请以http或者https开头',
               },
             ]}
           >
@@ -147,53 +162,71 @@ const ServiceModal: FC<
           >
             <Select options={methodOptions} showSearch />
           </Form.Item>
-          <Form.Item
-            className={prefixCls('service-modal-form-item')}
-            name="interceptors"
-            label={
-              <Flex style={{ width: '100%' }} justify="space-between">
-                <span>拦截器设置</span>
-                <AttributesSetting
-                  title="拦截器设置"
-                  editorType="javascript"
-                  value={form.getFieldValue('interceptors')}
-                  onChange={(v) => {
-                    form.setFieldValue('interceptors', v);
-                  }}
-                  style={{ height: 600 }}
-                >
-                  <Button size="small">编辑</Button>
-                </AttributesSetting>
-              </Flex>
-            }
-          >
-            <Input.TextArea readOnly />
-          </Form.Item>
+          <Form.Item shouldUpdate noStyle>
+            {({ getFieldValue }) => {
+              return (
+                <>
+                  <Form.Item
+                    className={prefixCls('service-modal-form-item')}
+                    name="interceptors"
+                    label={
+                      <div
+                        className={prefixCls('service-modal-form-item-label')}
+                      >
+                        <span>拦截器设置</span>
+                        <AttributesSetting
+                          title="拦截器设置"
+                          editorType="javascript"
+                          value={form.getFieldValue('interceptors')}
+                          onChange={(v) => {
+                            form.setFieldsValue({
+                              ...form.getFieldsValue(),
+                              interceptors: v,
+                            });
+                          }}
+                          style={{ height: 600 }}
+                        >
+                          <Button size="small">编辑</Button>
+                        </AttributesSetting>
+                      </div>
+                    }
+                  >
+                    <Input.TextArea readOnly />
+                  </Form.Item>
 
-          <Form.Item
-            className={prefixCls('service-modal-form-item')}
-            name="previewData"
-            shouldUpdate
-            label={
-              <Flex style={{ width: '100%' }} justify="space-between">
-                <span>预览参数</span>
-                <AttributesSetting
-                  title="编辑参数"
-                  editorType="javascript"
-                  value={
-                    form.getFieldValue('previewData') ||
-                    'export default {\n\t\n}'
-                  }
-                  onChange={(v) => {
-                    form.setFieldValue('previewData', v);
-                  }}
-                >
-                  <Button size="small">编辑</Button>
-                </AttributesSetting>
-              </Flex>
-            }
-          >
-            <Input.TextArea readOnly />
+                  <Form.Item
+                    className={prefixCls('service-modal-form-item')}
+                    name="previewData"
+                    shouldUpdate
+                    label={
+                      <div
+                        className={prefixCls('service-modal-form-item-label')}
+                      >
+                        <span>预览参数</span>
+                        <AttributesSetting
+                          title="编辑参数"
+                          editorType="javascript"
+                          value={
+                            getFieldValue('previewData') ||
+                            'export default {\n\t\n}'
+                          }
+                          onChange={(v) => {
+                            form.setFieldsValue({
+                              ...form.getFieldsValue(),
+                              previewData: v,
+                            });
+                          }}
+                        >
+                          <Button size="small">编辑</Button>
+                        </AttributesSetting>
+                      </div>
+                    }
+                  >
+                    <Input.TextArea readOnly />
+                  </Form.Item>
+                </>
+              );
+            }}
           </Form.Item>
         </Form>
       </Modal>

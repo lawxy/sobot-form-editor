@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popconfirm, Popover, Typography } from 'antd';
+import { Popconfirm, Popover, Typography } from '@sobot/soil-ui';
 import { CopyOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 import ServiceModal from './service-modal';

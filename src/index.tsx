@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useImperativeHandle } from 'react';
 import type { PropsWithChildren } from 'react';
 import { ConfigProvider, Form } from 'antd';
 import type { FormInstance } from 'antd';
-import locale from 'antd/locale/zh_CN';
+import locale from '@sobot/soil-ui/lib/locale/zh';
 import 'reflect-metadata';
 import 'dayjs/locale/zh-cn';
 import c from 'classnames';
@@ -13,7 +13,6 @@ import store from './store';
 import { injectSchema } from '.';
 import { EditorContext, type IEditorContext } from './context';
 import { wrapObserver } from './utils';
-import { AntdStaticApp } from './components';
 
 import './index.less';
 
@@ -85,7 +84,6 @@ const FormEditorContent: React.ForwardRefRenderFunction<
   return (
     <EditorContext.Provider value={contextValue}>
       <ConfigProvider locale={locale}>
-        <AntdStaticApp>
           <Form form={form}>
             <div
               className={c({
@@ -96,7 +94,6 @@ const FormEditorContent: React.ForwardRefRenderFunction<
               {children}
             </div>
           </Form>
-        </AntdStaticApp>
       </ConfigProvider>
     </EditorContext.Provider>
   );

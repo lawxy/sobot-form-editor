@@ -1,8 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { Button, Typography, Input, Popconfirm, Tooltip } from 'antd';
+import { Button, Typography, Input, Popconfirm, Tooltip } from '@sobot/soil-ui';
 import { cloneDeep } from 'lodash-es';
-import { ReactSortable } from '@roddan/ui';
+import { ReactSortable } from '@sobot/form-editor-ui';
 import { arrayMoveImmutable } from 'array-move';
 import { prefixCls } from '@/const';
 import { MenuOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';

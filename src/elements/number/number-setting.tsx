@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { InputNumber, Select } from 'antd';
+import { InputNumber, Select } from '@sobot/soil-ui';
 import {
   SettingItem,
   SettingWrap,

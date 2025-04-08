@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Switch, Input, Select } from 'antd';
+import { Switch, Input, Select } from '@sobot/soil-ui';
 import { isNumber } from 'lodash-es';
 
 import { SettingItem, SettingWrap } from '@/components';

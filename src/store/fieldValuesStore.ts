@@ -14,7 +14,8 @@ export default {
 
   setFieldValue(field: string, value: any) {
     this.fieldValues[field] = value;
-    this.formInstance?.setFieldValue(field, value);
+    // this.formInstance?.setFieldValue(field, value);
+    this.formInstance?.setFields([{ name: field, value }]);
   },
 
   setFieldsValues(values: Record<string, any>) {

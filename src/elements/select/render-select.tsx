@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from 'antd';
+import { Select } from '@sobot/soil-ui';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';

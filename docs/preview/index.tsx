@@ -1,12 +1,12 @@
 import React from 'react';
-import { FormEditor, FormCanvas } from '@roddan/form-editor';
-import { customElement } from '../common/customEl';
-
+import { FormEditor, FormCanvas } from '@sobot/form-editor';
+// import { customElement } from '../common/customEl';
+import SoilUi from '../soil-ui';
 const Comp = () => {
   return (
     <FormEditor
       mode="form"
-      customElements={[customElement]}
+      customElements={SoilUi}
     >
       <FormCanvas />
     </FormEditor>

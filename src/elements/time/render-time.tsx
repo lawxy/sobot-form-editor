@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimePicker } from 'antd';
+import { TimePicker } from '@sobot/soil-ui';
 import dayjs from 'dayjs';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { formatDate } from '@/utils';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from 'antd';
+import { Select } from '@sobot/soil-ui';
 import {
   OptionSetting,
   SettingWrap,

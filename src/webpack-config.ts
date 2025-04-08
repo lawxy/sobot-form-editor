@@ -5,7 +5,7 @@ export const webpackConfig = {
     dayjs: 'dayjs',
     antd: 'antd',
     'monaco-editor': 'monaco',
-    '@roddan/ui': 'RoddanUI',
+    '@sobot/form-editor-ui': 'RoddanUI',
     '@ant-design/pro-components': 'ProComponents',
   },
   headScripts: [

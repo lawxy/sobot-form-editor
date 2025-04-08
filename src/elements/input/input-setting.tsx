@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputNumber, Select, Switch } from 'antd';
+import { InputNumber, Select, Switch } from '@sobot/soil-ui';
 
 import {
   PlaceholderSetting,

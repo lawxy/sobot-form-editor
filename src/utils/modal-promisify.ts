@@ -1,13 +1,12 @@
-import type { ModalFuncProps } from 'antd';
-import { AntdStaticFunctions } from '@/components/antd-static-function';
+import { Modal } from '@sobot/soil-ui';
+import type { ModalFuncProps } from '@sobot/soil-ui';
 
 export const ModalPromisify: (config: ModalFuncProps) => Promise<any> = (
   config,
 ) => {
-  const { modal } = AntdStaticFunctions;
   return new Promise((resolve) => {
     const { onOk, onCancel } = config;
-    modal.confirm({
+    Modal.confirm({
       ...config,
       okText: '确定',
       cancelText: '取消',

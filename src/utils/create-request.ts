@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { AntdStaticFunctions } from '@/components/antd-static-function';
+import { message } from '@sobot/soil-ui';
 
 export function createRequest(interceptors: string) {
-  const { message } = AntdStaticFunctions;
   try {
     const request = axios.create({});
     const func = new Function('message', 'axios', `${interceptors}`);

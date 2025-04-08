@@ -1,7 +1,7 @@
 import React from 'react';
-import { SettingItem, SettingWrap, useRegisterEvents, EEventAction, useFormUpdate } from '@roddan/form-editor';
-import type { IBaseElement, TElementRender, TElementSetting } from '@roddan/form-editor';
-import { ColorPicker, Select } from 'antd';
+import { SettingItem, SettingWrap, useRegisterEvents, EEventAction, useFormUpdate } from '@sobot/form-editor';
+import type { IBaseElement, TElementRender, TElementSetting } from '@sobot/form-editor';
+import { ColorPicker, Select } from '@sobot/soil-ui';
 
 const RenderContent: TElementRender = ({
   element,

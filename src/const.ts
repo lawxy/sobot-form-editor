@@ -1,7 +1,7 @@
-import { ELEMENT_CONTAINER, ELEMENT_TABS } from './elements';
 import { idCreator } from './utils';
 
 export const prefixCls = (className: string) => `fe-${className}`;
+
 export const DirectionOpions = [
   {
     label: '垂直方向',
@@ -13,10 +13,51 @@ export const DirectionOpions = [
   },
 ];
 
+export const AlignOptions = [
+  {
+    label: 'top',
+    value: 'top',
+  },
+  {
+    label: 'middle',
+    value: 'middle',
+  },
+  {
+    label: 'bottom',
+    value: 'bottom',
+  },
+];
+
+export const JustifyOptions = [
+  {
+    label: 'start',
+    value: 'start',
+  },
+  {
+    label: 'center',
+    value: 'center',
+  },
+  {
+    label: 'end',
+    value: 'end',
+  },
+  {
+    label: 'space-between',
+    value: 'space-between',
+  },
+  {
+    label: 'space-around',
+    value: 'space-around',
+  },
+  
+];
+
 export const defaultFormAttrs = {
   id: idCreator('form'),
   horizontalGap: 8,
   verticalGap: 8,
+  justify: 'start',
+  align: 'top',
   customCss: '#form {\n\tpadding: 10px;\n}',
 };
 

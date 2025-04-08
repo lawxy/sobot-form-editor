@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import type { FC } from 'react';
-import { Modal, Button, Input } from 'antd';
+import { Modal, Button, Input } from '@sobot/soil-ui';
 import { idCreator } from '@/utils';
 import { QuestionPopover } from './question-popover';
 
@@ -67,7 +67,7 @@ export const BatchGenerateOptions: FC<{
         </div>
       </div>
       <Modal
-        open={open}
+        visible={open}
         title={
           <>
             批量编辑&nbsp;

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { FC, ReactNode } from 'react';
-import type { TabsProps } from 'antd';
+import type { TabsProps } from '@sobot/soil-ui';
 import { prefixCls } from '@/const';
 
 import { observer } from 'mobx-react-lite';
@@ -8,7 +8,7 @@ import { tabStore, type TElementTab } from '@/store';
 import BasicInfo from './element-settings/basic-info';
 import { CustomCssSetting } from './element-settings/custom-css-setting';
 
-import { Tabs } from 'antd';
+import { Tabs } from '@sobot/soil-ui';
 
 export const TabsSetting: FC<{
   attributes?: ReactNode;

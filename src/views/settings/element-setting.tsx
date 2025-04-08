@@ -14,6 +14,7 @@ const ElementSetting = () => {
     },
     [store.selectedElement.id],
   );
+  console.log('store.selectedElement', store.selectedElement);
 
   if (!store.selectedElement?.id) return null;
   const { setting: Component, eventActions } =

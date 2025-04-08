@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import type { FC, PropsWithChildren } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ReactSortable } from '@roddan/ui';
+import { ReactSortable } from '@sobot/form-editor-ui';
 import { useRegisterEvents, useFormUpdate, useDesignEffect } from '@/hooks';
 import { EEventAction } from '@/types';
 import { prefixCls } from '@/const';
 import eventStore from '@/store/eventStore';
 import store from '@/store';
-import type { IBaseElement, TMode } from '@/types';
+import type { IBaseElement, TJustify, TMode } from '@/types';
 import { handleOnEvent, parseCSS, handleSort } from '@/utils';
 import { RenderElementWithLayout } from '@/components';
 
@@ -28,7 +28,7 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
   mode,
   actions,
 }) => {
-  const { horizontalGap, verticalGap, id, events, customCss } = store.formAttrs;
+  const { horizontalGap, verticalGap, id, events, customCss, align, justify } = store.formAttrs;
   const { eventFunctions } = useRegisterEvents({ id, events });
   const { ElementsMap } = useEditorContext();
   const formStyle = useMemo(() => {
@@ -82,6 +82,8 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
           className: prefixCls('row'),
           gutter: [horizontalGap, verticalGap],
           'data-id': id,
+          align,
+          justify
         }}
         forbidden={mode !== 'design'}
       >

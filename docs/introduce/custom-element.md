@@ -20,9 +20,9 @@ interface IDragElementProp {
 以颜色选择器为例，配置事件-值变化同步其他组件，属性可设置弹框位置placement
 ```javascript
 import React from 'react';
-import { SettingItem, SettingWrap, useRegisterEvents, EEventAction, useFormUpdate } from '@roddan/form-editor';
-import type { IBaseElement, TElementRender, TElementSetting } from '@roddan/form-editor';
-import { ColorPicker, Select } from 'antd';
+import { SettingItem, SettingWrap, useRegisterEvents, EEventAction, useFormUpdate } from '@sobot/form-editor';
+import type { IBaseElement, TElementRender, TElementSetting } from '@sobot/form-editor';
+import { ColorPicker, Select } from '@sobot/soil-ui';
 
 const RenderContent: TElementRender = ({
   element,
@@ -97,7 +97,7 @@ export const customElement = {
 在FormEditor组件上传入即可。
 ```javascript
 import React from 'react';
-import { FormEditor, FormCanvas } from '@roddan/form-editor';
+import { FormEditor, FormCanvas } from '@sobot/form-editor';
 import { customElement } from './customEl';
 
 const Comp = () => {

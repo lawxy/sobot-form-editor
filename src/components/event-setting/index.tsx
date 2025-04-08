@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button } from '@sobot/soil-ui';
 import { cloneDeep, groupBy } from 'lodash-es';
 import { observer } from 'mobx-react-lite';
 import { arrayMoveImmutable } from 'array-move';

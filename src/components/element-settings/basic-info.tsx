@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Select, Slider, Switch } from 'antd';
+import { Input, Select, Slider, Switch } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import { DirectionOpions } from '../../const';
 import store from '../../store';

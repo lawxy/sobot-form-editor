@@ -9,7 +9,7 @@ import {
   Select,
   Button,
   Switch,
-} from 'antd';
+} from '@sobot/soil-ui';
 import type { TColumn } from '@/types';
 import { OptionModal } from '@/components';
 import { valueTypeList, elementWithOptions } from '../const';
@@ -41,7 +41,7 @@ export const EditModal: FC<
       <Modal
         title="列设置"
         forceRender
-        open={open}
+        visible={open}
         onCancel={() => {
           setOpen(false);
         }}

@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 

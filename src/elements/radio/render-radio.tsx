@@ -1,5 +1,5 @@
 import React from 'react';
-import { Radio, Space, type RadioChangeEvent } from 'antd';
+import { Radio, Space, type RadioChangeEvent } from '@sobot/soil-ui';
 
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';

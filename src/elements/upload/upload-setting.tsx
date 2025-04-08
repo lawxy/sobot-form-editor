@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from 'antd';
+import { Input } from '@sobot/soil-ui';
 import store from '@/store';
 import { SettingItem } from '@/components';
 import type { TElementSetting } from '@/types';

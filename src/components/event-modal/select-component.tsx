@@ -1,4 +1,4 @@
-import { Menu } from 'antd';
+import { Menu } from '@sobot/soil-ui';
 import c from 'classnames';
 import React from 'react';
 
@@ -23,8 +23,14 @@ export const SelectComponent: React.FC<{
             onChange(key);
           }}
           mode="inline"
-          items={menuItems}
-        />
+          // items={menuItems}
+        >
+          {menuItems.map((item) => (
+            <Menu.Item key={item.key} disabled={item.disabled}>
+              {item.label}
+            </Menu.Item>
+          ))}
+        </Menu>
       </div>
     </div>
   );

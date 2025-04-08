@@ -4,8 +4,9 @@ import {
   Material,
   Settings,
   FormCanvas,
-} from '@roddan/form-editor';
-import { customElement } from '../common/customEl';
+} from '@sobot/form-editor';
+// import { customElement } from '../common/customEl';
+import SoilUi from '../soil-ui';
 
 const Comp = () => {
   const ref = useRef();
@@ -33,7 +34,7 @@ const Comp = () => {
           }
         },
       }}
-      customElements={[customElement]}
+      customElements={SoilUi}
     >
       <Material />
       <FormCanvas />

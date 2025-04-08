@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { prefixCls } from '@/const';
 import { idCreator } from '@/utils';
 import type { IDragElementProp } from '@/types';
-import { ReactSortable } from '@roddan/ui';
+import { ReactSortable } from '@sobot/form-editor-ui';
 import store from '@/store';
 import { useEditorContext } from '@/context';
 
@@ -11,7 +11,8 @@ import DragItem from './drag-item';
 
 import './style.less';
 
-const titles = ['基础组件', '容器组件', '自定义组件'];
+// const titles = ['基础组件', '容器组件', '自定义组件'];
+const titles = ['基础组件', '容器组件', 'sui组件'];
 
 export const Material = observer(() => {
   const wrapEl = useRef<HTMLDivElement>(null);
@@ -39,7 +40,7 @@ export const Material = observer(() => {
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const itemMask = e.target as HTMLElement;
-      console.log('123', itemMask);
+      // console.log('123', itemMask);
       if (itemMask?.classList?.contains(prefixCls('drag-item-mask'))) {
         const item = itemMask.parentElement as HTMLElement;
         const { type } = item.dataset;

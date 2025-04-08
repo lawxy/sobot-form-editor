@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, DatePicker } from 'antd';
+import { Select, DatePicker } from '@sobot/soil-ui';
 import dayjs from 'dayjs';
 
 import {

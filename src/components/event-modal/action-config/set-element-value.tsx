@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Select } from 'antd';
+import { Input, Select } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 
 import { QuestionPopover } from '@/components';

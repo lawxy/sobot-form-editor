@@ -50,11 +50,31 @@ export type TPattern = {
   required?: boolean;
 };
 
+export type TAlign = 'top' | 'middle' | 'bottom';
+
+export type TJustify = 'start' | 'center' | 'end' | 'space-between' | 'space-around' ;
+
 export interface IBaseElement {
   /**
    * 父节点id
    */
   parentId?: string;
+  /**
+   * 水平间距
+   */
+  horizontalGap?: number;
+  /**
+   * 垂直间距
+   */
+  verticalGap?: number;
+  /**
+   * 水平对齐方式
+   */
+  justify?: TJustify;
+  /**
+   * 垂直对齐方式
+   */
+  align?: TAlign;
   /**
    * 元素类型
    */
@@ -174,7 +194,7 @@ export interface IBaseElement {
   /**
    * tabs类型
    */
-  tabType?: 'line' | 'card';
+  tabType?: 'line' | 'card' | 'split';
   /**
    * 是否属于容器组件
    */
@@ -231,7 +251,14 @@ export interface IBaseElement {
    * 当前页数
    */
   currentPage?: number;
+  /**
+   * tab 下划线
+  */
+  underline?: boolean;
 }
+
+
+
 export interface IFormAttributesProps {
   formName?: string;
   id?: string;
@@ -240,6 +267,8 @@ export interface IFormAttributesProps {
   verticalGap: number;
   events?: TCustomEvents;
   customCss?: string;
+  justify?: TJustify;
+  align?: TAlign;
 }
 
 export interface IFormSchema {

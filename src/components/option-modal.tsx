@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { FC, PropsWithChildren } from 'react';
-import { Modal, Space, Input, message, type TableColumnProps } from 'antd';
+import { Modal, Space, Input, message, type TableColumnProps } from '@sobot/soil-ui';
 import { cloneDeep } from 'lodash-es';
-import { TableSortable } from '@roddan/ui';
+import { TableSortable } from '@sobot/form-editor-ui';
 
 import { MinusIcon, PlusIcon, QuestionPopover } from '@/components';
 import type { TOption } from '@/types';
@@ -111,7 +111,7 @@ export const OptionModal: FC<
           onClick: () => setOpen(true),
         })}
       <Modal
-        open={open}
+        visible={open}
         title={
           <BatchGenerateOptions
             title="属性设置"

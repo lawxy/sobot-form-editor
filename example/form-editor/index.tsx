@@ -4,7 +4,7 @@ import {
   Material,
   Settings,
   FormCanvas,
-} from '@roddan/form-editor';
+} from '@sobot/form-editor';
 import axios from 'axios';
 import { customElement } from '../../docs/common/customEl';
 
