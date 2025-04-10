@@ -85,6 +85,8 @@ export interface IFieldValuesStore {
   setFieldValue: (field: string, value: any) => void;
 
   setFieldsValues: (values: Record<string, any>) => void;
+
+  removeField: (field: string) => void;
 }
 
 export type TFormTabType = 'element' | 'form' | 'service';

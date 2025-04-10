@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from '@sobot/soil-ui';
+import { Select } from 'antd';
 import {
   OptionSetting,
   SettingWrap,
@@ -21,7 +21,7 @@ export const SettingSelect: TElementSetting = ({
   setElementProp,
   setFieldValue,
 }) => {
-  const { multiple, valueOptions, placeholder, linkLoading, allowClear } =
+  const { multiple, valueOptions } =
     element;
   return (
     <>

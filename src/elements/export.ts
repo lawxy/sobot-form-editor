@@ -34,8 +34,14 @@ export { ELEMENT_NUMBER, RenderNumber, SettingNumber, NUMBER_TEXT } from './numb
 import { ELEMENT_RADIO, RenderRadio, SettingRadio, RADIO_TEXT, initialData as Radio_initData, eventActions as Radio_eventActions, Icon as RADIO_Icon } from './radio'
 export { ELEMENT_RADIO, RenderRadio, SettingRadio, RADIO_TEXT } from './radio'
         
+import { ELEMENT_SEARCH, RenderSearch, SettingSearch, SEARCH_TEXT, initialData as Search_initData, eventActions as Search_eventActions, Icon as SEARCH_Icon } from './search'
+export { ELEMENT_SEARCH, RenderSearch, SettingSearch, SEARCH_TEXT } from './search'
+        
 import { ELEMENT_SELECT, RenderSelect, SettingSelect, SELECT_TEXT, initialData as Select_initData, eventActions as Select_eventActions, Icon as SELECT_Icon } from './select'
 export { ELEMENT_SELECT, RenderSelect, SettingSelect, SELECT_TEXT } from './select'
+        
+import { ELEMENT_SELECT_INPUT, RenderSelectInput, SettingSelectInput, SELECT_INPUT_TEXT, initialData as SelectInput_initData, eventActions as SelectInput_eventActions, Icon as SELECT_INPUT_Icon } from './select-input'
+export { ELEMENT_SELECT_INPUT, RenderSelectInput, SettingSelectInput, SELECT_INPUT_TEXT } from './select-input'
         
 import { ELEMENT_SWITCH, RenderSwitch, SettingSwitch, SWITCH_TEXT, initialData as Switch_initData, eventActions as Switch_eventActions, Icon as SWITCH_Icon } from './switch'
 export { ELEMENT_SWITCH, RenderSwitch, SettingSwitch, SWITCH_TEXT } from './switch'
@@ -77,6 +83,16 @@ export const ElementsMap: Record<string, IDragElementProp> = {
     Icon: INPUT_Icon
   },
 
+  [ELEMENT_SEARCH]: {
+    type: ELEMENT_SEARCH,
+    render: RenderSearch,
+    setting: SettingSearch,
+    text: SEARCH_TEXT,
+    eventActions: Search_eventActions,
+    initialData: Search_initData,
+    Icon: SEARCH_Icon
+  },
+
   [ELEMENT_NUMBER]: {
     type: ELEMENT_NUMBER,
     render: RenderNumber,
@@ -85,6 +101,16 @@ export const ElementsMap: Record<string, IDragElementProp> = {
     eventActions: Number_eventActions,
     initialData: Number_initData,
     Icon: NUMBER_Icon
+  },
+
+  [ELEMENT_SELECT_INPUT]: {
+    type: ELEMENT_SELECT_INPUT,
+    render: RenderSelectInput,
+    setting: SettingSelectInput,
+    text: SELECT_INPUT_TEXT,
+    eventActions: SelectInput_eventActions,
+    initialData: SelectInput_initData,
+    Icon: SELECT_INPUT_Icon
   },
 
   [ELEMENT_DATE]: {

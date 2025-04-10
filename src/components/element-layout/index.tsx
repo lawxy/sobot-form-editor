@@ -22,6 +22,7 @@ export const ElementLayout: FC<
     elementName,
     elementNameDisplay,
     id,
+    fieldName,
     gridOffset,
     gridSpan,
     showElementName,
@@ -32,6 +33,7 @@ export const ElementLayout: FC<
   } = element;
   const { elCss, contaninerCss } = useElementCommon(element);
   const { mode } = useEditorContext();
+  // console.log('fieldName', fieldName);
 
   // 自定义css样式
   const style = useMemo(() => {
@@ -86,7 +88,7 @@ export const ElementLayout: FC<
       data-id={id}
       data-type={type}
     >
-      <Form.Item name={id} rules={rules} style={{ marginBottom: 0 }}>
+      <Form.Item name={fieldName || id} rules={rules} style={{ marginBottom: 0 }}>
         <WrapEl el={element} mode={mode}>
           <div
             className={c({
@@ -133,9 +135,10 @@ export const RenderElementWithLayout: FC<{
 
   const setFieldValue = useCallback(
     (value: any) => {
-      store.setFieldValue(element.id!, value);
+      store.removeField(element.id!);
+      store.setFieldValue(element.fieldName! || element.id!, value);
     },
-    [element.id],
+    [element.id, element.fieldName],
   );
 
   const setElementProp = useCallback(
@@ -150,7 +153,7 @@ export const RenderElementWithLayout: FC<{
   return (
     <ElementLayout element={element}>
       <Component
-        fieldValue={store.fieldValues[element.id as string]}
+        fieldValue={store.fieldValues[element.fieldName! || element.id as string]}
         setFieldValue={setFieldValue}
         setElementProp={setElementProp}
         element={element}

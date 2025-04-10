@@ -78,7 +78,7 @@ const FormSetting = () => {
           />
         </SettingWrap>
 
-        <SettingWrap title="样式" style={{ flex: 1, height: 0 }}>
+        <SettingWrap title="样式">
           <CustomCssSetting type="form" />
         </SettingWrap>
       </div>

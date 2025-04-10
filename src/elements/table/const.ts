@@ -12,8 +12,6 @@ export const initialData: Partial<IBaseElement> = {
   elementName: TABLE_TEXT,
   gridSpan: 24,
   gridLayout: true,
-  readonly: true,
-  lineAdd: true,
   columns: [],
   pagination: false,
   pageSize: 10,

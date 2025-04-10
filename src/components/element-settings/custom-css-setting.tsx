@@ -90,7 +90,7 @@ export const CustomCssSetting: React.FC<{ type: 'element' | 'form' }> =
         <MonacoEditor
           style={{
             height:
-              type === 'element' ? 'calc(100vh - 150px)' : 'calc(100% - 100px)',
+              type === 'element' ? 'calc(100vh - 150px)' : '150px',
           }}
           language="css"
           value={value}

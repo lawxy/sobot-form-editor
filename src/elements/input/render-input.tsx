@@ -1,7 +1,6 @@
 import React from 'react';
 import { Input } from '@sobot/soil-ui';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
-import store from '@/store';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 
@@ -11,7 +10,7 @@ export const RenderInput: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { textType, minRows, maxRows, id, autoSize, placeholder, allowClear } =
+  const { textType, minRows, maxRows, id, autoSize, placeholder, allowClear, disabled, showCount, minNum, maxNum, addonBefore, addonAfter } =
     element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -42,7 +41,7 @@ export const RenderInput: TElementRender = ({
         <Input.TextArea
           autoSize={
             autoSize
-              ? true
+              ? {minRows: 1}
               : {
                   minRows,
                   maxRows,
@@ -56,6 +55,10 @@ export const RenderInput: TElementRender = ({
           onBlur={handleEvent(EEventAction.ON_BLUR)}
           allowClear={allowClear}
           style={customStyle}
+          disabled={disabled}
+          showCount={showCount}
+          minLength={minNum}
+          maxLength={maxNum}
         />
       ) : (
         <Input
@@ -69,6 +72,12 @@ export const RenderInput: TElementRender = ({
           autoComplete="new-password"
           allowClear={allowClear}
           style={customStyle}
+          disabled={disabled}
+          showCount={showCount}
+          minLength={minNum}
+          maxLength={maxNum}
+          addonBefore={addonBefore}
+          addonAfter={addonAfter}
         />
       )}
     </>

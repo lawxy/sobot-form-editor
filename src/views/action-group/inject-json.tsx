@@ -4,7 +4,7 @@ import { Modal, message } from 'antd';
 import { MonacoEditor } from '@sobot/form-editor-ui';
 import { injectSchema } from '@/index';
 
-export const InjectJson: FC<PropsWithChildren<null>> = ({ children }) => {
+export const InjectJson: FC<PropsWithChildren<any>> = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [temp, setTemp] = useState('');
   const valid = useRef(true);

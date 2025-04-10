@@ -12,7 +12,9 @@ const exportFile = path.join(componentsDir, 'export.ts');
 const SortedName = [
   'text', // 文本框
   'input', // 输入框
+  'search', // 搜索框
   'number', // 数字框
+  'select_input', // 组合框
   'date', // 日期
   'time', // 时间
   'select', // 下拉
@@ -54,10 +56,13 @@ import type { IDragElementProp } from '../types'
     .filter((file) => fs.statSync(path.join(componentsDir, file)).isDirectory())
     .forEach((elementName) => {
       // 仅第一个字母大写
-      const OnlyFirstUpper =
-        elementName[0].toUpperCase() + elementName.substring(1);
+      // const OnlyFirstUpper =
+      //   elementName[0].toUpperCase() + elementName.substring(1);
+      const OnlyFirstUpper = elementName.split('-').map(item => item[0].toUpperCase() + item.substring(1)).join('');
+
       // 所有字母大写
-      const AllUpper = elementName.toUpperCase();
+      // const AllUpper = elementName.toUpperCase();
+      const AllUpper = elementName.split('-').map(item => item.toUpperCase()).join('_');
       // 元素控件名
       const renderComponent = `Render${OnlyFirstUpper}`;
       // 元素属性控件名

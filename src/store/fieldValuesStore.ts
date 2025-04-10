@@ -12,6 +12,11 @@ export default {
     this.formInstance = form;
   },
 
+  removeField(field: keyof IFieldValuesStore['fieldValues']) {
+    delete this.fieldValues[field];
+    this.formInstance?.setFieldsValue(this.fieldValues);
+  },
+
   setFieldValue(field: string, value: any) {
     this.fieldValues[field] = value;
     // this.formInstance?.setFieldValue(field, value);

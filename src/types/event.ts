@@ -27,6 +27,8 @@ export enum EEventAction {
   FORM_LOADED = 'formLoaded',
   // 分页切换时
   PAGINATION_CHANGE = 'paginationChange',
+  // 搜索
+  ON_SEARCH = 'onSearch',
 }
 export const eventActionInChinese = {
   [EEventAction.ON_CLICK]: '鼠标单击',

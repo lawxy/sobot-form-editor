@@ -84,6 +84,10 @@ export interface IBaseElement {
    */
   elementName?: string;
   /**
+   * 字段名称
+   */
+  fieldName?: string;
+  /**
    * 显示元素名称
    */
   showElementName?: boolean;
@@ -111,6 +115,18 @@ export interface IBaseElement {
    * 文本类型
    */
   textType?: 'single' | 'multiple' | 'password';
+  /**
+   * 前缀
+   */
+  addonBefore?: string;
+  /**
+   * 后缀
+   */
+  addonAfter?: string;
+  /**
+   * 是否显示字数
+  */
+  showCount?: boolean;
   /**
    * placeholder
    */
@@ -224,17 +240,13 @@ export interface IBaseElement {
    */
   allowClear?: boolean;
   /**
-   * 只读
+   * 禁用
    */
-  readonly?: boolean;
+  disabled?: boolean;
   /**
    * 列表列
    */
   columns?: TColumn[];
-  /**
-   * 是否可行新增
-   */
-  lineAdd?: boolean;
   /**
    * 横向滚动宽度
    */

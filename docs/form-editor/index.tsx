@@ -21,18 +21,6 @@ const Comp = () => {
           console.log('schema');
           console.log(schema);
         },
-        download() {
-          try {
-            const link = document.createElement('a');
-            link.href = 'https://roddan.cn/editor-assets/page.zip';
-            link.download = 'page'; 
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          } catch (error) {
-            console.error('Error downloading the file:', error);
-          }
-        },
       }}
       customElements={SoilUi}
     >
