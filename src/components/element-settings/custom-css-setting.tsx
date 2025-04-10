@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Button, message } from '@sobot/soil-ui';
+import { Button, message } from 'antd';
 import { MonacoEditor, useMonaco } from '@sobot/form-editor-ui';
 import { useCurrent, useDesignEffect } from '@/hooks';
 

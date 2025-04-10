@@ -1,4 +1,4 @@
 import WangEditor from './Editor';
-import Table from './Table';
+import SobotTreeSelect from './TreeSelect'
 
-export default [WangEditor, Table];
+export default [WangEditor, SobotTreeSelect];

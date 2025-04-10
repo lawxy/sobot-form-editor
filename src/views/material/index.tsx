@@ -12,7 +12,7 @@ import DragItem from './drag-item';
 import './style.less';
 
 // const titles = ['基础组件', '容器组件', '自定义组件'];
-const titles = ['基础组件', '容器组件', 'sui组件'];
+const titles = ['sui组件', '容器组件', '自定义组件'];
 
 export const Material = observer(() => {
   const wrapEl = useRef<HTMLDivElement>(null);
@@ -60,6 +60,7 @@ export const Material = observer(() => {
     };
   }, []);
 
+  console.log('renderList', renderList);
   return (
     <div className={prefixCls('material')} ref={wrapEl}>
       <div className={prefixCls('title')}>组件库</div>

@@ -106,7 +106,7 @@ export const ElementLayout: FC<
                 }
               />
             )}
-            <div style={{ flex: 1 }}>
+            <div className={prefixCls('element-content')}>
               {React.isValidElement(children) &&
                 React.cloneElement<any>(children, {
                   ...(children?.props || {}),

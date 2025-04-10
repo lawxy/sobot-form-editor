@@ -1,6 +1,6 @@
 import React from 'react';
-import { DatePicker } from '@sobot/soil-ui';
-import dayjs from 'dayjs';
+import { DatePicker } from 'antd';
+import moment from 'moment';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { formatDate } from '@/utils';
 import { EEventAction } from '@/types';
@@ -22,6 +22,7 @@ export const RenderDate: TElementRender = ({
   };
 
   const handleChange = (date: Date) => {
+    // console.log('date', date)
     setFieldValue(date ? formatDate(date, dateFormat!) : undefined);
   };
 
@@ -32,12 +33,12 @@ export const RenderDate: TElementRender = ({
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
-
+ 
   return (
     <DatePicker
       format={dateFormat}
       // @ts-ignore
-      value={fieldValue ? dayjs(fieldValue) : undefined}
+      value={fieldValue ? moment(fieldValue, dateFormat) : undefined}
       showTime={showTimeFormat(dateFormat!)}
       getPopupContainer={(n: any) => n.parentElement}
       placement="bottomRight"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from '@sobot/soil-ui';
+import { Select } from 'antd';
 
 import { prefixCls } from '@/const';
 import { validateTypeOptions } from '@/types';

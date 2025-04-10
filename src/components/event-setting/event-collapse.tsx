@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import type { PropsWithChildren, FC } from 'react';
-import { Collapse, Dropdown, Popconfirm } from '@sobot/soil-ui';
+import { Collapse, Dropdown, Popconfirm } from 'antd';
 import { MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import { Sortable } from '@sobot/form-editor-ui';
 
 import { prefixCls } from '@/const';
 import { eventTypeChinese, type TCustomEvent } from '@/types';
+
+const { Panel } = Collapse;
 
 export const EventCollapse: FC<{
   onDelete: (id: string) => void;
@@ -75,21 +77,25 @@ export const EventCollapse: FC<{
       </EditComponent>
     )),
   }));
+
   return (
     <div className={prefixCls('event-collapse')} ref={ref}>
       <Collapse
         ghost
-        items={items}
+        // items={items}
         defaultActiveKey={items.map((item) => item.key)}
         expandIcon={({ isActive }) =>
           isActive ? <MinusSquareOutlined /> : <PlusSquareOutlined />
         }
-        // onChange={() => {
-        //   setTimeout(() => {
-        //     generateSortIns();
-        //   });
-        // }}
-      />
+      >
+        {
+          items.map((item) => (
+            <Panel header={item.label} key={item.key}>
+              {item.children}
+            </Panel>
+          ))
+        }
+      </Collapse>
     </div>
   );
 };

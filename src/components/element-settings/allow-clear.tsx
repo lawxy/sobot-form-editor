@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from '@sobot/soil-ui';
+import { Switch } from 'antd';
 import { observer } from 'mobx-react-lite';
 import store from '@/store';
 import { SettingItem } from '../setting-common';

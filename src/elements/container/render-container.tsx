@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import c from 'classnames';
 import { useEditorContext } from '@/context';
 import { prefixCls } from '@/const';
@@ -13,6 +13,13 @@ export const RenderContainer: TElementRender = ({ element, customStyle }) => {
   const { id } = store.formAttrs;
   const { mode, ElementsMap } = useEditorContext();
   const { parentId, horizontalGap = 0, verticalGap = 0, align, justify } = element;
+
+  const style = useMemo(() => {
+    return {
+      ...customStyle,
+      width: '100%',
+    }
+  }, [customStyle])
 
   return (
     <ReactSortable<IBaseElement>
@@ -35,7 +42,7 @@ export const RenderContainer: TElementRender = ({ element, customStyle }) => {
         'data-parent-id': parentId || id,
       }}
       forbidden={mode !== 'design'}
-      style={customStyle}
+      style={style}
     >
       {element.children?.map((item: IBaseElement) => {
         store.flatElement(item);

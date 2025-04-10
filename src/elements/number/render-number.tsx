@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { InputNumber } from '@sobot/soil-ui';
-import store from '@/store';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';

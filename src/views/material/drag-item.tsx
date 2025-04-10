@@ -13,7 +13,7 @@ const DragItem: React.FC<{
       {Icon}
       <Typography.Text
         style={{ maxWidth: 80, fontSize: 12 }}
-        ellipsis={{ tooltip: true }}
+        // ellipsis={{ tooltip: true }}
       >
         {text}
       </Typography.Text>

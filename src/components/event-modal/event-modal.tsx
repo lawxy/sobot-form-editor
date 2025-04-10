@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
-import { MenuProps, message, Modal } from '@sobot/soil-ui';
+import { MenuProps, message, Modal } from 'antd';
 import type { FC, PropsWithChildren } from 'react';
 
 import { ActionConfig } from './action-config';
@@ -74,7 +74,7 @@ export const EventModal: FC<
       return menuItem;
     });
   }, [eventActions, type, event?.eventAction]);
-  console.log('eventActionsMenus', eventActionsMenus);
+  // console.log('eventActionsMenus', eventActionsMenus);
 
   // 选择对应动作 菜单项
   const eventTypeMenus: MenuItem[] = useMemo(() => {

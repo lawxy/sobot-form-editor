@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import type { FC, PropsWithChildren } from 'react';
-import { Modal, message } from '@sobot/soil-ui';
+import { Modal, message } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { MonacoEditor } from '@sobot/form-editor-ui';
 

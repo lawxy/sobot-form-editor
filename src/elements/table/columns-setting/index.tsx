@@ -1,21 +1,18 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import { Button, Typography, Input, Popconfirm, Tooltip } from '@sobot/soil-ui';
 import { cloneDeep } from 'lodash-es';
+import { MenuOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { ReactSortable } from '@sobot/form-editor-ui';
 import { arrayMoveImmutable } from 'array-move';
 import { prefixCls } from '@/const';
-import { MenuOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { SettingItem } from '@/components';
+import { idCreator } from '@/utils';
 import { EditModal } from './edit-modal';
+import type { TColumn, TElementSetting} from '@/types';
 import './style.less';
 
-import store from '@/store';
-import { SettingItem } from '@/components';
-import type { TColumn } from '@/types';
-import { idCreator } from '@/utils';
-
-export const ColumnsSetting = observer(() => {
-  const { columns = [] } = store.selectedElement;
+export const ColumnsSetting: TElementSetting = ({ element, setElementProp }) => {
+  const { columns = [] } = element;
   return (
     <SettingItem label="表格列配置" vertical>
       <ReactSortable
@@ -23,7 +20,7 @@ export const ColumnsSetting = observer(() => {
         animation={150}
         onSort={({ newIndex, oldIndex }) => {
           const newColumns = cloneDeep(columns);
-          store.setSelectedProp(
+          setElementProp(
             'columns',
             arrayMoveImmutable(newColumns, oldIndex!, newIndex!),
           );
@@ -36,9 +33,9 @@ export const ColumnsSetting = observer(() => {
               <MenuOutlined />
             </span>
             <Typography.Text
-              ellipsis={{
-                tooltip: true,
-              }}
+              // ellipsis={{
+              //   tooltip: true,
+              // }}
               style={{ width: 200 }}
             >
               <Input value={column.title} readOnly />
@@ -47,7 +44,7 @@ export const ColumnsSetting = observer(() => {
               onChange={(values) => {
                 const newColumns = cloneDeep(columns);
                 newColumns[idx] = values;
-                store.setSelectedProp('columns', newColumns);
+                setElementProp('columns', newColumns);
               }}
               initialValues={column}
             >
@@ -61,7 +58,7 @@ export const ColumnsSetting = observer(() => {
               onConfirm={() => {
                 const newColumns = cloneDeep(columns);
                 newColumns.splice(idx, 1);
-                store.setSelectedProp('columns', newColumns);
+                setElementProp('columns', newColumns);
               }}
             >
               <DeleteOutlined style={{ marginLeft: 8 }} />
@@ -72,7 +69,7 @@ export const ColumnsSetting = observer(() => {
       <EditModal
         onChange={(values) => {
           values.id = idCreator('col');
-          store.setSelectedProp('columns', [...columns, values]);
+          setElementProp('columns', [...columns, values]);
         }}
       >
         <Button
@@ -86,4 +83,4 @@ export const ColumnsSetting = observer(() => {
       </EditModal>
     </SettingItem>
   );
-});
+};

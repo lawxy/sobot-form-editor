@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Input } from '@sobot/soil-ui';
+import { Select, Input } from 'antd';
 import { observer } from 'mobx-react-lite';
 
 import { prefixCls } from '@/const';
@@ -21,8 +21,10 @@ const LinkService: React.FC<IConfig> = ({ onChange, eventTarget }) => {
         目标服务 ={' '}
         <Select
           className={prefixCls('event-select')}
-          options={store.getFormServices()}
-          fieldNames={{ label: 'name', value: 'id' }}
+          options={store.getFormServices()?.map((item) => ({
+            label: item?.name,
+            value: item?.id,
+          }))}
           defaultValue={targetServiceId}
           onChange={(v) => {
             onChange?.({ targetServiceId: v });

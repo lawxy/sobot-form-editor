@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
+import { cloneDeep } from 'lodash-es';
 import { TabsSetting, EventSetting } from '@/components';
 import store from '@/store';
 import { useEditorContext } from '@/context';
@@ -14,7 +15,7 @@ const ElementSetting = () => {
     },
     [store.selectedElement.id],
   );
-  console.log('store.selectedElement', store.selectedElement);
+  // console.log('store.selectedElement', store.selectedElement);
 
   if (!store.selectedElement?.id) return null;
   const { setting: Component, eventActions } =
@@ -23,7 +24,7 @@ const ElementSetting = () => {
     <TabsSetting
       attributes={
         <Component
-          element={store.selectedElement}
+          element={cloneDeep(store.selectedElement)}
           setElementProp={store.setSelectedProp}
           setFieldValue={setFieldValue}
         />

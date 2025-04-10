@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Select } from '@sobot/soil-ui';
+import { Input, Select } from 'antd';
 import { observer } from 'mobx-react-lite';
 
 import { prefixCls } from '@/const';
@@ -123,6 +123,10 @@ const RefreshService: React.FC<IConfig> = ({
     }
   };
 
+  console.log('store.getFormServices()', store.getFormServices(),store.getFormServices()?.map((item) => ({
+    label: item?.name,
+    value: item?.id,
+  })));
   return (
     <>
       <div>
@@ -130,8 +134,12 @@ const RefreshService: React.FC<IConfig> = ({
         <Select
           allowClear
           className={prefixCls('event-select')}
-          options={store.getFormServices()}
-          fieldNames={{ label: 'name', value: 'id' }}
+          options={
+            store.getFormServices()?.map((item) => ({
+              label: item?.name,
+              value: item?.id,
+            }))
+          }
           style={{ width: 200 }}
           defaultValue={targetServiceId}
           onChange={(v) => {

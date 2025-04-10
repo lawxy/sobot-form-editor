@@ -14,7 +14,7 @@ export const EditInput: React.FC<{
     <div className={prefixCls('edit-input')}>
       <Typography.Text
         style={{ width: 60, fontSize: 13 }}
-        ellipsis={{ tooltip: true }}
+        // ellipsis={{ tooltip: true }}
       >
         {value}
       </Typography.Text>

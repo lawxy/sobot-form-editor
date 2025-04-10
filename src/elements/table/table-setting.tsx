@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { Switch, Input, Select } from '@sobot/soil-ui';
 import { isNumber } from 'lodash-es';
 
-import { SettingItem, SettingWrap } from '@/components';
-import type { IBaseElement, TElementSetting } from '@/types';
+import { SettingItem, SettingWrap } from '@sobot/form-editor';
+import type { IBaseElement, TElementSetting } from '@sobot/form-editor';
 import { ColumnsSetting } from './columns-setting';
 
 const pageSizeOptions = ['10', '20', '50', '100'].map((item) => ({
@@ -32,22 +32,7 @@ export const SettingTable: TElementSetting = ({ element, setElementProp }) => {
       <SettingItem label="纵向滚动高度">
         <Input value={scrollY} onChange={handleChange('scrollY')} />
       </SettingItem>
-      <SettingItem label="是否可编辑">
-        <Switch
-          size="small"
-          checked={!element.readonly}
-          onChange={(editable) => setElementProp('readonly', !editable)}
-        />
-      </SettingItem>
-      {!element.readonly && (
-        <SettingItem label="是否可行新增">
-          <Switch
-            size="small"
-            checked={element.lineAdd}
-            onChange={(checked) => setElementProp('lineAdd', checked)}
-          />
-        </SettingItem>
-      )}
+   
       <SettingItem label="是否可分页">
         <Switch
           size="small"
@@ -68,7 +53,7 @@ export const SettingTable: TElementSetting = ({ element, setElementProp }) => {
           </SettingItem>
         </>
       )}
-      <ColumnsSetting />
+      <ColumnsSetting element={element} setElementProp={setElementProp} />
     </SettingWrap>
   );
 };

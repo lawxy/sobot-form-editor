@@ -1,5 +1,5 @@
-import { Modal } from '@sobot/soil-ui';
-import type { ModalFuncProps } from '@sobot/soil-ui';
+import { Modal } from 'antd';
+import type { ModalFuncProps } from 'antd';
 
 export const ModalPromisify: (config: ModalFuncProps) => Promise<any> = (
   config,

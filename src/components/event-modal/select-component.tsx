@@ -1,6 +1,6 @@
-import { Menu } from '@sobot/soil-ui';
-import c from 'classnames';
 import React from 'react';
+import { Menu } from 'antd';
+import c from 'classnames';
 
 import type { MenuItem } from './event-modal';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from '@sobot/soil-ui';
+import { Input } from 'antd';
 import { observer } from 'mobx-react-lite';
 
 import { prefixCls } from '@/const';

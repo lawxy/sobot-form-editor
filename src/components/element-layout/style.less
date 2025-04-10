@@ -81,14 +81,28 @@
   &-design-wrap {
     border-radius: 4px;
     position: relative;
-    border: 1px solid transparent;
+    // border: 1px solid transparent;
+    // outline: 0.5px solid transparent;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+    }
 
-    &:hover {
-      border: 1px dashed #3370ff;
+     &:hover {
+      &::after {
+        border: 1px dashed #3370ff;
+      }
     }
 
     &-selected {
-      border: 1px solid #3370ff !important;
+      &::after {
+        border: 1px solid #3370ff !important;
+      }
     }
   }
 
@@ -100,5 +114,10 @@
     bottom: 0;
     z-index: 101;
     cursor: pointer;
+  }
+
+  &-element-content {
+    flex: 1;
+    display: flex;
   }
 }

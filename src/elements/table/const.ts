@@ -1,7 +1,7 @@
 import type { IBaseElement } from '@/types';
 import { EEventAction } from '@/types';
 
-export const ELEMENT_TABLE = 'fe-table';
+export const ELEMENT_TABLE = 'table';
 export const TABLE_TEXT = '表格';
 export const eventActions = [
   EEventAction.ON_LOADED,
@@ -21,6 +21,10 @@ export const initialData: Partial<IBaseElement> = {
 };
 
 export const valueTypeList = [
+  {
+    label: '枚举',
+    value: 'enum',
+  },
   {
     label: '文本框',
     value: 'text',

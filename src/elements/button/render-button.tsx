@@ -6,7 +6,7 @@ import { EEventAction, TElementRender } from '@/types';
 
 export const RenderButton: TElementRender = ({ element, customStyle }) => {
   const { eventFunctions } = useRegisterEvents(element);
-  const { btnText, linkLoading } = element;
+  const { btnText, linkLoading, btnType, btnSize } = element;
 
   return (
     <Button
@@ -15,6 +15,8 @@ export const RenderButton: TElementRender = ({ element, customStyle }) => {
       }}
       loading={linkLoading}
       style={customStyle}
+      type={btnType as any}
+      size={btnSize as any}
     >
       {btnText}
     </Button>

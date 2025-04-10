@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Popconfirm, Space } from '@sobot/soil-ui';
+import { Popconfirm, Space } from 'antd';
 import c from 'classnames';
 import { cloneDeep } from 'lodash-es';
 import { ReactSortable } from '@sobot/form-editor-ui';
@@ -12,7 +12,6 @@ import {
   EEventType,
   IEventTarget,
   EChangeType,
-  EChangeStatePayload,
 } from '@/types';
 import { idCreator } from '@/utils';
 import { WithCommon } from './with-common';

@@ -1,8 +1,8 @@
 import React, { type FC, type PropsWithChildren } from 'react';
-import { Switch, Select, InputNumber } from '@sobot/soil-ui';
+import { Switch, Select, InputNumber } from 'antd';
 import { prefixCls } from '@/const';
 import type { IConfig } from '.';
-import { delayOptions, EEventAction, type TCustomEvent } from '@/types';
+import { delayOptions, EEventAction } from '@/types';
 import { QuestionPopover } from '@/components';
 
 export const WithCommon: FC<PropsWithChildren<IConfig>> = ({

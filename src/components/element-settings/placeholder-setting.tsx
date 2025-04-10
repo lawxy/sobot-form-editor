@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { Input } from '@sobot/soil-ui';
+import { Input } from 'antd';
 import { SettingItem } from '../setting-common';
 import store from '../../store';
 

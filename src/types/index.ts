@@ -172,6 +172,14 @@ export interface IBaseElement {
    */
   btnText?: string;
   /**
+   * 按钮大小
+   */
+  btnSize?: 'large' | '' | 'small' | 'mini';
+  /**
+   * 按钮类型
+   */
+  btnType?: 'primary' | '' | 'dashed' | 'link' | 'text';
+  /**
    * 自定义正则
    */
   regExps?: TPattern[];
@@ -256,9 +264,6 @@ export interface IBaseElement {
   */
   underline?: boolean;
 }
-
-
-
 export interface IFormAttributesProps {
   formName?: string;
   id?: string;

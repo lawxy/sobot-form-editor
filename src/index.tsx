@@ -22,6 +22,7 @@ export * from './const';
 export * from './utils';
 export * from './hooks';
 export * from './components';
+export * from './context'
 
 export interface IEditorInstance {
   form: FormInstance;
