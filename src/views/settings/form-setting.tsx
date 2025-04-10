@@ -7,6 +7,7 @@ import {
   SettingWrap,
   EventSetting,
   CustomCssSetting,
+  FormCssSetting
 } from '@/components';
 import { EEventAction, EEventType, TJustify, TAlign } from '@/types';
 import store from '@/store';
@@ -79,7 +80,7 @@ const FormSetting = () => {
         </SettingWrap>
 
         <SettingWrap title="样式">
-          <CustomCssSetting type="form" />
+          <FormCssSetting />
         </SettingWrap>
       </div>
     </div>

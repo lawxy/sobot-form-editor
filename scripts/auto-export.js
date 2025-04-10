@@ -14,7 +14,6 @@ const SortedName = [
   'input', // 输入框
   'search', // 搜索框
   'number', // 数字框
-  'select_input', // 组合框
   'date', // 日期
   'time', // 时间
   'select', // 下拉

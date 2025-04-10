@@ -10,7 +10,7 @@ export const eventActions = [
 export const initialData: Partial<IBaseElement> = {
   elementName: SELECT_TEXT,
   gridSpan: 4,
-  gridLayout: true,
+  gridLayout: false,
   placeholder: '请选择',
   valueOptions: [
     { label: '选项1', value: '1', id: '1' },

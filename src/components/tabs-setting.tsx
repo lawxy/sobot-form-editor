@@ -6,7 +6,7 @@ import { prefixCls } from '@/const';
 import { observer } from 'mobx-react-lite';
 import { tabStore, type TElementTab } from '@/store';
 import BasicInfo from './element-settings/basic-info';
-import { CustomCssSetting } from './element-settings/custom-css-setting';
+import { CustomCssSetting, FormCssSetting, ElementCssSetting } from './element-settings/custom-css-setting';
 
 import { Tabs } from '@sobot/soil-ui';
 
@@ -29,7 +29,7 @@ export const TabsSetting: FC<{
     !hideCss && {
       key: 'style',
       label: `样式`,
-      children: <CustomCssSetting type="element" />,
+      children: <ElementCssSetting />,
     },
     {
       key: 'event',

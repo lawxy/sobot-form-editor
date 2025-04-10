@@ -7,6 +7,7 @@ import {
   SettingWrap,
   DefaultValueSetting,
   AllowClear,
+  DisabledSetting,
 } from '@/components';
 import type { TElementSetting } from '@/types';
 
@@ -17,16 +18,7 @@ export const SettingSearch: TElementSetting = ({ element, setElementProp }) => {
       <SettingWrap title="元素设置">
         <DefaultValueSetting />
         <PlaceholderSetting />
-   
-        <SettingItem label="是否禁用">
-          <Switch
-            size="small"
-            checked={disabled}
-            onChange={(val) => {
-              setElementProp('disabled', val);
-            }}
-          />
-        </SettingItem>
+        <DisabledSetting />
         <AllowClear />
       </SettingWrap>
     </>

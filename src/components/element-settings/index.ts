@@ -5,3 +5,5 @@ export * from './attributes-setting';
 export * from './defaultvalue-setting';
 export * from './allow-clear';
 export * from '../option-setting/options-setting';
+export * from './disabled-setting';
+export * from './can-search';

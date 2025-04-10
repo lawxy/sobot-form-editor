@@ -3,7 +3,7 @@ import React from 'react';
 export function parseCSS(css?: string): { [key: string]: React.CSSProperties } {
   if (!css) return {};
   const cssObject: Record<string, React.CSSProperties> = {};
-  const regex = /#([\w-]+)\s*{([^}]*)}/g;
+  const regex = /[#|\.]([\w-]+)\s*{([^}]*)}/g;
   let match;
 
   while ((match = regex.exec(css)) !== null) {

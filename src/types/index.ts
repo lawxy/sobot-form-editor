@@ -275,6 +275,14 @@ export interface IBaseElement {
    * tab 下划线
   */
   underline?: boolean;
+  /**
+   * 是否可以搜索
+   */
+  canSearch?: boolean;
+  /**
+   * select标签包裹样式
+  */
+  labelWrapperStyle?: string;
 }
 export interface IFormAttributesProps {
   formName?: string;

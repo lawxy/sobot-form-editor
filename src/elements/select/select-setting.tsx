@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from 'antd';
+import { Input, Select, Switch } from 'antd';
 import {
   OptionSetting,
   SettingWrap,
@@ -8,6 +8,9 @@ import {
   DefaultValueSetting,
   SettingItem,
   AllowClear,
+  DisabledSetting,
+  CanSearchSetting,
+  CustomCssSetting
 } from '@/components';
 import type { TElementSetting } from '@/types';
 
@@ -21,7 +24,7 @@ export const SettingSelect: TElementSetting = ({
   setElementProp,
   setFieldValue,
 }) => {
-  const { multiple, valueOptions } =
+  const { multiple, valueOptions, addonBefore, labelWrapperStyle } =
     element;
   return (
     <>
@@ -41,14 +44,38 @@ export const SettingSelect: TElementSetting = ({
           )}
         </DefaultValueSetting>
         <PlaceholderSetting />
-        <SettingItem label="模式">
-          <Select
-            options={options}
-            value={!!element.multiple}
+        <DisabledSetting />
+        <AllowClear />
+        <CanSearchSetting />
+        <SettingItem label="前缀">
+          <Input
+            value={addonBefore}
+            onChange={(e) => setElementProp('addonBefore', e.target.value)}
+          />
+        </SettingItem>
+
+        {
+          addonBefore && (
+              <CustomCssSetting 
+                label="带标题样式"
+                defaultValue={labelWrapperStyle || `.tempSelector {\n\t\t\n}`}
+                style={{
+                  marginBottom: 30
+                }}
+                editorStyle={{
+                  height: 70,
+                }}
+                onSave={(v) => setElementProp('labelWrapperStyle', v)}
+              />
+          )
+        }
+
+        <SettingItem label="多选模式">
+          <Switch
+            checked={!!element.multiple}
             onChange={(v) => setElementProp('multiple', v)}
           />
         </SettingItem>
-        <AllowClear />
         <OptionSetting />
       </SettingWrap>
       <RegPattern />
