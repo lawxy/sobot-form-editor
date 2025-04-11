@@ -50,8 +50,10 @@ const WrapDesignEl: React.FC<
   }, [el.events]);
 
   const handleSelect = useCallback(() => {
-    store.setSelectedElement(el);
-    tabStore.init();
+    if(store.selectedElement?.id !== el.id) {
+      store.setSelectedElement(el);
+      tabStore.init();
+    }
   }, [el]);
 
   const getMaskStyle = () => {

@@ -15,6 +15,7 @@ export const RenderInput: TElementRender = ({
 
   const { eventFunctions } = useRegisterEvents(element);
 
+
   const handleEvent =
     (action: EEventAction) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

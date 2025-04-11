@@ -190,7 +190,7 @@ export interface IBaseElement {
   /**
    * 按钮大小
    */
-  btnSize?: 'large' | '' | 'small' | 'mini';
+  size?: 'large' | '' | 'small' | 'mini' | string;
   /**
    * 按钮类型
    */
@@ -283,6 +283,18 @@ export interface IBaseElement {
    * select标签包裹样式
   */
   labelWrapperStyle?: string;
+  /**
+   * 多选是否以文本形式展示
+  */
+  tagRenderText?: boolean;
+  /**
+   * 是否使用分组
+  */
+  useGroup?: boolean;
+  /**
+   * 是否半选
+  */
+  indeterminate?: boolean;
 }
 export interface IFormAttributesProps {
   formName?: string;

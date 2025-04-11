@@ -3,11 +3,15 @@ import { Radio, Space, type RadioChangeEvent } from '@sobot/soil-ui';
 
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
-import store from '@/store';
 import type { TElementRender } from '@/types';
 
-export const RenderRadio: TElementRender = ({ fieldValue, element, customStyle, setFieldValue }) => {
-  const { id, valueOptions, alignDirection } = element;
+export const RenderRadio: TElementRender = ({
+  fieldValue,
+  element,
+  customStyle,
+  setFieldValue,
+}) => {
+  const { useGroup, valueOptions, alignDirection } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -23,15 +27,21 @@ export const RenderRadio: TElementRender = ({ fieldValue, element, customStyle, 
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
 
-  return (
-    <Radio.Group onChange={onChange} value={fieldValue} style={customStyle}>
-      <Space direction={alignDirection}>
-        {valueOptions?.map((opt) => (
-          <Radio key={opt.id} value={opt.value}>
-            {opt.label}
-          </Radio>
-        ))}
-      </Space>
-    </Radio.Group>
+  return useGroup ? (
+    <Radio.Group
+      onChange={onChange}
+      value={fieldValue}
+      style={customStyle}
+      direction={alignDirection}
+      options={valueOptions}
+    />
+  ) : (
+    <>
+      {valueOptions?.map((opt) => (
+        <Radio key={opt.id} value={opt.value}>
+          {opt.label}
+        </Radio>
+      ))}
+    </>
   );
 };

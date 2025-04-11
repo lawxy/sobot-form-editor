@@ -7,3 +7,4 @@ export * from './allow-clear';
 export * from '../option-setting/options-setting';
 export * from './disabled-setting';
 export * from './can-search';
+export * from './use-group-setting';

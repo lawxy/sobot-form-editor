@@ -10,7 +10,7 @@ export const RenderCheckbox: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { valueOptions, alignDirection } = element;
+  const { useGroup, valueOptions, alignDirection, indeterminate } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -26,19 +26,21 @@ export const RenderCheckbox: TElementRender = ({
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
 
-  return (
+  return useGroup ? (
     <Checkbox.Group
       onChange={handleChange}
       value={fieldValue}
       style={customStyle}
-    >
-      <Space direction={alignDirection}>
-        {valueOptions?.map((opt) => (
-          <Checkbox key={opt.id} value={opt.value}>
-            {opt.label}
-          </Checkbox>
-        ))}
-      </Space>
-    </Checkbox.Group>
+      direction={alignDirection}
+      options={valueOptions}
+    />
+  ) : (
+    <>
+      {valueOptions?.map((opt) => (
+        <Checkbox key={opt.id} value={opt.value} indeterminate={indeterminate}>
+          {opt.label}
+        </Checkbox>
+      ))}
+    </>
   );
 };

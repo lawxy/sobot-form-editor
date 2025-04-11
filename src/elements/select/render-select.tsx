@@ -10,7 +10,7 @@ export const RenderSelect: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { multiple, valueOptions, placeholder, linkLoading, allowClear, disabled, addonBefore, canSearch, labelWrapperStyle } =
+  const { multiple, valueOptions, placeholder, linkLoading, allowClear, disabled, addonBefore, canSearch, labelWrapperStyle, tagRenderText } =
     element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -34,7 +34,9 @@ export const RenderSelect: TElementRender = ({
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
 
-  console.log('labelWrapperStyle', parseCSS(labelWrapperStyle));
+  const _labelWrapperStyle = useMemo(() => {
+    return parseCSS(labelWrapperStyle)?.tempSelector || {};
+  }, [labelWrapperStyle]);
 
   return (
     <Select
@@ -49,6 +51,8 @@ export const RenderSelect: TElementRender = ({
       disabled={disabled}
       label={addonBefore}
       search={canSearch}
+      labelWrapperStyle={_labelWrapperStyle}
+      tagRenderText={tagRenderText}
     />
   );
 };

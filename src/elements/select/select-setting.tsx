@@ -14,11 +14,6 @@ import {
 } from '@/components';
 import type { TElementSetting } from '@/types';
 
-const options = [
-  { label: '单选', value: false },
-  { label: '多选', value: true },
-];
-
 export const SettingSelect: TElementSetting = ({
   element,
   setElementProp,
@@ -70,12 +65,24 @@ export const SettingSelect: TElementSetting = ({
           )
         }
 
-        <SettingItem label="多选模式">
+        <SettingItem label="多选模式" style={{marginTop: 20}}>
           <Switch
+            size="small"
             checked={!!element.multiple}
             onChange={(v) => setElementProp('multiple', v)}
           />
         </SettingItem>
+        {
+          element.multiple && (
+            <SettingItem label="多选文本形式" >
+              <Switch
+                size="small"
+                checked={!!element.tagRenderText}
+                onChange={(v) => setElementProp('tagRenderText', v)}
+              />
+            </SettingItem>
+          )
+        }
         <OptionSetting />
       </SettingWrap>
       <RegPattern />

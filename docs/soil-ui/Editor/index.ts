@@ -18,6 +18,7 @@ const WangEditor = {
   text: 'wang-editor',
   eventActions: [EEventAction.VALUE_CHANGE],
   initialData,
+  defaultValue: 'initialData',
 };
 
 export default WangEditor;

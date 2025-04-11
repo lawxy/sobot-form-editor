@@ -18,7 +18,7 @@ const FormSetting = () => {
 
   return (
     <div className={prefixCls('form-setting')}>
-      <div style={{ flex: 1, height: 0, overflow: 'auto' }}>
+      <div style={{ flex: 1, height: 0, overflow: 'auto', paddingLeft: 100, marginLeft: -100 }}>
         <SettingWrap title="基本属性">
           <SettingItem label="表单id">{id}</SettingItem>
           <SettingItem label="表单名称">

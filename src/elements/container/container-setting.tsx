@@ -1,12 +1,12 @@
 import React from 'react';
 import { InputNumber, Select } from 'antd';
-import { SettingItem } from '@/components';
+import { SettingItem, SettingWrap } from '@/components';
 import type { TElementSetting, TJustify, TAlign } from '@/types';
 import { JustifyOptions, AlignOptions } from '@/const';
 
 export const SettingContainer: TElementSetting = ({ element, setElementProp }) => {
   return (
-    <>
+    <SettingWrap title="容器设置">
       <SettingItem label="水平对齐">
         <Select
           options={JustifyOptions}
@@ -41,6 +41,6 @@ export const SettingContainer: TElementSetting = ({ element, setElementProp }) =
           }}
         />
       </SettingItem>
-    </>
+    </SettingWrap>
   );
 };

@@ -12,4 +12,5 @@ export const initialData: Partial<IBaseElement> = {
   dateFormat: 'HH:mm:ss',
   gridSpan: 4,
   allowClear: true,
+  placeholder: '请选择时间',
 };

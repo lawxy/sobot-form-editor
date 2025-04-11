@@ -60,7 +60,7 @@ export const Material = observer(() => {
     };
   }, []);
 
-  console.log('renderList', renderList);
+  // console.log('renderList', renderList);
   return (
     <div className={prefixCls('material')} ref={wrapEl}>
       <div className={prefixCls('title')}>组件库</div>

@@ -108,7 +108,12 @@ export const ElementLayout: FC<
                 }
               />
             )}
-            <div className={prefixCls('element-content')}>
+            <div 
+              className={prefixCls('element-content')}
+              style={{
+                display: element.isContainer ? 'block' : 'flex',
+              }}
+            >
               {React.isValidElement(children) &&
                 React.cloneElement<any>(children, {
                   ...(children?.props || {}),
@@ -135,8 +140,11 @@ export const RenderElementWithLayout: FC<{
 
   const setFieldValue = useCallback(
     (value: any) => {
-      store.removeField(element.id!);
-      store.setFieldValue(element.fieldName! || element.id!, value);
+      if(element.fieldName) {
+        store.setFieldValue(element.fieldName!, value);
+      } else {
+        store.setFieldValue(element.id!, value);
+      }
     },
     [element.id, element.fieldName],
   );
@@ -153,7 +161,7 @@ export const RenderElementWithLayout: FC<{
   return (
     <ElementLayout element={element}>
       <Component
-        fieldValue={store.fieldValues[element.fieldName! || element.id as string]}
+        fieldValue={element.fieldName ? store.fieldValues[element.fieldName!] : store.fieldValues[element.id!]}
         setFieldValue={setFieldValue}
         setElementProp={setElementProp}
         element={element}

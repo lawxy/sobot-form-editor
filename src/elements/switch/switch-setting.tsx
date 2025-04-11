@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Input, Switch } from '@sobot/soil-ui';
+import { Input, Select, Switch } from 'antd';
 import { isNil } from 'lodash-es';
 import { SettingItem, SettingWrap, DefaultValueSetting } from '@/components';
 import type { TElementSetting } from '@/types';
@@ -18,6 +18,16 @@ export const SettingSwitch: TElementSetting = ({
 
   return (
     <SettingWrap title="元素设置">
+      <SettingItem label="大小">
+        <Select
+          options={[
+            { label: '默认', value: 'default' },
+            { label: '小', value: 'small' },
+          ]}
+          value={element.size}
+          onChange={(value) => setElementProp('size', value)}
+        />
+      </SettingItem>
       <SettingItem
         tips="按照基本数据类型填写, 比如 true 或 1 或 '1'"
         label="开启值"

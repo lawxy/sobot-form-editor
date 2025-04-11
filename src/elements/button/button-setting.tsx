@@ -38,7 +38,7 @@ export const SettingButton: TElementSetting = ({ element, setElementProp }) => {
       </SettingItem>
       <SettingItem label="按钮大小">
         <Select
-          value={element.btnSize}
+          value={element.size}
           options={[
             {
               label: '大按钮', value: 'large'
@@ -54,7 +54,7 @@ export const SettingButton: TElementSetting = ({ element, setElementProp }) => {
             },
           ]}
           onChange={(v) => {
-            setElementProp('btnSize', v as 'large' | '' | 'small' | 'mini');
+            setElementProp('size', v as 'large' | '' | 'small' | 'mini');
           }}
         />
       </SettingItem>
