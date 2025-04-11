@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker } from 'antd';
+import { DatePicker } from '@sobot/soil-ui';
 import moment from 'moment';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { formatDate } from '@/utils';
@@ -13,7 +13,7 @@ export const RenderDate: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { dateFormat, placeholder, allowClear } = element;
+  const { dateFormat, placeholder, allowClear, addonBefore, datePickerType, showTime } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -36,10 +36,11 @@ export const RenderDate: TElementRender = ({
  
   return (
     <DatePicker
-      format={dateFormat}
+      // format={dateFormat}
       // @ts-ignore
       value={fieldValue ? moment(fieldValue, dateFormat) : undefined}
-      showTime={showTimeFormat(dateFormat!)}
+      // showTime={showTimeFormat(dateFormat!)}
+      showTime={showTime}
       getPopupContainer={(n: any) => n.parentElement}
       placement="bottomRight"
       onChange={handleChange}
@@ -48,6 +49,8 @@ export const RenderDate: TElementRender = ({
       placeholder={placeholder}
       allowClear={allowClear}
       style={customStyle}
+      label={addonBefore}
+      picker={datePickerType}
     />
   );
 };

@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useImperativeHandle } from 'react';
 import type { PropsWithChildren } from 'react';
-import { ConfigProvider, Form } from 'antd';
+import { ConfigProvider, Form } from '@sobot/soil-ui';
 import type { FormInstance } from 'antd';
 import locale from '@sobot/soil-ui/lib/locale/zh';
+
 import 'reflect-metadata';
 import 'dayjs/locale/zh-cn';
 import c from 'classnames';

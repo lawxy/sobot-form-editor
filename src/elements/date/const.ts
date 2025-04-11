@@ -26,4 +26,5 @@ export const initialData: Partial<IBaseElement> = {
   gridSpan: 4,
   placeholder: '请选择日期',
   allowClear: true,
+  datePickerType: '',
 };

@@ -10,7 +10,7 @@ export const SettingSwitch: TElementSetting = ({
   setElementProp,
   setFieldValue,
 }) => {
-  const { openValue, closeValue } = element;
+  const { openValue, closeValue, addonAfter } = element;
 
   const realCheckedValue = useMemo(() => {
     return getValueFromInput(openValue);
@@ -18,14 +18,10 @@ export const SettingSwitch: TElementSetting = ({
 
   return (
     <SettingWrap title="元素设置">
-      <SettingItem label="大小">
-        <Select
-          options={[
-            { label: '默认', value: 'default' },
-            { label: '小', value: 'small' },
-          ]}
-          value={element.size}
-          onChange={(value) => setElementProp('size', value)}
+      <SettingItem label="后缀文案">
+        <Input
+          value={addonAfter}
+          onChange={(e) => setElementProp('addonAfter', e.target.value)}
         />
       </SettingItem>
       <SettingItem

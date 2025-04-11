@@ -112,11 +112,19 @@ export interface IBaseElement {
    */
   dateFormat?: string;
   /**
+   * 日期选择器类型
+   */
+  datePickerType?: '' | 'year' | 'month' | 'week' | 'quarter';
+  /**
+   * 是否显示时间
+   */
+  showTime?: boolean;
+  /**
    * 文本类型
    */
   textType?: 'single' | 'multiple' | 'password';
   /**
-   * 前缀
+   * 前缀或者标题
    */
   addonBefore?: string;
   /**
@@ -190,7 +198,7 @@ export interface IBaseElement {
   /**
    * 按钮大小
    */
-  size?: 'large' | '' | 'small' | 'mini' | string;
+  size?: 'large' | '' | 'small' | 'mini';
   /**
    * 按钮类型
    */
