@@ -2,10 +2,11 @@ import React, { useEffect, useMemo, useImperativeHandle } from 'react';
 import type { PropsWithChildren } from 'react';
 import { ConfigProvider, Form } from '@sobot/soil-ui';
 import type { FormInstance } from 'antd';
-import locale from '@sobot/soil-ui/lib/locale/zh';
+import type { I18nLang } from '@sobot/utils/es/i18n';
 
 import 'reflect-metadata';
-import 'dayjs/locale/zh-cn';
+import 'moment/locale/zh-cn';
+
 import c from 'classnames';
 import { ElementsMap } from './elements';
 import type { IFormSchema, TDragElement } from './types';
@@ -33,12 +34,13 @@ export interface IEditorInstance {
 export type TFormProps = {
   defaultValue?: IFormSchema;
   customElements?: TDragElement;
+  lang?: I18nLang;
 } & Pick<IEditorContext, 'mode' | 'actionProp'>;
 
 const FormEditorContent: React.ForwardRefRenderFunction<
   IEditorInstance,
   PropsWithChildren<TFormProps>
-> = ({ mode, defaultValue, actionProp, customElements, children }, ref) => {
+> = ({ mode, defaultValue, actionProp, customElements, lang, children }, ref) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -85,7 +87,7 @@ const FormEditorContent: React.ForwardRefRenderFunction<
 
   return (
     <EditorContext.Provider value={contextValue}>
-      <ConfigProvider locale={locale}>
+      <ConfigProvider lang={lang || 'zh'}>
           <Form form={form}>
             <div
               className={c({

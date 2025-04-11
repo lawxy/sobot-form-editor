@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Input, Select, Switch } from 'antd';
 import { isNil } from 'lodash-es';
-import { SettingItem, SettingWrap, DefaultValueSetting } from '@/components';
+import { SettingItem, SettingWrap, DefaultValueSetting, DisabledSetting } from '@/components';
 import type { TElementSetting } from '@/types';
 import { getValueFromInput } from '@/utils';
 
@@ -56,6 +56,7 @@ export const SettingSwitch: TElementSetting = ({
           />
         )}
       </DefaultValueSetting>
+      <DisabledSetting />
     </SettingWrap>
   );
 };

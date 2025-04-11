@@ -35,7 +35,7 @@ export const RenderSelect: TElementRender = ({
   }, [fieldValue]);
 
   const _labelWrapperStyle = useMemo(() => {
-    return parseCSS(labelWrapperStyle)?.tempSelector || {};
+    return parseCSS(labelWrapperStyle)?.labelWrapperStyle || {};
   }, [labelWrapperStyle]);
 
   return (

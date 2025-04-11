@@ -10,7 +10,7 @@ export const RenderCheckbox: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { useGroup, valueOptions, alignDirection, indeterminate } = element;
+  const { useGroup, valueOptions, direction, indeterminate } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -31,7 +31,7 @@ export const RenderCheckbox: TElementRender = ({
       onChange={handleChange}
       value={fieldValue}
       style={customStyle}
-      direction={alignDirection}
+      direction={direction}
       options={valueOptions}
     />
   ) : (

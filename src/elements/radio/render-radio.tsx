@@ -11,7 +11,7 @@ export const RenderRadio: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { useGroup, valueOptions, alignDirection } = element;
+  const { useGroup, valueOptions, direction } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -32,7 +32,7 @@ export const RenderRadio: TElementRender = ({
       onChange={onChange}
       value={fieldValue}
       style={customStyle}
-      direction={alignDirection}
+      direction={direction}
       options={valueOptions}
     />
   ) : (

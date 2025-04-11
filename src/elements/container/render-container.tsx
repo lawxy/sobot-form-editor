@@ -12,12 +12,12 @@ import './style.less';
 export const RenderContainer: TElementRender = ({ element, customStyle }) => {
   const { id } = store.formAttrs;
   const { mode, ElementsMap } = useEditorContext();
-  const { parentId, horizontalGap = 0, verticalGap = 0, align, justify } = element;
+  const { parentId, horizontalGap = 0, verticalGap = 0, align, justify, direction } = element;
 
   const style = useMemo(() => {
     return {
-      ...customStyle,
       width: '100%',
+      ...customStyle,
     }
   }, [customStyle])
 
@@ -40,6 +40,9 @@ export const RenderContainer: TElementRender = ({ element, customStyle }) => {
         gutter: [horizontalGap, verticalGap],
         'data-id': element.id,
         'data-parent-id': parentId || id,
+        style: {
+          flexDirection: direction === 'vertical' ? 'column' : 'row',
+        },
       }}
       forbidden={mode !== 'design'}
       style={style}

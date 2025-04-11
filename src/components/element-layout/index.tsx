@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import type { FC, PropsWithChildren } from 'react';
-import { Col, Form } from 'antd';
+import { Col, Form } from '@sobot/soil-ui';
 import { Rule } from 'antd/es/form';
 import { observer } from 'mobx-react-lite';
 import { cloneDeep } from 'lodash-es';
@@ -79,6 +79,42 @@ export const ElementLayout: FC<
   // 偏移量值 仅使用栅格布局才生效
   const offset = gridLayout ? gridOffset || 0 : 0;
 
+  const content = (
+    <WrapEl el={element} mode={mode}>
+      <div
+        className={c({
+          [prefixCls('with-element-name')]: true,
+          [prefixCls('with-element-name-horizontal')]:
+            elementNameDisplay === 'horizontal',
+        })}
+      >
+        {showElementName && (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: elementName as string,
+            }}
+            className={
+              // @ts-ignore
+              rules?.[0]?.required ? prefixCls('title-required') : ''
+            }
+          />
+        )}
+        <div
+          className={prefixCls('element-content')}
+          style={{
+            display: element.isContainer ? 'block' : 'flex',
+          }}
+        >
+          {React.isValidElement(children) &&
+            React.cloneElement<any>(children, {
+              ...(children?.props || {}),
+              customStyle: elCss || {},
+            })}
+        </div>
+      </div>
+    </WrapEl>
+  )
+
   return (
     <Col
       span={gridSpan}
@@ -88,41 +124,15 @@ export const ElementLayout: FC<
       data-id={id}
       data-type={type}
     >
-      <Form.Item name={fieldName || id} rules={rules} style={{ marginBottom: 0 }}>
-        <WrapEl el={element} mode={mode}>
-          <div
-            className={c({
-              [prefixCls('with-element-name')]: true,
-              [prefixCls('with-element-name-horizontal')]:
-                elementNameDisplay === 'horizontal',
-            })}
-          >
-            {showElementName && (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: elementName as string,
-                }}
-                className={
-                  // @ts-ignore
-                  rules?.[0]?.required ? prefixCls('title-required') : ''
-                }
-              />
-            )}
-            <div 
-              className={prefixCls('element-content')}
-              style={{
-                display: element.isContainer ? 'block' : 'flex',
-              }}
-            >
-              {React.isValidElement(children) &&
-                React.cloneElement<any>(children, {
-                  ...(children?.props || {}),
-                  customStyle: elCss || {},
-                })}
-            </div>
-          </div>
-        </WrapEl>
-      </Form.Item>
+      {
+        element.isFormItem ? (
+          <Form.Item name={fieldName || id} rules={rules} >
+            {content}
+          </Form.Item>
+        ) : (
+          content
+        )
+      }
     </Col>
   );
 });
@@ -140,7 +150,7 @@ export const RenderElementWithLayout: FC<{
 
   const setFieldValue = useCallback(
     (value: any) => {
-      if(element.fieldName) {
+      if (element.fieldName) {
         store.setFieldValue(element.fieldName!, value);
       } else {
         store.setFieldValue(element.id!, value);

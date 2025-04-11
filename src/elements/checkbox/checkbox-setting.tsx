@@ -39,9 +39,9 @@ export const SettingCheckbox: TElementSetting = ({
               <SettingItem label="排列方式">
                 <Select
                   options={DirectionOpions}
-                  value={element.alignDirection}
+                  value={element.direction}
                   onChange={(val) => {
-                    setElementProp('alignDirection', val as TDirection);
+                    setElementProp('direction', val as TDirection);
                   }}
                 />
               </SettingItem>

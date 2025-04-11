@@ -53,7 +53,7 @@ export const SettingSelect: TElementSetting = ({
           addonBefore && (
               <CustomCssSetting 
                 label="带标题样式"
-                defaultValue={labelWrapperStyle || `.tempSelector {\n\t\t\n}`}
+                defaultValue={labelWrapperStyle || `.labelWrapperStyle {\n\t\t\n}`}
                 style={{
                   marginBottom: 30
                 }}

@@ -1,12 +1,19 @@
 import React from 'react';
 import { InputNumber, Select } from 'antd';
 import { SettingItem, SettingWrap } from '@/components';
-import type { TElementSetting, TJustify, TAlign } from '@/types';
-import { JustifyOptions, AlignOptions } from '@/const';
+import type { TElementSetting, TJustify, TAlign, TDirection } from '@/types';
+import { JustifyOptions, AlignOptions, DirectionOpions } from '@/const';
 
 export const SettingContainer: TElementSetting = ({ element, setElementProp }) => {
   return (
     <SettingWrap title="容器设置">
+      <SettingItem label="主轴方向">
+        <Select
+          options={DirectionOpions}
+          value={element.direction}
+          onChange={(value) => setElementProp('direction', value as TDirection)}
+        />
+      </SettingItem>
       <SettingItem label="水平对齐">
         <Select
           options={JustifyOptions}

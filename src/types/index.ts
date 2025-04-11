@@ -26,6 +26,7 @@ export type TDragElement = TDragElementObject | IDragElementProp[];
 export type TDirection = 'vertical' | 'horizontal';
 export type TMode = 'design' | 'form';
 export type TOption = { label: string; value: string | number; id?: string };
+export type TPlacement = 'top' | 'left' | 'right' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
 export type TColumn = {
   id: string;
   title: string;
@@ -84,6 +85,10 @@ export interface IBaseElement {
    */
   elementName?: string;
   /**
+   * 是否为表单项
+   */
+  isFormItem?: boolean;
+  /**
    * 字段名称
    */
   fieldName?: string;
@@ -115,10 +120,6 @@ export interface IBaseElement {
    * 日期选择器类型
    */
   datePickerType?: '' | 'year' | 'month' | 'week' | 'quarter';
-  /**
-   * 是否显示时间
-   */
-  showTime?: boolean;
   /**
    * 文本类型
    */
@@ -176,9 +177,9 @@ export interface IBaseElement {
    */
   valueOptions?: TOption[];
   /**
-   * 选项排列方式
+   * 容器主轴方向 | 选项排列方式
    */
-  alignDirection?: TDirection;
+  direction?: TDirection;
   /**
    * 开关开启的值
    */
@@ -303,6 +304,14 @@ export interface IBaseElement {
    * 是否半选
   */
   indeterminate?: boolean;
+  /**
+   * 位置
+   */
+  placement?: TPlacement;
+  /**
+   * 自定义属性
+   */
+  customAttributes?: Record<string, any>;
 }
 export interface IFormAttributesProps {
   formName?: string;

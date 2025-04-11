@@ -16,4 +16,5 @@ export const initialData: Partial<IBaseElement> = {
   align: 'top',
   horizontalGap: 0,
   verticalGap: 0,
+  direction: 'horizontal',
 };

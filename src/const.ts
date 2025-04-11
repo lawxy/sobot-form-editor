@@ -4,12 +4,12 @@ export const prefixCls = (className: string) => `fe-${className}`;
 
 export const DirectionOpions = [
   {
-    label: '垂直方向',
-    value: 'vertical',
-  },
-  {
     label: '水平方向',
     value: 'horizontal',
+  },
+  {
+    label: '垂直方向',
+    value: 'vertical',
   },
 ];
 
@@ -49,8 +49,58 @@ export const JustifyOptions = [
     label: 'space-around',
     value: 'space-around',
   },
-  
 ];
+
+export const PlacementOptions = [
+  {
+    label: 'top',
+    value: 'top',
+  },
+  {
+    label: 'bottom',
+    value: 'bottom',
+  },
+  {
+    label: 'left',
+    value: 'left',
+  },
+  {
+    label: 'right',
+    value: 'right',
+  },
+  {
+    label: 'topLeft',
+    value: 'topLeft',
+  },
+  {
+    label: 'topRight',
+    value: 'topRight',
+  },
+  {
+    label: 'bottomLeft',
+    value: 'bottomLeft',
+  },
+  {
+    label: 'bottomRight',
+    value: 'bottomRight',
+  },
+  {
+    label: 'leftTop',
+    value: 'leftTop',
+  },
+  {
+    label: 'leftBottom',
+    value: 'leftBottom',
+  },
+  {
+    label: 'rightTop',
+    value: 'rightTop',
+  },
+  {
+    label: 'rightBottom',
+    value: 'rightBottom',
+  },
+]
 
 export const defaultFormAttrs = {
   id: idCreator('form'),

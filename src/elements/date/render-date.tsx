@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { DatePicker } from '@sobot/soil-ui';
 import moment from 'moment';
+import { assign } from 'lodash';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { formatDate } from '@/utils';
 import { EEventAction } from '@/types';
@@ -13,7 +14,7 @@ export const RenderDate: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { dateFormat, placeholder, allowClear, addonBefore, datePickerType, showTime } = element;
+  const { dateFormat, placeholder, allowClear, addonBefore, datePickerType, showTime, placement } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -22,7 +23,6 @@ export const RenderDate: TElementRender = ({
   };
 
   const handleChange = (date: Date) => {
-    // console.log('date', date)
     setFieldValue(date ? formatDate(date, dateFormat!) : undefined);
   };
 
@@ -33,6 +33,29 @@ export const RenderDate: TElementRender = ({
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
+
+  const attributes = useMemo(() => {
+    const baseAttributes = {
+      placeholder,
+      allowClear,
+      customStyle,
+      label: addonBefore,
+      placement
+    }
+
+    if (datePickerType === '') {
+        return assign(baseAttributes, {
+          format: dateFormat,
+          showTime: showTimeFormat(dateFormat!)
+        })
+    }
+
+    return assign(baseAttributes, {
+      picker: datePickerType,
+    })
+    
+  }, [dateFormat, placeholder, allowClear, addonBefore, datePickerType, placement, customStyle])
+  // console.log('attributes', attributes)
  
   return (
     <DatePicker
@@ -40,17 +63,18 @@ export const RenderDate: TElementRender = ({
       // @ts-ignore
       value={fieldValue ? moment(fieldValue, dateFormat) : undefined}
       // showTime={showTimeFormat(dateFormat!)}
-      showTime={showTime}
+      // showTime={showTime}
       getPopupContainer={(n: any) => n.parentElement}
-      placement="bottomRight"
       onChange={handleChange}
       onFocus={handleEvent(EEventAction.ON_FOCUS)}
       onBlur={handleEvent(EEventAction.ON_BLUR)}
-      placeholder={placeholder}
-      allowClear={allowClear}
-      style={customStyle}
-      label={addonBefore}
-      picker={datePickerType}
+      {...attributes}
+      // placement="bottomRight"
+      // placeholder={placeholder}
+      // allowClear={allowClear}
+      // style={customStyle}
+      // label={addonBefore}
+      // picker={datePickerType}
     />
   );
 };

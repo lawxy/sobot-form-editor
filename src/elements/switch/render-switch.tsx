@@ -12,7 +12,7 @@ const RenderSwitchContent: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { openValue, closeValue, addonAfter } = element;
+  const { openValue, closeValue, addonAfter, disabled } = element;
   const { eventFunctions } = useRegisterEvents(element);
 
   const realCheckedValue = useMemo(() => {
@@ -29,6 +29,7 @@ const RenderSwitchContent: TElementRender = ({
 
   return (
     <Switch
+      disabled={disabled}
       checked={!isNil(fieldValue) && fieldValue === realCheckedValue}
       onChange={(checked) => {
         setFieldValue(

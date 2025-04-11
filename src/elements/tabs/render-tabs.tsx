@@ -6,6 +6,7 @@ import type { TElementRender } from '@/types';
 import { idCreator } from '@/utils';
 import { RenderElementWithLayout } from '@/components';
 import { initialData, ELEMENT_CONTAINER } from '../container';
+import { prefixCls } from '@/index';
 
 export const createPanel = (props = {}) => {
   const panel = {
@@ -37,5 +38,5 @@ export const RenderTabs: TElementRender = ({ element, customStyle }) => {
     }
   }, [children?.length]);
 
-  return <Tabs items={items} type={element.tabType} style={customStyle} underline={underline} />;
+  return <Tabs className={prefixCls('render-tabs')} items={items} type={element.tabType} style={customStyle} underline={underline} />;
 };

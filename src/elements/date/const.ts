@@ -17,6 +17,7 @@ export const showTimeFormat = (dateFormat: string) => {
   if (timeFormat.includes('HH')) res.showHour = true;
   if (timeFormat.includes('mm')) res.showMinute = true;
   if (timeFormat.includes('ss')) res.showSecond = true;
+  if (Object.keys(res).length === 0) return false;
   return res;
 };
 

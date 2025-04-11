@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select, Input, Switch } from 'antd';
-import {  DatePicker } from '@sobot/soil-ui'
+import { DatePicker } from '@sobot/soil-ui'
 import dayjs from 'dayjs';
 
 import {
@@ -10,12 +10,20 @@ import {
   RegPattern,
   DefaultValueSetting,
   AllowClear,
+  DisabledSetting,
+  PlacementSetting,
 } from '@/components';
 import type { TElementSetting } from '@/types';
 import { formatDate } from '@/utils';
 import { showTimeFormat } from './const';
 
 const dateOptions = [
+  'YYYY-MM-DD',
+  'YYYY-MM-DD HH:mm',
+  'YYYY-MM-DD HH:mm:ss',
+].map((per) => ({ label: per, value: per }));
+
+const datePickerTypeOptions = [
   {
     label: '默认',
     value: '',
@@ -36,7 +44,7 @@ const dateOptions = [
     label: '季度',
     value: 'quarter',
   },
-  
+
 ];
 
 export const SettingDate: TElementSetting = ({
@@ -44,7 +52,7 @@ export const SettingDate: TElementSetting = ({
   setElementProp,
   setFieldValue,
 }) => {
-  const { dateFormat, addonBefore, datePickerType, showTime } = element;
+  const { dateFormat, addonBefore, datePickerType } = element;
 
   const handleChange = (date: Date) => {
     setFieldValue(date ? formatDate(date, dateFormat!) : undefined);
@@ -52,26 +60,31 @@ export const SettingDate: TElementSetting = ({
   return (
     <>
       <SettingWrap title="元素设置">
-        <SettingItem label="标题">
-          <Input
-            value={addonBefore}
-            onChange={(e) => setElementProp('addonBefore', e.target.value)}
-          />
-        </SettingItem>
+        <PlaceholderSetting />
+
         <SettingItem label="类型">
           <Select
             value={datePickerType}
-            options={dateOptions}
+            options={datePickerTypeOptions}
             onChange={(val) => setElementProp('datePickerType', val)}
           />
         </SettingItem>
-        <SettingItem label="显示时间">
-          <Switch
-            checked={!!showTime}
-            onChange={(checked) => setElementProp('showTime', checked)}
-          />
-        </SettingItem>
-        {/* <DefaultValueSetting>
+   
+        {
+          datePickerType === '' && (
+            <SettingItem label="日期格式">
+              <Select
+                value={element.dateFormat}
+                style={{ width: '100%' }}
+                options={dateOptions}
+                onChange={(val) => {
+                  setElementProp('dateFormat', val);
+                }}
+              />
+            </SettingItem>
+          )
+        }
+        <DefaultValueSetting>
           {(value) => (
             <DatePicker
               format={dateFormat}
@@ -82,19 +95,16 @@ export const SettingDate: TElementSetting = ({
               placement="bottomRight"
             />
           )}
-        </DefaultValueSetting> */}
-        <PlaceholderSetting />
-        {/* <SettingItem label="日期格式">
-          <Select
-            value={element.dateFormat}
-            style={{ width: '100%' }}
-            options={dateOptions}
-            onChange={(val) => {
-              setElementProp('dateFormat', val);
-            }}
+        </DefaultValueSetting>
+        <SettingItem label="标题">
+          <Input
+            value={addonBefore}
+            onChange={(e) => setElementProp('addonBefore', e.target.value)}
           />
-        </SettingItem> */}
+        </SettingItem>
+        <PlacementSetting />
         <AllowClear />
+        <DisabledSetting />
       </SettingWrap>
       <RegPattern />
     </>
