@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import elementStore from './elementStore';
 import serviceStore from './serviceStore';
 import formAttrStore from './formAttrStore';
-import fieldValuesStore from './fieldValuesStore';
+import formStore from './formStore';
 import { IBaseStore } from './types';
 export * from './tabStore';
 
@@ -21,7 +21,7 @@ const baseStore: IBaseStore = Object.assign(
   elementStore,
   serviceStore,
   formAttrStore,
-  fieldValuesStore,
+  formStore,
 ) as IBaseStore;
 
 class Store {

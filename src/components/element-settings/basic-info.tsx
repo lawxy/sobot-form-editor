@@ -7,27 +7,31 @@ import type { TDirection } from '../../types';
 import { SettingItem, SettingWrap } from '../setting-common';
 
 const BasicInfo = () => {
-  const { gridSpan, id, gridOffset, fieldName } = store.selectedElement;
+  const { gridSpan, id, gridOffset, fieldName, isContainer } = store.selectedElement;
   return (
     <SettingWrap title="基础设置">
-      <SettingItem label="是否为表单项">
-        <Switch
-          checked={store.selectedElement?.isFormItem}
-          onChange={(checked) => {
-            store.setSelectedProp('isFormItem', checked);
-          }}
-        />
-      </SettingItem>
-      {store.selectedElement?.isFormItem && (
-        <SettingItem label="表单字段">
-          <Input
-            value={fieldName}
-            onChange={(e) => {
-              store.setSelectedProp('fieldName', e.target.value);
-            }}
-          />
-        </SettingItem>
-      )}
+      {
+        !isContainer && (
+          <>
+            <SettingItem label="字段">
+              <Input
+                value={fieldName}
+                onChange={(e) => {
+                  store.setSelectedProp('fieldName', e.target.value);
+                }}
+              />
+            </SettingItem>
+            <SettingItem label="表单项">
+              <Switch
+                checked={store.selectedElement?.isFormItem}
+                onChange={(checked) => {
+                  store.setSelectedProp('isFormItem', checked);
+                }}
+              />
+            </SettingItem>
+          </>
+        )
+      }
       <SettingItem label="元素id">
         <div>{id}</div>
       </SettingItem>

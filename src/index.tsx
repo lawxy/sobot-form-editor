@@ -35,12 +35,13 @@ export type TFormProps = {
   defaultValue?: IFormSchema;
   customElements?: TDragElement;
   lang?: I18nLang;
+  className?: string;
 } & Pick<IEditorContext, 'mode' | 'actionProp'>;
 
 const FormEditorContent: React.ForwardRefRenderFunction<
   IEditorInstance,
   PropsWithChildren<TFormProps>
-> = ({ mode, defaultValue, actionProp, customElements, lang, children }, ref) => {
+> = ({ mode, defaultValue, actionProp, customElements, lang, children, className }, ref) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -85,15 +86,23 @@ const FormEditorContent: React.ForwardRefRenderFunction<
     };
   }, [mode, actionProp, customElements, ElementsMap]);
 
+  const formClassName = useMemo(() => {
+    const classObj = {
+      [prefixCls('form')]: true,
+      [prefixCls('form-design')]: mode === 'design',
+    }
+    if(className) {
+      Object.assign(classObj, className);
+    }
+    return c(classObj);
+  }, [className, mode]);
+
   return (
     <EditorContext.Provider value={contextValue}>
       <ConfigProvider lang={lang || 'zh'}>
           <Form form={form}>
             <div
-              className={c({
-                [prefixCls('form')]: true,
-                [prefixCls('form-design')]: mode === 'design',
-              })}
+              className={formClassName}
             >
               {children}
             </div>
