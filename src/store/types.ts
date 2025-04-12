@@ -64,8 +64,8 @@ export interface IServiceStore {
   getService: (id: string) => TFormSerive | undefined;
 }
 
-export interface IFormAttrStore {
-  formAttrs: IFormAttributesProps;
+export interface IEditorAttrStore {
+  editorAttrs: IFormAttributesProps;
 
   setFormAttrs: (attrs: IFormAttributesProps) => void;
 
@@ -87,13 +87,17 @@ export interface IFieldValuesStore {
   setFieldsValues: (values: Record<string, any>) => void;
 
   removeField: (field: string) => void;
+
+  getFieldValue: (field: keyof IFieldValuesStore['fieldValues']) => any;
+
+  getFieldValues: () => Record<keyof IFieldValuesStore['fieldValues'], any>;
 }
 
 export type TFormTabType = 'element' | 'form' | 'service';
 export interface IBaseStore
   extends IServiceStore,
     IElementStore,
-    IFormAttrStore,
+    IEditorAttrStore,
     IFieldValuesStore {
   getSchema: () => IFormSchema;
 }

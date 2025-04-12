@@ -19,7 +19,10 @@ export const SelectedActions = () => {
       </div>
       <div
         // className="fe-selected-action delete-action"
-        className={c([prefixCls('selected-action'), prefixCls('delete-action')])}
+        className={c([
+          prefixCls('selected-action'),
+          prefixCls('delete-action'),
+        ])}
         onClick={() => {
           store.deleteEl(store.selectedElement);
           store.setSelectedElement({});

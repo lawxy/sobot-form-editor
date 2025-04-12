@@ -4,7 +4,10 @@ import { SettingItem, SettingWrap } from '@/components';
 import type { TElementSetting, TJustify, TAlign, TDirection } from '@/types';
 import { JustifyOptions, AlignOptions, DirectionOpions } from '@/const';
 
-export const SettingContainer: TElementSetting = ({ element, setElementProp }) => {
+export const SettingContainer: TElementSetting = ({
+  element,
+  setElementProp,
+}) => {
   return (
     <SettingWrap title="容器设置">
       <SettingItem label="主轴方向">
@@ -32,13 +35,13 @@ export const SettingContainer: TElementSetting = ({ element, setElementProp }) =
       </SettingItem>
       <SettingItem label="垂直对齐">
         <Select
-            options={AlignOptions}
-            value={element.align}
-            onChange={(val) => {
-              setElementProp('align', val as TAlign);
-            }}
-          />
-        </SettingItem>
+          options={AlignOptions}
+          value={element.align}
+          onChange={(val) => {
+            setElementProp('align', val as TAlign);
+          }}
+        />
+      </SettingItem>
       <SettingItem label="垂直间距">
         <InputNumber
           min={0}

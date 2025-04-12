@@ -50,15 +50,15 @@ const WrapDesignEl: React.FC<
   }, [el.events]);
 
   const handleSelect = useCallback(() => {
-    if(store.selectedElement?.id !== el.id) {
+    if (store.selectedElement?.id !== el.id) {
       store.setSelectedElement(el);
       tabStore.init();
     }
   }, [el]);
 
   const getMaskStyle = () => {
-    // const horizontal = store.formAttrs.horizontalGap + 2;
-    // const vertical = store.formAttrs.verticalGap + 2;
+    // const horizontal = store.editorAttrs.horizontalGap + 2;
+    // const vertical = store.editorAttrs.verticalGap + 2;
     return {
       // padding: `${vertical / 2}px ${horizontal / 2}px`,
       // margin: `-${vertical / 2}px -${horizontal / 2}px`,

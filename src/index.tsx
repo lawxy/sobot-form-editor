@@ -24,7 +24,7 @@ export * from './const';
 export * from './utils';
 export * from './hooks';
 export * from './components';
-export * from './context'
+export * from './context';
 
 export interface IEditorInstance {
   form: FormInstance;
@@ -41,7 +41,10 @@ export type TFormProps = {
 const FormEditorContent: React.ForwardRefRenderFunction<
   IEditorInstance,
   PropsWithChildren<TFormProps>
-> = ({ mode, defaultValue, actionProp, customElements, lang, children, className }, ref) => {
+> = (
+  { mode, defaultValue, actionProp, customElements, lang, children, className },
+  ref,
+) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -54,8 +57,8 @@ const FormEditorContent: React.ForwardRefRenderFunction<
       if (defaultValue) {
         if (typeof defaultValue === 'string') {
           schema = JSON.parse(defaultValue);
-        }else if(typeof defaultValue === 'object') {
-          schema = defaultValue
+        } else if (typeof defaultValue === 'object') {
+          schema = defaultValue;
         }
       } else if (localStorage.getItem('schema')) {
         schema = JSON.parse(localStorage.getItem('schema')!);
@@ -90,8 +93,8 @@ const FormEditorContent: React.ForwardRefRenderFunction<
     const classObj = {
       [prefixCls('form')]: true,
       [prefixCls('form-design')]: mode === 'design',
-    }
-    if(className) {
+    };
+    if (className) {
       Object.assign(classObj, className);
     }
     return c(classObj);
@@ -100,13 +103,9 @@ const FormEditorContent: React.ForwardRefRenderFunction<
   return (
     <EditorContext.Provider value={contextValue}>
       <ConfigProvider lang={lang || 'zh'}>
-          <Form form={form}>
-            <div
-              className={formClassName}
-            >
-              {children}
-            </div>
-          </Form>
+        <Form form={form}>
+          <div className={formClassName}>{children}</div>
+        </Form>
       </ConfigProvider>
     </EditorContext.Provider>
   );

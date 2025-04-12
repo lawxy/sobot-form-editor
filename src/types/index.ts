@@ -26,7 +26,19 @@ export type TDragElement = TDragElementObject | IDragElementProp[];
 export type TDirection = 'vertical' | 'horizontal';
 export type TMode = 'design' | 'form';
 export type TOption = { label: string; value: string | number; id?: string };
-export type TPlacement = 'top' | 'left' | 'right' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
+export type TPlacement =
+  | 'top'
+  | 'left'
+  | 'right'
+  | 'bottom'
+  | 'topLeft'
+  | 'topRight'
+  | 'bottomLeft'
+  | 'bottomRight'
+  | 'leftTop'
+  | 'leftBottom'
+  | 'rightTop'
+  | 'rightBottom';
 export type TColumn = {
   id: string;
   title: string;
@@ -53,7 +65,18 @@ export type TPattern = {
 
 export type TAlign = 'top' | 'middle' | 'bottom';
 
-export type TJustify = 'start' | 'center' | 'end' | 'space-between' | 'space-around' ;
+export type TJustify =
+  | 'start'
+  | 'center'
+  | 'end'
+  | 'space-between'
+  | 'space-around';
+
+export enum EDateMode {
+  NOW = 'now',
+  PICKER = 'picker',
+  CUSTOM = 'custom',
+}
 
 export interface IBaseElement {
   /**
@@ -134,7 +157,7 @@ export interface IBaseElement {
   addonAfter?: string;
   /**
    * 是否显示字数
-  */
+   */
   showCount?: boolean;
   /**
    * placeholder
@@ -282,7 +305,7 @@ export interface IBaseElement {
   currentPage?: number;
   /**
    * tab 下划线
-  */
+   */
   underline?: boolean;
   /**
    * 是否可以搜索
@@ -290,19 +313,19 @@ export interface IBaseElement {
   canSearch?: boolean;
   /**
    * select标签包裹样式
-  */
+   */
   labelWrapperStyle?: string;
   /**
    * 多选是否以文本形式展示
-  */
+   */
   tagRenderText?: boolean;
   /**
    * 是否使用分组
-  */
+   */
   useGroup?: boolean;
   /**
    * 是否半选
-  */
+   */
   indeterminate?: boolean;
   /**
    * 位置
@@ -312,6 +335,30 @@ export interface IBaseElement {
    * 自定义属性
    */
   customAttributes?: Record<string, any>;
+  /**
+   * 开始日期默认值模式
+   */
+  startDateMode?: EDateMode;
+  /**
+   * 开始日期默认值
+   */
+  startDate?: string;
+  /**
+   * 开始日期默认值 - 自定义
+   */
+  startDateCustom?: string;
+  /**
+   * 结束日期默认值模式
+   */
+  endDateMode?: EDateMode;
+  /**
+   * 结束日期默认值
+   */
+  endDate?: string;
+  /**
+   * 结束日期默认值 - 自定义
+   */
+  endDateCustom?: string;
 }
 export interface IFormAttributesProps {
   formName?: string;
@@ -328,7 +375,7 @@ export interface IFormAttributesProps {
 export interface IFormSchema {
   formElements?: IBaseElement[];
   fieldValues?: Record<string, any>;
-  formAttrs?: IFormAttributesProps;
+  editorAttrs?: IFormAttributesProps;
   formServices?: TFormSerives;
 }
 

@@ -7,18 +7,27 @@ import {
   SettingWrap,
   EventSetting,
   CustomCssSetting,
-  FormCssSetting
+  FormCssSetting,
 } from '@/components';
 import { EEventAction, EEventType, TJustify, TAlign } from '@/types';
 import store from '@/store';
-import { prefixCls, JustifyOptions, AlignOptions} from '@/const';
+import { prefixCls, JustifyOptions, AlignOptions } from '@/const';
 
 const FormSetting = () => {
-  const { id, formName, horizontalGap, verticalGap, justify, align } = store.formAttrs;
+  const { id, formName, horizontalGap, verticalGap, justify, align } =
+    store.editorAttrs;
 
   return (
     <div className={prefixCls('form-setting')}>
-      <div style={{ flex: 1, height: 0, overflow: 'auto', paddingLeft: 100, marginLeft: -100 }}>
+      <div
+        style={{
+          flex: 1,
+          height: 0,
+          overflow: 'auto',
+          paddingLeft: 100,
+          marginLeft: -100,
+        }}
+      >
         <SettingWrap title="基本属性">
           <SettingItem label="表单id">{id}</SettingItem>
           <SettingItem label="表单名称">
@@ -30,7 +39,7 @@ const FormSetting = () => {
             />
           </SettingItem>
 
-          <SettingItem label="水平对齐">
+          {/* <SettingItem label="水平对齐">
             <Select
               options={JustifyOptions}
               value={justify}
@@ -38,27 +47,30 @@ const FormSetting = () => {
                 store.setFormAttr<'justify'>('justify', val as TJustify);
               }}
             />
-          </SettingItem>
+          </SettingItem> */}
 
           <SettingItem label="水平间隔">
             <InputNumber
               value={horizontalGap}
               min={0}
               onChange={(val) => {
-                store.setFormAttr<'horizontalGap'>('horizontalGap', Number(val));
+                store.setFormAttr<'horizontalGap'>(
+                  'horizontalGap',
+                  Number(val),
+                );
               }}
             />
           </SettingItem>
 
-          <SettingItem label="垂直对齐">
-          <Select
+          {/* <SettingItem label="垂直对齐">
+            <Select
               options={AlignOptions}
               value={align}
               onChange={(val) => {
                 store.setFormAttr<'align'>('align', val as TAlign);
               }}
             />
-          </SettingItem>
+          </SettingItem> */}
 
           <SettingItem label="垂直间隔">
             <InputNumber

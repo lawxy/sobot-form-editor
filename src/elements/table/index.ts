@@ -14,7 +14,7 @@
 //   eventActions: [EEventAction.ON_LOADED, EEventAction.PAGINATION_CHANGE],
 // };
 
-export * from './const'
-export * from './icon'
-export * from './render-table'
-export * from './table-setting'
+export * from './const';
+export * from './icon';
+export * from './render-table';
+export * from './table-setting';

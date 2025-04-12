@@ -14,7 +14,7 @@ import type { TDirection, TElementSetting } from '@/types';
 export const SettingCheckbox: TElementSetting = ({
   element,
   setElementProp,
-  setFieldValue
+  setFieldValue,
 }) => {
   return (
     <>
@@ -33,22 +33,20 @@ export const SettingCheckbox: TElementSetting = ({
           )}
         </DefaultValueSetting>
         <UseGroupSetting />
-        {
-          element.useGroup && (
-            <>
-              <SettingItem label="排列方式">
-                <Select
-                  options={DirectionOpions}
-                  value={element.direction}
-                  onChange={(val) => {
-                    setElementProp('direction', val as TDirection);
-                  }}
-                />
-              </SettingItem>
-              <OptionSetting />
-            </>
-          )
-        }
+        {element.useGroup && (
+          <>
+            <SettingItem label="排列方式">
+              <Select
+                options={DirectionOpions}
+                value={element.direction}
+                onChange={(val) => {
+                  setElementProp('direction', val as TDirection);
+                }}
+              />
+            </SettingItem>
+            <OptionSetting />
+          </>
+        )}
       </SettingWrap>
       <RegPattern />
     </>

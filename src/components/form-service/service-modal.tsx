@@ -208,7 +208,7 @@ const ServiceModal: FC<
                           editorType="javascript"
                           value={
                             getFieldValue('previewData') ||
-                            'export default {\n\t\n}'
+                            'function main() {\n\treturn {\n\t\t\n\t}\n}'
                           }
                           onChange={(v) => {
                             form.setFieldsValue({

@@ -8,7 +8,7 @@ export const useCurrent = (type: 'element' | 'form') => {
     };
   }
   return {
-    current: store.formAttrs,
+    current: store.editorAttrs,
     setProp: store.setFormAttr as any,
   };
 };

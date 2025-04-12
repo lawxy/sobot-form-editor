@@ -100,7 +100,7 @@ export const PlacementOptions = [
     label: 'rightBottom',
     value: 'rightBottom',
   },
-]
+];
 
 export const defaultFormAttrs = {
   id: idCreator('form'),

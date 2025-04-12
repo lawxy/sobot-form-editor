@@ -88,13 +88,11 @@ export const EventCollapse: FC<{
           isActive ? <MinusSquareOutlined /> : <PlusSquareOutlined />
         }
       >
-        {
-          items.map((item) => (
-            <Panel header={item.label} key={item.key}>
-              {item.children}
-            </Panel>
-          ))
-        }
+        {items.map((item) => (
+          <Panel header={item.label} key={item.key}>
+            {item.children}
+          </Panel>
+        ))}
       </Collapse>
     </div>
   );

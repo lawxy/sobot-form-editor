@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
+import moment, { type Moment } from 'moment';
 
-export const formatDate = (date: Date, format: string): string => {
-  return dayjs(date).format(format) || '';
+export const formatDate = (date: Moment, format: string): string => {
+  return moment(date).format(format) || '';
 };

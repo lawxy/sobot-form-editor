@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { FC, PropsWithChildren } from 'react';
-import { Modal, Space, Input, message, type TableColumnProps } from '@sobot/soil-ui';
+import {
+  Modal,
+  Space,
+  Input,
+  message,
+  type TableColumnProps,
+} from '@sobot/soil-ui';
 import { cloneDeep } from 'lodash-es';
 import { TableSortable } from '@sobot/form-editor-ui';
 

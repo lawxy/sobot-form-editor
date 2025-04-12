@@ -8,10 +8,13 @@ import { prefixCls } from '@/const';
 import { SettingItem } from '@/components';
 import { idCreator } from '@/utils';
 import { EditModal } from './edit-modal';
-import type { TColumn, TElementSetting} from '@/types';
+import type { TColumn, TElementSetting } from '@/types';
 import './style.less';
 
-export const ColumnsSetting: TElementSetting = ({ element, setElementProp }) => {
+export const ColumnsSetting: TElementSetting = ({
+  element,
+  setElementProp,
+}) => {
   const { columns = [] } = element;
   return (
     <SettingItem label="表格列配置" vertical>

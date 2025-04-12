@@ -2,7 +2,7 @@ export * from './id-creator';
 export * from './modal-promisify';
 export * from './convert-css-to-react-style';
 export * from './parse-css';
-export * from './parse-esm-string';
+export * from './parse-js';
 export * from './trigger-service';
 export * from './handle-emit-event';
 export * from './handle-on-event';
@@ -17,4 +17,4 @@ export * from './dynamic-get-store';
 export * from './function-async';
 export * from './indject-schema';
 export * from './wrap-observer';
-export * from './component-has-observered'
+export * from './component-has-observered';

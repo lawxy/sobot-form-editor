@@ -10,8 +10,18 @@ export const RenderSelect: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { multiple, valueOptions, placeholder, linkLoading, allowClear, disabled, addonBefore, canSearch, labelWrapperStyle, tagRenderText } =
-    element;
+  const {
+    multiple,
+    valueOptions,
+    placeholder,
+    linkLoading,
+    allowClear,
+    disabled,
+    addonBefore,
+    canSearch,
+    labelWrapperStyle,
+    tagRenderText,
+  } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -22,9 +32,12 @@ export const RenderSelect: TElementRender = ({
     }));
   }, [valueOptions]);
 
-  const onChange = useCallback((val: any) => {
-    setFieldValue(val);
-  }, [setFieldValue]);
+  const onChange = useCallback(
+    (val: any) => {
+      setFieldValue(val);
+    },
+    [setFieldValue],
+  );
 
   useFormUpdate(() => {
     eventFunctions[EEventAction.ON_LOADED]?.();

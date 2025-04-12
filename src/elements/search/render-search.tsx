@@ -10,8 +10,7 @@ export const RenderSearch: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { id, placeholder, allowClear, disabled } =
-    element;
+  const { id, placeholder, allowClear, disabled } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -42,19 +41,18 @@ export const RenderSearch: TElementRender = ({
   }, [fieldValue]);
 
   return (
-      <Input.Search
-        placeholder={placeholder}
-        id={id}
-        // @ts-ignore
-        onSearch={handleSearch}
-        onChange={handleChange}
-        onFocus={handleEvent(EEventAction.ON_FOCUS)}
-        onBlur={handleEvent(EEventAction.ON_BLUR)}
-        value={fieldValue}
-        allowClear={allowClear}
-        style={customStyle}
-        disabled={disabled}
-      />
-     
+    <Input.Search
+      placeholder={placeholder}
+      id={id}
+      // @ts-ignore
+      onSearch={handleSearch}
+      onChange={handleChange}
+      onFocus={handleEvent(EEventAction.ON_FOCUS)}
+      onBlur={handleEvent(EEventAction.ON_BLUR)}
+      value={fieldValue}
+      allowClear={allowClear}
+      style={customStyle}
+      disabled={disabled}
+    />
   );
 };

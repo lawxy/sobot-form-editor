@@ -28,7 +28,8 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
   mode,
   actions,
 }) => {
-  const { horizontalGap, verticalGap, id, events, customCss, align, justify } = store.formAttrs;
+  const { horizontalGap, verticalGap, id, events, customCss, align, justify } =
+    store.editorAttrs;
   const { eventFunctions } = useRegisterEvents({ id, events });
   const { ElementsMap } = useEditorContext();
   const formStyle = useMemo(() => {
@@ -83,7 +84,7 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
           gutter: [horizontalGap, verticalGap],
           'data-id': id,
           align,
-          justify
+          justify,
         }}
         forbidden={mode !== 'design'}
       >

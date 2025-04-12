@@ -3,7 +3,7 @@ import type { FC, PropsWithChildren } from 'react';
 import { FormInstance, Modal, message } from '@sobot/soil-ui';
 import { type AxiosRequestConfig } from 'axios';
 import { QueryMethod, DEFAULT_ERROR_MESSAGE } from '@/const';
-import { parseEsmString, createRequest } from '@/utils';
+import { parseJs, createRequest } from '@/utils';
 
 export const Preview: FC<
   PropsWithChildren<{
@@ -20,7 +20,11 @@ export const Preview: FC<
       const formData = await form.validateFields();
       const { url, method } = formData;
       let { previewData, interceptors } = formData;
-      previewData = parseEsmString(previewData, {}).value;
+      console.log('previewData', previewData);
+      previewData = parseJs({
+        jsFunction: previewData,
+        valueWhenError: {},
+      }).value;
 
       const request = createRequest(interceptors);
 

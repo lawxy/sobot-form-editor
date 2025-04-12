@@ -5,10 +5,7 @@ export const ELEMENT_DATE = 'fe-date';
 
 export const DATE_TEXT = '日期';
 
-export const eventActions = [
-  EEventAction.ON_LOADED,
-  EEventAction.VALUE_CHANGE,
-];
+export const eventActions = [EEventAction.ON_LOADED, EEventAction.VALUE_CHANGE];
 
 export const showTimeFormat = (dateFormat: string) => {
   const timeFormat = dateFormat?.split(' ');
@@ -28,4 +25,8 @@ export const initialData: Partial<IBaseElement> = {
   placeholder: '请选择日期',
   allowClear: true,
   datePickerType: '',
+  startDateCustom: `function main(moment) {
+    return moment().format('YYYY-MM-DD HH:mm:ss');
+};
+`,
 };

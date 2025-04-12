@@ -10,16 +10,23 @@ import { ReactSortable } from '@sobot/form-editor-ui';
 import './style.less';
 
 export const RenderContainer: TElementRender = ({ element, customStyle }) => {
-  const { id } = store.formAttrs;
+  const { id } = store.editorAttrs;
   const { mode, ElementsMap } = useEditorContext();
-  const { parentId, horizontalGap = 0, verticalGap = 0, align, justify, direction } = element;
+  const {
+    parentId,
+    horizontalGap = 0,
+    verticalGap = 0,
+    align,
+    justify,
+    direction,
+  } = element;
 
   const style = useMemo(() => {
     return {
       width: '100%',
       ...customStyle,
-    }
-  }, [customStyle])
+    };
+  }, [customStyle]);
 
   return (
     <ReactSortable<IBaseElement>

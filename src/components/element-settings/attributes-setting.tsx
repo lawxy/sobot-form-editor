@@ -18,8 +18,10 @@ export const AttributesSetting: FC<
   const isJsonValidate = useRef<boolean>(true);
 
   useEffect(() => {
-    setVal(value);
-  }, [value]);
+    if (!open) {
+      setVal(value);
+    }
+  }, [value, open]);
 
   return (
     <div>

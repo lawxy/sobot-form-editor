@@ -43,7 +43,7 @@ export const triggerService = async (id: string) => {
       method,
       url,
       data,
-      params
+      params,
     });
   } catch (e) {
     return { msg: DEFAULT_ERROR_MESSAGE };

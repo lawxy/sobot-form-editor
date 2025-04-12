@@ -6,7 +6,11 @@ import { prefixCls } from '@/const';
 import { observer } from 'mobx-react-lite';
 import { tabStore, type TElementTab } from '@/store';
 import BasicInfo from './element-settings/basic-info';
-import { CustomCssSetting, FormCssSetting, ElementCssSetting } from './element-settings/custom-css-setting';
+import {
+  CustomCssSetting,
+  FormCssSetting,
+  ElementCssSetting,
+} from './element-settings/custom-css-setting';
 
 import { Tabs } from '@sobot/soil-ui';
 

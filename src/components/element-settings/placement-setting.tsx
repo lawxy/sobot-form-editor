@@ -8,8 +8,12 @@ import { SettingItem } from '../setting-common';
 export const PlacementSetting = observer(() => {
   const { placement } = store.selectedElement;
   return (
-    <SettingItem label="位置" tips='placement'>
-      <Select options={PlacementOptions} value={placement} onChange={(value) => store.setSelectedProp('placement', value)} />
+    <SettingItem label="位置" tips="placement">
+      <Select
+        options={PlacementOptions}
+        value={placement}
+        onChange={(value) => store.setSelectedProp('placement', value)}
+      />
     </SettingItem>
   );
 });

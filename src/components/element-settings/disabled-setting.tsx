@@ -5,18 +5,17 @@ import { SettingItem } from '../setting-common';
 import store from '@/store';
 
 export const DisabledSetting = observer(() => {
-    const { disabled } = store.selectedElement;
+  const { disabled } = store.selectedElement;
 
-    return (
-        <SettingItem label="是否禁用">
-            <Switch
-                size="small"
-                checked={disabled}
-                onChange={(val) => {
-                    store.setSelectedProp('disabled', val);
-                }}
-            />
-        </SettingItem>
-    );
+  return (
+    <SettingItem label="是否禁用">
+      <Switch
+        size="small"
+        checked={disabled}
+        onChange={(val) => {
+          store.setSelectedProp('disabled', val);
+        }}
+      />
+    </SettingItem>
+  );
 });
-

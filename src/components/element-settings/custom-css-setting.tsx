@@ -27,88 +27,94 @@ interface CustomCssSettingProps {
   label?: string;
 }
 
-export const CustomCssSetting: React.FC<CustomCssSettingProps> = ({defaultValue, editorStyle, onSave, label, style}) => {
-    const [canSave, setCanSave] = useState(false);
-    const isJsonValidate = useRef<boolean>(true);
-    const tempVal = useRef('');
-    const monaco = useMonaco();
-    const focus = useRef(false);
+export const CustomCssSetting: React.FC<CustomCssSettingProps> = ({
+  defaultValue,
+  editorStyle,
+  onSave,
+  label,
+  style,
+}) => {
+  const [canSave, setCanSave] = useState(false);
+  const isJsonValidate = useRef<boolean>(true);
+  const tempVal = useRef('');
+  const monaco = useMonaco();
+  const focus = useRef(false);
 
-    useDesignEffect(() => {
-      const keydonwFn = (e: KeyboardEvent) => {
-        if (!focus.current) return;
-        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-          e.preventDefault();
-          handleSave();
-        }
-      };
-      document.addEventListener('keydown', keydonwFn);
-      return () => {
-        document.removeEventListener('keydown', keydonwFn);
-      };
-    });
-
-    useDesignEffect(() => {
-      if (!monaco) return;
-      monaco.languages.css.lessDefaults.setDiagnosticsOptions({
-      // monaco.languages.css.cssDefaults.setDiagnosticsOptions({
-        validate: true,
-        lint: {
-          emptyRules: 'ignore', // 忽略空规则校验
-        },
-      });
-    }, [monaco]);
-
-    const handleSave = () => {
-      if (isJsonValidate.current) {
-        onSave(tempVal.current);
-        setCanSave(false);
-        return;
+  useDesignEffect(() => {
+    const keydonwFn = (e: KeyboardEvent) => {
+      if (!focus.current) return;
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        handleSave();
       }
-      message.error('格式不对');
     };
+    document.addEventListener('keydown', keydonwFn);
+    return () => {
+      document.removeEventListener('keydown', keydonwFn);
+    };
+  });
 
-    return (
-      <>
-        <SettingItem
-          tips="选择器是为了方便格式书写，并不存在于html中"
-          label={label || '自定义CSS'}
-          style={style || {}}
-        >
-          <Button
-            disabled={!canSave}
-            onClick={handleSave}
-            className="fe-attr-setting-btn"
-            size="small"
-            type="primary"
-          >
-            保存
-          </Button>
-        </SettingItem>
-        <MonacoEditor
-          style={editorStyle || {}}
-          language="less"
-          value={defaultValue}
-          onChange={(v) => {
-            setCanSave(true);
-            tempVal.current = v as string;
-          }}
-          onValidate={(errors) => {
-            isJsonValidate.current = errors.length === 0;
-          }}
-          options={{
-            tabSize: 2,
-          }}
-          onFocus={() => {
-            focus.current = true;
-          }}
-          onBlur={() => {
-            focus.current = false;
-          }}
-        />
-      </>
-    );
+  useDesignEffect(() => {
+    if (!monaco) return;
+    monaco.languages.css.lessDefaults.setDiagnosticsOptions({
+      // monaco.languages.css.cssDefaults.setDiagnosticsOptions({
+      validate: true,
+      lint: {
+        emptyRules: 'ignore', // 忽略空规则校验
+      },
+    });
+  }, [monaco]);
+
+  const handleSave = () => {
+    if (isJsonValidate.current) {
+      onSave(tempVal.current);
+      setCanSave(false);
+      return;
+    }
+    message.error('格式不对');
   };
+
+  return (
+    <>
+      <SettingItem
+        tips="选择器是为了方便格式书写，并不存在于html中"
+        label={label || '自定义CSS'}
+        style={style || {}}
+      >
+        <Button
+          disabled={!canSave}
+          onClick={handleSave}
+          className="fe-attr-setting-btn"
+          size="small"
+          type="primary"
+        >
+          保存
+        </Button>
+      </SettingItem>
+      <MonacoEditor
+        style={editorStyle || {}}
+        language="less"
+        value={defaultValue}
+        onChange={(v) => {
+          setCanSave(true);
+          tempVal.current = v as string;
+        }}
+        onValidate={(errors) => {
+          isJsonValidate.current = errors.length === 0;
+        }}
+        options={{
+          tabSize: 2,
+        }}
+        onFocus={() => {
+          focus.current = true;
+        }}
+        onBlur={() => {
+          focus.current = false;
+        }}
+      />
+    </>
+  );
+};
 
 export const ElementCssSetting = observer(() => {
   const { current, setProp } = useCurrent('element');
@@ -125,7 +131,7 @@ export const ElementCssSetting = observer(() => {
   };
 
   return (
-    <CustomCssSetting 
+    <CustomCssSetting
       defaultValue={value}
       editorStyle={{
         height: 'calc(100vh - 150px)',
@@ -150,7 +156,7 @@ export const FormCssSetting = observer(() => {
   };
 
   return (
-    <CustomCssSetting 
+    <CustomCssSetting
       defaultValue={value}
       editorStyle={{
         height: '150px',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select, Input, Switch } from 'antd';
-import { DatePicker } from '@sobot/soil-ui'
+import { DatePicker } from '@sobot/soil-ui';
 import dayjs from 'dayjs';
 
 import {
@@ -12,6 +12,7 @@ import {
   AllowClear,
   DisabledSetting,
   PlacementSetting,
+  DefaultDateSetting,
 } from '@/components';
 import type { TElementSetting } from '@/types';
 import { formatDate } from '@/utils';
@@ -44,7 +45,6 @@ const datePickerTypeOptions = [
     label: '季度',
     value: 'quarter',
   },
-
 ];
 
 export const SettingDate: TElementSetting = ({
@@ -62,29 +62,27 @@ export const SettingDate: TElementSetting = ({
       <SettingWrap title="元素设置">
         <PlaceholderSetting />
 
-        <SettingItem label="类型">
+        <SettingItem label="日期类型">
           <Select
             value={datePickerType}
             options={datePickerTypeOptions}
             onChange={(val) => setElementProp('datePickerType', val)}
           />
         </SettingItem>
-   
-        {
-          datePickerType === '' && (
-            <SettingItem label="日期格式">
-              <Select
-                value={element.dateFormat}
-                style={{ width: '100%' }}
-                options={dateOptions}
-                onChange={(val) => {
-                  setElementProp('dateFormat', val);
-                }}
-              />
-            </SettingItem>
-          )
-        }
-        <DefaultValueSetting>
+
+        {datePickerType === '' && (
+          <SettingItem label="日期格式">
+            <Select
+              value={element.dateFormat}
+              style={{ width: '100%' }}
+              options={dateOptions}
+              onChange={(val) => {
+                setElementProp('dateFormat', val);
+              }}
+            />
+          </SettingItem>
+        )}
+        {/* <DefaultValueSetting>
           {(value) => (
             <DatePicker
               format={dateFormat}
@@ -95,7 +93,11 @@ export const SettingDate: TElementSetting = ({
               placement="bottomRight"
             />
           )}
-        </DefaultValueSetting>
+        </DefaultValueSetting> */}
+        <DefaultDateSetting
+          label="默认日期"
+          type='startDate'
+        />
         <SettingItem label="标题">
           <Input
             value={addonBefore}

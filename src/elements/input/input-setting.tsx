@@ -19,7 +19,18 @@ const typeOptions = [
 ];
 
 export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
-  const { textType, minRows, maxRows, autoSize, disabled, showCount, minNum, maxNum, addonBefore, addonAfter } = element;
+  const {
+    textType,
+    minRows,
+    maxRows,
+    autoSize,
+    disabled,
+    showCount,
+    minNum,
+    maxNum,
+    addonBefore,
+    addonAfter,
+  } = element;
   return (
     <>
       <SettingWrap title="元素设置">
@@ -31,7 +42,10 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
             style={{ width: '100%' }}
             options={typeOptions}
             onChange={(val) => {
-              setElementProp('textType', val as 'single' | 'multiple' | 'password');
+              setElementProp(
+                'textType',
+                val as 'single' | 'multiple' | 'password',
+              );
             }}
           />
         </SettingItem>
@@ -67,28 +81,26 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
             }}
           />
         </SettingItem>
-        {
-          textType === 'single' && (
-            <>
-              <SettingItem label="前缀">
-                <Input
-                  value={addonBefore}
-                  onChange={(e) => {
-                    setElementProp('addonBefore', e.target.value);
-                  }}
-                />
-              </SettingItem>
-              <SettingItem label="后缀">
-                <Input
-                  value={addonAfter}
-                  onChange={(e) => {
-                    setElementProp('addonAfter', e.target.value);
-                  }}
-                />
-              </SettingItem>
-            </>
-          )
-        }
+        {textType === 'single' && (
+          <>
+            <SettingItem label="前缀">
+              <Input
+                value={addonBefore}
+                onChange={(e) => {
+                  setElementProp('addonBefore', e.target.value);
+                }}
+              />
+            </SettingItem>
+            <SettingItem label="后缀">
+              <Input
+                value={addonAfter}
+                onChange={(e) => {
+                  setElementProp('addonAfter', e.target.value);
+                }}
+              />
+            </SettingItem>
+          </>
+        )}
         {textType === 'multiple' && (
           <>
             <SettingItem label="自适应行数">

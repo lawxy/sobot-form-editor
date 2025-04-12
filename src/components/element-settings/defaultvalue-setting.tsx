@@ -9,7 +9,7 @@ const DefaultValueSettingContent: FC<
   { label?: string } & Partial<ConsumerProps<any>>
 > = ({ children, label }) => {
   const { id, fieldName } = store.selectedElement || {};
-  const value = store.fieldValues[id!];
+  const value = store.fieldValues[fieldName! || id!];
   return (
     <SettingItem label={label ?? '默认值'}>
       {children ? (

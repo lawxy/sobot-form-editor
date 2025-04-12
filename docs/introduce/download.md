@@ -59,7 +59,7 @@ window.GLOBAL_FORM_EDITOR_DEFAULT_VALUE = {
     }
   ],
   "fieldValues": {},
-  "formAttrs": {
+  "editorAttrs": {
     "horizontalGap": 8,
     "verticalGap": 8,
     "customCss": "#form {\n\tpadding: 10px;\n\twidth: 1000px;\n\tmargin: 0 auto;\n}",

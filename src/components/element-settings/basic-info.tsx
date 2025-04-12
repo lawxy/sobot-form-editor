@@ -7,31 +7,44 @@ import type { TDirection } from '../../types';
 import { SettingItem, SettingWrap } from '../setting-common';
 
 const BasicInfo = () => {
-  const { gridSpan, id, gridOffset, fieldName, isContainer } = store.selectedElement;
+  const { gridSpan, id, gridOffset, fieldName, isContainer } =
+    store.selectedElement;
   return (
     <SettingWrap title="基础设置">
-      {
-        !isContainer && (
-          <>
-            <SettingItem label="字段">
-              <Input
-                value={fieldName}
-                onChange={(e) => {
-                  store.setSelectedProp('fieldName', e.target.value);
-                }}
-              />
-            </SettingItem>
-            <SettingItem label="表单项">
-              <Switch
-                checked={store.selectedElement?.isFormItem}
-                onChange={(checked) => {
-                  store.setSelectedProp('isFormItem', checked);
-                }}
-              />
-            </SettingItem>
-          </>
-        )
-      }
+      {!isContainer && (
+        <>
+          <SettingItem label="字段">
+            <Input
+              value={fieldName}
+              onChange={(e) => {
+                const inputValue = e.target.value;
+
+                const formValue = store.getFieldValue(fieldName! || id!);
+
+                store.removeField(id!);
+
+                if (fieldName) {
+                  store.removeField(fieldName);
+                }
+
+                if (formValue) {
+                  store.setFieldValue(inputValue! || id!, formValue);
+                }
+
+                store.setSelectedProp('fieldName', inputValue);
+              }}
+            />
+          </SettingItem>
+          <SettingItem label="表单项">
+            <Switch
+              checked={store.selectedElement?.isFormItem}
+              onChange={(checked) => {
+                store.setSelectedProp('isFormItem', checked);
+              }}
+            />
+          </SettingItem>
+        </>
+      )}
       <SettingItem label="元素id">
         <div>{id}</div>
       </SettingItem>

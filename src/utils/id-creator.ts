@@ -6,6 +6,6 @@ export function getRandomString(): string {
  * 生成id
  */
 export function idCreator(prefix?: string): string {
-  prefix = prefix || 'el'
+  prefix = prefix || 'el';
   return `${prefix}-${getRandomString()}`;
 }

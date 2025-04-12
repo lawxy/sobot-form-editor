@@ -22,7 +22,7 @@ export const handleSort = async (
     const newEl = {
       type: item.dataset.type,
       ...initialData,
-      id: idCreator(),
+      id: idCreator(item.dataset.type),
       parentId,
     };
 

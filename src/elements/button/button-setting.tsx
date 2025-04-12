@@ -19,20 +19,27 @@ export const SettingButton: TElementSetting = ({ element, setElementProp }) => {
           value={element.btnType}
           options={[
             {
-              label: '主要按钮', value: 'primary'
+              label: '主要按钮',
+              value: 'primary',
             },
             {
-              label: '次要按钮', value: ''
+              label: '次要按钮',
+              value: '',
             },
             {
-              label: '文字按钮', value: 'text'
+              label: '文字按钮',
+              value: 'text',
             },
             {
-              label: '链接按钮', value: 'link'
+              label: '链接按钮',
+              value: 'link',
             },
           ]}
           onChange={(v) => {
-            setElementProp('btnType', v as 'primary' | '' | 'dashed' | 'link' | 'text');
+            setElementProp(
+              'btnType',
+              v as 'primary' | '' | 'dashed' | 'link' | 'text',
+            );
           }}
         />
       </SettingItem>
@@ -41,16 +48,20 @@ export const SettingButton: TElementSetting = ({ element, setElementProp }) => {
           value={element.size}
           options={[
             {
-              label: '大按钮', value: 'large'
+              label: '大按钮',
+              value: 'large',
             },
             {
-              label: '默认按钮', value: ''
+              label: '默认按钮',
+              value: '',
             },
             {
-              label: '小按钮', value: 'small'
+              label: '小按钮',
+              value: 'small',
             },
             {
-              label: 'mini按钮', value: 'mini'
+              label: 'mini按钮',
+              value: 'mini',
             },
           ]}
           onChange={(v) => {

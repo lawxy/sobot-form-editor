@@ -6,12 +6,16 @@ import {
   SettingItem,
   RegPattern,
   DefaultValueSetting,
-  UseGroupSetting
+  UseGroupSetting,
 } from '@/components';
 import { DirectionOpions } from '@/const';
 import type { TDirection, TElementSetting } from '@/types';
 
-export const SettingRadio: TElementSetting = ({ element, setElementProp, setFieldValue }) => {
+export const SettingRadio: TElementSetting = ({
+  element,
+  setElementProp,
+  setFieldValue,
+}) => {
   return (
     <>
       <SettingWrap title="元素设置">
@@ -28,22 +32,20 @@ export const SettingRadio: TElementSetting = ({ element, setElementProp, setFiel
           )}
         </DefaultValueSetting>
         <UseGroupSetting />
-        {
-          element.useGroup && (
-            <>
-              <SettingItem label="排列方式">
-                <Select
-                  options={DirectionOpions}
-                  value={element.direction}
-                  onChange={(val) => {
-                    setElementProp('direction', val as TDirection);
-                  }}
-                />
-              </SettingItem>
-              <OptionSetting />
+        {element.useGroup && (
+          <>
+            <SettingItem label="排列方式">
+              <Select
+                options={DirectionOpions}
+                value={element.direction}
+                onChange={(val) => {
+                  setElementProp('direction', val as TDirection);
+                }}
+              />
+            </SettingItem>
+            <OptionSetting />
           </>
-        )
-      }
+        )}
       </SettingWrap>
       <RegPattern />
     </>

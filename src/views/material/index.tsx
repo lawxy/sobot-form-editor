@@ -48,8 +48,8 @@ export const Material = observer(() => {
         store.appendEl({
           ...initialData,
           type,
-          id: idCreator(),
-          parentId: store.formAttrs.id,
+          id: idCreator(type),
+          parentId: store.editorAttrs.id,
         });
       }
     };

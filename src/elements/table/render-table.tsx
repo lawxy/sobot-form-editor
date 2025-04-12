@@ -2,7 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { Table } from '@sobot/soil-ui';
 
 import type { TElementRender } from '@sobot/form-editor';
-import { useFormUpdate, useRegisterEvents, EEventAction } from '@sobot/form-editor';
+import {
+  useFormUpdate,
+  useRegisterEvents,
+  EEventAction,
+} from '@sobot/form-editor';
 import type { ITableEdit } from './type';
 
 export const RenderTable: TElementRender = ({

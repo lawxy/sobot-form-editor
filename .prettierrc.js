@@ -8,6 +8,11 @@ module.exports = {
   proseWrap: 'never',
   singleQuote: true,
   trailingComma: 'all',
+  bracketSpacing: true,
+  jsxBracketSameLine: false,
+  jsxSingleQuote: false,
+  arrowParens: 'always',
+  // semi: true,
   overrides: [
     {
       files: '*.md',

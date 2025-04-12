@@ -32,7 +32,7 @@ export const SettingTable: TElementSetting = ({ element, setElementProp }) => {
       <SettingItem label="纵向滚动高度">
         <Input value={scrollY} onChange={handleChange('scrollY')} />
       </SettingItem>
-   
+
       <SettingItem label="是否可分页">
         <Switch
           size="small"

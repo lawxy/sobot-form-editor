@@ -10,11 +10,23 @@ export const RenderInput: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { textType, minRows, maxRows, id, autoSize, placeholder, allowClear, disabled, showCount, minNum, maxNum, addonBefore, addonAfter } =
-    element;
+  const {
+    textType,
+    minRows,
+    maxRows,
+    id,
+    autoSize,
+    placeholder,
+    allowClear,
+    disabled,
+    showCount,
+    minNum,
+    maxNum,
+    addonBefore,
+    addonAfter,
+  } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
-
 
   const handleEvent =
     (action: EEventAction) =>
@@ -42,7 +54,7 @@ export const RenderInput: TElementRender = ({
         <Input.TextArea
           autoSize={
             autoSize
-              ? {minRows: 1}
+              ? { minRows: 1 }
               : {
                   minRows,
                   maxRows,

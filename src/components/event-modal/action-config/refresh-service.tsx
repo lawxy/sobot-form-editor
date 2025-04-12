@@ -52,10 +52,7 @@ const generateActionSelect = (
   );
 };
 
-const RefreshService: React.FC<IConfig> = ({
-  onChange,
-  eventTarget,
-}) => {
+const RefreshService: React.FC<IConfig> = ({ onChange, eventTarget }) => {
   const {
     targetServiceId,
     targetPayload,
@@ -123,10 +120,14 @@ const RefreshService: React.FC<IConfig> = ({
     }
   };
 
-  console.log('store.getFormServices()', store.getFormServices(),store.getFormServices()?.map((item) => ({
-    label: item?.name,
-    value: item?.id,
-  })));
+  console.log(
+    'store.getFormServices()',
+    store.getFormServices(),
+    store.getFormServices()?.map((item) => ({
+      label: item?.name,
+      value: item?.id,
+    })),
+  );
   return (
     <>
       <div>
@@ -134,12 +135,10 @@ const RefreshService: React.FC<IConfig> = ({
         <Select
           allowClear
           className={prefixCls('event-select')}
-          options={
-            store.getFormServices()?.map((item) => ({
-              label: item?.name,
-              value: item?.id,
-            }))
-          }
+          options={store.getFormServices()?.map((item) => ({
+            label: item?.name,
+            value: item?.id,
+          }))}
           style={{ width: 200 }}
           defaultValue={targetServiceId}
           onChange={(v) => {

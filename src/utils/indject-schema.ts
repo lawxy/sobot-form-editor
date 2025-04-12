@@ -7,11 +7,11 @@ export const injectSchema = (schema: IFormSchema) => {
   const {
     formElements = [],
     fieldValues = {},
-    formAttrs = defaultFormAttrs,
+    editorAttrs = defaultFormAttrs,
     formServices = [],
   } = schema;
   store.setFormElements(formElements);
   store.setFieldsValues(fieldValues);
-  store.setFormAttrs(formAttrs);
+  store.setFormAttrs(editorAttrs);
   store.setFormServices(formServices);
 };

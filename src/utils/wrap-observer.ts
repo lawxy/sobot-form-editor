@@ -4,7 +4,7 @@ import type {
   TDragElementObject,
   IDragElementProp,
 } from '@/types';
-import { hasObservered } from '@/utils'
+import { hasObservered } from '@/utils';
 
 export const wrapObserver = (elements: TDragElement, custom?: boolean) => {
   if (Array.isArray(elements)) {
@@ -17,10 +17,10 @@ export const wrapObserver = (elements: TDragElement, custom?: boolean) => {
     );
   }
   Object.values(elements).forEach((element) => {
-    if(!hasObservered(element.render)){
+    if (!hasObservered(element.render)) {
       element.render = observer(element.render);
     }
-    if(!hasObservered(element.setting)){
+    if (!hasObservered(element.setting)) {
       element.setting = observer(element.setting);
     }
     if (custom) {

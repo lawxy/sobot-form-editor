@@ -13,7 +13,7 @@ export const createPanel = (props = {}) => {
     ...initialData,
     elementName: 'tab选项卡',
     type: ELEMENT_CONTAINER,
-    id: idCreator('el'),
+    id: idCreator('tab-panel'),
     ...props,
   };
   store.appendEl(panel, false);
@@ -38,5 +38,13 @@ export const RenderTabs: TElementRender = ({ element, customStyle }) => {
     }
   }, [children?.length]);
 
-  return <Tabs className={prefixCls('render-tabs')} items={items} type={element.tabType} style={customStyle} underline={underline} />;
+  return (
+    <Tabs
+      className={prefixCls('render-tabs')}
+      items={items}
+      type={element.tabType}
+      style={customStyle}
+      underline={underline}
+    />
+  );
 };

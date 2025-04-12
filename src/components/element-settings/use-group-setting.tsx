@@ -5,18 +5,17 @@ import { SettingItem } from '../setting-common';
 import store from '@/store';
 
 export const UseGroupSetting = observer(() => {
-    const { useGroup } = store.selectedElement;
+  const { useGroup } = store.selectedElement;
 
-    return (
-        <SettingItem label="使用分组" tips='使用分组才能托管在表单上'>
-            <Switch
-                size="small"
-                checked={useGroup}
-                onChange={(val) => {
-                    store.setSelectedProp('useGroup', val);
-                }}
-            />
-        </SettingItem>
-    );
+  return (
+    <SettingItem label="使用分组" tips="使用分组才能托管在表单上">
+      <Switch
+        size="small"
+        checked={useGroup}
+        onChange={(val) => {
+          store.setSelectedProp('useGroup', val);
+        }}
+      />
+    </SettingItem>
+  );
 });
-

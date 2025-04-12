@@ -20,15 +20,15 @@ class TabStore {
     this.formTab = tab;
   }
 
-  elementTab: TElementTab =  'attribute';
+  elementTab: TElementTab = 'attribute';
 
   setElementTab(tab: TElementTab) {
     this.elementTab = tab;
   }
 
   init() {
-    this.setFormTab('element')
-    this.setElementTab('attribute')
+    this.setFormTab('element');
+    this.setElementTab('attribute');
   }
 }
 

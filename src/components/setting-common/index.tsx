@@ -21,7 +21,12 @@ export const SettingItem: FC<
         [prefixCls('setting-item-vertical')]: !!vertical,
       })}
     >
-      <div className={prefixCls('setting-item-label')}>
+      <div
+        className={c({
+          [prefixCls('setting-item-label')]: true,
+          [prefixCls('setting-item-label-void')]: !label,
+        })}
+      >
         {label}&nbsp;
         {tips && <QuestionPopover content={tips} />}
       </div>

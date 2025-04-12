@@ -17,6 +17,14 @@ export default {
     this.formInstance?.setFieldsValue(this.fieldValues);
   },
 
+  getFieldValue(field: string) {
+    return this.fieldValues[field];
+  },
+
+  getFieldValues() {
+    return this.fieldValues;
+  },
+
   setFieldValue(field: string, value: any) {
     this.fieldValues[field] = value;
     // this.formInstance?.setFieldValue(field, value);

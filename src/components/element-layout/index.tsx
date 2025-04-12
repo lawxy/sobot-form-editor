@@ -113,7 +113,7 @@ export const ElementLayout: FC<
         </div>
       </div>
     </WrapEl>
-  )
+  );
 
   return (
     <Col
@@ -124,15 +124,13 @@ export const ElementLayout: FC<
       data-id={id}
       data-type={type}
     >
-      {
-        element.isFormItem ? (
-          <Form.Item name={fieldName || id} rules={rules} >
-            {content}
-          </Form.Item>
-        ) : (
-          content
-        )
-      }
+      {element.isFormItem ? (
+        <Form.Item name={fieldName || id} rules={rules}>
+          {content}
+        </Form.Item>
+      ) : (
+        content
+      )}
     </Col>
   );
 });
@@ -171,7 +169,11 @@ export const RenderElementWithLayout: FC<{
   return (
     <ElementLayout element={element}>
       <Component
-        fieldValue={element.fieldName ? store.fieldValues[element.fieldName!] : store.fieldValues[element.id!]}
+        fieldValue={
+          element.fieldName
+            ? store.fieldValues[element.fieldName!]
+            : store.fieldValues[element.id!]
+        }
         setFieldValue={setFieldValue}
         setElementProp={setElementProp}
         element={element}
