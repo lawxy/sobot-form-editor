@@ -16,6 +16,52 @@ export default {
 
   formElementMap: new Map(),
 
+  traceActions: [],
+
+  tracePointer: 0,
+
+  // 是否需要追踪
+  tracing: true,
+
+  addTraceAction(action: { undo: () => any; redo: () => any }) {
+    if (!this.tracing) return;
+
+    if (this.traceActions.length === 0) {
+      this.traceActions.push({ redo: action.redo });
+      this.traceActions.push({ undo: action.undo });
+      this.tracePointer = 2;
+    } else {
+      const currentAction = this.traceActions[this.tracePointer - 1] || {};
+      // 当前指针添加恢复功能
+      currentAction.redo = action.redo;
+      this.traceActions[this.tracePointer - 1] = currentAction;
+
+      this.traceActions.length = ++this.tracePointer;
+      // 新指针添加撤回功能
+      this.traceActions[this.tracePointer - 1] = { undo: action.undo };
+    }
+
+    // this.traceActions.length = ++this.tracePointer;
+
+    // this.tracePointer = this.traceActions.length;
+  },
+
+  async undo() {
+    this.tracing = false;
+    const action = this.traceActions[this.tracePointer - 1];
+    action?.undo?.();
+    this.tracePointer--;
+    this.tracing = true;
+  },
+
+  async redo() {
+    this.tracing = false;
+    const action = this.traceActions[this.tracePointer - 1];
+    action?.redo?.();
+    this.tracePointer++;
+    this.tracing = true;
+  },
+
   flatElement(el: IBaseElement) {
     runInAction(() => {
       this.formElementMap.set(el.id!, el);
@@ -63,6 +109,15 @@ export default {
     }
 
     this.formElementMap.set(el.id!, el);
+
+    this.addTraceAction({
+      undo: () => {
+        this.deleteEl(el);
+      },
+      redo: () => {
+        this.appendEl(el, selectNewElement);
+      },
+    });
   },
 
   /**
@@ -74,12 +129,35 @@ export default {
     parentChildren.splice(idx, 0, el);
     this.formElementMap.set(el.id!, el);
     this.setSelectedElement(el);
+
+    this.addTraceAction({
+      undo: () => {
+        this.deleteEl(el);
+      },
+      redo: () => {
+        this.insertEl(el, idx);
+      },
+    });
   },
 
   /**
    * 移动元素
    */
-  moveEl(parentId: string, fromIndex: number, toIndex: number) {
+  // moveEl(parentId: string, fromIndex: number, toIndex: number) {
+  //   const el = this.getElement(parentId);
+  //   const parentChildren = this.getParentChildren(parentId);
+  //   const afterSort = arrayMoveImmutable(parentChildren, fromIndex, toIndex);
+  //   if (!el) {
+  //     this.formElements = afterSort;
+  //   } else {
+  //     this.setElementProp(parentId, 'children', afterSort);
+  //   }
+  // },
+
+  /**
+   * 移动元素
+   */
+  moveElInSameParent(parentId: string, fromIndex: number, toIndex: number) {
     const el = this.getElement(parentId);
     const parentChildren = this.getParentChildren(parentId);
     const afterSort = arrayMoveImmutable(parentChildren, fromIndex, toIndex);
@@ -88,6 +166,57 @@ export default {
     } else {
       this.setElementProp(parentId, 'children', afterSort);
     }
+
+    this.addTraceAction({
+      undo: () => {
+        this.moveElInSameParent(parentId, toIndex, fromIndex);
+      },
+      redo: () => {
+        console.log('????');
+        this.moveElInSameParent(parentId, fromIndex, toIndex);
+      },
+    });
+  },
+
+  async moveElInDifferentParent(
+    htmlElement: HTMLElement,
+    oldParentId: string,
+    newParentId: string,
+    oldIndex: number,
+    newIndex: number,
+  ) {
+    this.tracing = false;
+    const current = this.getElement(htmlElement.dataset.id);
+    await this.deleteEl(current, true);
+    htmlElement.setAttribute('data-parent-id', newParentId);
+    const newEl = {
+      ...current,
+      parentId: newParentId,
+    };
+    this.formElementMap.set(htmlElement.dataset.id!, newEl);
+    this.insertEl(newEl, newIndex!);
+    this.tracing = true;
+
+    this.addTraceAction({
+      undo: () => {
+        this.moveElInDifferentParent(
+          htmlElement,
+          newParentId,
+          oldParentId,
+          newIndex,
+          oldIndex,
+        );
+      },
+      redo: () => {
+        this.moveElInDifferentParent(
+          htmlElement,
+          oldParentId,
+          newParentId,
+          oldIndex,
+          newIndex,
+        );
+      },
+    });
   },
 
   dfsEl(el, callback, containParent) {
@@ -133,6 +262,16 @@ export default {
     const formValues = baseStore.fieldValues;
     delete formValues[el.id!];
     baseStore.setFieldsValues(formValues);
+
+    this.addTraceAction({
+      undo: () => {
+        this.insertEl(el, idx);
+      },
+      redo: () => {
+        this.deleteEl(el, move);
+      },
+    });
+
     return true;
   },
 
@@ -175,6 +314,15 @@ export default {
     parentChildren.splice(idx + 1, 0, newEl);
 
     baseStore.setFieldValue(newEl.id!, baseStore.fieldValues[el.id!]);
+
+    this.addTraceAction({
+      undo: () => {
+        this.deleteEl(newEl);
+      },
+      redo: () => {
+        this.copyEl(el);
+      },
+    });
 
     return newEl;
   },

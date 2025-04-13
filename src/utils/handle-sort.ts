@@ -32,23 +32,31 @@ export const handleSort = async (
 
   // 同一个容器去间的移动
   if (from?.dataset?.id === to?.dataset?.id) {
-    store.moveEl(parentId, oldIndex!, newIndex!);
+    // store.moveEl(parentId, oldIndex!, newIndex!);
+    store.moveElInSameParent(parentId, oldIndex!, newIndex!);
     return;
   }
 
   // 不同容器(表单)之间移动
-  const current = store.getElement(item.dataset.id);
-
-  store.deleteEl(current, true);
-
-  item.setAttribute('data-parent-id', parentId);
-
-  const newEl = {
-    ...current,
+  store.moveElInDifferentParent(
+    item,
+    from?.dataset?.parentId!,
     parentId,
-  };
+    oldIndex!,
+    newIndex!,
+  );
+  // const current = store.getElement(item.dataset.id);
 
-  store.formElementMap.set(item.dataset.id!, newEl);
+  // store.deleteEl(current, true);
 
-  store.insertEl(newEl, newIndex!);
+  // item.setAttribute('data-parent-id', parentId);
+
+  // const newEl = {
+  //   ...current,
+  //   parentId,
+  // };
+
+  // store.formElementMap.set(item.dataset.id!, newEl);
+
+  // store.insertEl(newEl, newIndex!);
 };

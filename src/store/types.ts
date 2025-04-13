@@ -12,6 +12,21 @@ export interface IElementStore {
 
   formElementMap: Map<string, IBaseElement>;
 
+  traceActions: Array<{
+    undo?: () => any;
+    redo?: () => any;
+  }>;
+
+  redo: () => void;
+
+  undo: () => void;
+
+  tracePointer: number;
+
+  tracing: boolean;
+
+  addTraceAction: (action: { undo: () => any; redo: () => any }) => void;
+
   flatElement: (el: IBaseElement) => void;
 
   setFormElements: (els: IBaseElement[]) => void;
@@ -26,7 +41,21 @@ export interface IElementStore {
 
   insertEl: (el: IBaseElement, idx: number) => void;
 
-  moveEl: (parentId: string, fromIndex: number, toIndex: number) => void;
+  // moveEl: (parentId: string, fromIndex: number, toIndex: number) => void;
+
+  moveElInSameParent: (
+    parentId: string,
+    fromIndex: number,
+    toIndex: number,
+  ) => void;
+
+  moveElInDifferentParent: (
+    htmlElement: HTMLElement,
+    oldParentId: string,
+    newParentId: string,
+    oldIndex: number,
+    newIndex: number,
+  ) => void;
 
   dfsEl: (
     el: IBaseElement,
