@@ -51,10 +51,11 @@ export interface IElementStore {
 
   moveElInDifferentParent: (
     htmlElement: HTMLElement,
-    oldParentId: string,
+    // oldParentId: string,
     newParentId: string,
-    oldIndex: number,
+    // oldIndex: number,
     newIndex: number,
+    fromHuman?: boolean,
   ) => void;
 
   dfsEl: (

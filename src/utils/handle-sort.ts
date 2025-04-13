@@ -37,13 +37,15 @@ export const handleSort = async (
     return;
   }
 
+  // console.log('from', from);
   // 不同容器(表单)之间移动
   store.moveElInDifferentParent(
     item,
-    from?.dataset?.parentId!,
+    // item?.dataset?.parentId!,
     parentId,
-    oldIndex!,
+    // oldIndex!,
     newIndex!,
+    true,
   );
   // const current = store.getElement(item.dataset.id);
 

@@ -49,17 +49,21 @@ export default {
   async undo() {
     this.tracing = false;
     const action = this.traceActions[this.tracePointer - 1];
-    action?.undo?.();
-    this.tracePointer--;
-    this.tracing = true;
+    await action?.undo?.();
+    runInAction(() => {
+      this.tracePointer--;
+      this.tracing = true;
+    });
   },
 
   async redo() {
     this.tracing = false;
     const action = this.traceActions[this.tracePointer - 1];
-    action?.redo?.();
-    this.tracePointer++;
-    this.tracing = true;
+    await action?.redo?.();
+    runInAction(() => {
+      this.tracePointer++;
+      this.tracing = true;
+    });
   },
 
   flatElement(el: IBaseElement) {
@@ -172,7 +176,6 @@ export default {
         this.moveElInSameParent(parentId, toIndex, fromIndex);
       },
       redo: () => {
-        console.log('????');
         this.moveElInSameParent(parentId, fromIndex, toIndex);
       },
     });
@@ -180,39 +183,55 @@ export default {
 
   async moveElInDifferentParent(
     htmlElement: HTMLElement,
-    oldParentId: string,
+    // oldParentId: string,
     newParentId: string,
-    oldIndex: number,
+    // oldIndex: number,
     newIndex: number,
+    fromHuman?: boolean,
   ) {
     this.tracing = false;
+
     const current = this.getElement(htmlElement.dataset.id);
+    const oldParentId = current.parentId;
+
+    // console.log('oldParentId', oldParentId);
+    const oldParent = this.getParentChildren(oldParentId);
+    // console.log('oldParent', oldParent);
+
+    const oldIndex = oldParent.findIndex((item) => item.id === current.id);
+    // console.log('oldIndex', oldIndex);
+
     await this.deleteEl(current, true);
+
     htmlElement.setAttribute('data-parent-id', newParentId);
+
     const newEl = {
       ...current,
       parentId: newParentId,
     };
     this.formElementMap.set(htmlElement.dataset.id!, newEl);
     this.insertEl(newEl, newIndex!);
-    this.tracing = true;
+
+    if (fromHuman) {
+      this.tracing = true;
+    }
 
     this.addTraceAction({
       undo: () => {
         this.moveElInDifferentParent(
           htmlElement,
-          newParentId,
-          oldParentId,
-          newIndex,
+          // newParentId,
+          oldParentId!,
+          // newIndex,
           oldIndex,
         );
       },
       redo: () => {
         this.moveElInDifferentParent(
           htmlElement,
-          oldParentId,
+          // oldParentId,
           newParentId,
-          oldIndex,
+          // oldIndex,
           newIndex,
         );
       },

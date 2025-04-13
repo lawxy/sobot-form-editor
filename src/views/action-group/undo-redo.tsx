@@ -6,9 +6,9 @@ import { cloneDeep } from 'lodash';
 export const UndoAndRedo = observer(() => {
   const { undo, redo, traceActions, tracePointer } = store;
 
-  console.log(cloneDeep(traceActions));
-  console.log(tracePointer);
-  console.log(traceActions.length);
+  // console.log(cloneDeep(traceActions));
+  // console.log(tracePointer);
+  // console.log(traceActions.length);
 
   const currentAction = traceActions[tracePointer - 1];
 
