@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Input } from 'antd';
+import { Select, Input, Divider } from 'antd';
 
 import {
   SettingItem,
@@ -14,17 +14,21 @@ import {
 import type { TElementSetting } from '@/types';
 import { dateOptions, datePickerTypeOptions } from '@/utils';
 
-export const SettingDate: TElementSetting = ({
+export const SettingDateRange: TElementSetting = ({
   element,
   setElementProp,
-  setFieldValue,
 }) => {
   const { addonBefore, datePickerType } = element;
 
   return (
     <>
       <SettingWrap title="元素设置">
-        <PlaceholderSetting />
+        <SettingItem label="标题">
+          <Input
+            value={addonBefore}
+            onChange={(e) => setElementProp('addonBefore', e.target.value)}
+          />
+        </SettingItem>
 
         <SettingItem label="日期类型">
           <Select
@@ -47,18 +51,28 @@ export const SettingDate: TElementSetting = ({
           </SettingItem>
         )}
 
+        <Divider />
+        <SettingItem label="开始时间" />
+        <PlaceholderSetting label="暗提示" field="startPlaceholder" />
         <DefaultDateSetting
-          label="默认日期"
+          label="默认时间"
           fieldType="startDate"
           type="date"
         />
-        <SettingItem label="标题">
-          <Input
-            value={addonBefore}
-            onChange={(e) => setElementProp('addonBefore', e.target.value)}
-          />
-        </SettingItem>
-        <PlacementSetting />
+        <Divider />
+
+        <SettingItem label="结束时间" />
+        <PlaceholderSetting label="暗提示" field="endPlaceholder" />
+        <DefaultDateSetting label="默认时间" fieldType="endDate" type="date" />
+        <Divider />
+
+        {/* <DefaultDateSetting
+          label="默认日期"
+          fieldType="startDate"
+          type="date"
+        /> */}
+
+        {/* <PlacementSetting /> */}
         <AllowClear />
         <DisabledSetting />
       </SettingWrap>

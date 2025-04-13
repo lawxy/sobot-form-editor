@@ -8,14 +8,20 @@ import { SettingItem } from '../setting-common';
 
 const removeId = (id: string) => id?.replace(/\-(.*)?/, '');
 
+// const defaultCSS = (id: string) => {
+//   return {
+//     element: `/* 组件样式 */\n#${removeId(
+//       id,
+//     )}{\n\t\n} \n /* 容器样式 */\n#${removeId(id)?.replace(
+//       /^el/,
+//       'container',
+//     )}{\n\t\n}`,
+//     form: `#${removeId(id)}{\n\t\n}`,
+//   };
+// };
 const defaultCSS = (id: string) => {
   return {
-    element: `/* 组件样式 */\n#${removeId(
-      id,
-    )}{\n\t\n} \n /* 容器样式 */\n#${removeId(id)?.replace(
-      /^el/,
-      'container',
-    )}{\n\t\n}`,
+    element: `/* 组件样式 */\n#el{\n\t\n} \n /* 容器样式 */\n#container{\n\t\n}`,
     form: `#${removeId(id)}{\n\t\n}`,
   };
 };
@@ -100,6 +106,7 @@ export const CustomCssSetting: React.FC<CustomCssSettingProps> = ({
           tempVal.current = v as string;
         }}
         onValidate={(errors) => {
+          console.log('errors', errors);
           isJsonValidate.current = errors.length === 0;
         }}
         options={{

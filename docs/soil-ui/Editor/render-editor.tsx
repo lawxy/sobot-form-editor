@@ -14,18 +14,22 @@ export const RenderEditor: TElementRender = ({
   const { editorMode, toolbarConfigMode, toolbarConfig } = element;
   const { mode } = useEditorContext();
   const [key, setKey] = useState(0);
-  
+
   useEffect(() => {
     setKey(key + 1);
   }, [toolbarConfigMode, toolbarConfig]);
 
-  const handleChange = useCallback((v) => {
-    setFieldValue(v);
-  }, [setFieldValue])
+  const handleChange = useCallback(
+    (v) => {
+      setFieldValue(v);
+    },
+    [setFieldValue],
+  );
 
+  // console.log('toolbarConfig', toolbarConfig);
   return (
     <SuiEditor
-      // key={mode === 'design' ? key : ''}
+      key={mode === 'design' ? key : ''}
       mode={editorMode}
       value={fieldValue || ''}
       style={{ ...customStyle }}

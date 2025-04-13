@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { TimePicker } from '@sobot/soil-ui';
-import dayjs from 'dayjs';
+import moment from 'moment';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
-import { formatDate } from '@/utils';
-import { EEventAction } from '@/types';
+import { EDateMode, EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 
 export const RenderTime: TElementRender = ({
@@ -12,7 +11,20 @@ export const RenderTime: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { dateFormat, placeholder, allowClear } = element;
+  const {
+    dateFormat,
+    placeholder,
+    allowClear,
+    addonBefore,
+    timeRange,
+    startPlaceholder,
+    endPlaceholder,
+    disabled,
+    startDateMode,
+    endDateMode,
+    startDate,
+    endDate,
+  } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -21,24 +33,92 @@ export const RenderTime: TElementRender = ({
   };
 
   const handleChange = (date: any) => {
-    setFieldValue(date ? formatDate(date, dateFormat!) : undefined);
+    if (!date) {
+      setFieldValue('null');
+      return;
+    }
+    if (Array.isArray(date)) {
+      setFieldValue(date.map((item) => moment(item)));
+    } else {
+      setFieldValue(moment(date));
+    }
   };
 
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
 
+  const Time = useMemo(() => {
+    const Component = timeRange ? TimePicker.RangePicker : TimePicker;
+
+    const _placeholder = timeRange
+      ? [startPlaceholder, endPlaceholder]
+      : placeholder;
+
+    return {
+      Component,
+      placeholder: _placeholder,
+    };
+  }, [timeRange, startPlaceholder, endPlaceholder, placeholder]);
+
+  const value = useMemo(() => {
+    // 表单有值
+    if (fieldValue) {
+      if (fieldValue === 'null') {
+        return undefined;
+      }
+      if (Array.isArray(fieldValue)) {
+        return fieldValue.map((item) => (item ? moment(item) : undefined));
+      }
+      return fieldValue ? moment(fieldValue) : undefined;
+    }
+
+    // 表单无值 走配置
+    if (timeRange) {
+      const start =
+        startDateMode === EDateMode.NOW
+          ? moment()
+          : startDate
+          ? moment(startDate)
+          : undefined;
+
+      const end =
+        endDateMode === EDateMode.NOW
+          ? moment()
+          : endDate
+          ? moment(endDate)
+          : undefined;
+
+      return [start, end];
+    }
+
+    return startDateMode === EDateMode.NOW
+      ? moment()
+      : startDate
+      ? moment(startDate)
+      : undefined;
+  }, [
+    fieldValue,
+    timeRange,
+    dateFormat,
+    startDateMode,
+    endDateMode,
+    startDate,
+    endDate,
+  ]);
+
   return (
-    <TimePicker
+    <Time.Component
       format={dateFormat}
-      value={fieldValue ? dayjs(`2000-01-01 ${fieldValue}`) : undefined}
-      getPopupContainer={(n: any) => n.parentElement}
       onChange={handleChange}
       onFocus={handleEvent(EEventAction.ON_FOCUS)}
       onBlur={handleEvent(EEventAction.ON_BLUR)}
-      placeholder={placeholder}
+      value={value as any}
+      placeholder={Time.placeholder as any}
       allowClear={allowClear}
       style={customStyle}
+      label={addonBefore}
+      disabled={disabled}
     />
   );
 };

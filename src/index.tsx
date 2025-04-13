@@ -36,13 +36,23 @@ export type TFormProps = {
   customElements?: TDragElement;
   lang?: I18nLang;
   className?: string;
+  LOCALE?: Record<string, string>;
 } & Pick<IEditorContext, 'mode' | 'actionProp'>;
 
 const FormEditorContent: React.ForwardRefRenderFunction<
   IEditorInstance,
   PropsWithChildren<TFormProps>
 > = (
-  { mode, defaultValue, actionProp, customElements, lang, children, className },
+  {
+    mode,
+    defaultValue,
+    actionProp,
+    customElements,
+    lang,
+    children,
+    className,
+    LOCALE,
+  },
   ref,
 ) => {
   const [form] = Form.useForm();
@@ -86,8 +96,9 @@ const FormEditorContent: React.ForwardRefRenderFunction<
       mode,
       actionProp,
       ElementsMap,
+      LOCALE,
     };
-  }, [mode, actionProp, customElements, ElementsMap]);
+  }, [mode, actionProp, customElements, ElementsMap, LOCALE]);
 
   const formClassName = useMemo(() => {
     const classObj = {

@@ -15,6 +15,7 @@ const SortedName = [
   'search', // 搜索框
   'number', // 数字框
   'date', // 日期
+  'date_range', // 日期范围
   'time', // 时间
   'select', // 下拉
   'radio', // 单选
@@ -57,11 +58,17 @@ import type { IDragElementProp } from '../types'
       // 仅第一个字母大写
       // const OnlyFirstUpper =
       //   elementName[0].toUpperCase() + elementName.substring(1);
-      const OnlyFirstUpper = elementName.split('-').map(item => item[0].toUpperCase() + item.substring(1)).join('');
+      const OnlyFirstUpper = elementName
+        .split('-')
+        .map((item) => item[0].toUpperCase() + item.substring(1))
+        .join('');
 
       // 所有字母大写
       // const AllUpper = elementName.toUpperCase();
-      const AllUpper = elementName.split('-').map(item => item.toUpperCase()).join('_');
+      const AllUpper = elementName
+        .split('-')
+        .map((item) => item.toUpperCase())
+        .join('_');
       // 元素控件名
       const renderComponent = `Render${OnlyFirstUpper}`;
       // 元素属性控件名

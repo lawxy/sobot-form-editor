@@ -30,7 +30,9 @@ export const SettingItem: FC<
         {label}&nbsp;
         {tips && <QuestionPopover content={tips} />}
       </div>
-      <div className={prefixCls('setting-item-value')}>{children}</div>
+      {children && (
+        <div className={prefixCls('setting-item-value')}>{children}</div>
+      )}
     </div>
   );
 };

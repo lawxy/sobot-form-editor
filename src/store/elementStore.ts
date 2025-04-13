@@ -144,7 +144,7 @@ export default {
 
     const idx = parentChildren.findIndex((item) => item.id === el.id);
 
-    const newId = idCreator();
+    const newId = idCreator(el.type);
 
     const newEl: IBaseElement = { ...cloneDeep(el), id: newId };
 

@@ -40,7 +40,6 @@ export const Material = observer(() => {
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const itemMask = e.target as HTMLElement;
-      // console.log('123', itemMask);
       if (itemMask?.classList?.contains(prefixCls('drag-item-mask'))) {
         const item = itemMask.parentElement as HTMLElement;
         const { type } = item.dataset;

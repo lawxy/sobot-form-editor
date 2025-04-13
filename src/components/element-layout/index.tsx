@@ -138,7 +138,7 @@ export const ElementLayout: FC<
 export const RenderElementWithLayout: FC<{
   element: IBaseElement;
 }> = observer(({ element }) => {
-  const { ElementsMap } = useEditorContext();
+  const { ElementsMap, LOCALE } = useEditorContext();
 
   const Component = useMemo(() => {
     const RenderComponent = ElementsMap[element.type!]?.render;
@@ -177,6 +177,7 @@ export const RenderElementWithLayout: FC<{
         setFieldValue={setFieldValue}
         setElementProp={setElementProp}
         element={element}
+        LOCALE={LOCALE}
       />
     </ElementLayout>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker, Select, Button } from '@sobot/soil-ui';
+import { DatePicker, Select, Button, TimePicker } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { EDateMode } from '@/types';
@@ -12,8 +12,13 @@ const dateModeOptions = [
   { label: '选择器', value: EDateMode.PICKER },
   { label: '自定义', value: EDateMode.CUSTOM },
 ];
+const timeModeOptions = [
+  { label: '当前时间', value: EDateMode.NOW },
+  { label: '选择器', value: EDateMode.PICKER },
+];
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+const timeFormat = 'HH:mm:ss';
 
 const defaultCustomAttribute = `function main(moment) {
     return moment().format('YYYY-MM-DD HH:mm:ss');
@@ -22,37 +27,40 @@ const defaultCustomAttribute = `function main(moment) {
 
 interface IDefaultDateSettingProps {
   label: string;
-  type: 'startDate' | 'endDate';
+  fieldType: 'startDate' | 'endDate';
+  type: 'date' | 'time';
 }
 
 export const DefaultDateSetting = observer(
-  ({ label, type }: IDefaultDateSettingProps) => {
+  ({ label, fieldType, type }: IDefaultDateSettingProps) => {
     const mode =
       store.selectedElement[
-        type === 'startDate' ? 'startDateMode' : 'endDateMode'
+        fieldType === 'startDate' ? 'startDateMode' : 'endDateMode'
       ];
 
     const value =
-      store.selectedElement[type === 'startDate' ? 'startDate' : 'endDate'];
+      store.selectedElement[
+        fieldType === 'startDate' ? 'startDate' : 'endDate'
+      ];
 
     const customValue =
       store.selectedElement[
-        type === 'startDate' ? 'startDateCustom' : 'endDateCustom'
+        fieldType === 'startDate' ? 'startDateCustom' : 'endDateCustom'
       ];
 
     const modeAttribute =
-      type === 'startDate' ? 'startDateMode' : 'endDateMode';
-
-    const valueAttribute = type === 'startDate' ? 'startDate' : 'endDate';
+      fieldType === 'startDate' ? 'startDateMode' : 'endDateMode';
 
     const customAttribute =
-      type === 'startDate' ? 'startDateCustom' : 'endDateCustom';
+      fieldType === 'startDate' ? 'startDateCustom' : 'endDateCustom';
+
+    const Picker = type === 'date' ? DatePicker : TimePicker;
 
     return (
       <>
         <SettingItem label={label}>
           <Select
-            options={dateModeOptions}
+            options={type === 'date' ? dateModeOptions : timeModeOptions}
             value={mode}
             onChange={(value) =>
               store.setSelectedProp(modeAttribute, value as EDateMode)
@@ -61,14 +69,14 @@ export const DefaultDateSetting = observer(
         </SettingItem>
         {mode === EDateMode.PICKER && (
           <SettingItem label={''}>
-            <DatePicker
-              format={dateFormat}
+            <Picker
+              format={type === 'date' ? dateFormat : timeFormat}
               showTime
               value={value ? moment(value) : null}
               onChange={(date) =>
                 store.setSelectedProp(
-                  valueAttribute,
-                  date ? date?.format(dateFormat) : undefined,
+                  fieldType,
+                  date ? moment(date).format(dateFormat) : undefined,
                 )
               }
             />

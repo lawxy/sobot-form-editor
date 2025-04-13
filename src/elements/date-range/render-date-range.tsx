@@ -7,7 +7,9 @@ import { EEventAction, EDateMode } from '@/types';
 import type { TElementRender } from '@/types';
 import { parseJs, showTimeFormat } from '@/utils';
 
-export const RenderDate: TElementRender = ({
+const { RangePicker, RangePickerV2 } = DatePicker;
+
+export const RenderDateRange: TElementRender = ({
   fieldValue,
   element,
   customStyle,
@@ -15,7 +17,6 @@ export const RenderDate: TElementRender = ({
 }) => {
   const {
     dateFormat,
-    placeholder,
     allowClear,
     addonBefore,
     datePickerType,
@@ -24,6 +25,11 @@ export const RenderDate: TElementRender = ({
     startDate,
     startDateCustom,
     disabled,
+    startPlaceholder,
+    endPlaceholder,
+    endDateMode,
+    endDate,
+    endDateCustom,
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -47,15 +53,22 @@ export const RenderDate: TElementRender = ({
   const value = useMemo(() => {
     // 表单值有值(null也算有值) - 表示这是人为操作过的表单
     if (fieldValue) {
-      return fieldValue !== 'null' ? moment(fieldValue) : undefined;
+      if (fieldValue === 'null') return undefined;
+      return fieldValue?.map((item: Moment | null) =>
+        item ? moment(item) : undefined,
+      );
     }
+
     // 其次走配置里的默认值
+    let startValue = undefined;
+    let endValue = undefined;
+
     if (startDateMode === EDateMode.NOW) {
-      return moment();
+      startValue = moment();
     }
 
     if (startDateMode === EDateMode.PICKER) {
-      return startDate ? moment(startDate) : undefined;
+      startValue = startDate ? moment(startDate) : undefined;
     }
 
     if (startDateMode === EDateMode.CUSTOM) {
@@ -65,11 +78,38 @@ export const RenderDate: TElementRender = ({
         dependencies: [moment],
         dependenciesString: ['moment'],
       });
-      return value ? moment(value) : undefined;
+      startValue = value ? moment(value) : undefined;
     }
 
-    return undefined;
-  }, [startDateMode, startDate, dateFormat, startDateCustom, fieldValue]);
+    if (endDateMode === EDateMode.NOW) {
+      endValue = moment();
+    }
+
+    if (endDateMode === EDateMode.PICKER) {
+      endValue = endDate ? moment(endDate) : undefined;
+    }
+
+    if (endDateMode === EDateMode.CUSTOM) {
+      const { value } = parseJs({
+        jsFunction: endDateCustom!,
+        valueWhenError: undefined,
+        dependencies: [moment],
+        dependenciesString: ['moment'],
+      });
+      endValue = value ? moment(value) : undefined;
+    }
+
+    return [startValue, endValue];
+  }, [
+    startDateMode,
+    startDate,
+    dateFormat,
+    startDateCustom,
+    endDateMode,
+    endDate,
+    endDateCustom,
+    fieldValue,
+  ]);
 
   const attributes = useMemo(() => {
     const baseAttributes = {
@@ -90,16 +130,15 @@ export const RenderDate: TElementRender = ({
   }, [dateFormat, addonBefore, datePickerType, placement]);
 
   return (
-    <DatePicker
+    <RangePicker
       value={value}
-      getPopupContainer={(n: any) => n.parentElement}
-      onChange={handleChange}
+      // onChange={handleChange}
       onFocus={handleEvent(EEventAction.ON_FOCUS)}
       onBlur={handleEvent(EEventAction.ON_BLUR)}
       disabled={disabled}
       allowClear={allowClear}
-      placeholder={placeholder}
       style={customStyle}
+      placeholder={[startPlaceholder!, endPlaceholder!]}
       {...attributes}
     />
   );

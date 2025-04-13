@@ -359,6 +359,18 @@ export interface IBaseElement {
    * 结束日期默认值 - 自定义
    */
   endDateCustom?: string;
+  /**
+   * 时间选择类型是否为范围选择
+   */
+  timeRange?: boolean;
+  /**
+   * 开始日期/时间默认值 - 暗文本提示
+   */
+  startPlaceholder?: string;
+  /**
+   * 结束日期/时间默认值 - 暗文本提示
+   */
+  endPlaceholder?: string;
 }
 export interface IFormAttributesProps {
   formName?: string;
@@ -383,6 +395,7 @@ export type TElementProps = {
   element: IBaseElement;
   customStyle: CSSProperties;
   fieldValue: any;
+  LOCALE: Record<string, string>;
   setFieldValue: (value: any) => void;
   setElementProp: <T extends keyof IBaseElement>(
     field: T,
