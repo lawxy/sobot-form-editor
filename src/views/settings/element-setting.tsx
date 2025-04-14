@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { cloneDeep } from 'lodash-es';
 import { TabsSetting, EventSetting } from '@/components';

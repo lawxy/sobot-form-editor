@@ -41,8 +41,6 @@ export interface IElementStore {
 
   insertEl: (el: IBaseElement, idx: number) => void;
 
-  // moveEl: (parentId: string, fromIndex: number, toIndex: number) => void;
-
   moveElInSameParent: (
     parentId: string,
     fromIndex: number,
@@ -51,9 +49,7 @@ export interface IElementStore {
 
   moveElInDifferentParent: (
     htmlElement: HTMLElement,
-    // oldParentId: string,
     newParentId: string,
-    // oldIndex: number,
     newIndex: number,
     fromHuman?: boolean,
   ) => void;

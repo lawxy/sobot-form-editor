@@ -20,7 +20,6 @@ export default {
 
   tracePointer: 0,
 
-  // 是否需要追踪
   tracing: true,
 
   addTraceAction(action: { undo: () => any; redo: () => any }) {
@@ -40,10 +39,6 @@ export default {
       // 新指针添加撤回功能
       this.traceActions[this.tracePointer - 1] = { undo: action.undo };
     }
-
-    // this.traceActions.length = ++this.tracePointer;
-
-    // this.tracePointer = this.traceActions.length;
   },
 
   async undo() {
@@ -115,8 +110,8 @@ export default {
     this.formElementMap.set(el.id!, el);
 
     this.addTraceAction({
-      undo: () => {
-        this.deleteEl(el);
+      undo: async () => {
+        await this.deleteEl(el);
       },
       redo: () => {
         this.appendEl(el, selectNewElement);
@@ -135,28 +130,14 @@ export default {
     this.setSelectedElement(el);
 
     this.addTraceAction({
-      undo: () => {
-        this.deleteEl(el);
+      undo: async () => {
+        await this.deleteEl(el);
       },
-      redo: () => {
-        this.insertEl(el, idx);
+      redo: async () => {
+        await this.insertEl(el, idx);
       },
     });
   },
-
-  /**
-   * 移动元素
-   */
-  // moveEl(parentId: string, fromIndex: number, toIndex: number) {
-  //   const el = this.getElement(parentId);
-  //   const parentChildren = this.getParentChildren(parentId);
-  //   const afterSort = arrayMoveImmutable(parentChildren, fromIndex, toIndex);
-  //   if (!el) {
-  //     this.formElements = afterSort;
-  //   } else {
-  //     this.setElementProp(parentId, 'children', afterSort);
-  //   }
-  // },
 
   /**
    * 移动元素
@@ -172,20 +153,18 @@ export default {
     }
 
     this.addTraceAction({
-      undo: () => {
-        this.moveElInSameParent(parentId, toIndex, fromIndex);
+      undo: async () => {
+        await this.moveElInSameParent(parentId, toIndex, fromIndex);
       },
-      redo: () => {
-        this.moveElInSameParent(parentId, fromIndex, toIndex);
+      redo: async () => {
+        await this.moveElInSameParent(parentId, fromIndex, toIndex);
       },
     });
   },
 
   async moveElInDifferentParent(
     htmlElement: HTMLElement,
-    // oldParentId: string,
     newParentId: string,
-    // oldIndex: number,
     newIndex: number,
     fromHuman?: boolean,
   ) {
@@ -194,12 +173,9 @@ export default {
     const current = this.getElement(htmlElement.dataset.id);
     const oldParentId = current.parentId;
 
-    // console.log('oldParentId', oldParentId);
     const oldParent = this.getParentChildren(oldParentId);
-    // console.log('oldParent', oldParent);
 
     const oldIndex = oldParent.findIndex((item) => item.id === current.id);
-    // console.log('oldIndex', oldIndex);
 
     await this.deleteEl(current, true);
 
@@ -217,21 +193,17 @@ export default {
     }
 
     this.addTraceAction({
-      undo: () => {
-        this.moveElInDifferentParent(
+      undo: async () => {
+        await this.moveElInDifferentParent(
           htmlElement,
-          // newParentId,
           oldParentId!,
-          // newIndex,
           oldIndex,
         );
       },
-      redo: () => {
-        this.moveElInDifferentParent(
+      redo: async () => {
+        await this.moveElInDifferentParent(
           htmlElement,
-          // oldParentId,
           newParentId,
-          // oldIndex,
           newIndex,
         );
       },
@@ -269,25 +241,27 @@ export default {
       );
     }
 
-    this.dfsEl(el, (child) => {
-      this.formElementMap.delete(child.id!);
-    });
+    // this.dfsEl(el, (child) => {
+    //   this.formElementMap.delete(child.id!);
+    // });
 
-    this.formElementMap.delete(el.id!);
+    // this.formElementMap.delete(el.id!);
+
     runInAction(() => {
       parentChildren.splice(idx, 1);
     });
 
-    const formValues = baseStore.fieldValues;
-    delete formValues[el.id!];
-    baseStore.setFieldsValues(formValues);
+    // const formValues = baseStore.fieldValues;
+    // delete formValues[el.id!];
+    // baseStore.setFieldsValues(formValues);
 
     this.addTraceAction({
-      undo: () => {
-        this.insertEl(el, idx);
+      undo: async () => {
+        const deletedEl = this.getElement(el.id);
+        await this.insertEl(deletedEl, idx);
       },
-      redo: () => {
-        this.deleteEl(el, move);
+      redo: async () => {
+        await this.deleteEl(el, move);
       },
     });
 
@@ -335,11 +309,12 @@ export default {
     baseStore.setFieldValue(newEl.id!, baseStore.fieldValues[el.id!]);
 
     this.addTraceAction({
-      undo: () => {
-        this.deleteEl(newEl);
+      undo: async () => {
+        await this.deleteEl(newEl);
       },
-      redo: () => {
-        this.copyEl(el);
+      redo: async () => {
+        const deletedEl = this.getElement(newEl.id);
+        await this.insertEl(deletedEl, idx+1);
       },
     });
 
