@@ -33,7 +33,8 @@ export const RenderDate: TElementRender = ({
   };
 
   const handleChange = (date: Moment | null) => {
-    setFieldValue(date ? moment(date) : 'null');
+    // setFieldValue(date ? moment(date) : 'null');
+    setFieldValue(date && moment(date));
   };
 
   useFormUpdate(() => {
@@ -46,8 +47,8 @@ export const RenderDate: TElementRender = ({
 
   const value = useMemo(() => {
     // 表单值有值(null也算有值) - 表示这是人为操作过的表单
-    if (fieldValue) {
-      return fieldValue !== 'null' ? moment(fieldValue) : undefined;
+    if (typeof fieldValue === 'object') {
+      return fieldValue !== null ? moment(fieldValue) : undefined;
     }
     // 其次走配置里的默认值
     if (startDateMode === EDateMode.NOW) {

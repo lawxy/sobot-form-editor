@@ -34,7 +34,7 @@ export const RenderTime: TElementRender = ({
 
   const handleChange = (date: any) => {
     if (!date) {
-      setFieldValue('null');
+      setFieldValue(null);
       return;
     }
     if (Array.isArray(date)) {
@@ -63,8 +63,8 @@ export const RenderTime: TElementRender = ({
 
   const value = useMemo(() => {
     // 表单有值
-    if (fieldValue) {
-      if (fieldValue === 'null') {
+    if (typeof fieldValue === 'object') {
+      if (fieldValue === null) {
         return undefined;
       }
       if (Array.isArray(fieldValue)) {

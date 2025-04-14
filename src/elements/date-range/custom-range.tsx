@@ -5,77 +5,127 @@ import {
   Space,
   Input,
   message,
+  Button,
   type TableColumnProps,
 } from '@sobot/soil-ui';
-import { cloneDeep } from 'lodash-es';
 import { TableSortable } from '@sobot/form-editor-ui';
+import { observer } from 'mobx-react-lite';
 
-import { MinusIcon, PlusIcon } from '@/components';
-import type { TOption } from '@/types';
+import { cloneDeep } from 'lodash-es';
+
+import {
+  MinusIcon,
+  PlusIcon,
+  AttributesSetting,
+  SettingItem,
+} from '@/components';
+import type { TCustomPreset } from '@/types';
 import { idCreator } from '@/utils';
-import { BatchGenerateOptions } from './batch-generate-options';
+import store from '@/store';
 
-export const OptionModal: FC<
+const defaultPreset = {
+  label: '今天',
+  id: idCreator('custom-range'),
+  startDate: `function main(moment) {
+    return moment();
+};
+`,
+  endDate: `function main(moment) {
+    return moment();
+};
+`,
+};
+
+export const OperationModal: FC<
   PropsWithChildren<{
-    options: TOption[];
-    onChange: (v: TOption[]) => void;
+    options: TCustomPreset[];
+    onChange: (v: TCustomPreset[]) => void;
   }>
 > = ({ children, options, onChange }) => {
   const [open, setOpen] = useState(false);
-  const [valueOptions, setOption] = useState<TOption[]>([]);
-  const valueOptionsRef = useRef<TOption[]>();
+  const [valueOptions, setOption] = useState<TCustomPreset[]>([]);
+  const valueOptionsRef = useRef<TCustomPreset[]>();
   valueOptionsRef.current = valueOptions;
 
   useEffect(() => {
     setOption(options);
   }, [options]);
 
-  const handleInputChange = (idx: number, field: keyof TOption, value: any) => {
+  const handleChange = (
+    idx: number,
+    field: keyof TCustomPreset,
+    value: any,
+  ) => {
     const newOptions = cloneDeep(valueOptions);
     newOptions[idx][field] = value;
     setOption(newOptions);
   };
 
   const judgeOptionsInvalid = () => {
-    return valueOptions.some((item) => !item.label || !item.value);
+    return valueOptions.some(
+      (item) => !item.label || !item.startDate || !item.endDate,
+    );
   };
 
   const addOption = () => {
     if (judgeOptionsInvalid()) {
-      message.error('属性或值不为空, 填写完整后再新增或保存');
+      message.error('标题不为空');
       return;
     }
     const newOptions = cloneDeep(valueOptions);
-    newOptions.push({ label: '', value: '', id: idCreator('option') });
+    newOptions.push({ ...defaultPreset, id: idCreator('option') });
     setOption(newOptions);
   };
 
-  const columns: TableColumnProps<TOption>[] = [
+  const columns: TableColumnProps<TCustomPreset>[] = [
     {
-      title: '选项名',
+      title: '标题',
       dataIndex: 'label',
+      width: 150,
       render(val: string, _: any, idx: number) {
         return (
           <Input
             value={val}
             onChange={(e) => {
-              handleInputChange(idx, 'label', e.target.value);
+              handleChange(idx, 'label', e.target.value);
             }}
           />
         );
       },
     },
     {
-      title: '值',
-      dataIndex: 'value',
+      title: '开始日期',
+      dataIndex: 'startDate',
       render(val: string, _: any, idx: number) {
         return (
-          <Input
+          <AttributesSetting
+            title="开始日期"
             value={val}
-            onChange={(e) => {
-              handleInputChange(idx, 'value', e.target.value);
+            onChange={(v) => {
+              handleChange(idx, 'startDate', v);
             }}
-          />
+            editorType="javascript"
+          >
+            <Button size="small">编辑</Button>
+          </AttributesSetting>
+        );
+      },
+    },
+    {
+      title: '结束日期',
+      dataIndex: 'endDate',
+      render(val: string, _: any, idx: number) {
+        return (
+          <AttributesSetting
+            title="结束日期"
+            value={val}
+            onChange={(v) => {
+              handleChange(idx, 'endDate', v);
+            }}
+            editorType="javascript"
+          >
+            <Button size="small">编辑</Button>
+          </AttributesSetting>
         );
       },
     },
@@ -92,7 +142,7 @@ export const OptionModal: FC<
                 setOption(newOptions);
                 if (!newOptions.length) {
                   setOption([
-                    { label: '', value: '', id: idCreator('option') },
+                    { ...defaultPreset, id: idCreator('custom-range') },
                   ]);
                 }
               }}
@@ -118,22 +168,14 @@ export const OptionModal: FC<
         })}
       <Modal
         visible={open}
-        title={
-          <BatchGenerateOptions
-            title="属性设置"
-            options={valueOptions}
-            setOptions={setOption}
-            labelField="label"
-            valueField="value"
-          />
-        }
+        title="自定义日期范围"
         maskClosable={false}
         onCancel={() => {
           setOpen(false);
         }}
         onOk={() => {
           if (judgeOptionsInvalid()) {
-            message.error('属性或值不为空, 填写完整后再新增或保存');
+            message.error('标题不为空');
             return;
           }
           onChange(valueOptions);
@@ -152,3 +194,22 @@ export const OptionModal: FC<
     </>
   );
 };
+
+export const CustomRangeSetting: FC = observer(() => {
+  const customPresets = store.selectedElement.customPresets || [];
+
+  return (
+    <>
+      <SettingItem label="">
+        <OperationModal
+          options={customPresets?.length ? customPresets : [defaultPreset]}
+          onChange={(presets) => {
+            store.setSelectedProp('customPresets', presets);
+          }}
+        >
+          <Button size="small">编辑</Button>
+        </OperationModal>
+      </SettingItem>
+    </>
+  );
+});

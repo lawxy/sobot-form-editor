@@ -26,6 +26,7 @@ export type TDragElement = TDragElementObject | IDragElementProp[];
 export type TDirection = 'vertical' | 'horizontal';
 export type TMode = 'design' | 'form';
 export type TOption = { label: string; value: string | number; id?: string };
+export type TCustomPreset = { label: string; startDate: string; endDate: string; id?: string };
 export type TPlacement =
   | 'top'
   | 'left'
@@ -39,6 +40,7 @@ export type TPlacement =
   | 'leftBottom'
   | 'rightTop'
   | 'rightBottom';
+
 export type TColumn = {
   id: string;
   title: string;
@@ -75,6 +77,11 @@ export type TJustify =
 export enum EDateMode {
   NOW = 'now',
   PICKER = 'picker',
+  CUSTOM = 'custom',
+}
+
+export enum EDateRangeType {
+  SYSTEM = 'system',
   CUSTOM = 'custom',
 }
 
@@ -371,6 +378,23 @@ export interface IBaseElement {
    * 结束日期/时间默认值 - 暗文本提示
    */
   endPlaceholder?: string;
+  /**
+   * 日期范围版本
+   */
+  dateRangeVersion?: 'default' | 'v2';
+  /**
+   * 日期范围自定义格式
+   */
+  dateRangeType?: EDateRangeType;
+  /**
+   * 日期范围预设
+   */
+  datePresets?: string[];
+  /**
+   * 日期范围自定义
+   */
+  customPresets?: Array<TCustomPreset>
+
 }
 export interface IFormAttributesProps {
   formName?: string;

@@ -17,7 +17,6 @@ import { dateOptions, datePickerTypeOptions } from '@/utils';
 export const SettingDate: TElementSetting = ({
   element,
   setElementProp,
-  setFieldValue,
 }) => {
   const { addonBefore, datePickerType } = element;
 

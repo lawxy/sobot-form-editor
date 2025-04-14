@@ -1,5 +1,5 @@
 import type { IBaseElement } from '@/types';
-import { EEventAction } from '@/types';
+import { EDateRangeType, EEventAction } from '@/types';
 
 export const ELEMENT_DATE_RANGE = 'fe-date-range';
 
@@ -15,6 +15,9 @@ export const initialData: Partial<IBaseElement> = {
   endPlaceholder: '结束日期',
   allowClear: true,
   datePickerType: '',
+  dateRangeType: EDateRangeType.SYSTEM,
+  datePresets: [],
+  dateRangeVersion: 'default',
   startDateCustom: `function main(moment) {
     return moment().format('YYYY-MM-DD HH:mm:ss');
 };

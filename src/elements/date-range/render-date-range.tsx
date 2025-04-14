@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { DatePicker } from '@sobot/soil-ui';
 import moment, { type Moment } from 'moment';
-import { assign } from 'lodash';
+import { assign, range } from 'lodash';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
-import { EEventAction, EDateMode } from '@/types';
+import { EEventAction, EDateMode, EDateRangeType } from '@/types';
 import type { TElementRender } from '@/types';
 import { parseJs, showTimeFormat } from '@/utils';
 
@@ -30,6 +30,10 @@ export const RenderDateRange: TElementRender = ({
     endDateMode,
     endDate,
     endDateCustom,
+    datePresets,
+    dateRangeVersion,
+    customPresets,
+    dateRangeType
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -38,8 +42,8 @@ export const RenderDateRange: TElementRender = ({
     eventFunctions[action]?.(e.target.value);
   };
 
-  const handleChange = (date: Moment | null) => {
-    setFieldValue(date ? moment(date) : 'null');
+  const handleChange = (dates: Moment[] | null) => {
+    setFieldValue(dates && dates.map(item => item ? moment(item) : undefined));
   };
 
   useFormUpdate(() => {
@@ -52,8 +56,8 @@ export const RenderDateRange: TElementRender = ({
 
   const value = useMemo(() => {
     // 表单值有值(null也算有值) - 表示这是人为操作过的表单
-    if (fieldValue) {
-      if (fieldValue === 'null') return undefined;
+    if (typeof fieldValue === 'object') {
+      if (fieldValue === null) return undefined;
       return fieldValue?.map((item: Moment | null) =>
         item ? moment(item) : undefined,
       );
@@ -117,6 +121,37 @@ export const RenderDateRange: TElementRender = ({
       placement,
     };
 
+    if (dateRangeType === EDateRangeType.SYSTEM) {
+      return assign(baseAttributes, {
+        presets: datePresets,
+      });
+    }else {
+      const ranges = customPresets?.reduce((memo, item) => {
+        const { value: startValue } = parseJs({
+          jsFunction: item.startDate,
+          valueWhenError: undefined,
+          dependencies: [moment],
+          dependenciesString: ['moment'],
+        });
+
+        const { value: endValue } = parseJs({
+          jsFunction: item.endDate,
+          valueWhenError: undefined,
+          dependencies: [moment],
+          dependenciesString: ['moment'],
+        });
+
+        return {
+          ...memo,
+          [item.label]: [startValue, endValue]
+        }
+      }, {});
+
+      assign(baseAttributes, {
+        ranges,
+      });
+    }
+
     if (datePickerType === '') {
       return assign(baseAttributes, {
         format: dateFormat,
@@ -127,18 +162,21 @@ export const RenderDateRange: TElementRender = ({
     return assign(baseAttributes, {
       picker: datePickerType,
     });
-  }, [dateFormat, addonBefore, datePickerType, placement]);
+  }, [dateFormat, addonBefore, datePickerType, placement, customPresets, dateRangeType, datePresets]);
+
+  const Component = dateRangeVersion === 'v2' ? RangePickerV2 : RangePicker;
 
   return (
-    <RangePicker
+    <Component
       value={value}
-      // onChange={handleChange}
+      onChange={handleChange}
       onFocus={handleEvent(EEventAction.ON_FOCUS)}
       onBlur={handleEvent(EEventAction.ON_BLUR)}
       disabled={disabled}
       allowClear={allowClear}
       style={customStyle}
       placeholder={[startPlaceholder!, endPlaceholder!]}
+      // presets={datePresets as any}
       {...attributes}
     />
   );
