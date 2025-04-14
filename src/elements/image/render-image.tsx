@@ -19,7 +19,7 @@ export const RenderImage: TElementRender = ({
 
   return (
     <Image
-      src={fieldValue}
+      src={fieldValue || placeholder}
       fallback={placeholder}
       preview={preview ? (previewSrc ? { src: previewSrc } : true) : false}
       style={customStyle}

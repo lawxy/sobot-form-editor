@@ -85,6 +85,8 @@ export enum EDateRangeType {
   CUSTOM = 'custom',
 }
 
+export type TextWithLang = string | { defaultString: string; langKey: string }
+
 export interface IBaseElement {
   /**
    * 父节点id
@@ -113,13 +115,13 @@ export interface IBaseElement {
   /**
    * 元素名称
    */
-  elementName?: string;
+  elementName?: TextWithLang;
   /**
    * 是否为表单项
    */
   isFormItem?: boolean;
   /**
-   * 字段名称
+   * 字段名
    */
   fieldName?: string;
   /**
@@ -157,11 +159,11 @@ export interface IBaseElement {
   /**
    * 前缀或者标题
    */
-  addonBefore?: string;
+  addonBefore?: TextWithLang;
   /**
    * 后缀
    */
-  addonAfter?: string;
+  addonAfter?: TextWithLang;
   /**
    * 是否显示字数
    */
@@ -169,7 +171,7 @@ export interface IBaseElement {
   /**
    * placeholder
    */
-  placeholder?: string;
+  placeholder?: TextWithLang;
   /**
    * 自定义css
    */
@@ -225,7 +227,7 @@ export interface IBaseElement {
   /**
    * 按钮文案
    */
-  btnText?: string;
+  btnText?: TextWithLang;
   /**
    * 按钮大小
    */
@@ -373,11 +375,11 @@ export interface IBaseElement {
   /**
    * 开始日期/时间默认值 - 暗文本提示
    */
-  startPlaceholder?: string;
+  startPlaceholder?: TextWithLang;
   /**
    * 结束日期/时间默认值 - 暗文本提示
    */
-  endPlaceholder?: string;
+  endPlaceholder?: TextWithLang;
   /**
    * 日期范围版本
    */

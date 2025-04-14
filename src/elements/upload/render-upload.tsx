@@ -4,7 +4,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import type { TElementRender } from '@/types';
 
 export const RenderUpload: TElementRender = ({ element, customStyle }) => {
-  const { btnText, uploadUrl } = element;
+  const { btnText, uploadUrl, addonAfter } = element;
 
   const handleChange = (info: any) => {
     if (info.file.status !== 'uploading') {
@@ -18,7 +18,7 @@ export const RenderUpload: TElementRender = ({ element, customStyle }) => {
   };
 
   return (
-    <Upload onChange={handleChange} action={uploadUrl} style={customStyle}>
+    <Upload onChange={handleChange} action={uploadUrl} tip={addonAfter} style={customStyle}>
       <Button icon={<UploadOutlined />}>{btnText}</Button>
     </Upload>
   );
