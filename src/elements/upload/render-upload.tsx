@@ -19,7 +19,7 @@ export const RenderUpload: TElementRender = ({ element, customStyle }) => {
 
   return (
     <Upload onChange={handleChange} action={uploadUrl} tip={addonAfter} style={customStyle}>
-      <Button icon={<UploadOutlined />}>{btnText}</Button>
+      <Button icon={<UploadOutlined />}>{btnText?.langText}</Button>
     </Upload>
   );
 };

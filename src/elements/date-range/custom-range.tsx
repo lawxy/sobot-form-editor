@@ -18,13 +18,17 @@ import {
   PlusIcon,
   AttributesSetting,
   SettingItem,
+  WithLanguage,
 } from '@/components';
-import type { TCustomPreset } from '@/types';
+import type { TCustomPreset, TextWithLang } from '@/types';
 import { idCreator } from '@/utils';
 import store from '@/store';
 
 const defaultPreset = {
-  label: '今天',
+  label: {
+    langText: '今天',
+    langKey: '',
+  },
   id: idCreator('custom-range'),
   startDate: `function main(moment) {
     return moment();
@@ -63,7 +67,7 @@ export const OperationModal: FC<
 
   const judgeOptionsInvalid = () => {
     return valueOptions.some(
-      (item) => !item.label || !item.startDate || !item.endDate,
+      (item) => !item.label?.langText || !item.startDate || !item.endDate,
     );
   };
 
@@ -84,10 +88,10 @@ export const OperationModal: FC<
       width: 150,
       render(val: string, _: any, idx: number) {
         return (
-          <Input
+          <WithLanguage.Input
             value={val}
-            onChange={(e) => {
-              handleChange(idx, 'label', e.target.value);
+            onChange={(val: TextWithLang) => {
+              handleChange(idx, 'label', val);
             }}
           />
         );

@@ -101,7 +101,7 @@ export interface IEditorAttrStore {
   ) => void;
 }
 
-export interface IFieldValuesStore {
+export interface IFormStore {
   formInstance?: FormInstance;
 
   setForm: (form: FormInstance) => void;
@@ -114,9 +114,9 @@ export interface IFieldValuesStore {
 
   removeField: (field: string) => void;
 
-  getFieldValue: (field: keyof IFieldValuesStore['fieldValues']) => any;
+  getFieldValue: (field: keyof IFormStore['fieldValues']) => any;
 
-  getFieldValues: () => Record<keyof IFieldValuesStore['fieldValues'], any>;
+  getFieldValues: () => Record<keyof IFormStore['fieldValues'], any>;
 }
 
 export type TFormTabType = 'element' | 'form' | 'service';
@@ -124,6 +124,6 @@ export interface IBaseStore
   extends IServiceStore,
     IElementStore,
     IEditorAttrStore,
-    IFieldValuesStore {
+    IFormStore {
   getSchema: () => IFormSchema;
 }

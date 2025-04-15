@@ -8,7 +8,7 @@ export const IMAGE_TEXT = '图片';
 export const eventActions = [EEventAction.ON_LOADED];
 
 export const initialData: Partial<IBaseElement> = {
-  elementName: '图片',
+  elementName: { langText: '图片', langKey: '' },
   gridSpan: 4,
   gridLayout: true,
   preview: false,

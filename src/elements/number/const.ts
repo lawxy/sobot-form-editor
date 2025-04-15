@@ -31,7 +31,7 @@ export const eventActions = [
   EEventAction.ON_BLUR,
 ];
 export const initialData: Partial<IBaseElement> = {
-  elementName: '数字框',
+  elementName: { langText: '数字框', langKey: '' },
   gridSpan: 4,
   valueType: 'int',
 };

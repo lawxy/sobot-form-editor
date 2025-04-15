@@ -9,7 +9,7 @@ export const eventActions = [
   EEventAction.PAGINATION_CHANGE,
 ];
 export const initialData: Partial<IBaseElement> = {
-  elementName: TABLE_TEXT,
+  elementName: {langText: TABLE_TEXT, langKey: ''},
   gridSpan: 24,
   gridLayout: true,
   columns: [],

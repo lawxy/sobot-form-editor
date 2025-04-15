@@ -22,11 +22,11 @@ export type TDragElementObject = Record<
   IDragElementProp
 >;
 export type TDragElement = TDragElementObject | IDragElementProp[];
-
+export type TextWithLang = { langText: string; langKey: string }
 export type TDirection = 'vertical' | 'horizontal';
 export type TMode = 'design' | 'form';
 export type TOption = { label: string; value: string | number; id?: string };
-export type TCustomPreset = { label: string; startDate: string; endDate: string; id?: string };
+export type TCustomPreset = { label: TextWithLang; startDate: string; endDate: string; id?: string };
 export type TPlacement =
   | 'top'
   | 'left'
@@ -43,7 +43,7 @@ export type TPlacement =
 
 export type TColumn = {
   id: string;
-  title: string;
+  title: TextWithLang;
   dataIndex: string;
   fixed: '' | 'left' | 'right';
   width?: number;
@@ -60,7 +60,7 @@ export type TPattern = {
   id?: string;
   name: string;
   regexp?: string;
-  message: string;
+  message: TextWithLang;
   enable: boolean;
   required?: boolean;
 };
@@ -85,7 +85,6 @@ export enum EDateRangeType {
   CUSTOM = 'custom',
 }
 
-export type TextWithLang = string | { defaultString: string; langKey: string }
 
 export interface IBaseElement {
   /**

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Select } from '@sobot/soil-ui';
+import { Select } from '@sobot/soil-ui';
 import { Divider, Switch } from 'antd';
 
 import {
@@ -10,8 +10,9 @@ import {
   AllowClear,
   DisabledSetting,
   DefaultDateSetting,
+  WithLanguage,
 } from '@/components';
-import type { TElementSetting } from '@/types';
+import type { TElementSetting, TextWithLang } from '@/types';
 
 const dateOptions = ['HH:mm:ss', 'HH:mm'].map((per) => ({
   label: per,
@@ -21,7 +22,6 @@ const dateOptions = ['HH:mm:ss', 'HH:mm'].map((per) => ({
 export const SettingTime: TElementSetting = ({
   element,
   setElementProp,
-  setFieldValue,
 }) => {
   const { dateFormat, addonBefore, timeRange } = element;
 
@@ -29,14 +29,14 @@ export const SettingTime: TElementSetting = ({
     <>
       <SettingWrap title="元素设置">
         <SettingItem label="标题">
-          <Input
-            value={addonBefore}
-            onChange={(e) => setElementProp('addonBefore', e.target.value)}
+          <WithLanguage.Input
+            value={addonBefore!}
+            onChange={(val: TextWithLang) => setElementProp('addonBefore', val)}
           />
         </SettingItem>
         <SettingItem label="时间格式">
           <Select
-            value={element.dateFormat}
+            value={dateFormat}
             style={{ width: '100%' }}
             options={dateOptions}
             onChange={(val) => {

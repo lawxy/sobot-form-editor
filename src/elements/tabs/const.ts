@@ -7,7 +7,7 @@ export const TABS_TEXT = 'tabs';
 export const eventActions = [];
 
 export const initialData: Partial<IBaseElement> = {
-  elementName: 'tabs',
+  elementName: { langText: 'tabs', langKey: '' },
   gridSpan: 24,
   gridLayout: true,
   tabType: 'line',

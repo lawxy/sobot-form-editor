@@ -7,7 +7,7 @@ export const TEXT_TEXT = '文本框';
 export const eventActions = [];
 
 export const initialData: Partial<IBaseElement> = {
-  elementName: '文本框',
+  elementName: { langText: '文本框', langKey: '' },
   gridSpan: 4,
-  placeholder: '请选择时间',
+  placeholder: {langText: '请选择时间', langKey: ''},
 };

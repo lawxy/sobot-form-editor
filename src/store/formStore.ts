@@ -1,9 +1,6 @@
-import { IFieldValuesStore, IBaseStore } from './types';
+import { IFormStore, IBaseStore } from './types';
 
 export default {
-  /**
-   * 表单属性
-   */
   fieldValues: {},
 
   formInstance: undefined,
@@ -12,7 +9,7 @@ export default {
     this.formInstance = form;
   },
 
-  removeField(field: keyof IFieldValuesStore['fieldValues']) {
+  removeField(field: keyof IFormStore['fieldValues']) {
     delete this.fieldValues[field];
     this.formInstance?.setFieldsValue(this.fieldValues);
   },
@@ -35,4 +32,4 @@ export default {
     this.fieldValues = values;
     this.formInstance?.setFieldsValue(values);
   },
-} as Pick<IBaseStore, keyof IFieldValuesStore>;
+} as Pick<IBaseStore, keyof IFormStore>;

@@ -9,8 +9,9 @@ import {
   DefaultValueSetting,
   AllowClear,
   DisabledSetting,
+  WithLanguage,
 } from '@/components';
-import type { TElementSetting } from '@/types';
+import type { TElementSetting, TextWithLang } from '@/types';
 
 const typeOptions = [
   { label: '单行文本', value: 'single' },
@@ -84,19 +85,15 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
         {textType === 'single' && (
           <>
             <SettingItem label="前缀">
-              <Input
-                value={addonBefore}
-                onChange={(e) => {
-                  setElementProp('addonBefore', e.target.value);
-                }}
-              />
+              <WithLanguage.Input
+                value={addonBefore!}
+                onChange={(val: TextWithLang) => setElementProp('addonBefore', val)}
+             />
             </SettingItem>
             <SettingItem label="后缀">
-              <Input
-                value={addonAfter}
-                onChange={(e) => {
-                  setElementProp('addonAfter', e.target.value);
-                }}
+              <WithLanguage.Input
+                value={addonAfter!}
+                onChange={(val: TextWithLang) => setElementProp('addonAfter', val)}
               />
             </SettingItem>
           </>

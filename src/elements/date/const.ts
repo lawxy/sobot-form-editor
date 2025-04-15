@@ -8,10 +8,10 @@ export const DATE_TEXT = '日期';
 export const eventActions = [EEventAction.ON_LOADED, EEventAction.VALUE_CHANGE];
 
 export const initialData: Partial<IBaseElement> = {
-  elementName: '日期',
+  elementName: { langText: '日期', langKey: '' },
   dateFormat: 'YYYY-MM-DD',
   gridSpan: 4,
-  placeholder: '请选择日期',
+  placeholder: {langText: '请选择日期', langKey: ''},
   allowClear: true,
   datePickerType: '',
   startDateCustom: `function main(moment) {

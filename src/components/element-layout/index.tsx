@@ -57,11 +57,11 @@ export const ElementLayout: FC<
     const requiredRule = regExps[0];
     arr.push({
       required: requiredRule?.enable,
-      message: requiredRule?.message,
+      message: requiredRule?.message?.langText,
     });
     regExps
       .slice(1)
-      .filter((item) => item.enable && item.regexp && item.message)
+      .filter((item) => item.enable && item.regexp && item.message?.langText)
       .forEach((patternItem) => {
         arr.push({
           validator(_: any, value: any = '') {
@@ -69,7 +69,7 @@ export const ElementLayout: FC<
             if (value?.match(reg)) {
               return Promise.resolve();
             }
-            return Promise.reject(patternItem.message);
+            return Promise.reject(patternItem.message?.langText);
           },
         });
       });
@@ -91,7 +91,8 @@ export const ElementLayout: FC<
         {showElementName && (
           <div
             dangerouslySetInnerHTML={{
-              __html: elementName as string,
+              // @ts-ignore
+              __html: elementName?.langText,
             }}
             className={
               // @ts-ignore

@@ -11,8 +11,13 @@ import {
   Switch,
 } from '@sobot/soil-ui';
 import type { TColumn } from '@/types';
-import { OptionModal } from '@/components';
+import { OptionModal, WithLanguage } from '@/components';
+import type { TextWithLang } from '@/types';
 import { valueTypeList, elementWithOptions } from '../const';
+
+const WithLanguageInput = ({value, onChange}: {value: TextWithLang, onChange: (val: TextWithLang) => void}) => {
+  return <WithLanguage.Input value={value} onChange={onChange} />
+}
 
 export const EditModal: FC<
   PropsWithChildren<{
@@ -66,7 +71,7 @@ export const EditModal: FC<
             required
             rules={[{ required: true, message: '必填' }]}
           >
-            <Input />
+            <WithLanguageInput />
           </Form.Item>
           <Form.Item
             label="字段"

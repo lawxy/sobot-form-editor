@@ -7,6 +7,7 @@ import {
 } from '@sobot/form-editor';
 // import { customElement } from '../common/customEl';
 import SoilUi from '../soil-ui';
+import { LOCALE } from '../common/locale';
 
 const Comp = () => {
   const ref = useRef();
@@ -23,6 +24,7 @@ const Comp = () => {
         },
       }}
       customElements={SoilUi}
+      LOCALE={LOCALE}
     >
       <Material />
       <FormCanvas />

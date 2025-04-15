@@ -7,7 +7,7 @@ export const CONTAINER_TEXT = '容器';
 export const eventActions = [];
 
 export const initialData: Partial<IBaseElement> = {
-  elementName: '容器',
+  elementName: { langText: '容器', langKey: '' },
   gridSpan: 24,
   gridLayout: true,
   children: [],

@@ -5,11 +5,11 @@ export const ELEMENT_TIME = 'fe-time';
 export const TIME_TEXT = '时间';
 export const eventActions = [EEventAction.ON_LOADED, EEventAction.VALUE_CHANGE];
 export const initialData: Partial<IBaseElement> = {
-  elementName: '时间',
+  elementName: { langText: '时间', langKey: '' },
   dateFormat: 'HH:mm',
   gridSpan: 4,
   allowClear: true,
-  placeholder: '请选择时间',
-  startPlaceholder: '开始时间',
-  endPlaceholder: '结束时间',
+  placeholder: {langText: '请选择时间', langKey: ''},
+  startPlaceholder: {langText: '开始时间', langKey: ''},
+  endPlaceholder: {langText: '结束时间', langKey: ''},
 };

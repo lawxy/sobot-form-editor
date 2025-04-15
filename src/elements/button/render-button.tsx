@@ -18,7 +18,7 @@ export const RenderButton: TElementRender = ({ element, customStyle }) => {
       type={btnType as any}
       size={size as any}
     >
-      {btnText}
+      {btnText?.langText}
     </Button>
   );
 };

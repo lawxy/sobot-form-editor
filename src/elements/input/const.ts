@@ -13,9 +13,9 @@ export const eventActions = [
 ];
 
 export const initialData: Partial<IBaseElement> = {
-  elementName: '输入框',
+  elementName: { langText: '输入框', langKey: '' },
   textType: 'single',
   gridSpan: 4,
   autoSize: true,
-  placeholder: '请输入',
+  placeholder: {langText: '请输入', langKey: ''},
 };

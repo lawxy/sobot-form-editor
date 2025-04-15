@@ -145,7 +145,7 @@ const handleError = ({
   const el = store.getElement(sourceId);
   console.log(`
     事件报错:\n 
-    组件: ${el.elementName ?? sourceId}\n 
+    组件: ${el.elementName?.langText ?? sourceId}\n 
     事件动作: ${eventActionInChinese[action as EEventAction]} - ${
     eventTypeChinese[eventType]
   } \n

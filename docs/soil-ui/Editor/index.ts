@@ -4,7 +4,7 @@ import { EditorSetting } from './editor-setting';
 import { RenderEditor } from './render-editor';
 
 const initialData: Partial<IBaseElement> = {
-  elementName: '文章编辑器',
+  elementName: { langText: '文章编辑器', langKey: '' },
   gridSpan: 24,
   editorMode: 'text',
   toolbarConfigMode: 'default',

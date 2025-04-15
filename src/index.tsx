@@ -96,7 +96,7 @@ const FormEditorContent: React.ForwardRefRenderFunction<
       mode,
       actionProp,
       ElementsMap,
-      LOCALE,
+      LOCALE: LOCALE || {},
     };
   }, [mode, actionProp, customElements, ElementsMap, LOCALE]);
 

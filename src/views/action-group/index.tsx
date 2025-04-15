@@ -6,9 +6,10 @@ import { useEditorContext } from '@/context';
 import { prefixCls } from '@/const';
 import store from '@/store';
 import eventStore from '@/store/eventStore';
-import { PreviewJson } from './preview-json';
-import { InjectJson } from './inject-json';
+import { PreviewSchema } from './preview-schema';
+import { InjectSchema } from './inject-schema';
 import { UndoAndRedo } from './undo-redo';
+import { PreviewLocale } from './preview-locale';
 import './style.less';
 
 const ActionItem: React.FC<
@@ -24,7 +25,7 @@ const ActionItem: React.FC<
 };
 
 const ActionGroup = () => {
-  const { actionProp } = useEditorContext();
+  const { actionProp, LOCALE } = useEditorContext();
 
   const handleSave = useCallback(() => {
     /**
@@ -41,8 +42,11 @@ const ActionGroup = () => {
     //   message.error('表单校验失败')
     //   return;
     // }
-    actionProp?.onSave?.(cloneDeep(store.getSchema()));
-    localStorage.setItem('schema', JSON.stringify(store.getSchema()));
+
+    const schema = cloneDeep(store.getSchema());
+
+    actionProp?.onSave?.(schema);
+    localStorage.setItem('schema', JSON.stringify(schema));
     message.success('保存成功');
   }, []);
 
@@ -70,12 +74,20 @@ const ActionGroup = () => {
         {actionProp?.download && (
           <ActionItem text="下载" onClick={handleDownload} />
         )}
-        <PreviewJson>
+        {
+          LOCALE && (
+            <PreviewLocale>
+              <ActionItem text="多语言" />
+            </PreviewLocale>
+          )
+        }
+
+        <PreviewSchema>
           <ActionItem text="查看Schema" />
-        </PreviewJson>
-        <InjectJson>
+        </PreviewSchema>
+        <InjectSchema>
           <ActionItem text="注入Schema" />
-        </InjectJson>
+        </InjectSchema>
         <ActionItem text="保存" onClick={handleSave} />
         <Popconfirm
           title="确定要清空所有组件吗？"

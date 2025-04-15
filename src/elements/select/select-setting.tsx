@@ -11,8 +11,9 @@ import {
   DisabledSetting,
   CanSearchSetting,
   CustomCssSetting,
+  WithLanguage,
 } from '@/components';
-import type { TElementSetting } from '@/types';
+import type { TElementSetting, TextWithLang } from '@/types';
 
 export const SettingSelect: TElementSetting = ({
   element,
@@ -42,13 +43,13 @@ export const SettingSelect: TElementSetting = ({
         <AllowClear />
         <CanSearchSetting />
         <SettingItem label="前缀">
-          <Input
-            value={addonBefore}
-            onChange={(e) => setElementProp('addonBefore', e.target.value)}
+          <WithLanguage.Input
+            value={addonBefore!}
+            onChange={(val: TextWithLang) => setElementProp('addonBefore', val)}
           />
         </SettingItem>
 
-        {addonBefore && (
+        {addonBefore?.langText && (
           <CustomCssSetting
             label="带标题样式"
             defaultValue={labelWrapperStyle || `.labelWrapperStyle {\n\t\t\n}`}

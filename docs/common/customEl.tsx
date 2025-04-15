@@ -54,7 +54,10 @@ const Icon = <div>icon-</div>;
 const eventActions = [EEventAction.VALUE_CHANGE];
 
 const initialData: Partial<IBaseElement> = {
-  elementName: '颜色选择器',
+  elementName: {
+    langText: '颜色选择器',
+    langKey: '',
+  },
   gridSpan: 3,
   gridLayout: false,
   placement: 'left',

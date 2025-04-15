@@ -9,8 +9,9 @@ import {
   AllowClear,
   DisabledSetting,
   DefaultDateSetting,
+  WithLanguage,
 } from '@/components';
-import type { TElementSetting } from '@/types';
+import type { TElementSetting, TextWithLang } from '@/types';
 import { EDateRangeType } from '@/types';
 import { dateOptions, datePickerTypeOptions } from '@/utils';
 import { CustomRangeSetting } from './custom-range';
@@ -56,9 +57,9 @@ export const SettingDateRange: TElementSetting = ({
         </SettingItem>
 
         <SettingItem label="标题" tips='label'>
-          <Input
-            value={addonBefore}
-            onChange={(e) => setElementProp('addonBefore', e.target.value)}
+          <WithLanguage.Input
+            value={addonBefore!}
+            onChange={(val: TextWithLang) => setElementProp('addonBefore', val)}
           />
         </SettingItem>
         

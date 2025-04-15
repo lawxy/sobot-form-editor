@@ -19,7 +19,7 @@ export const SettingTable: TElementSetting = ({ element, setElementProp }) => {
       const number = +e.target.value;
       const value =
         isNumber(number) && !isNaN(number) ? +number : e.target.value;
-      console.log('value', value);
+      // console.log('value', value);
       setElementProp(attr, value);
     };
   }, []);

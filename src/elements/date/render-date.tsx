@@ -74,7 +74,7 @@ export const RenderDate: TElementRender = ({
 
   const attributes = useMemo(() => {
     const baseAttributes = {
-      label: addonBefore,
+      label: addonBefore?.langText,
       placement,
     };
 
@@ -99,7 +99,7 @@ export const RenderDate: TElementRender = ({
       onBlur={handleEvent(EEventAction.ON_BLUR)}
       disabled={disabled}
       allowClear={allowClear}
-      placeholder={placeholder}
+      placeholder={placeholder?.langText}
       style={customStyle}
       {...attributes}
     />

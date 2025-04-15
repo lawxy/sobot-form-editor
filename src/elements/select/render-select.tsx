@@ -53,7 +53,7 @@ export const RenderSelect: TElementRender = ({
 
   return (
     <Select
-      placeholder={placeholder}
+      placeholder={placeholder?.langText}
       dataSoruce={dataSoruce}
       onChange={onChange}
       loading={linkLoading}
@@ -62,7 +62,7 @@ export const RenderSelect: TElementRender = ({
       allowClear={allowClear}
       value={fieldValue}
       disabled={disabled}
-      label={addonBefore}
+      label={addonBefore?.langText}
       search={canSearch}
       labelWrapperStyle={_labelWrapperStyle}
       tagRenderText={tagRenderText}

@@ -42,7 +42,7 @@ export const RenderSearch: TElementRender = ({
 
   return (
     <Input.Search
-      placeholder={placeholder}
+      placeholder={placeholder?.langText}
       id={id}
       // @ts-ignore
       onSearch={handleSearch}

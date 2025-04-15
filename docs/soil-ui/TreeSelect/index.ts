@@ -4,7 +4,7 @@ import { TreeSelectSetting } from './select-setting';
 import { RenderTreeSelect } from './render-select';
 
 const initialData: Partial<IBaseElement> = {
-  elementName: 'tree-select',
+  elementName: { langText: 'tree-select', langKey: '' },
   gridSpan: 12,
   allowClear: true,
   canSearch: true,

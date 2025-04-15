@@ -1,16 +1,16 @@
 import React from 'react';
 import { Input, Select } from '@sobot/soil-ui';
-import { SettingItem, SettingWrap } from '@/components';
-import type { TElementSetting } from '@/types';
+import { SettingItem, SettingWrap, WithLanguage } from '@/components';
+import type { TElementSetting, TextWithLang } from '@/types';
 
 export const SettingButton: TElementSetting = ({ element, setElementProp }) => {
   return (
     <SettingWrap title="按钮设置">
       <SettingItem label="按钮文案">
-        <Input
-          value={element.btnText}
-          onChange={(e) => {
-            setElementProp('btnText', e.target.value);
+        <WithLanguage.Input
+          value={element.btnText!}
+          onChange={(val: TextWithLang) => {
+            setElementProp('btnText', val);
           }}
         />
       </SettingItem>

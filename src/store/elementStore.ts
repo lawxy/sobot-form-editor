@@ -114,7 +114,8 @@ export default {
         await this.deleteEl(el);
       },
       redo: () => {
-        this.appendEl(el, selectNewElement);
+        const deletedEl = this.getElement(el.id);
+        this.appendEl(deletedEl, selectNewElement);
       },
     });
   },
@@ -134,7 +135,8 @@ export default {
         await this.deleteEl(el);
       },
       redo: async () => {
-        await this.insertEl(el, idx);
+        const deletedEl = this.getElement(el.id);
+        await this.insertEl(deletedEl, idx);
       },
     });
   },
@@ -251,9 +253,8 @@ export default {
       parentChildren.splice(idx, 1);
     });
 
-    // const formValues = baseStore.fieldValues;
-    // delete formValues[el.id!];
-    // baseStore.setFieldsValues(formValues);
+    const formValues = baseStore.fieldValues;
+    delete formValues[el.fieldName! || el.id!];
 
     this.addTraceAction({
       undo: async () => {
@@ -314,6 +315,7 @@ export default {
       },
       redo: async () => {
         const deletedEl = this.getElement(newEl.id);
+        baseStore.setFieldValue(deletedEl.fieldName! || deletedEl.id!, baseStore.deletedValues[deletedEl.id!]);
         await this.insertEl(deletedEl, idx+1);
       },
     });

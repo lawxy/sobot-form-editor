@@ -6,22 +6,22 @@ import { cloneDeep } from 'lodash-es';
 import { idCreator } from '@/utils';
 import store from '@/store';
 import { prefixCls } from '@/const';
-import type { TPattern } from '@/types';
+import type { TextWithLang, TPattern } from '@/types';
 import { EditInput } from './edit-input';
-import { SettingItem, SettingWrap } from '..';
+import { SettingItem, SettingWrap, WithLanguage } from '..';
 import './style.less';
 
 const requiredPattern: TPattern = {
   required: true,
   name: '必填',
-  message: '该项必填',
+  message: { langText: '该项必填', langKey: '' },
   enable: false,
   id: idCreator('regexp'),
 };
 
 const defaultPattern: TPattern = {
   name: '自定义正则',
-  message: '',
+  message: { langText: '', langKey: '' },
   enable: false,
 };
 
@@ -63,9 +63,9 @@ export const RegPattern = observer(() => {
         </SettingItem>
         {regExps[0]?.enable && (
           <SettingItem label="错误提示">
-            <Input
+            <WithLanguage.Input
               value={regExps[0]?.message}
-              onChange={(e) => handleChange(0, 'message', e.target.value)}
+              onChange={(val: TextWithLang) => handleChange(0, 'message', val)}
             />
           </SettingItem>
         )}
@@ -110,10 +110,10 @@ export const RegPattern = observer(() => {
                   </SettingItem>
                 )}
                 <SettingItem label="错误提示">
-                  <Input
+                  <WithLanguage.Input
                     value={patternItem.message}
-                    onChange={(e) =>
-                      handleChange(i + 1, 'message', e.target.value)
+                    onChange={(val: TextWithLang) =>
+                        handleChange(i + 1, 'message', val)
                     }
                   />
                 </SettingItem>

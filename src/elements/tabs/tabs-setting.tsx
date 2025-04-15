@@ -3,23 +3,23 @@ import { observer } from 'mobx-react-lite';
 import { Input, Space, Popconfirm, Select, Switch } from 'antd';
 import { cloneDeep } from 'lodash-es';
 import { MinusCircleOutlined } from '@ant-design/icons';
-import { SettingWrap, PlusIcon, SettingItem } from '@/components';
+import { SettingWrap, PlusIcon, SettingItem, WithLanguage } from '@/components';
 import { TableSortable } from '@sobot/form-editor-ui';
 import store from '@/store';
 import { createPanel } from './render-tabs';
-import type { TElementSetting } from '@/types';
+import type { TElementSetting, TextWithLang } from '@/types';
 import { prefixCls } from '@/const';
 import './style.less';
 
 const ObserverInput: React.FC<{ idx: number }> = observer(({ idx }) => {
   const current = store.selectedElement.children![idx];
   return (
-    <Input
-      value={current.elementName}
-      onChange={(e) => {
-        store.setElementProp(current.id!, 'elementName', e.target.value);
+    <WithLanguage.Input
+      value={current.elementName!}
+      onChange={(val: TextWithLang) => {
+        store.setElementProp(current.id!, 'elementName', val);
       }}
-    />
+   />
   );
 });
 
@@ -29,7 +29,7 @@ export const SettingTabs: TElementSetting = ({ element, setElementProp }) => {
 
   const handleAddPanel = () => {
     createPanel({
-      elementName: `tab选项卡${length + 1}`,
+      elementName: {langText: `tab选项卡${length + 1}`, langKey: ''},
       parentId: id,
     });
   };

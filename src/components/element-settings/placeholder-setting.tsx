@@ -1,9 +1,10 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { Input } from 'antd';
+import { WithLanguage } from '../with-language';
 import { SettingItem } from '../setting-common';
 import store from '../../store';
-import type { IBaseElement } from '@/types';
+import type { IBaseElement, TextWithLang } from '@/types';
 
 export const PlaceholderSetting = observer(
   ({
@@ -15,10 +16,10 @@ export const PlaceholderSetting = observer(
   }) => {
     return (
       <SettingItem label={label}>
-        <Input
-          value={store.selectedElement[field] as string}
-          onChange={(e) => {
-            store.setSelectedProp(field, e.target.value);
+        <WithLanguage.Input
+          value={store.selectedElement[field]}
+          onChange={(val: TextWithLang) => {
+            store.setSelectedProp(field, val);
           }}
         />
       </SettingItem>

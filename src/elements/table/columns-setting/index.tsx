@@ -41,7 +41,7 @@ export const ColumnsSetting: TElementSetting = ({
               // }}
               style={{ width: 200 }}
             >
-              <Input value={column.title} readOnly />
+              <Input value={column.title.langText} readOnly />
             </Typography.Text>
             <EditModal
               onChange={(values) => {

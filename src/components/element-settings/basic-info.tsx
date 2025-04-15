@@ -3,8 +3,9 @@ import { Input, Select, Slider, Switch } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { DirectionOpions } from '../../const';
 import store from '../../store';
-import type { TDirection } from '../../types';
+import type { TDirection, TextWithLang } from '../../types';
 import { SettingItem, SettingWrap } from '../setting-common';
+import { WithLanguage } from '../with-language';
 
 const BasicInfo = () => {
   const { gridSpan, id, gridOffset, fieldName, isContainer } =
@@ -37,6 +38,7 @@ const BasicInfo = () => {
           </SettingItem>
           <SettingItem label="表单项">
             <Switch
+              size='small'
               checked={store.selectedElement?.isFormItem}
               onChange={(checked) => {
                 store.setSelectedProp('isFormItem', checked);
@@ -49,14 +51,12 @@ const BasicInfo = () => {
         <div>{id}</div>
       </SettingItem>
       <SettingItem label="元素名称">
-        <Input
-          value={store.selectedElement.elementName?.replace(/&nbsp;/g, ' ')}
-          onChange={(e) => {
-            store.setSelectedProp(
-              'elementName',
-              e.target.value.replace(/\s/g, '&nbsp;'),
-            );
-          }}
+        <WithLanguage.Input
+         value={store.selectedElement.elementName!}
+         onChange={(value: TextWithLang) => {
+           store.setSelectedProp('elementName', value);
+         }}
+         placeholder="请输入元素名称"
         />
       </SettingItem>
       <SettingItem label="显示名称">

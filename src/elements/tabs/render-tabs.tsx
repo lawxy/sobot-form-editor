@@ -11,7 +11,7 @@ import { prefixCls } from '@/index';
 export const createPanel = (props = {}) => {
   const panel = {
     ...initialData,
-    elementName: 'tab选项卡',
+    elementName: { langText: 'tab选项卡', langKey: '' },
     type: ELEMENT_CONTAINER,
     id: idCreator('tab-panel'),
     ...props,
@@ -25,7 +25,7 @@ export const RenderTabs: TElementRender = ({ element, customStyle }) => {
   const items = children?.map((child) => {
     store.flatElement(child);
     return {
-      label: child.elementName!,
+      label: child.elementName?.langText,
       key: child.id!,
       children: <RenderElementWithLayout element={child} />,
     };

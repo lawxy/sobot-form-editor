@@ -3,7 +3,7 @@ import { Modal, Button } from '@sobot/soil-ui';
 import { MonacoEditor } from '@sobot/form-editor-ui';
 import store from '@/store';
 
-export const PreviewJson: FC<PropsWithChildren<any>> = ({ children }) => {
+export const PreviewSchema: FC<PropsWithChildren<any>> = ({ children }) => {
   const [openCode, setOpenCode] = useState(false);
 
   return (

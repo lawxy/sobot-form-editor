@@ -5,7 +5,7 @@ export const ELEMENT_CHECKBOX = 'fe-checkbox';
 export const CHECKBOX_TEXT = '多选';
 export const eventActions = [EEventAction.ON_LOADED, EEventAction.VALUE_CHANGE];
 export const initialData: Partial<IBaseElement> = {
-  elementName: '多选',
+  elementName: { langText: '多选', langKey: '' },
   gridSpan: 10,
   direction: 'horizontal',
   valueOptions: [

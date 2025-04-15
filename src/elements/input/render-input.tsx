@@ -61,7 +61,7 @@ export const RenderInput: TElementRender = ({
                 }
           }
           value={fieldValue}
-          placeholder={placeholder}
+          placeholder={placeholder?.langText}
           id={id}
           onChange={handleChange}
           onFocus={handleEvent(EEventAction.ON_FOCUS)}
@@ -75,7 +75,7 @@ export const RenderInput: TElementRender = ({
         />
       ) : (
         <Input
-          placeholder={placeholder}
+          placeholder={placeholder?.langText}
           id={id}
           onChange={handleChange}
           onFocus={handleEvent(EEventAction.ON_FOCUS)}
@@ -89,8 +89,8 @@ export const RenderInput: TElementRender = ({
           showCount={showCount}
           minLength={minNum}
           maxLength={maxNum}
-          addonBefore={addonBefore}
-          addonAfter={addonAfter}
+          addonBefore={addonBefore?.langText}
+          addonAfter={addonAfter?.langText}
         />
       )}
     </>

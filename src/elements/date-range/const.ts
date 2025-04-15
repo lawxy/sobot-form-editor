@@ -8,11 +8,11 @@ export const DATE_RANGE_TEXT = '日期范围';
 export const eventActions = [EEventAction.ON_LOADED, EEventAction.VALUE_CHANGE];
 
 export const initialData: Partial<IBaseElement> = {
-  elementName: '日期范围',
+  elementName: { langText: '日期范围', langKey: '' },
   dateFormat: 'YYYY-MM-DD',
   gridSpan: 4,
-  startPlaceholder: '开始日期',
-  endPlaceholder: '结束日期',
+  startPlaceholder: { langText: '开始日期', langKey: '' },
+  endPlaceholder: { langText: '结束日期', langKey: '' },
   allowClear: true,
   datePickerType: '',
   dateRangeType: EDateRangeType.SYSTEM,

@@ -5,7 +5,7 @@ export const ELEMENT_RADIO = 'fe-radio';
 export const RADIO_TEXT = '单选';
 export const eventActions = [EEventAction.ON_LOADED, EEventAction.VALUE_CHANGE];
 export const initialData: Partial<IBaseElement> = {
-  elementName: '单选',
+  elementName: { langText: '单选', langKey: '' },
   gridSpan: 10,
   direction: 'horizontal',
   valueOptions: [

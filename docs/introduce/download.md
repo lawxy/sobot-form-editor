@@ -18,20 +18,20 @@ window.GLOBAL_FORM_EDITOR_DEFAULT_VALUE = {
   "formElements": [
     {
       "type": "fe-input",
-      "elementName": "输入框",
+      "elementName": {"langText": "输入框", "langKey": ""},
       "textType": "single",
       "gridSpan": 4,
       "autoSize": true,
-      "placeholder": "请输入",
+      "placeholder": {"langText": "请输入", "langKey": ""},
       "id": "el-mc8h3tn54j8",
       "parentId": "form-o6jcsla52uo"
     },
     {
       "type": "fe-select",
-      "elementName": "下拉框",
+      "elementName": {"langText": "下拉框", "langKey": ""},
       "gridSpan": 4,
       "gridLayout": true,
-      "placeholder": "请选择",
+      "placeholder": {"langText": "请选择", "langKey": ""},
       "valueOptions": [
         {
           "label": "选项1",
@@ -49,11 +49,11 @@ window.GLOBAL_FORM_EDITOR_DEFAULT_VALUE = {
     },
     {
       "type": "fe-input",
-      "elementName": "输入框",
+      "elementName": {"langText": "输入框", "langKey": ""},
       "textType": "single",
       "gridSpan": 4,
       "autoSize": true,
-      "placeholder": "请输入",
+      "placeholder": {"langText": "请输入", "langKey": ""},
       "id": "el-ekndjhjd95o",
       "parentId": "form-o6jcsla52uo"
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { Table } from '@sobot/soil-ui';
 
 import type { TElementRender } from '@sobot/form-editor';
@@ -47,9 +47,18 @@ export const RenderTable: TElementRender = ({
     );
   }, [currentPage, pageSize]);
 
+  const tableColumns = useMemo(() => {
+    return columns.map((column) => {
+      return {
+        ...column,
+        title: column.title.langText,
+      };
+    });
+  }, [columns]);
+
   return (
     <Table
-      columns={columns}
+      columns={tableColumns}
       rowKey="id"
       dataSource={fieldValue}
       loading={linkLoading}

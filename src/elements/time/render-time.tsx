@@ -52,8 +52,8 @@ export const RenderTime: TElementRender = ({
     const Component = timeRange ? TimePicker.RangePicker : TimePicker;
 
     const _placeholder = timeRange
-      ? [startPlaceholder, endPlaceholder]
-      : placeholder;
+      ? [startPlaceholder?.langText, endPlaceholder?.langText]
+      : placeholder?.langText;
 
     return {
       Component,
@@ -117,7 +117,7 @@ export const RenderTime: TElementRender = ({
       placeholder={Time.placeholder as any}
       allowClear={allowClear}
       style={customStyle}
-      label={addonBefore}
+      label={addonBefore?.langText}
       disabled={disabled}
     />
   );

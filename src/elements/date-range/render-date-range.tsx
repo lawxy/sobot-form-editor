@@ -117,7 +117,7 @@ export const RenderDateRange: TElementRender = ({
 
   const attributes = useMemo(() => {
     const baseAttributes = {
-      label: addonBefore,
+      label: addonBefore?.langText,
       placement,
     };
 
@@ -143,7 +143,7 @@ export const RenderDateRange: TElementRender = ({
 
         return {
           ...memo,
-          [item.label]: [startValue, endValue]
+          [item.label?.langText]: [startValue, endValue]
         }
       }, {});
 
@@ -175,8 +175,7 @@ export const RenderDateRange: TElementRender = ({
       disabled={disabled}
       allowClear={allowClear}
       style={customStyle}
-      placeholder={[startPlaceholder!, endPlaceholder!]}
-      // presets={datePresets as any}
+      placeholder={[startPlaceholder?.langText as string, endPlaceholder?.langText as string]}
       {...attributes}
     />
   );

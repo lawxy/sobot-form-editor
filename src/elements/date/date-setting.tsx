@@ -10,8 +10,9 @@ import {
   DisabledSetting,
   PlacementSetting,
   DefaultDateSetting,
+  WithLanguage,
 } from '@/components';
-import type { TElementSetting } from '@/types';
+import type { TElementSetting, TextWithLang } from '@/types';
 import { dateOptions, datePickerTypeOptions } from '@/utils';
 
 export const SettingDate: TElementSetting = ({
@@ -52,9 +53,9 @@ export const SettingDate: TElementSetting = ({
           type="date"
         />
         <SettingItem label="标题">
-          <Input
-            value={addonBefore}
-            onChange={(e) => setElementProp('addonBefore', e.target.value)}
+          <WithLanguage.Input
+            value={addonBefore!}
+            onChange={(val: TextWithLang) => setElementProp('addonBefore', val)}
           />
         </SettingItem>
         <PlacementSetting />
