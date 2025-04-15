@@ -1,5 +1,5 @@
-import React from 'react';
-import { Radio, Space, type RadioChangeEvent } from '@sobot/soil-ui';
+import React, { useMemo } from 'react';
+import { Radio, type RadioChangeEvent } from '@sobot/soil-ui';
 
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
@@ -27,17 +27,24 @@ export const RenderRadio: TElementRender = ({
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
 
+  const radioOptions = useMemo(() => {
+    return valueOptions?.map((opt) => ({
+      ...opt,
+      label: opt.label.langText,
+    }));
+  }, [valueOptions]);
+
   return useGroup ? (
     <Radio.Group
       onChange={onChange}
       value={fieldValue}
       style={customStyle}
       direction={direction}
-      options={valueOptions}
+      options={radioOptions}
     />
   ) : (
     <>
-      {valueOptions?.map((opt) => (
+      {radioOptions?.map((opt) => (
         <Radio key={opt.id} value={opt.value}>
           {opt.label}
         </Radio>

@@ -88,7 +88,6 @@ export const DefaultDateSetting = observer(
               title={'日期函数'}
               value={customValue || defaultCustomAttribute}
               onChange={(value) => {
-                console.log('value', value);
                 store.setSelectedProp(customAttribute, value);
               }}
               editorType="javascript"

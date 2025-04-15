@@ -1,5 +1,5 @@
-import React from 'react';
-import { Input, Select, Switch } from 'antd';
+import React, { useMemo } from 'react';
+import { Select, Switch } from 'antd';
 import {
   OptionSetting,
   SettingWrap,
@@ -21,13 +21,21 @@ export const SettingSelect: TElementSetting = ({
   setFieldValue,
 }) => {
   const { multiple, valueOptions, addonBefore, labelWrapperStyle } = element;
+
+  const selectOptions = useMemo(() => {
+    return valueOptions?.map((opt) => ({
+      ...opt,
+      label: opt.label.langText,
+    }));
+  }, [valueOptions]);
+
   return (
     <>
       <SettingWrap title="元素设置">
         <DefaultValueSetting>
           {(value) => (
             <Select
-              options={valueOptions}
+              options={selectOptions}
               mode={multiple ? 'multiple' : undefined}
               value={value}
               onChange={(v) => {

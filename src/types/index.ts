@@ -25,7 +25,7 @@ export type TDragElement = TDragElementObject | IDragElementProp[];
 export type TextWithLang = { langText: string; langKey: string }
 export type TDirection = 'vertical' | 'horizontal';
 export type TMode = 'design' | 'form';
-export type TOption = { label: string; value: string | number; id?: string };
+export type TOption = { label: TextWithLang; value: string | number; id?: string };
 export type TCustomPreset = { label: TextWithLang; startDate: string; endDate: string; id?: string };
 export type TPlacement =
   | 'top'

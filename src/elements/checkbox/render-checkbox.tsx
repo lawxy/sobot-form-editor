@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Checkbox, Space } from '@sobot/soil-ui';
 
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
@@ -26,17 +26,24 @@ export const RenderCheckbox: TElementRender = ({
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
 
+  const checkboxOptions = useMemo(() => {
+    return valueOptions?.map((opt) => ({
+      ...opt,
+      label: opt.label.langText,
+    }));
+  }, [valueOptions]);
+
   return useGroup ? (
     <Checkbox.Group
       onChange={handleChange}
       value={fieldValue}
       style={customStyle}
       direction={direction}
-      options={valueOptions}
+      options={checkboxOptions}
     />
   ) : (
     <>
-      {valueOptions?.map((opt) => (
+      {checkboxOptions?.map((opt) => (
         <Checkbox key={opt.id} value={opt.value} indeterminate={indeterminate}>
           {opt.label}
         </Checkbox>

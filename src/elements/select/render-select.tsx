@@ -28,7 +28,7 @@ export const RenderSelect: TElementRender = ({
   const dataSoruce = useMemo(() => {
     return valueOptions?.map((item) => ({
       key: item.value,
-      value: item.label,
+      value: item?.label?.langText,
     }));
   }, [valueOptions]);
 

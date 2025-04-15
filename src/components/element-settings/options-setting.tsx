@@ -39,7 +39,10 @@ export const OptionSetting: FC = observer(() => {
       </SettingItem>
       <Table
         columns={columns}
-        dataSource={store.selectedElement.valueOptions}
+        dataSource={store.selectedElement.valueOptions?.map((opt) => ({
+          ...opt,
+          label: opt.label.langText,
+        }))}
         pagination={false}
         scroll={{ y: 300 }}
         rowKey="id"

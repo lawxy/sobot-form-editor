@@ -10,3 +10,4 @@ export * from './can-search';
 export * from './use-group-setting';
 export * from './placement-setting';
 export * from './default-date-setting';
+export * from './custom-attributes-setting';

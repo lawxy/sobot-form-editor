@@ -88,14 +88,14 @@ export const EditModal: FC<
             <Switch size="small" />
           </Form.Item>
           <Form.Item noStyle shouldUpdate>
-            {({ getFieldValue, setFieldValue }) => (
+            {({ getFieldValue, setFieldsValue, getFieldsValue }) => (
               <>
                 {elementWithOptions.includes(getFieldValue('valueType')) && (
                   <Form.Item label="选项" name="options">
                     <OptionModal
                       options={getFieldValue('options') || []}
                       onChange={(options) => {
-                        setFieldValue('options', options);
+                        setFieldsValue({ ...getFieldsValue(), options });
                       }}
                     >
                       <Button size="small">编辑</Button>

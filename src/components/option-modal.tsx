@@ -10,7 +10,7 @@ import {
 import { cloneDeep } from 'lodash-es';
 import { TableSortable } from '@sobot/form-editor-ui';
 
-import { MinusIcon, PlusIcon } from '@/components';
+import { MinusIcon, PlusIcon, WithLanguage } from '@/components';
 import type { TOption } from '@/types';
 import { idCreator } from '@/utils';
 import { BatchGenerateOptions } from './batch-generate-options';
@@ -46,7 +46,7 @@ export const OptionModal: FC<
       return;
     }
     const newOptions = cloneDeep(valueOptions);
-    newOptions.push({ label: '', value: '', id: idCreator('option') });
+    newOptions.push({ label: { langText: '', langKey: '' }, value: '', id: idCreator('option') });
     setOption(newOptions);
   };
 
@@ -56,10 +56,10 @@ export const OptionModal: FC<
       dataIndex: 'label',
       render(val: string, _: any, idx: number) {
         return (
-          <Input
+          <WithLanguage.Input
             value={val}
-            onChange={(e) => {
-              handleInputChange(idx, 'label', e.target.value);
+            onChange={(v) => {
+              handleInputChange(idx, 'label', v);
             }}
           />
         );
@@ -92,7 +92,7 @@ export const OptionModal: FC<
                 setOption(newOptions);
                 if (!newOptions.length) {
                   setOption([
-                    { label: '', value: '', id: idCreator('option') },
+                    { label: { langText: '', langKey: '' }, value: '', id: idCreator('option') },
                   ]);
                 }
               }}
@@ -123,8 +123,6 @@ export const OptionModal: FC<
             title="属性设置"
             options={valueOptions}
             setOptions={setOption}
-            labelField="label"
-            valueField="value"
           />
         }
         maskClosable={false}

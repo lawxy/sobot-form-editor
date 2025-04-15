@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Select } from 'antd';
 import {
   OptionSetting,
@@ -16,6 +16,15 @@ export const SettingCheckbox: TElementSetting = ({
   setElementProp,
   setFieldValue,
 }) => {
+  const { valueOptions } = element;
+
+  const checkboxOptions = useMemo(() => {
+    return valueOptions?.map((opt) => ({
+      ...opt,
+      label: opt.label.langText,
+    }));
+  }, [valueOptions]);
+  
   return (
     <>
       <SettingWrap title="元素设置">
@@ -23,7 +32,7 @@ export const SettingCheckbox: TElementSetting = ({
           {(value) => (
             <Select
               allowClear
-              options={element.valueOptions}
+              options={checkboxOptions}
               value={value || []}
               mode="multiple"
               onChange={(val) => {

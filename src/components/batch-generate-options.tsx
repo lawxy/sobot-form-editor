@@ -10,9 +10,8 @@ export const BatchGenerateOptions: FC<{
   title: string | React.ReactNode;
   options: TOption[];
   setOptions: Dispatch<SetStateAction<any[]>>;
-  labelField: string;
-  valueField: string;
-}> = ({ title, options, setOptions, labelField, valueField }) => {
+
+}> = ({ title, options, setOptions}) => {
   const [open, setOpen] = useState(false);
   const [tempOptions, setTempOptions] = useState(options);
 
@@ -25,8 +24,8 @@ export const BatchGenerateOptions: FC<{
       return (
         memo +
         (idx === 0 ? '' : '\n') +
-        cur[labelField] +
-        (cur[valueField] ? `:${cur[valueField]}` : '')
+        cur.label.langText +
+        (cur.value ? `:${cur.value}` : '')
       );
     }, '');
   }, [tempOptions]);
@@ -35,11 +34,11 @@ export const BatchGenerateOptions: FC<{
     const couples = str.split('\n');
     const newOptions = couples.map((couple) => {
       const [label = '', value = ''] = couple.split(':');
-      const oldOpt = options.find((item) => item[labelField] === label);
+      const oldOpt = options.find((item) => item.label.langText === label);
       if (oldOpt) return oldOpt;
       return {
-        [labelField]: label.trim(),
-        [valueField]: value.trim(),
+        label: { langText: label.trim(), langKey: '' },
+        value: value.trim(),
         id: idCreator('option'),
       };
     });
@@ -79,7 +78,7 @@ export const BatchGenerateOptions: FC<{
           setOpen(false);
         }}
         onOk={() => {
-          setOptions(tempOptions.filter((item) => Boolean(item[labelField])));
+          setOptions(tempOptions.filter((item) => Boolean(item?.label?.langText)));
           setOpen(false);
         }}
         destroyOnClose

@@ -10,7 +10,7 @@ export const initialData: Partial<IBaseElement> = {
   gridLayout: false,
   placeholder: {langText: '请选择', langKey: ''},
   valueOptions: [
-    { label: '选项1', value: '1', id: '1' },
-    { label: '选项2', value: '2', id: '2' },
+    { label: { langText: '选项1', langKey: '' }, value: '1', id: '1' },
+    { label: { langText: '选项2', langKey: '' }, value: '2', id: '2' },
   ],
 };
