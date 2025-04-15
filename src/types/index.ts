@@ -124,6 +124,14 @@ export interface IBaseElement {
    */
   fieldName?: string;
   /**
+   * 字段提示
+   */
+  fieldTooltip?: TextWithLang;
+  /**
+   * 是否显示冒号
+   */
+  colon?: boolean;
+  /**
    * 显示元素名称
    */
   showElementName?: boolean;

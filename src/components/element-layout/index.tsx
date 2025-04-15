@@ -30,10 +30,11 @@ export const ElementLayout: FC<
     regExps,
     parentId,
     type,
+    isFormItem,
+    colon,
   } = element;
   const { elCss, contaninerCss } = useElementCommon(element);
   const { mode } = useEditorContext();
-  // console.log('fieldName', fieldName);
 
   // 自定义css样式
   const style = useMemo(() => {
@@ -94,10 +95,11 @@ export const ElementLayout: FC<
               // @ts-ignore
               __html: elementName?.langText,
             }}
-            className={
+            className={c({
               // @ts-ignore
-              rules?.[0]?.required ? prefixCls('title-required') : ''
-            }
+              [prefixCls('title-required')]: rules?.[0]?.required,
+              [prefixCls('title-colon')]: !!colon,
+            })}
           />
         )}
         <div
@@ -125,8 +127,8 @@ export const ElementLayout: FC<
       data-id={id}
       data-type={type}
     >
-      {element.isFormItem ? (
-        <Form.Item name={fieldName || id} rules={rules}>
+      {isFormItem ? (
+        <Form.Item name={fieldName || id} rules={rules} label='123' >
           {content}
         </Form.Item>
       ) : (

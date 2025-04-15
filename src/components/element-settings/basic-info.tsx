@@ -8,7 +8,7 @@ import { SettingItem, SettingWrap } from '../setting-common';
 import { WithLanguage } from '../with-language';
 
 const BasicInfo = () => {
-  const { gridSpan, id, gridOffset, fieldName, isContainer } =
+  const { gridSpan, id, gridOffset, fieldName, isContainer, fieldTooltip, isFormItem, colon } =
     store.selectedElement;
   return (
     <SettingWrap title="基础设置">
@@ -39,12 +39,32 @@ const BasicInfo = () => {
           <SettingItem label="表单项">
             <Switch
               size='small'
-              checked={store.selectedElement?.isFormItem}
+              checked={!!isFormItem}
               onChange={(checked) => {
                 store.setSelectedProp('isFormItem', checked);
               }}
             />
           </SettingItem>
+          <SettingItem label="是否显示冒号">
+            <Switch
+              size='small'
+              checked={!!colon}
+              onChange={(checked) => {
+                store.setSelectedProp('colon', checked);
+              }}
+            />
+          </SettingItem>
+          {
+            isFormItem && (
+              <>
+                <SettingItem label="字段提示" tips='tooltip'>
+                  <WithLanguage.Input value={fieldTooltip} onChange={(value: TextWithLang) => {
+                    store.setSelectedProp('fieldTooltip', value);
+                  }} />
+                </SettingItem>
+              </>
+            )
+          }
         </>
       )}
       <SettingItem label="元素id">
