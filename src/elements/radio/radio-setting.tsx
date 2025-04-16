@@ -35,6 +35,7 @@ export const SettingRadio: TElementSetting = ({
               options={radioOptions}
               value={value}
               onChange={(val) => {
+                setElementProp('defaultValue', val);
                 setFieldValue(val);
               }}
             />

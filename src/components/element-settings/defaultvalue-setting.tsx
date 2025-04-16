@@ -8,18 +8,17 @@ import store from '../../store';
 const DefaultValueSettingContent: FC<
   { label?: string } & Partial<ConsumerProps<any>>
 > = ({ children, label }) => {
-  const { id, fieldName } = store.selectedElement || {};
-  const value = store.fieldValues[fieldName! || id!];
+  const { defaultValue } = store.selectedElement || {};
   return (
     <SettingItem label={label ?? '默认值'}>
       {children ? (
-        children(value)
+        children(defaultValue)
       ) : (
         <Input
-          value={value}
+          value={defaultValue}
           onChange={(e) => {
-            store.removeField(id!);
-            store.setFieldValue(fieldName! || id!, e.target.value);
+            store.setSelectedProp('defaultValue', e.target.value);
+            // store.removeField(id!);
           }}
         />
       )}

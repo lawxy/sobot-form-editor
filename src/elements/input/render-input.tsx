@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Input } from '@sobot/soil-ui';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
+import { isUndefined } from 'lodash-es';
 
 export const RenderInput: TElementRender = ({
   fieldValue,
@@ -24,6 +25,7 @@ export const RenderInput: TElementRender = ({
     maxNum,
     addonBefore,
     addonAfter,
+    defaultValue,
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -48,6 +50,15 @@ export const RenderInput: TElementRender = ({
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
 
+  const inputValue = useMemo(() => {
+    console.log('fieldValue', fieldValue);
+    console.log('defaultValue', defaultValue);
+    if (isUndefined(fieldValue)) {
+      return defaultValue;
+    }
+    return fieldValue;
+  }, [fieldValue, defaultValue]);
+
   return (
     <>
       {textType === 'multiple' ? (
@@ -60,7 +71,7 @@ export const RenderInput: TElementRender = ({
                   maxRows,
                 }
           }
-          value={fieldValue}
+          value={inputValue}
           placeholder={placeholder?.langText}
           id={id}
           onChange={handleChange}
@@ -80,7 +91,7 @@ export const RenderInput: TElementRender = ({
           onChange={handleChange}
           onFocus={handleEvent(EEventAction.ON_FOCUS)}
           onBlur={handleEvent(EEventAction.ON_BLUR)}
-          value={fieldValue}
+          value={inputValue}
           type={textType === 'single' ? 'text' : 'password'}
           autoComplete="new-password"
           allowClear={allowClear}

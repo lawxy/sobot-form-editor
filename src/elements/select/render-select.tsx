@@ -4,6 +4,8 @@ import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 import { parseCSS } from '@/utils';
+import { isUndefined } from 'lodash-es';
+
 export const RenderSelect: TElementRender = ({
   element,
   fieldValue,
@@ -21,6 +23,7 @@ export const RenderSelect: TElementRender = ({
     canSearch,
     labelWrapperStyle,
     tagRenderText,
+    defaultValue,
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -34,7 +37,8 @@ export const RenderSelect: TElementRender = ({
 
   const onChange = useCallback(
     (val: any) => {
-      setFieldValue(val);
+      // undefined 会触发显示默认值
+      setFieldValue(val ? val : null);
     },
     [setFieldValue],
   );
@@ -51,6 +55,12 @@ export const RenderSelect: TElementRender = ({
     return parseCSS(labelWrapperStyle)?.labelWrapperStyle || {};
   }, [labelWrapperStyle]);
 
+  const selectValue = useMemo(() => {
+    if (isUndefined(fieldValue)) {
+      return defaultValue;
+    }
+    return fieldValue;
+  }, [fieldValue, defaultValue]);
   return (
     <Select
       placeholder={placeholder?.langText}
@@ -60,7 +70,7 @@ export const RenderSelect: TElementRender = ({
       style={customStyle}
       mode={multiple ? 'multiple' : undefined}
       allowClear={allowClear}
-      value={fieldValue}
+      value={selectValue}
       disabled={disabled}
       label={addonBefore?.langText}
       search={canSearch}

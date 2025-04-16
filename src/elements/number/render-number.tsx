@@ -4,6 +4,7 @@ import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 import { EValueType } from './const';
+import { isUndefined } from 'lodash-es';
 
 export const RenderNumber: TElementRender = ({
   element = {},
@@ -11,7 +12,7 @@ export const RenderNumber: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { id, minNum, maxNum, valueType } = element;
+  const { id, minNum, maxNum, valueType, defaultValue } = element;
   const { eventFunctions } = useRegisterEvents(element);
 
   const [precision, step] = useMemo(() => {
@@ -44,9 +45,16 @@ export const RenderNumber: TElementRender = ({
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
 
+  const inputValue = useMemo(() => {
+    if (isUndefined(fieldValue)) {
+      return defaultValue;
+    }
+    return fieldValue;
+  }, [fieldValue, defaultValue]);
+
   return (
     <InputNumber
-      value={fieldValue}
+      value={inputValue}
       id={id}
       onChange={handleChange}
       onFocus={handleEvent(EEventAction.ON_FOCUS)}

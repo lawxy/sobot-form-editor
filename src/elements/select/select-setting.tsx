@@ -39,7 +39,8 @@ export const SettingSelect: TElementSetting = ({
               mode={multiple ? 'multiple' : undefined}
               value={value}
               onChange={(v) => {
-                setFieldValue(v);
+                setElementProp('defaultValue', v);
+                // setFieldValue(v);
               }}
               placeholder="默认值选择"
               allowClear

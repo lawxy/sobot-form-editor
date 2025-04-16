@@ -3,6 +3,7 @@ import { Checkbox, Space } from '@sobot/soil-ui';
 
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction, type TElementRender } from '@/types';
+import { isUndefined } from 'lodash-es';
 
 export const RenderCheckbox: TElementRender = ({
   fieldValue,
@@ -10,7 +11,8 @@ export const RenderCheckbox: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { useGroup, valueOptions, direction, indeterminate } = element;
+  const { useGroup, valueOptions, direction, indeterminate, defaultValue } =
+    element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -33,10 +35,17 @@ export const RenderCheckbox: TElementRender = ({
     }));
   }, [valueOptions]);
 
+  const checkboxValue = useMemo(() => {
+    if (isUndefined(fieldValue)) {
+      return defaultValue;
+    }
+    return fieldValue;
+  }, [fieldValue, defaultValue]);
+
   return useGroup ? (
     <Checkbox.Group
       onChange={handleChange}
-      value={fieldValue}
+      value={checkboxValue}
       style={customStyle}
       direction={direction}
       options={checkboxOptions}

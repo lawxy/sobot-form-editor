@@ -6,7 +6,7 @@ import { tabStore } from './tabStore';
 import eventStore from './eventStore';
 import type { IBaseElement } from '../types';
 import { IBaseStore, IElementStore } from './types';
-import baseStore from '.';
+// import baseStore from '.';
 
 export default {
   /**
@@ -196,18 +196,10 @@ export default {
 
     this.addTraceAction({
       undo: async () => {
-        await this.moveElInDifferentParent(
-          htmlElement,
-          oldParentId!,
-          oldIndex,
-        );
+        await this.moveElInDifferentParent(htmlElement, oldParentId!, oldIndex);
       },
       redo: async () => {
-        await this.moveElInDifferentParent(
-          htmlElement,
-          newParentId,
-          newIndex,
-        );
+        await this.moveElInDifferentParent(htmlElement, newParentId, newIndex);
       },
     });
   },
@@ -253,8 +245,8 @@ export default {
       parentChildren.splice(idx, 1);
     });
 
-    const formValues = baseStore.fieldValues;
-    delete formValues[el.fieldName! || el.id!];
+    // const formValues = baseStore.fieldValues;
+    // delete formValues[el.fieldName! || el.id!];
 
     this.addTraceAction({
       undo: async () => {
@@ -307,7 +299,7 @@ export default {
 
     parentChildren.splice(idx + 1, 0, newEl);
 
-    baseStore.setFieldValue(newEl.id!, baseStore.fieldValues[el.id!]);
+    // baseStore.setFieldValue(newEl.id!, baseStore.fieldValues[el.id!]);
 
     this.addTraceAction({
       undo: async () => {
@@ -315,8 +307,7 @@ export default {
       },
       redo: async () => {
         const deletedEl = this.getElement(newEl.id);
-        baseStore.setFieldValue(deletedEl.fieldName! || deletedEl.id!, baseStore.deletedValues[deletedEl.id!]);
-        await this.insertEl(deletedEl, idx+1);
+        await this.insertEl(deletedEl, idx + 1);
       },
     });
 

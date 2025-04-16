@@ -27,7 +27,10 @@ export const SettingNumber: TElementSetting = ({
               min={element?.minNum}
               max={element?.maxNum}
               value={value}
-              onChange={(v) => setFieldValue(v)}
+              onChange={(v) => {
+                setElementProp('defaultValue', v);
+                // setFieldValue(v);
+              }}
             />
           )}
         </DefaultValueSetting>

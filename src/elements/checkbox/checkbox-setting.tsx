@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Select } from 'antd';
+import { Select, Input } from 'antd';
 import {
   OptionSetting,
   SettingWrap,
@@ -24,7 +24,7 @@ export const SettingCheckbox: TElementSetting = ({
       label: opt.label.langText,
     }));
   }, [valueOptions]);
-  
+
   return (
     <>
       <SettingWrap title="元素设置">
@@ -36,11 +36,13 @@ export const SettingCheckbox: TElementSetting = ({
               value={value || []}
               mode="multiple"
               onChange={(val) => {
-                setFieldValue(val);
+                setElementProp('defaultValue', val);
+                // setFieldValue(val);
               }}
             />
           )}
         </DefaultValueSetting>
+
         <UseGroupSetting />
         {element.useGroup && (
           <>

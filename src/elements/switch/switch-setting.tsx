@@ -54,9 +54,13 @@ export const SettingSwitch: TElementSetting = ({
             size="small"
             checked={!isNil(value) && value === realCheckedValue}
             onChange={(checked) => {
-              setFieldValue(
+              setElementProp(
+                'defaultValue',
                 checked ? realCheckedValue : getValueFromInput(closeValue),
               );
+              // setFieldValue(
+              //   checked ? realCheckedValue : getValueFromInput(closeValue),
+              // );
             }}
           />
         )}

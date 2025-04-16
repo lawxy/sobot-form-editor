@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Switch } from '@sobot/soil-ui';
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
-import { isNil } from 'lodash-es';
+import { isNil, isUndefined } from 'lodash-es';
 
 import { EEventAction, type TElementRender } from '@/types';
 import { getValueFromInput } from '@/utils';
@@ -12,7 +12,7 @@ const RenderSwitchContent: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { openValue, closeValue, addonAfter, disabled } = element;
+  const { openValue, closeValue, addonAfter, disabled, defaultValue } = element;
   const { eventFunctions } = useRegisterEvents(element);
 
   const realCheckedValue = useMemo(() => {
@@ -27,10 +27,17 @@ const RenderSwitchContent: TElementRender = ({
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
 
+  const switchValue = useMemo(() => {
+    if (isUndefined(fieldValue)) {
+      return defaultValue;
+    }
+    return fieldValue;
+  }, [fieldValue, defaultValue]);
+
   return (
     <Switch
       disabled={disabled}
-      checked={!isNil(fieldValue) && fieldValue === realCheckedValue}
+      checked={!isNil(switchValue) && switchValue === realCheckedValue}
       onChange={(checked) => {
         setFieldValue(
           checked ? realCheckedValue : getValueFromInput(closeValue),

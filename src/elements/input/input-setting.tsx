@@ -25,7 +25,6 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
     minRows,
     maxRows,
     autoSize,
-    disabled,
     showCount,
     minNum,
     maxNum,
@@ -87,13 +86,17 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
             <SettingItem label="前缀">
               <WithLanguage.Input
                 value={addonBefore!}
-                onChange={(val: TextWithLang) => setElementProp('addonBefore', val)}
-             />
+                onChange={(val: TextWithLang) =>
+                  setElementProp('addonBefore', val)
+                }
+              />
             </SettingItem>
             <SettingItem label="后缀">
               <WithLanguage.Input
                 value={addonAfter!}
-                onChange={(val: TextWithLang) => setElementProp('addonAfter', val)}
+                onChange={(val: TextWithLang) =>
+                  setElementProp('addonAfter', val)
+                }
               />
             </SettingItem>
           </>

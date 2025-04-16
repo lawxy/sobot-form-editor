@@ -22,11 +22,20 @@ export type TDragElementObject = Record<
   IDragElementProp
 >;
 export type TDragElement = TDragElementObject | IDragElementProp[];
-export type TextWithLang = { langText: string; langKey: string }
+export type TextWithLang = { langText: string; langKey: string };
 export type TDirection = 'vertical' | 'horizontal';
 export type TMode = 'design' | 'form';
-export type TOption = { label: TextWithLang; value: string | number; id?: string };
-export type TCustomPreset = { label: TextWithLang; startDate: string; endDate: string; id?: string };
+export type TOption = {
+  label: TextWithLang;
+  value: string | number;
+  id?: string;
+};
+export type TCustomPreset = {
+  label: TextWithLang;
+  startDate: string;
+  endDate: string;
+  id?: string;
+};
 export type TPlacement =
   | 'top'
   | 'left'
@@ -85,7 +94,6 @@ export enum EDateRangeType {
   CUSTOM = 'custom',
 }
 
-
 export interface IBaseElement {
   /**
    * 父节点id
@@ -139,6 +147,10 @@ export interface IBaseElement {
    * 元素id
    */
   id?: string;
+  /**
+   * 默认值
+   */
+  defaultValue?: any;
   /**
    * 采用栅格布局
    */
@@ -402,8 +414,7 @@ export interface IBaseElement {
   /**
    * 日期范围自定义
    */
-  customPresets?: Array<TCustomPreset>
-
+  customPresets?: Array<TCustomPreset>;
 }
 export interface IFormAttributesProps {
   formName?: string;

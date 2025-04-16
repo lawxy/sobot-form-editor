@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Radio, type RadioChangeEvent } from '@sobot/soil-ui';
+import { isUndefined } from 'lodash-es';
 
 import { useRegisterEvents, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
@@ -11,7 +12,7 @@ export const RenderRadio: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { useGroup, valueOptions, direction } = element;
+  const { useGroup, valueOptions, direction, defaultValue } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -34,10 +35,17 @@ export const RenderRadio: TElementRender = ({
     }));
   }, [valueOptions]);
 
+  const radioValue = useMemo(() => {
+    if (isUndefined(fieldValue)) {
+      return defaultValue;
+    }
+    return fieldValue;
+  }, [fieldValue, defaultValue]);
+
   return useGroup ? (
     <Radio.Group
       onChange={onChange}
-      value={fieldValue}
+      value={radioValue}
       style={customStyle}
       direction={direction}
       options={radioOptions}
