@@ -51,8 +51,6 @@ export const RenderInput: TElementRender = ({
   }, [fieldValue]);
 
   const inputValue = useMemo(() => {
-    console.log('fieldValue', fieldValue);
-    console.log('defaultValue', defaultValue);
     if (isUndefined(fieldValue)) {
       return defaultValue;
     }

@@ -45,15 +45,19 @@ const BasicInfo = () => {
               }}
             />
           </SettingItem>
-          <SettingItem label="是否显示冒号">
-            <Switch
-              size='small'
-              checked={!!colon}
-              onChange={(checked) => {
-                store.setSelectedProp('colon', checked);
-              }}
-            />
-          </SettingItem>
+          {
+            isFormItem && (
+              <SettingItem label="显示冒号">
+                <Switch
+                  size='small'
+                  checked={!!colon}
+                  onChange={(checked) => {
+                    store.setSelectedProp('colon', checked);
+                  }}
+                />
+              </SettingItem>
+            )
+          }
           {
             isFormItem && (
               <>
@@ -70,7 +74,7 @@ const BasicInfo = () => {
       <SettingItem label="元素id">
         <div>{id}</div>
       </SettingItem>
-      <SettingItem label="元素名称">
+      {/* <SettingItem label="元素名称">
         <WithLanguage.Input
          value={store.selectedElement.elementName!}
          onChange={(value: TextWithLang) => {
@@ -78,8 +82,8 @@ const BasicInfo = () => {
          }}
          placeholder="请输入元素名称"
         />
-      </SettingItem>
-      <SettingItem label="显示名称">
+      </SettingItem> */}
+      {/* <SettingItem label="显示名称">
         <Switch
           checked={store.selectedElement?.showElementName}
           onChange={(checked) => {
@@ -87,8 +91,8 @@ const BasicInfo = () => {
           }}
           size="small"
         />
-      </SettingItem>
-      <SettingItem label="名称对齐">
+      </SettingItem> */}
+      {/* <SettingItem label="名称对齐">
         <Select
           options={DirectionOpions}
           value={store.selectedElement.elementNameDisplay || 'vertical'}
@@ -96,7 +100,7 @@ const BasicInfo = () => {
             store.setSelectedProp('elementNameDisplay', val);
           }}
         />
-      </SettingItem>
+      </SettingItem> */}
       <SettingItem label="栅格布局">
         <Switch
           checked={store.selectedElement?.gridLayout}

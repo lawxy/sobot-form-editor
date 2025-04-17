@@ -9,12 +9,13 @@ import 'moment/locale/zh-cn';
 
 import c from 'classnames';
 import { ElementsMap } from './elements';
-import type { IFormSchema, TDragElement } from './types';
+import type { IBaseElement, IFormSchema, TDragElement } from './types';
 import { prefixCls } from './const';
 import store from './store';
 import { injectSchema } from '.';
 import { EditorContext, type IEditorContext } from './context';
 import { wrapObserver } from './utils';
+import { FormComponent } from './form';
 
 import './index.less';
 
@@ -81,6 +82,18 @@ const FormEditorContent: React.ForwardRefRenderFunction<
 
   useImperativeHandle(ref, () => ({
     form,
+    setElementProp(id: string, field: keyof IBaseElement, value: any) {
+      store.setElementProp(id, field, value);
+    },
+    setFieldValue(field: string, value: any) {
+      store.setFieldValue(field, value);
+    },
+    setFieldValues(values: Record<string, any>) {
+      store.setFieldsValues(values);
+    },
+    getElement(search: string | { id?: string, fieldName?: string }) {
+      return store.getElement(search);
+    },
     getSchema() {
       return store.getSchema();
     },
@@ -111,12 +124,16 @@ const FormEditorContent: React.ForwardRefRenderFunction<
     return c(classObj);
   }, [className, mode]);
 
+  const { layout } = store.editorAttrs;
+
+  console.log(layout);
   return (
     <EditorContext.Provider value={contextValue}>
       <ConfigProvider lang={lang || 'zh'}>
-        <Form form={form}>
+        <FormComponent mode={mode} form={form} className={formClassName}>{children}</FormComponent>
+        {/* <Form form={form} layout={layout}>
           <div className={formClassName}>{children}</div>
-        </Form>
+        </Form> */}
       </ConfigProvider>
     </EditorContext.Provider>
   );

@@ -142,7 +142,7 @@ export interface IBaseElement {
   /**
    * 显示元素名称
    */
-  showElementName?: boolean;
+  // showElementName?: boolean;
   /**
    * 元素id
    */
@@ -427,6 +427,11 @@ export interface IFormAttributesProps {
   customCss?: string;
   justify?: TJustify;
   align?: TAlign;
+  layout?: 'horizontal' | 'vertical';
+  /**
+   * 自定义属性 - 前端扩展使用
+   */
+  extendAttributes?: Record<string, any>;
 }
 
 export interface IFormSchema {

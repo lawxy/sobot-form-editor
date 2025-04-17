@@ -6,15 +6,14 @@ import {
   SettingItem,
   SettingWrap,
   EventSetting,
-  CustomCssSetting,
   FormCssSetting,
 } from '@/components';
-import { EEventAction, EEventType, TJustify, TAlign } from '@/types';
+import { EEventAction, EEventType, TDirection } from '@/types';
 import store from '@/store';
-import { prefixCls, JustifyOptions, AlignOptions } from '@/const';
+import { prefixCls, DirectionOpions } from '@/const';
 
 const FormSetting = () => {
-  const { id, formName, horizontalGap, verticalGap, justify, align } =
+  const { id, formName, horizontalGap, verticalGap, layout } =
     store.editorAttrs;
 
   return (
@@ -39,15 +38,15 @@ const FormSetting = () => {
             />
           </SettingItem>
 
-          {/* <SettingItem label="水平对齐">
+          <SettingItem label="表单布局">
             <Select
-              options={JustifyOptions}
-              value={justify}
+              options={DirectionOpions}
+              value={layout}
               onChange={(val) => {
-                store.setFormAttr<'justify'>('justify', val as TJustify);
+                store.setFormAttr<'layout'>('layout', val as TDirection);
               }}
             />
-          </SettingItem> */}
+          </SettingItem>
 
           <SettingItem label="水平间隔">
             <InputNumber
@@ -61,16 +60,6 @@ const FormSetting = () => {
               }}
             />
           </SettingItem>
-
-          {/* <SettingItem label="垂直对齐">
-            <Select
-              options={AlignOptions}
-              value={align}
-              onChange={(val) => {
-                store.setFormAttr<'align'>('align', val as TAlign);
-              }}
-            />
-          </SettingItem> */}
 
           <SettingItem label="垂直间隔">
             <InputNumber

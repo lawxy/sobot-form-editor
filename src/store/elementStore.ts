@@ -79,20 +79,20 @@ export default {
   /**
    * 通过id获取元素
    */
-  getElement(id?: string | { id?: string, fieldName?: string }) {
-    if (!id) return;
+  getElement(search?: string | { id?: string, fieldName?: string }) {
+    if (!search) return;
 
-    if(typeof id === 'string') {
-      return this.formElementMap.get(id);
+    if(typeof search === 'string') {
+      return this.formElementMap.get(search);
     }
 
-    if(!id?.id && !id?.fieldName) return;
+    if(!search?.id && !search?.fieldName) return;
 
-    if(id?.fieldName) {
-      return Array.from(this.formElementMap.values()).find((element) => element.fieldName === id.fieldName);
+    if(search?.fieldName) {
+      return Array.from(this.formElementMap.values()).find((element) => element.fieldName === search.fieldName);
     }
-    if(id?.id) {
-      return this.formElementMap.get(id?.id);
+    if(search?.id) {
+      return this.formElementMap.get(search?.id);
     }
   },
 

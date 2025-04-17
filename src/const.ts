@@ -109,6 +109,7 @@ export const defaultFormAttrs = {
   justify: 'start',
   align: 'top',
   customCss: '#form {\n\tpadding: 10px;\n}',
+  layout: 'horizontal',
 };
 
 export const DEFAULT_ERROR_MESSAGE = '请求服务报错';

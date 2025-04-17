@@ -25,13 +25,14 @@ export const ElementLayout: FC<
     fieldName,
     gridOffset,
     gridSpan,
-    showElementName,
+    // showElementName,
     gridLayout,
     regExps,
     parentId,
     type,
     isFormItem,
     colon,
+    fieldTooltip
   } = element;
   const { elCss, contaninerCss } = useElementCommon(element);
   const { mode } = useEditorContext();
@@ -89,7 +90,7 @@ export const ElementLayout: FC<
             elementNameDisplay === 'horizontal',
         })}
       >
-        {showElementName && (
+        {/* {showElementName && (
           <div
             dangerouslySetInnerHTML={{
               // @ts-ignore
@@ -101,7 +102,7 @@ export const ElementLayout: FC<
               [prefixCls('title-colon')]: !!colon,
             })}
           />
-        )}
+        )} */}
         <div
           className={prefixCls('element-content')}
           style={{
@@ -126,9 +127,10 @@ export const ElementLayout: FC<
       data-parent-id={parentId}
       data-id={id}
       data-type={type}
+      data-field-name={fieldName}
     >
       {isFormItem ? (
-        <Form.Item name={fieldName || id} rules={rules} label='123' >
+        <Form.Item name={fieldName || id} rules={rules} label={elementName?.langText} tooltip={fieldTooltip} colon={!!colon}>
           {content}
         </Form.Item>
       ) : (

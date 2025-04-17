@@ -33,7 +33,7 @@ export interface IElementStore {
 
   clearAllElements: () => void;
 
-  getElement: (id?: string) => IBaseElement;
+  getElement: (search?: string | { id?: string, fieldName?: string }) => IBaseElement;
 
   getParentChildren: (id?: string) => IBaseElement[];
 
