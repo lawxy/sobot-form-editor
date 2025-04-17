@@ -10,6 +10,7 @@ import {
   AllowClear,
   DisabledSetting,
   WithLanguage,
+  // CustomAttributesSetting
 } from '@/components';
 import type { TElementSetting, TextWithLang } from '@/types';
 

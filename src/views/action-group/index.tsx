@@ -42,6 +42,28 @@ const ActionGroup = () => {
     //   message.error('表单校验失败')
     //   return;
     // }
+    // console.log('store.formElements')
+    // console.log(cloneDeep(store.formElements))
+    // console.log('store.formElementMap')
+    // console.log(cloneDeep(store.formElementMap))
+
+ 
+    const fieldNames: string[] = [];
+    const hasSameFieldName = Array.from(store.formElementMap.values()).some((element) => {
+      if(element.fieldName) {
+        if (fieldNames.includes(element.fieldName)) {
+          store.setSelectedElement(element)
+          return true;
+        }
+        fieldNames.push(element.fieldName)
+      }
+      return false;
+    })
+
+    if(hasSameFieldName) {
+      message.error('字段名重复')
+      return;
+    }
 
     const schema = cloneDeep(store.getSchema());
 

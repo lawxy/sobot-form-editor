@@ -9131,6 +9131,18 @@ glob-stream@^6.1.0:
     to-absolute-glob "^2.0.0"
     unique-stream "^2.0.2"
 
+glob@7.1.6:
+  version "7.1.6"
+  resolved "https://registry.npmmirror.com/glob/-/glob-7.1.6.tgz#141f33b81a7c2492e125594307480c46679278a6"
+  integrity sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.4"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
 glob@^10.2.5, glob@^10.3.10:
   version "10.4.5"
   resolved "https://npm.zhichidata.com/glob/-/glob-10.4.5.tgz#f4d9f0b90ffdbab09c9d77f5f29b4262517b0956"
@@ -17098,6 +17110,18 @@ stylis@^4.3.4:
   version "4.3.6"
   resolved "https://npm.zhichidata.com/stylis/-/stylis-4.3.6.tgz#7c7b97191cb4f195f03ecab7d52f7902ed378320"
   integrity sha512-yQ3rwFWRfwNUY7H5vpU0wfdkNSnvnJinhF9830Swlaxl03zsOjCfmX0ugac+3LtK0lYSgwL/KXc8oYL3mG4YFQ==
+
+sucrase-browser@^3.16.0:
+  version "3.16.0"
+  resolved "https://registry.npmmirror.com/sucrase-browser/-/sucrase-browser-3.16.0.tgz#c2e7e412c15a1498d812a7833488075218e612dd"
+  integrity sha512-RiT9M8OsFyYhaBs0GjpHfNH2yy5NfMwPOL18NLnGBWnyWNf3cS3oG8hwMTkd5Xw9V4pArTIfR3TKwTH1kolO/w==
+  dependencies:
+    commander "^4.0.0"
+    glob "7.1.6"
+    lines-and-columns "^1.1.6"
+    mz "^2.7.0"
+    pirates "^4.0.1"
+    ts-interface-checker "^0.1.9"
 
 sucrase@^3.34.0:
   version "3.35.0"

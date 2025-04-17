@@ -79,10 +79,21 @@ export default {
   /**
    * 通过id获取元素
    */
-  getElement(id?: string) {
+  getElement(id?: string | { id?: string, fieldName?: string }) {
     if (!id) return;
 
-    return this.formElementMap.get(id);
+    if(typeof id === 'string') {
+      return this.formElementMap.get(id);
+    }
+
+    if(!id?.id && !id?.fieldName) return;
+
+    if(id?.fieldName) {
+      return Array.from(this.formElementMap.values()).find((element) => element.fieldName === id.fieldName);
+    }
+    if(id?.id) {
+      return this.formElementMap.get(id?.id);
+    }
   },
 
   /**

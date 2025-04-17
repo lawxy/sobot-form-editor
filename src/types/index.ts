@@ -359,10 +359,7 @@ export interface IBaseElement {
    * 位置
    */
   placement?: TPlacement;
-  /**
-   * 自定义属性
-   */
-  customAttributes?: Record<string, any>;
+
   /**
    * 开始日期默认值模式
    */
@@ -415,6 +412,10 @@ export interface IBaseElement {
    * 日期范围自定义
    */
   customPresets?: Array<TCustomPreset>;
+  /**
+   * 自定义属性 - 前端扩展使用
+   */
+  extendAttributes?: Record<string, any>;
 }
 export interface IFormAttributesProps {
   formName?: string;
