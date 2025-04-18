@@ -12,7 +12,7 @@ const RenderSwitchContent: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { openValue, closeValue, addonAfter, disabled, defaultValue } = element;
+  const { openValue, closeValue, addonAfter, disabled, defaultValue, extendProps } = element;
   const { eventFunctions } = useRegisterEvents(element);
 
   const realCheckedValue = useMemo(() => {
@@ -44,6 +44,7 @@ const RenderSwitchContent: TElementRender = ({
         );
       }}
       style={customStyle}
+      {...extendProps}
     >
       {addonAfter}
     </Switch>

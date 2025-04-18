@@ -26,6 +26,7 @@ export const RenderInput: TElementRender = ({
     addonBefore,
     addonAfter,
     defaultValue,
+    extendProps
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -81,6 +82,7 @@ export const RenderInput: TElementRender = ({
           showCount={showCount}
           minLength={minNum}
           maxLength={maxNum}
+          {...extendProps}
         />
       ) : (
         <Input
@@ -100,6 +102,7 @@ export const RenderInput: TElementRender = ({
           maxLength={maxNum}
           addonBefore={addonBefore?.langText}
           addonAfter={addonAfter?.langText}
+          {...extendProps}
         />
       )}
     </>

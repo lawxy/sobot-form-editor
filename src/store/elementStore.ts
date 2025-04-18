@@ -4,7 +4,7 @@ import { runInAction } from 'mobx';
 import { idCreator, bindFromCopiedElement, unBindFromElement } from '@/utils';
 import { tabStore } from './tabStore';
 import eventStore from './eventStore';
-import type { IBaseElement } from '../types';
+import type { IBaseElement, TElementSearch } from '../types';
 import { IBaseStore, IElementStore } from './types';
 // import baseStore from '.';
 
@@ -79,14 +79,15 @@ export default {
   /**
    * 通过id获取元素
    */
-  getElement(search?: string | { id?: string, fieldName?: string }) {
-    if (!search) return;
+  getElement(search?: TElementSearch) {
+
+    if (!search) return null;
 
     if(typeof search === 'string') {
       return this.formElementMap.get(search);
     }
 
-    if(!search?.id && !search?.fieldName) return;
+    if(!search?.id && !search?.fieldName) return null;
 
     if(search?.fieldName) {
       return Array.from(this.formElementMap.values()).find((element) => element.fieldName === search.fieldName);

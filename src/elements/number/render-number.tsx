@@ -12,7 +12,7 @@ export const RenderNumber: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { id, minNum, maxNum, valueType, defaultValue } = element;
+  const { id, minNum, maxNum, valueType, defaultValue, extendProps } = element;
   const { eventFunctions } = useRegisterEvents(element);
 
   const [precision, step] = useMemo(() => {
@@ -64,6 +64,7 @@ export const RenderNumber: TElementRender = ({
       precision={precision}
       step={step}
       style={customStyle}
+      {...extendProps}
     />
   );
 };

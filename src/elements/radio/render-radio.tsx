@@ -12,7 +12,7 @@ export const RenderRadio: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { useGroup, valueOptions, direction, defaultValue } = element;
+  const { useGroup, valueOptions, direction, defaultValue, extendProps } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -49,11 +49,12 @@ export const RenderRadio: TElementRender = ({
       style={customStyle}
       direction={direction}
       options={radioOptions}
+      {...extendProps}
     />
   ) : (
     <>
       {radioOptions?.map((opt) => (
-        <Radio key={opt.id} value={opt.value}>
+        <Radio key={opt.id} value={opt.value} style={customStyle}>
           {opt.label}
         </Radio>
       ))}

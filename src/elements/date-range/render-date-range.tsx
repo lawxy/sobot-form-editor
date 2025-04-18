@@ -33,7 +33,8 @@ export const RenderDateRange: TElementRender = ({
     datePresets,
     dateRangeVersion,
     customPresets,
-    dateRangeType
+    dateRangeType,
+    extendProps
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -177,6 +178,7 @@ export const RenderDateRange: TElementRender = ({
       style={customStyle}
       placeholder={[startPlaceholder?.langText as string, endPlaceholder?.langText as string]}
       {...attributes}
+      {...extendProps}
     />
   );
 };

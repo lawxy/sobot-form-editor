@@ -3,6 +3,7 @@ export * from './service';
 export * from '../store/types';
 
 import type { FC, ReactNode, CSSProperties } from 'react';
+import type { FormItemProps, FormProps } from '@sobot/soil-ui';
 import { TCustomEvents } from './event';
 import { TFormSerives } from './service';
 import { EEventAction } from './event';
@@ -21,6 +22,7 @@ export type TDragElementObject = Record<
   IDragElementProp['type'],
   IDragElementProp
 >;
+export type TElementSearch = string | { id?: string, fieldName?: string };
 export type TDragElement = TDragElementObject | IDragElementProp[];
 export type TextWithLang = { langText: string; langKey: string };
 export type TDirection = 'vertical' | 'horizontal';
@@ -142,7 +144,7 @@ export interface IBaseElement {
   /**
    * 显示元素名称
    */
-  // showElementName?: boolean;
+  showElementName?: boolean;
   /**
    * 元素id
    */
@@ -415,12 +417,15 @@ export interface IBaseElement {
   /**
    * 自定义属性 - 前端扩展使用
    */
-  extendAttributes?: Record<string, any>;
+  extendProps?: Record<string, any>;
+  /**
+   * 表单项属性
+   */
+  extendFormItem?: FormItemProps;
 }
 export interface IFormAttributesProps {
   formName?: string;
   id?: string;
-  status?: boolean;
   horizontalGap: number;
   verticalGap: number;
   events?: TCustomEvents;
@@ -429,9 +434,9 @@ export interface IFormAttributesProps {
   align?: TAlign;
   layout?: 'horizontal' | 'vertical';
   /**
-   * 自定义属性 - 前端扩展使用
+   * 自定义表单Form属性 - 前端扩展使用
    */
-  extendAttributes?: Record<string, any>;
+  extendForm?: FormProps;
 }
 
 export interface IFormSchema {

@@ -1,3 +1,4 @@
+import type { IFormAttributesProps } from './types';
 import { idCreator } from './utils';
 
 export const prefixCls = (className: string) => `fe-${className}`;
@@ -102,7 +103,7 @@ export const PlacementOptions = [
   },
 ];
 
-export const defaultFormAttrs = {
+export const defaultFormAttrs: IFormAttributesProps = {
   id: idCreator('form'),
   horizontalGap: 8,
   verticalGap: 8,

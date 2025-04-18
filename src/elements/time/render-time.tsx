@@ -24,6 +24,7 @@ export const RenderTime: TElementRender = ({
     endDateMode,
     startDate,
     endDate,
+    extendProps
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -119,6 +120,7 @@ export const RenderTime: TElementRender = ({
       style={customStyle}
       label={addonBefore?.langText}
       disabled={disabled}
+      {...extendProps}
     />
   );
 };

@@ -19,6 +19,7 @@ export const RenderContainer: TElementRender = ({ element, customStyle }) => {
     align,
     justify,
     direction,
+    extendProps
   } = element;
 
   const style = useMemo(() => {
@@ -53,6 +54,7 @@ export const RenderContainer: TElementRender = ({ element, customStyle }) => {
       }}
       forbidden={mode !== 'design'}
       style={style}
+      {...extendProps}
     >
       {element.children?.map((item: IBaseElement) => {
         store.flatElement(item);

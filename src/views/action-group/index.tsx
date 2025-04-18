@@ -115,7 +115,7 @@ const ActionGroup = () => {
           title="确定要清空所有组件吗？"
           onConfirm={() => {
             store.clearAllElements();
-            store.setFieldsValues({});
+            store.setFieldsValue({});
             store.setSelectedElement({});
             eventStore.clearMap();
             store.formServices?.forEach((serv) => {

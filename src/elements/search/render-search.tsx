@@ -10,7 +10,7 @@ export const RenderSearch: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { id, placeholder, allowClear, disabled } = element;
+  const { id, placeholder, allowClear, disabled, extendProps } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -53,6 +53,7 @@ export const RenderSearch: TElementRender = ({
       allowClear={allowClear}
       style={customStyle}
       disabled={disabled}
+      {...extendProps}
     />
   );
 };

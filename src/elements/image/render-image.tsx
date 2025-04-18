@@ -10,7 +10,7 @@ export const RenderImage: TElementRender = ({
   fieldValue,
   customStyle,
 }) => {
-  const { placeholder, preview, previewSrc } = element;
+  const { placeholder, preview, previewSrc, extendProps } = element;
   const { eventFunctions } = useRegisterEvents(element);
 
   useFormUpdate(() => {
@@ -23,6 +23,7 @@ export const RenderImage: TElementRender = ({
       fallback={placeholder}
       preview={preview ? (previewSrc ? { src: previewSrc } : true) : false}
       style={customStyle}
+      {...extendProps}
     />
   );
 };

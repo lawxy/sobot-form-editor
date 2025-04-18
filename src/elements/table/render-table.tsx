@@ -24,6 +24,7 @@ export const RenderTable: TElementRender = ({
     pagination,
     total,
     currentPage,
+    extendProps
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -75,6 +76,7 @@ export const RenderTable: TElementRender = ({
           },
         }
       }
+      {...extendProps}
     />
   );
 };

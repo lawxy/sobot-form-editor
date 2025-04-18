@@ -7,6 +7,7 @@ export const RenderText: TElementRender = ({ element, customStyle }) => {
     <div
       dangerouslySetInnerHTML={{ __html: element?.elementName?.langText || '' }}
       style={customStyle}
+      {...element.extendProps}
     />
   );
 };

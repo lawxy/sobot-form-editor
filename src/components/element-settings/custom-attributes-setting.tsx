@@ -17,9 +17,9 @@ export const CustomAttributesSetting = () => {
     <SettingItem label="自定义属性">
       <AttributesSetting
         title="自定义属性设置"
-        value={store.selectedElement.extendAttributes || defaultCustomAttributes}
+        value={store.selectedElement.extendProps || defaultCustomAttributes}
         onChange={(value) => {
-          store.setSelectedProp('extendAttributes', value);
+          store.setSelectedProp('extendProps', value);
         }}
         editorType="javascript"
       >

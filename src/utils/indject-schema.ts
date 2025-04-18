@@ -11,7 +11,7 @@ export const injectSchema = (schema: IFormSchema) => {
     formServices = [],
   } = schema;
   store.setFormElements(formElements);
-  store.setFieldsValues(fieldValues);
+  store.setFieldsValue(fieldValues);
   store.setFormAttrs(editorAttrs);
   store.setFormServices(formServices);
 };

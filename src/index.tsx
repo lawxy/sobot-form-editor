@@ -1,15 +1,15 @@
 import React, { useEffect, useMemo, useImperativeHandle } from 'react';
 import type { PropsWithChildren } from 'react';
-import { ConfigProvider, Form } from '@sobot/soil-ui';
-import type { FormInstance } from 'antd';
+import { ConfigProvider, Form, FormItemProps, FormProps } from '@sobot/soil-ui';
 import type { I18nLang } from '@sobot/utils/es/i18n';
 
 import 'reflect-metadata';
 import 'moment/locale/zh-cn';
 
 import c from 'classnames';
+import { IBaseStore } from './store/types';
 import { ElementsMap } from './elements';
-import type { IBaseElement, IFormSchema, TDragElement } from './types';
+import type { IBaseElement, IFormSchema, TDragElement, TElementSearch } from './types';
 import { prefixCls } from './const';
 import store from './store';
 import { injectSchema } from '.';
@@ -28,8 +28,16 @@ export * from './components';
 export * from './context';
 
 export interface IEditorInstance {
-  form: FormInstance;
-  getSchema: () => void;
+  getSchema: IBaseStore['getSchema'];
+  getFieldValue: IBaseStore['getFieldValue'];
+  getFieldValues: IBaseStore['getFieldValues'];
+  setFieldValue: IBaseStore['setFieldValue'];
+  setFieldsValue: IBaseStore['setFieldsValue'];
+  getElement: IBaseStore['getElement'];
+  // 前端扩展
+  extendForm: (extend: FormProps) => void;
+  extendFormItem: (search: TElementSearch, extend: FormItemProps) => void;
+  extendElement: (search: TElementSearch, extend: Record<string, any>) => void;
 }
 
 export type TFormProps = {
@@ -37,8 +45,9 @@ export type TFormProps = {
   customElements?: TDragElement;
   lang?: I18nLang;
   className?: string;
-  LOCALE?: Record<string, string>;
-} & Pick<IEditorContext, 'mode' | 'actionProp'>;
+  // LOCALE?: Record<string, string>;
+  extend?: Record<string, any>;
+} & Pick<IEditorContext, 'mode' | 'actionProp' | 'LOCALE'>;
 
 const FormEditorContent: React.ForwardRefRenderFunction<
   IEditorInstance,
@@ -81,18 +90,51 @@ const FormEditorContent: React.ForwardRefRenderFunction<
   }, [defaultValue]);
 
   useImperativeHandle(ref, () => ({
-    form,
-    setElementProp(id: string, field: keyof IBaseElement, value: any) {
-      store.setElementProp(id, field, value);
+    setElementProp(search: TElementSearch, field: keyof IBaseElement, value: any) {
+      Promise.resolve().then(() => {
+        const element = store.getElement(search);
+        if (element) {
+          store.setElementProp(element.id!, field, value);
+        }
+      })
+    },
+    extendForm(extend: FormProps) {
+      store.setFormAttr('extendForm', extend);
+    },
+    extendFormItem(search: TElementSearch, extend: FormItemProps) {
+      Promise.resolve().then(() => {
+        const element = store.getElement(search);
+        if (element) {
+          store.setElementProp(element.id!, 'extendFormItem', extend);
+        }
+      })
+    },
+    extendElement(search: TElementSearch, extend: Record<string, any>) {
+      Promise.resolve().then(() => {
+        const element = store.getElement(search);
+        if (element) {
+          store.setElementProp(element.id!, 'extendProps', extend);
+        }
+      })
+    },
+    getFieldValue(field: string) {
+      return store.getFieldValue(field);
+    },
+    getFieldValues() {
+      return store.getFieldValues();
     },
     setFieldValue(field: string, value: any) {
-      store.setFieldValue(field, value);
+      Promise.resolve().then(() => {
+        store.setFieldValue(field, value);
+      })
     },
-    setFieldValues(values: Record<string, any>) {
-      store.setFieldsValues(values);
+    setFieldsValue(values: Record<string, any>) {
+      Promise.resolve().then(() => {
+        store.setFieldsValue(values);
+      })
     },
-    getElement(search: string | { id?: string, fieldName?: string }) {
-      return store.getElement(search);
+    getElement(search?: string | { id?: string, fieldName?: string }) {
+      return Promise.resolve().then(() => store.getElement(search));
     },
     getSchema() {
       return store.getSchema();
@@ -124,16 +166,10 @@ const FormEditorContent: React.ForwardRefRenderFunction<
     return c(classObj);
   }, [className, mode]);
 
-  const { layout } = store.editorAttrs;
-
-  console.log(layout);
   return (
     <EditorContext.Provider value={contextValue}>
       <ConfigProvider lang={lang || 'zh'}>
         <FormComponent mode={mode} form={form} className={formClassName}>{children}</FormComponent>
-        {/* <Form form={form} layout={layout}>
-          <div className={formClassName}>{children}</div>
-        </Form> */}
       </ConfigProvider>
     </EditorContext.Provider>
   );

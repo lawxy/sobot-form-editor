@@ -24,6 +24,7 @@ export const RenderSelect: TElementRender = ({
     labelWrapperStyle,
     tagRenderText,
     defaultValue,
+    extendProps
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -76,6 +77,7 @@ export const RenderSelect: TElementRender = ({
       search={canSearch}
       labelWrapperStyle={_labelWrapperStyle}
       tagRenderText={tagRenderText}
+      {...extendProps}
     />
   );
 };

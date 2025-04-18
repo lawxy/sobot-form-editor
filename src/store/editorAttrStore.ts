@@ -7,6 +7,14 @@ export default {
    */
   editorAttrs: {},
 
+  getFormAttrs() {
+    return this.editorAttrs;
+  },
+
+  getFormAttr(key: keyof IFormAttributesProps) {
+    return this.editorAttrs[key];
+  },
+
   setFormAttrs(attrs: IFormAttributesProps) {
     this.editorAttrs = attrs;
   },

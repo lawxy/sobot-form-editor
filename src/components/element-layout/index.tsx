@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import type { FC, PropsWithChildren } from 'react';
-import { Col, Form } from '@sobot/soil-ui';
+import { Col, Form, FormItemProps } from '@sobot/soil-ui';
 import { Rule } from 'antd/es/form';
 import { observer } from 'mobx-react-lite';
 import { cloneDeep } from 'lodash-es';
@@ -32,7 +32,9 @@ export const ElementLayout: FC<
     type,
     isFormItem,
     colon,
-    fieldTooltip
+    fieldTooltip,
+    showElementName,
+    extendFormItem
   } = element;
   const { elCss, contaninerCss } = useElementCommon(element);
   const { mode } = useEditorContext();
@@ -82,15 +84,14 @@ export const ElementLayout: FC<
   const offset = gridLayout ? gridOffset || 0 : 0;
 
   const content = (
-    <WrapEl el={element} mode={mode}>
-      <div
-        className={c({
-          [prefixCls('with-element-name')]: true,
-          [prefixCls('with-element-name-horizontal')]:
-            elementNameDisplay === 'horizontal',
-        })}
-      >
-        {/* {showElementName && (
+    <div
+      className={c({
+        [prefixCls('with-element-name')]: true,
+        [prefixCls('with-element-name-horizontal')]:
+          elementNameDisplay === 'horizontal',
+      })}
+    >
+      {/* {showElementName && (
           <div
             dangerouslySetInnerHTML={{
               // @ts-ignore
@@ -103,21 +104,28 @@ export const ElementLayout: FC<
             })}
           />
         )} */}
-        <div
-          className={prefixCls('element-content')}
-          style={{
-            display: element.isContainer ? 'block' : 'flex',
-          }}
-        >
-          {React.isValidElement(children) &&
-            React.cloneElement<any>(children, {
-              ...(children?.props || {}),
-              customStyle: elCss || {},
-            })}
-        </div>
+      <div
+        className={prefixCls('element-content')}
+        style={{
+          display: element.isContainer ? 'block' : 'flex',
+        }}
+      >
+        {React.isValidElement(children) &&
+          React.cloneElement<any>(children, {
+            ...(children?.props || {}),
+            customStyle: elCss || {},
+          })}
       </div>
-    </WrapEl>
+    </div>
   );
+
+  const formItemProps: FormItemProps = useMemo(() => {
+    
+    if (extendFormItem && typeof extendFormItem === 'object') {
+      return extendFormItem
+    }
+    return {}
+  }, [extendFormItem]);
 
   return (
     <Col
@@ -129,13 +137,22 @@ export const ElementLayout: FC<
       data-type={type}
       data-field-name={fieldName}
     >
-      {isFormItem ? (
-        <Form.Item name={fieldName || id} rules={rules} label={elementName?.langText} tooltip={fieldTooltip} colon={!!colon}>
-          {content}
-        </Form.Item>
-      ) : (
-        content
-      )}
+      <WrapEl el={element} mode={mode}>
+        {isFormItem ? (
+          <Form.Item
+            name={fieldName || id}
+            rules={rules}
+            label={showElementName ? elementName?.langText : null}
+            tooltip={fieldTooltip?.langText || null}
+            colon={!!colon}
+            {...formItemProps}
+          >
+            {content}
+          </Form.Item>
+        ) : (
+          content
+        )}
+      </WrapEl>
     </Col>
   );
 });
@@ -169,6 +186,13 @@ export const RenderElementWithLayout: FC<{
     [element.id],
   );
 
+  const extendProps = useMemo(() => {
+    if(element.extendProps && typeof element.extendProps === 'object') {
+      return element.extendProps
+    }
+    return {}
+  }, [element.extendProps]);
+
   if (!Component) return null;
 
   return (
@@ -183,6 +207,7 @@ export const RenderElementWithLayout: FC<{
         setElementProp={setElementProp}
         element={element}
         LOCALE={LOCALE}
+        extendProps={extendProps}
       />
     </ElementLayout>
   );

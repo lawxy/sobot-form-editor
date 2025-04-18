@@ -20,7 +20,7 @@ export const createPanel = (props = {}) => {
 };
 
 export const RenderTabs: TElementRender = ({ element, customStyle }) => {
-  const { children, underline } = element;
+  const { children, underline, extendProps } = element;
 
   const items = children?.map((child) => {
     store.flatElement(child);
@@ -45,6 +45,7 @@ export const RenderTabs: TElementRender = ({ element, customStyle }) => {
       type={element.tabType}
       style={customStyle}
       underline={underline}
+      {...extendProps}
     />
   );
 };

@@ -24,6 +24,7 @@ export const RenderDate: TElementRender = ({
     startDate,
     startDateCustom,
     disabled,
+    extendProps
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -102,6 +103,7 @@ export const RenderDate: TElementRender = ({
       placeholder={placeholder?.langText}
       style={customStyle}
       {...attributes}
+      {...extendProps}
     />
   );
 };

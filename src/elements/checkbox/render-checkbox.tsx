@@ -11,7 +11,7 @@ export const RenderCheckbox: TElementRender = ({
   customStyle,
   setFieldValue,
 }) => {
-  const { useGroup, valueOptions, direction, indeterminate, defaultValue } =
+  const { useGroup, valueOptions, direction, indeterminate, defaultValue, extendProps } =
     element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -49,11 +49,12 @@ export const RenderCheckbox: TElementRender = ({
       style={customStyle}
       direction={direction}
       options={checkboxOptions}
+      {...extendProps}
     />
   ) : (
     <>
       {checkboxOptions?.map((opt) => (
-        <Checkbox key={opt.id} value={opt.value} indeterminate={indeterminate}>
+        <Checkbox key={opt.id} value={opt.value} indeterminate={indeterminate} style={customStyle}>
           {opt.label}
         </Checkbox>
       ))}

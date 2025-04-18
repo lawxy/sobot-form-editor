@@ -33,7 +33,7 @@ export interface IElementStore {
 
   clearAllElements: () => void;
 
-  getElement: (search?: string | { id?: string, fieldName?: string }) => IBaseElement;
+  getElement: (search?: string | { id?: string, fieldName?: string }) => IBaseElement | null;
 
   getParentChildren: (id?: string) => IBaseElement[];
 
@@ -93,6 +93,10 @@ export interface IServiceStore {
 export interface IEditorAttrStore {
   editorAttrs: IFormAttributesProps;
 
+  getFormAttrs: () => IFormAttributesProps;
+
+  getFormAttr: (key: keyof IFormAttributesProps) => IFormAttributesProps[keyof IFormAttributesProps];
+
   setFormAttrs: (attrs: IFormAttributesProps) => void;
 
   setFormAttr: <T extends keyof IFormAttributesProps>(
@@ -110,7 +114,7 @@ export interface IFormStore {
 
   setFieldValue: (field: string, value: any) => void;
 
-  setFieldsValues: (values: Record<string, any>) => void;
+  setFieldsValue: (values: Record<string, any>) => void;
 
   removeField: (field: string) => void;
 
