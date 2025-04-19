@@ -30,7 +30,7 @@ export enum EEventAction {
   // 搜索
   ON_SEARCH = 'onSearch',
 }
-export const eventActionInChinese = {
+export const eventActionInChinese: Record<EEventAction, string> = {
   [EEventAction.ON_CLICK]: '鼠标单击',
   // [EEventAction.ON_DOULE_CLICK]: '鼠标双击',
   [EEventAction.VALUE_CHANGE]: '值发生变化',
@@ -39,6 +39,7 @@ export const eventActionInChinese = {
   [EEventAction.ON_LOADED]: '组件加载后',
   [EEventAction.FORM_LOADED]: '表单加载后',
   [EEventAction.PAGINATION_CHANGE]: '分页切换',
+  [EEventAction.ON_SEARCH]: '搜索',
 };
 
 /**

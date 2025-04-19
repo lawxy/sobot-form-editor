@@ -65,6 +65,10 @@
       "prettier --parser=typescript --write"
     ]
   },
+  "resolutions": {
+    "babel-plugin-react-compiler": "0.0.0-experimental-4690415-20240515",
+    "zod-validation-error": "1.2.0"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@sobot/form-editor-ui": "^0.0.2",
@@ -113,9 +117,5 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "resolutions": {
-    "babel-plugin-react-compiler": "0.0.0-experimental-4690415-20240515",
-    "zod-validation-error": "1.2.0"
   }
 }

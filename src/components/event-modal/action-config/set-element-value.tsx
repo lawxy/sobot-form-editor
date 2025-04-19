@@ -20,7 +20,7 @@ const getComponentsOptions = () => {
       label: (
         <div
           dangerouslySetInnerHTML={{
-            __html: el?.elementName || (el.id as string),
+            __html: el?.elementName?.langText || (el.id as string),
           }}
         />
       ),

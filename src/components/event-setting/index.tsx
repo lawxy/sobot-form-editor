@@ -16,6 +16,7 @@ import {
 
 import { EventCollapse } from './event-collapse';
 import { EventModal } from '../event-modal';
+import { EventEditor } from '../event-editor';
 
 export * from './event-collapse';
 
@@ -92,6 +93,22 @@ export const EventSetting: React.FC<{
 
   return (
     <div className={prefixCls('event-common-wrap')}>
+      {/* <EventEditor
+        eventActions={eventActions}
+        onOk={(evt: TCustomEvent) => handleSaveEvents(EChangeType.ADD, evt)}
+        type={EChangeType.ADD}
+        sourceId={sourceId!}
+        eventTypeOptions={eventTypeOptions}
+        element={current}
+      >
+        <Button
+          type="dashed"
+          className={prefixCls('add-button')}
+          style={{ marginBottom: 8 }}
+        >
+          + 新增事件
+        </Button>
+      </EventEditor> */}
       <EventModal
         eventActions={eventActions}
         onOk={(evt: TCustomEvent) => handleSaveEvents(EChangeType.ADD, evt)}
