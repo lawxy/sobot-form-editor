@@ -1,7 +1,7 @@
 import { IFormStore, IBaseStore } from './types';
 
 export default {
-  fieldValues: {},
+  fieldsValue: {},
 
   formInstance: undefined,
 
@@ -9,27 +9,26 @@ export default {
     this.formInstance = form;
   },
 
-  removeField(field: keyof IFormStore['fieldValues']) {
-    delete this.fieldValues[field];
-    this.formInstance?.setFieldsValue(this.fieldValues);
+  removeField(field: keyof IFormStore['fieldsValue']) {
+    delete this.fieldsValue[field];
+    this.formInstance?.setFieldsValue(this.fieldsValue);
   },
 
   getFieldValue(field: string) {
-    return this.fieldValues[field];
+    return this.fieldsValue[field];
   },
 
-  getFieldValues() {
-    return this.fieldValues;
+  getFieldsValue() {
+    return this.fieldsValue;
   },
 
   setFieldValue(field: string, value: any) {
-    this.fieldValues[field] = value;
-    // this.formInstance?.setFieldValue(field, value);
+    this.fieldsValue[field] = value;
     this.formInstance?.setFields([{ name: field, value }]);
   },
 
   setFieldsValue(values: Record<string, any>) {
-    this.fieldValues = values;
+    this.fieldsValue = values;
     this.formInstance?.setFieldsValue(values);
   },
 } as Pick<IBaseStore, keyof IFormStore>;

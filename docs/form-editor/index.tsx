@@ -4,19 +4,32 @@ import {
   Material,
   Settings,
   FormCanvas,
+  IEditorInstance,
 } from '@sobot/form-editor';
 // import { customElement } from '../common/customEl';
 import SoilUi from '../soil-ui';
 import { LOCALE } from '../common/locale';
 
 const Comp = () => {
-  const ref = useRef();
+  const ref = useRef<IEditorInstance>();
   useEffect(() => {
-    console.log('outer')
-    ref.current.extendElement('fe-input-3eti8nq8f0c', {
-      placeholder: 'hhhhh'
-    })
-  }, [])
+    // ref.current?.getElement('fe-input-39dralgtkg').then(el => {
+    //   console.log('el', el);
+    // })
+    ref.current?.setFieldValue('bbbb', 'inputadsf123123');
+    // console.log('ref.current', ref.current);
+    setTimeout(() => {
+      ref.current.setElementProp({ fieldName: 'bbbb' }, 'isFormItem', true);
+      ref.current.extendFormItemAttrs(
+        { fieldName: 'bbbb' },
+        {
+          // presets: ['TODAY'],
+          // placeholder: '123123123',
+          label: '测试',
+        },
+      );
+    }, 0);
+  }, []);
   return (
     <FormEditor
       mode="design"

@@ -6,12 +6,9 @@ import { prefixCls } from './const';
 import { TMode } from './types';
 import store from './store';
 
-const FormContent: FC<PropsWithChildren<{ className?: string, form: FormInstance, mode: TMode }>> = ({
-  children,
-  className,
-  form,
-  mode,
-}) => {
+const FormContent: FC<
+  PropsWithChildren<{ className?: string; form: FormInstance; mode: TMode }>
+> = ({ children, className, form, mode }) => {
   useEffect(() => {
     store.setForm(form);
   }, [form]);
@@ -31,18 +28,20 @@ const FormContent: FC<PropsWithChildren<{ className?: string, form: FormInstance
 
   const { layout } = store.editorAttrs;
 
-  const formProps = useMemo(() => {
-    const props: FormProps = {
-      layout,
-    };
-    if (extendForm && typeof extendForm === 'object') {
-      Object.assign(props, extendForm);
-    } 
-    return props;
-  }, [extendForm, layout]);
+  const formProps = store.getFormExtendAttrs();
+
+  // const formProps = useMemo(() => {
+  //   const props: FormProps = {
+  //     layout,
+  //   };
+  //   if (extendForm && typeof extendForm === 'object') {
+  //     Object.assign(props, extendForm);
+  //   }
+  //   return props;
+  // }, [extendForm, layout]);
 
   return (
-    <Form form={form} {...formProps}>
+    <Form form={form} layout={layout} {...formProps}>
       <div className={formClassName}>{children}</div>
     </Form>
   );

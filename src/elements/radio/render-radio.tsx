@@ -11,8 +11,9 @@ export const RenderRadio: TElementRender = ({
   element,
   customStyle,
   setFieldValue,
+  extendProps,
 }) => {
-  const { useGroup, valueOptions, direction, defaultValue, extendProps } = element;
+  const { useGroup, valueOptions, direction, defaultValue } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 

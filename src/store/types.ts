@@ -1,4 +1,4 @@
-import type { FormInstance } from '@sobot/soil-ui';
+import type { FormInstance, FormItemProps, FormProps } from '@sobot/soil-ui';
 import type {
   IBaseElement,
   IFormAttributesProps,
@@ -33,7 +33,9 @@ export interface IElementStore {
 
   clearAllElements: () => void;
 
-  getElement: (search?: string | { id?: string, fieldName?: string }) => IBaseElement | null;
+  getElement: (
+    search?: string | { id?: string; fieldName?: string },
+  ) => IBaseElement | null;
 
   getParentChildren: (id?: string) => IBaseElement[];
 
@@ -95,7 +97,9 @@ export interface IEditorAttrStore {
 
   getFormAttrs: () => IFormAttributesProps;
 
-  getFormAttr: (key: keyof IFormAttributesProps) => IFormAttributesProps[keyof IFormAttributesProps];
+  getFormAttr: (
+    key: keyof IFormAttributesProps,
+  ) => IFormAttributesProps[keyof IFormAttributesProps];
 
   setFormAttrs: (attrs: IFormAttributesProps) => void;
 
@@ -110,7 +114,7 @@ export interface IFormStore {
 
   setForm: (form: FormInstance) => void;
 
-  fieldValues: Record<string, any>;
+  fieldsValue: Record<string, any>;
 
   setFieldValue: (field: string, value: any) => void;
 
@@ -118,9 +122,35 @@ export interface IFormStore {
 
   removeField: (field: string) => void;
 
-  getFieldValue: (field: keyof IFormStore['fieldValues']) => any;
+  getFieldValue: (field: keyof IFormStore['fieldsValue']) => any;
 
-  getFieldValues: () => Record<keyof IFormStore['fieldValues'], any>;
+  getFieldsValue: () => Record<keyof IFormStore['fieldsValue'], any>;
+}
+
+export interface IExtendStore {
+  elementExtendAttrs: Record<string, any>;
+
+  formItemExtendAttrs: Record<string, any>;
+
+  formExtendAttrs: Record<string, any>;
+
+  getElementExtendAttrs: (id: string) => Record<string, any>;
+
+  getFormItemExtendAttrs: (id: string) => FormItemProps;
+
+  getFormExtendAttrs: () => FormProps;
+
+  setElementExtendAttr: (id: string, key: string, value: any) => void;
+
+  setElementExtendAttrs: (id: string, attrs: Record<string, any>) => void;
+
+  setFormItemExtendAttr: (key: string, value: any) => void;
+
+  setFormItemExtendAttrs: (id: string, attrs: Record<string, any>) => void;
+
+  setFormExtendAttr: (key: string, value: any) => void;
+
+  setFormExtendAttrs: (attrs: Record<string, any>) => void;
 }
 
 export type TFormTabType = 'element' | 'form' | 'service';
@@ -128,6 +158,7 @@ export interface IBaseStore
   extends IServiceStore,
     IElementStore,
     IEditorAttrStore,
-    IFormStore {
+    IFormStore,
+    IExtendStore {
   getSchema: () => IFormSchema;
 }

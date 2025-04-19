@@ -19,8 +19,12 @@ export const createPanel = (props = {}) => {
   store.appendEl(panel, false);
 };
 
-export const RenderTabs: TElementRender = ({ element, customStyle }) => {
-  const { children, underline, extendProps } = element;
+export const RenderTabs: TElementRender = ({
+  element,
+  customStyle,
+  extendProps,
+}) => {
+  const { children, underline } = element;
 
   const items = children?.map((child) => {
     store.flatElement(child);

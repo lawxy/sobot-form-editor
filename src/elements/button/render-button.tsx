@@ -4,9 +4,13 @@ import { useRegisterEvents } from '@/hooks';
 
 import { EEventAction, TElementRender } from '@/types';
 
-export const RenderButton: TElementRender = ({ element, customStyle }) => {
+export const RenderButton: TElementRender = ({
+  element,
+  customStyle,
+  extendProps,
+}) => {
   const { eventFunctions } = useRegisterEvents(element);
-  const { btnText, linkLoading, btnType, size, extendProps } = element;
+  const { btnText, linkLoading, btnType, size } = element;
 
   return (
     <Button

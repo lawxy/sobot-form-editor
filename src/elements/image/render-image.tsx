@@ -9,8 +9,9 @@ export const RenderImage: TElementRender = ({
   element,
   fieldValue,
   customStyle,
+  extendProps,
 }) => {
-  const { placeholder, preview, previewSrc, extendProps } = element;
+  const { placeholder, preview, previewSrc } = element;
   const { eventFunctions } = useRegisterEvents(element);
 
   useFormUpdate(() => {

@@ -9,7 +9,11 @@ import type { IBaseElement, TElementRender } from '@/types';
 import { ReactSortable } from '@sobot/form-editor-ui';
 import './style.less';
 
-export const RenderContainer: TElementRender = ({ element, customStyle }) => {
+export const RenderContainer: TElementRender = ({
+  element,
+  customStyle,
+  extendProps,
+}) => {
   const { id } = store.editorAttrs;
   const { mode, ElementsMap } = useEditorContext();
   const {
@@ -19,7 +23,6 @@ export const RenderContainer: TElementRender = ({ element, customStyle }) => {
     align,
     justify,
     direction,
-    extendProps
   } = element;
 
   const style = useMemo(() => {

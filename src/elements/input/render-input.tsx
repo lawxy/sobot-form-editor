@@ -10,6 +10,7 @@ export const RenderInput: TElementRender = ({
   element = {},
   customStyle,
   setFieldValue,
+  extendProps,
 }) => {
   const {
     textType,
@@ -26,7 +27,6 @@ export const RenderInput: TElementRender = ({
     addonBefore,
     addonAfter,
     defaultValue,
-    extendProps
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);

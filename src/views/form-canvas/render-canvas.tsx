@@ -33,7 +33,6 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
   const { eventFunctions } = useRegisterEvents({ id, events });
   const { ElementsMap } = useEditorContext();
 
-
   const formStyle = useMemo(() => {
     if (!customCss) return {};
     const cssObj = parseCSS(customCss);
@@ -41,7 +40,6 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
   }, [customCss]);
 
   useDesignEffect(() => {
-    console.log('render')
     const keydonwFn = (e: KeyboardEvent) => {
       if (e.key === 'Backspace' && document.activeElement === document.body) {
         store.deleteEl(store.selectedElement);

@@ -9,8 +9,9 @@ export const RenderSearch: TElementRender = ({
   element = {},
   customStyle,
   setFieldValue,
+  extendProps,
 }) => {
-  const { id, placeholder, allowClear, disabled, extendProps } = element;
+  const { id, placeholder, allowClear, disabled } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 

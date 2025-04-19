@@ -257,7 +257,7 @@ export default {
       parentChildren.splice(idx, 1);
     });
 
-    // const formValues = baseStore.fieldValues;
+    // const formValues = baseStore.fieldsValue;
     // delete formValues[el.fieldName! || el.id!];
 
     this.addTraceAction({
@@ -311,7 +311,7 @@ export default {
 
     parentChildren.splice(idx + 1, 0, newEl);
 
-    // baseStore.setFieldValue(newEl.id!, baseStore.fieldValues[el.id!]);
+    // baseStore.setFieldValue(newEl.id!, baseStore.fieldsValue[el.id!]);
 
     this.addTraceAction({
       undo: async () => {

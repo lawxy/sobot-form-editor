@@ -18,3 +18,4 @@ export * from './indject-schema';
 export * from './wrap-observer';
 export * from './component-has-observered';
 export * from './date-utils';
+export * from './with-promise';

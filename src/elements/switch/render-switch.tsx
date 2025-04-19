@@ -11,8 +11,9 @@ const RenderSwitchContent: TElementRender = ({
   fieldValue,
   customStyle,
   setFieldValue,
+  extendProps,
 }) => {
-  const { openValue, closeValue, addonAfter, disabled, defaultValue, extendProps } = element;
+  const { openValue, closeValue, addonAfter, disabled, defaultValue } = element;
   const { eventFunctions } = useRegisterEvents(element);
 
   const realCheckedValue = useMemo(() => {

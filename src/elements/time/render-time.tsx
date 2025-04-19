@@ -10,6 +10,7 @@ export const RenderTime: TElementRender = ({
   element,
   customStyle,
   setFieldValue,
+  extendProps,
 }) => {
   const {
     dateFormat,
@@ -24,7 +25,6 @@ export const RenderTime: TElementRender = ({
     endDateMode,
     startDate,
     endDate,
-    extendProps
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);

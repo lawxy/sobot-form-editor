@@ -6,12 +6,12 @@ export const injectSchema = (schema: IFormSchema) => {
   const store = dynamicGetStore();
   const {
     formElements = [],
-    fieldValues = {},
+    fieldsValue = {},
     editorAttrs = defaultFormAttrs,
     formServices = [],
   } = schema;
   store.setFormElements(formElements);
-  store.setFieldsValue(fieldValues);
+  store.setFieldsValue(fieldsValue);
   store.setFormAttrs(editorAttrs);
   store.setFormServices(formServices);
 };

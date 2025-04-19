@@ -11,6 +11,7 @@ export const RenderSelect: TElementRender = ({
   fieldValue,
   customStyle,
   setFieldValue,
+  extendProps,
 }) => {
   const {
     multiple,
@@ -24,7 +25,6 @@ export const RenderSelect: TElementRender = ({
     labelWrapperStyle,
     tagRenderText,
     defaultValue,
-    extendProps
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);

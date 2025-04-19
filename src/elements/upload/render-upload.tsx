@@ -3,8 +3,12 @@ import { Upload, Button, message } from '@sobot/soil-ui';
 import { UploadOutlined } from '@ant-design/icons';
 import type { TElementRender } from '@/types';
 
-export const RenderUpload: TElementRender = ({ element, customStyle }) => {
-  const { btnText, uploadUrl, addonAfter, extendProps } = element;
+export const RenderUpload: TElementRender = ({
+  element,
+  customStyle,
+  extendProps,
+}) => {
+  const { btnText, uploadUrl, addonAfter } = element;
 
   const handleChange = (info: any) => {
     if (info.file.status !== 'uploading') {
@@ -18,7 +22,13 @@ export const RenderUpload: TElementRender = ({ element, customStyle }) => {
   };
 
   return (
-    <Upload onChange={handleChange} action={uploadUrl} tip={addonAfter} style={customStyle} {...extendProps}>
+    <Upload
+      onChange={handleChange}
+      action={uploadUrl}
+      tip={addonAfter}
+      style={customStyle}
+      {...extendProps}
+    >
       <Button icon={<UploadOutlined />}>{btnText?.langText}</Button>
     </Upload>
   );

@@ -22,7 +22,7 @@ export type TDragElementObject = Record<
   IDragElementProp['type'],
   IDragElementProp
 >;
-export type TElementSearch = string | { id?: string, fieldName?: string };
+export type TElementSearch = string | { id?: string; fieldName?: string };
 export type TDragElement = TDragElementObject | IDragElementProp[];
 export type TextWithLang = { langText: string; langKey: string };
 export type TDirection = 'vertical' | 'horizontal';
@@ -417,11 +417,11 @@ export interface IBaseElement {
   /**
    * 自定义属性 - 前端扩展使用
    */
-  extendProps?: Record<string, any>;
+  // extendProps?: Record<string, any>;
   /**
    * 表单项属性
    */
-  extendFormItem?: FormItemProps;
+  // extendFormItem?: FormItemProps;
 }
 export interface IFormAttributesProps {
   formName?: string;
@@ -436,12 +436,12 @@ export interface IFormAttributesProps {
   /**
    * 自定义表单Form属性 - 前端扩展使用
    */
-  extendForm?: FormProps;
+  // extendForm?: FormProps;
 }
 
 export interface IFormSchema {
   formElements?: IBaseElement[];
-  fieldValues?: Record<string, any>;
+  fieldsValue?: Record<string, any>;
   editorAttrs?: IFormAttributesProps;
   formServices?: TFormSerives;
 }
@@ -451,6 +451,7 @@ export type TElementProps = {
   customStyle: CSSProperties;
   fieldValue: any;
   LOCALE: Record<string, string>;
+  extendProps: Record<string, any>;
   setFieldValue: (value: any) => void;
   setElementProp: <T extends keyof IBaseElement>(
     field: T,

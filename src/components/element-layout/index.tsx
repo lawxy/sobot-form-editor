@@ -34,7 +34,7 @@ export const ElementLayout: FC<
     colon,
     fieldTooltip,
     showElementName,
-    extendFormItem
+    // extendFormItem
   } = element;
   const { elCss, contaninerCss } = useElementCommon(element);
   const { mode } = useEditorContext();
@@ -119,13 +119,7 @@ export const ElementLayout: FC<
     </div>
   );
 
-  const formItemProps: FormItemProps = useMemo(() => {
-    
-    if (extendFormItem && typeof extendFormItem === 'object') {
-      return extendFormItem
-    }
-    return {}
-  }, [extendFormItem]);
+  const formItemProps = store.getFormItemExtendAttrs(id!);
 
   return (
     <Col
@@ -186,12 +180,7 @@ export const RenderElementWithLayout: FC<{
     [element.id],
   );
 
-  const extendProps = useMemo(() => {
-    if(element.extendProps && typeof element.extendProps === 'object') {
-      return element.extendProps
-    }
-    return {}
-  }, [element.extendProps]);
+  const extendProps = store.getElementExtendAttrs(element.id!) || {};
 
   if (!Component) return null;
 
@@ -200,8 +189,8 @@ export const RenderElementWithLayout: FC<{
       <Component
         fieldValue={
           element.fieldName
-            ? store.fieldValues[element.fieldName!]
-            : store.fieldValues[element.id!]
+            ? store.fieldsValue[element.fieldName!]
+            : store.fieldsValue[element.id!]
         }
         setFieldValue={setFieldValue}
         setElementProp={setElementProp}

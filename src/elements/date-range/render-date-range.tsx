@@ -14,6 +14,7 @@ export const RenderDateRange: TElementRender = ({
   element,
   customStyle,
   setFieldValue,
+  extendProps,
 }) => {
   const {
     dateFormat,
@@ -34,7 +35,6 @@ export const RenderDateRange: TElementRender = ({
     dateRangeVersion,
     customPresets,
     dateRangeType,
-    extendProps
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -44,7 +44,9 @@ export const RenderDateRange: TElementRender = ({
   };
 
   const handleChange = (dates: Moment[] | null) => {
-    setFieldValue(dates && dates.map(item => item ? moment(item) : undefined));
+    setFieldValue(
+      dates && dates.map((item) => (item ? moment(item) : undefined)),
+    );
   };
 
   useFormUpdate(() => {
@@ -126,7 +128,7 @@ export const RenderDateRange: TElementRender = ({
       return assign(baseAttributes, {
         presets: datePresets,
       });
-    }else {
+    } else {
       const ranges = customPresets?.reduce((memo, item) => {
         const { value: startValue } = parseJs({
           jsFunction: item.startDate,
@@ -144,8 +146,8 @@ export const RenderDateRange: TElementRender = ({
 
         return {
           ...memo,
-          [item.label?.langText]: [startValue, endValue]
-        }
+          [item.label?.langText]: [startValue, endValue],
+        };
       }, {});
 
       assign(baseAttributes, {
@@ -163,7 +165,15 @@ export const RenderDateRange: TElementRender = ({
     return assign(baseAttributes, {
       picker: datePickerType,
     });
-  }, [dateFormat, addonBefore, datePickerType, placement, customPresets, dateRangeType, datePresets]);
+  }, [
+    dateFormat,
+    addonBefore,
+    datePickerType,
+    placement,
+    customPresets,
+    dateRangeType,
+    datePresets,
+  ]);
 
   const Component = dateRangeVersion === 'v2' ? RangePickerV2 : RangePicker;
 
@@ -176,7 +186,10 @@ export const RenderDateRange: TElementRender = ({
       disabled={disabled}
       allowClear={allowClear}
       style={customStyle}
-      placeholder={[startPlaceholder?.langText as string, endPlaceholder?.langText as string]}
+      placeholder={[
+        startPlaceholder?.langText as string,
+        endPlaceholder?.langText as string,
+      ]}
       {...attributes}
       {...extendProps}
     />

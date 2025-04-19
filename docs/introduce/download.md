@@ -58,7 +58,7 @@ window.GLOBAL_FORM_EDITOR_DEFAULT_VALUE = {
       "parentId": "form-o6jcsla52uo"
     }
   ],
-  "fieldValues": {},
+  "fieldsValue": {},
   "editorAttrs": {
     "horizontalGap": 8,
     "verticalGap": 8,
