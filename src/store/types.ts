@@ -12,6 +12,8 @@ export interface IElementStore {
 
   formElementMap: Map<string, IBaseElement>;
 
+  deleteElementMap: Map<string, IBaseElement>;
+
   traceActions: Array<{
     undo?: () => any;
     redo?: () => any;

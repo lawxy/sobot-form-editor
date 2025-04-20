@@ -177,6 +177,7 @@ export const RenderDateRange: TElementRender = ({
 
   const Component = dateRangeVersion === 'v2' ? RangePickerV2 : RangePicker;
 
+  console.log(customStyle);
   return (
     <Component
       value={value}

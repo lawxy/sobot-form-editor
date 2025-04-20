@@ -8,7 +8,7 @@ export const initialData: Partial<IBaseElement> = {
   elementName: { langText: '单选', langKey: '' },
   gridSpan: 10,
   direction: 'horizontal',
-  valueOptions: [
+  options: [
     { label: { langText: '选项1', langKey: '' }, value: '1', id: '1' },
     { label: { langText: '选项2', langKey: '' }, value: '2', id: '2' },
   ],

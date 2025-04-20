@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Modal, Select } from '@sobot/soil-ui';
+import { Button, Form, Input, Modal, Select, Radio } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import type { FC, PropsWithChildren } from 'react';
 
@@ -9,7 +9,7 @@ import { TFormSerive } from '@/types';
 import { idCreator } from '@/utils';
 import { Preview } from './preview';
 
-import { AttributesSetting } from '../element-settings/attributes-setting';
+import { JSModal } from '..';
 
 const defaultInterceptor = `axios.interceptors.request.use(config =>{
   return config
@@ -48,6 +48,15 @@ const ServiceModal: FC<
     label: item,
     value: item,
   }));
+
+  const contentTypeOptions = [
+    { label: 'json', value: 'application/json' },
+    { label: 'form-data', value: 'multipart/form-data' },
+    {
+      label: 'urlencoded',
+      value: 'application/x-www-form-urlencoded',
+    },
+  ];
 
   const getDefaultService = (serv?: TFormSerive) => {
     if (serv?.id) return serv;
@@ -162,6 +171,14 @@ const ServiceModal: FC<
           >
             <Select options={methodOptions} showSearch />
           </Form.Item>
+          <Form.Item
+            name="contentType"
+            label="请求格式"
+            required
+            initialValue="application/json"
+          >
+            <Radio.Group options={contentTypeOptions} />
+          </Form.Item>
           <Form.Item shouldUpdate noStyle>
             {({ getFieldValue }) => {
               return (
@@ -174,7 +191,7 @@ const ServiceModal: FC<
                         className={prefixCls('service-modal-form-item-label')}
                       >
                         <span>拦截器设置</span>
-                        <AttributesSetting
+                        <JSModal
                           title="拦截器设置"
                           editorType="javascript"
                           value={form.getFieldValue('interceptors')}
@@ -187,7 +204,7 @@ const ServiceModal: FC<
                           style={{ height: 600 }}
                         >
                           <Button size="small">编辑</Button>
-                        </AttributesSetting>
+                        </JSModal>
                       </div>
                     }
                   >
@@ -203,7 +220,7 @@ const ServiceModal: FC<
                         className={prefixCls('service-modal-form-item-label')}
                       >
                         <span>预览参数</span>
-                        <AttributesSetting
+                        <JSModal
                           title="编辑参数"
                           editorType="javascript"
                           value={
@@ -218,7 +235,7 @@ const ServiceModal: FC<
                           }}
                         >
                           <Button size="small">编辑</Button>
-                        </AttributesSetting>
+                        </JSModal>
                       </div>
                     }
                   >

@@ -23,8 +23,8 @@ export const RenderTable: TElementRender = ({
     pageSize,
     pagination,
     total,
-    currentPage,
-    extendProps
+    current,
+    extendProps,
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
@@ -33,20 +33,18 @@ export const RenderTable: TElementRender = ({
 
   useEffect(() => {
     Object.assign(editData.current, {
-      page: currentPage!,
+      page: current!,
       pageSize: pageSize!,
     });
-  }, [pageSize, currentPage]);
+  }, [pageSize, current]);
 
   useFormUpdate(() => {
     eventFunctions[EEventAction.ON_LOADED]?.(editData.current);
   }, [eventFunctions[EEventAction.ON_LOADED]]);
 
   useFormUpdate(() => {
-    eventFunctions[EEventAction.PAGINATION_CHANGE]?.(
-      `${currentPage},${pageSize}`,
-    );
-  }, [currentPage, pageSize]);
+    eventFunctions[EEventAction.PAGINATION_CHANGE]?.(`${current},${pageSize}`);
+  }, [current, pageSize]);
 
   const tableColumns = useMemo(() => {
     return columns.map((column) => {
@@ -69,10 +67,10 @@ export const RenderTable: TElementRender = ({
         pagination && {
           total: total ?? fieldValue?.length,
           pageSize,
-          current: currentPage,
+          current,
           showTotal: () => null,
           onChange(currentPage) {
-            setElementProp('currentPage', currentPage);
+            setElementProp('current', currentPage);
           },
         }
       }

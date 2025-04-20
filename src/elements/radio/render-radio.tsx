@@ -13,7 +13,7 @@ export const RenderRadio: TElementRender = ({
   setFieldValue,
   extendProps,
 }) => {
-  const { useGroup, valueOptions, direction, defaultValue } = element;
+  const { useGroup, options, direction, defaultValue } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -30,11 +30,11 @@ export const RenderRadio: TElementRender = ({
   }, [fieldValue]);
 
   const radioOptions = useMemo(() => {
-    return valueOptions?.map((opt) => ({
+    return options?.map((opt) => ({
       ...opt,
       label: opt.label.langText,
     }));
-  }, [valueOptions]);
+  }, [options]);
 
   const radioValue = useMemo(() => {
     if (isUndefined(fieldValue)) {

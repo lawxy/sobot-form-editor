@@ -13,10 +13,11 @@ import {
 import type { IConfig } from '.';
 
 const actions = changeStateActions([
-  EChangeStatePayload.SUBMIT,
   EChangeStatePayload.UPDATE,
   EChangeStatePayload.APPEND,
   EChangeStatePayload.CLEAR,
+  EChangeStatePayload.SUBMIT,
+  EChangeStatePayload.UPLOAD_SCHEMA,
   EChangeStatePayload.NULL,
 ]);
 
@@ -42,6 +43,8 @@ const generateActionSelect = (
 ) => {
   return (
     <Select
+      allowClear
+      style={{ width: 107 }}
       className={prefixCls('event-input')}
       options={actions}
       defaultValue={defaultValue ?? EChangeStatePayload.NULL}
@@ -101,7 +104,16 @@ const RefreshService: React.FC<IConfig> = ({ onChange, eventTarget }) => {
         return (
           <>
             {actionSelect}
-            &nbsp;, 将schema赋值于&nbsp;
+            &nbsp;, 将表单值赋值于&nbsp;
+            {actionFieldInput}
+            &nbsp;字段
+          </>
+        );
+      case EChangeStatePayload.UPLOAD_SCHEMA:
+        return (
+          <>
+            {actionSelect}
+            &nbsp;, 将Schema赋值于&nbsp;
             {actionFieldInput}
             &nbsp;字段
           </>
@@ -120,14 +132,6 @@ const RefreshService: React.FC<IConfig> = ({ onChange, eventTarget }) => {
     }
   };
 
-  console.log(
-    'store.getFormServices()',
-    store.getFormServices(),
-    store.getFormServices()?.map((item) => ({
-      label: item?.name,
-      value: item?.id,
-    })),
-  );
   return (
     <>
       <div>

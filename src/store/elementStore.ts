@@ -16,6 +16,8 @@ export default {
 
   formElementMap: new Map(),
 
+  deleteElementMap: new Map(),
+
   traceActions: [],
 
   tracePointer: 0,
@@ -80,19 +82,20 @@ export default {
    * 通过id获取元素
    */
   getElement(search?: TElementSearch) {
-
     if (!search) return null;
 
-    if(typeof search === 'string') {
+    if (typeof search === 'string') {
       return this.formElementMap.get(search);
     }
 
-    if(!search?.id && !search?.fieldName) return null;
+    if (!search?.id && !search?.fieldName) return null;
 
-    if(search?.fieldName) {
-      return Array.from(this.formElementMap.values()).find((element) => element.fieldName === search.fieldName);
+    if (search?.fieldName) {
+      return Array.from(this.formElementMap.values()).find(
+        (element) => element.fieldName === search.fieldName,
+      );
     }
-    if(search?.id) {
+    if (search?.id) {
       return this.formElementMap.get(search?.id);
     }
   },
@@ -126,8 +129,10 @@ export default {
         await this.deleteEl(el);
       },
       redo: () => {
-        const deletedEl = this.getElement(el.id);
-        this.appendEl(deletedEl, selectNewElement);
+        const deletedEl = this.deleteElementMap.get(el.id!);
+        if (deletedEl) {
+          this.appendEl(deletedEl, selectNewElement);
+        }
       },
     });
   },
@@ -147,8 +152,10 @@ export default {
         await this.deleteEl(el);
       },
       redo: async () => {
-        const deletedEl = this.getElement(el.id);
-        await this.insertEl(deletedEl, idx);
+        const deletedEl = this.deleteElementMap.get(el.id!);
+        if (deletedEl) {
+          await this.insertEl(deletedEl, idx);
+        }
       },
     });
   },
@@ -184,7 +191,7 @@ export default {
   ) {
     this.tracing = false;
 
-    const current = this.getElement(htmlElement.dataset.id);
+    const current = this.getElement(htmlElement.dataset.id)!;
     const oldParentId = current.parentId;
 
     const oldParent = this.getParentChildren(oldParentId);
@@ -247,11 +254,13 @@ export default {
       );
     }
 
-    // this.dfsEl(el, (child) => {
-    //   this.formElementMap.delete(child.id!);
-    // });
+    this.dfsEl(el, (child) => {
+      this.deleteElementMap.set(child.id!, child);
+      this.formElementMap.delete(child.id!);
+    });
 
-    // this.formElementMap.delete(el.id!);
+    this.deleteElementMap.set(el.id!, el);
+    this.formElementMap.delete(el.id!);
 
     runInAction(() => {
       parentChildren.splice(idx, 1);
@@ -262,8 +271,10 @@ export default {
 
     this.addTraceAction({
       undo: async () => {
-        const deletedEl = this.getElement(el.id);
-        await this.insertEl(deletedEl, idx);
+        const deletedEl = this.deleteElementMap.get(el.id!);
+        if (deletedEl) {
+          await this.insertEl(deletedEl, idx);
+        }
       },
       redo: async () => {
         await this.deleteEl(el, move);
@@ -318,8 +329,10 @@ export default {
         await this.deleteEl(newEl);
       },
       redo: async () => {
-        const deletedEl = this.getElement(newEl.id);
-        await this.insertEl(deletedEl, idx + 1);
+        const deletedEl = this.deleteElementMap.get(newEl.id!);
+        if (deletedEl) {
+          await this.insertEl(deletedEl, idx + 1);
+        }
       },
     });
 

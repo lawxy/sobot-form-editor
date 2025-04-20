@@ -16,7 +16,7 @@ import { cloneDeep } from 'lodash-es';
 import {
   MinusIcon,
   PlusIcon,
-  AttributesSetting,
+  JSModal,
   SettingItem,
   WithLanguage,
 } from '@/components';
@@ -102,7 +102,7 @@ export const OperationModal: FC<
       dataIndex: 'startDate',
       render(val: string, _: any, idx: number) {
         return (
-          <AttributesSetting
+          <JSModal
             title="开始日期"
             value={val}
             onChange={(v) => {
@@ -111,7 +111,7 @@ export const OperationModal: FC<
             editorType="javascript"
           >
             <Button size="small">编辑</Button>
-          </AttributesSetting>
+          </JSModal>
         );
       },
     },
@@ -120,7 +120,7 @@ export const OperationModal: FC<
       dataIndex: 'endDate',
       render(val: string, _: any, idx: number) {
         return (
-          <AttributesSetting
+          <JSModal
             title="结束日期"
             value={val}
             onChange={(v) => {
@@ -129,7 +129,7 @@ export const OperationModal: FC<
             editorType="javascript"
           >
             <Button size="small">编辑</Button>
-          </AttributesSetting>
+          </JSModal>
         );
       },
     },

@@ -52,7 +52,7 @@ const withConfig = (fn: (v: IParams) => Promise<any>, target: IEventTarget) => {
 // 设置组件
 export const emitSettingValue = (params: IParams) => {
   const { emitter, eventType, target } = params;
-  const { targetElementId, setValue, targetPayload } = target;
+  const { targetElementId, setValue, targetPayload, customJs } = target;
   const validate = validateParams([targetElementId, targetPayload]);
   if (!validate) return;
 
@@ -64,6 +64,7 @@ export const emitSettingValue = (params: IParams) => {
         setValue: getValueFromInput(setValue),
         targetPayload,
         value,
+        customJs,
       } as TEmitData),
     target,
   );
@@ -118,15 +119,21 @@ export const emitValidateForm = (params: IParams) => {
 // 跳转链接
 export const emitJumpUrl = (params: IParams) => {
   const { target } = params;
-  const { jumpUrl } = target;
+  const { jumpUrl, newWindow } = target;
   const validate = validateParams([jumpUrl]);
   if (!validate) return;
 
   return withConfig(async () => {
+    let href = jumpUrl;
     if (jumpUrl?.startsWith('http')) {
-      window.location.href = jumpUrl;
+      href = jumpUrl;
     } else {
-      window.location.href = `${window.location.origin}${jumpUrl!}`;
+      href = `${window.location.origin}${jumpUrl!}`;
+    }
+    if (newWindow) {
+      window.open(href, '_blank');
+    } else {
+      window.location.href = href;
     }
   }, target);
 };
@@ -145,7 +152,7 @@ const handleError = ({
   const el = store.getElement(sourceId);
   console.log(`
     事件报错:\n 
-    组件: ${el.elementName?.langText ?? sourceId}\n 
+    组件: ${el?.elementName?.langText ?? sourceId}\n 
     事件动作: ${eventActionInChinese[action as EEventAction]} - ${
     eventTypeChinese[eventType]
   } \n

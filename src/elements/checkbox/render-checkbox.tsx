@@ -12,8 +12,7 @@ export const RenderCheckbox: TElementRender = ({
   setFieldValue,
   extendProps,
 }) => {
-  const { useGroup, valueOptions, direction, indeterminate, defaultValue } =
-    element;
+  const { useGroup, options, direction, indeterminate, defaultValue } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
 
@@ -30,11 +29,11 @@ export const RenderCheckbox: TElementRender = ({
   }, [fieldValue]);
 
   const checkboxOptions = useMemo(() => {
-    return valueOptions?.map((opt) => ({
+    return options?.map((opt) => ({
       ...opt,
       label: opt.label.langText,
     }));
-  }, [valueOptions]);
+  }, [options]);
 
   const checkboxValue = useMemo(() => {
     if (isUndefined(fieldValue)) {

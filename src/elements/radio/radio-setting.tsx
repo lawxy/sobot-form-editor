@@ -16,14 +16,14 @@ export const SettingRadio: TElementSetting = ({
   setElementProp,
   setFieldValue,
 }) => {
-  const { valueOptions } = element;
+  const { options } = element;
 
   const radioOptions = useMemo(() => {
-    return valueOptions?.map((opt) => ({
+    return options?.map((opt) => ({
       ...opt,
       label: opt.label.langText,
     }));
-  }, [valueOptions]);
+  }, [options]);
 
   return (
     <>

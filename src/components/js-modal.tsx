@@ -4,7 +4,9 @@ import { Modal, message } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { MonacoEditor } from '@sobot/form-editor-ui';
 
-export const AttributesSetting: FC<
+const filterErrors = ['6133', '6198'];
+
+export const JSModal: FC<
   PropsWithChildren<{
     title: string | React.ReactNode;
     value?: any;
@@ -55,9 +57,11 @@ export const AttributesSetting: FC<
           value={val}
           onChange={(v) => setVal(v!)}
           onValidate={(errors) => {
-            // 参数变量未使用时不校验
+            // console.log('errors', errors);
+            // 6133 6198 参数变量未使用时不校验
             isJsonValidate.current =
-              errors.filter((item) => item?.code !== '6133').length === 0;
+              errors.filter((item: any) => !filterErrors.includes(item?.code))
+                .length === 0;
           }}
           options={{
             tabSize: 2,

@@ -15,7 +15,7 @@ export const RenderSelect: TElementRender = ({
 }) => {
   const {
     multiple,
-    valueOptions,
+    options,
     placeholder,
     linkLoading,
     allowClear,
@@ -28,13 +28,6 @@ export const RenderSelect: TElementRender = ({
   } = element;
 
   const { eventFunctions } = useRegisterEvents(element);
-
-  const dataSoruce = useMemo(() => {
-    return valueOptions?.map((item) => ({
-      key: item.value,
-      value: item?.label?.langText,
-    }));
-  }, [valueOptions]);
 
   const onChange = useCallback(
     (val: any) => {
@@ -62,6 +55,14 @@ export const RenderSelect: TElementRender = ({
     }
     return fieldValue;
   }, [fieldValue, defaultValue]);
+
+  const dataSoruce = useMemo(() => {
+    return options?.map((item) => ({
+      key: item.value,
+      value: item?.label?.langText,
+    }));
+  }, [options]);
+
   return (
     <Select
       placeholder={placeholder?.langText}

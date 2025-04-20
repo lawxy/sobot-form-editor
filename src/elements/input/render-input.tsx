@@ -53,7 +53,7 @@ export const RenderInput: TElementRender = ({
 
   const inputValue = useMemo(() => {
     if (isUndefined(fieldValue)) {
-      return defaultValue;
+      return defaultValue?.langText;
     }
     return fieldValue;
   }, [fieldValue, defaultValue]);

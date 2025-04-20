@@ -9,13 +9,13 @@ export const eventActions = [
   EEventAction.PAGINATION_CHANGE,
 ];
 export const initialData: Partial<IBaseElement> = {
-  elementName: {langText: TABLE_TEXT, langKey: ''},
+  elementName: { langText: TABLE_TEXT, langKey: '' },
   gridSpan: 24,
   gridLayout: true,
   columns: [],
   pagination: false,
   pageSize: 10,
-  currentPage: 1,
+  current: 1,
 };
 
 export const valueTypeList = [

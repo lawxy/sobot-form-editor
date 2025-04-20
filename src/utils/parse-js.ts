@@ -14,24 +14,18 @@ export function parseJs({
   dependenciesString?: Array<string>;
 }): { value: any } {
   try {
-    // const formattedString = jsFunction.replace(/^export default/, '');
-    // const value = new Function(...dependencies, `${jsFunction}`)();
+    console.log('jsFunction', jsFunction);
     const value = new Function(
       ...dependenciesString,
       `${jsFunction}; return main(${dependenciesString.join(',')})`,
     )(...dependencies);
-    // let value = valueWhenError;
-    // eval(`${jsFunction}; console.log('moment', moment);`);
     return {
-      // formattedString,
-      // value: new Function(`return ${formattedString}`)(),
       value,
     };
   } catch (e) {
     console.warn(`字符串解析出错 \n ${jsFunction} \n ${e}`);
   }
   return {
-    // formattedString: jsFunction,
     value: valueWhenError,
   };
 }

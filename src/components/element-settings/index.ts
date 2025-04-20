@@ -1,7 +1,7 @@
 export * from './basic-info';
 export * from './custom-css-setting';
 export * from './placeholder-setting';
-export * from './attributes-setting';
+export * from '../js-modal';
 export * from './defaultvalue-setting';
 export * from './allow-clear';
 export * from './options-setting';
@@ -10,4 +10,3 @@ export * from './can-search';
 export * from './use-group-setting';
 export * from './placement-setting';
 export * from './default-date-setting';
-export * from './custom-attributes-setting';

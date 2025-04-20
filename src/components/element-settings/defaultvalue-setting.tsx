@@ -2,9 +2,10 @@ import React from 'react';
 import type { ConsumerProps, FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Input } from 'antd';
+import { WithLanguage } from '../with-language';
 import { SettingItem } from '../setting-common';
 import store from '../../store';
-
+import type { TextWithLang } from '../../types';
 const DefaultValueSettingContent: FC<
   { label?: string } & Partial<ConsumerProps<any>>
 > = ({ children, label }) => {
@@ -14,10 +15,10 @@ const DefaultValueSettingContent: FC<
       {children ? (
         children(defaultValue)
       ) : (
-        <Input
+        <WithLanguage.Input
           value={defaultValue}
-          onChange={(e) => {
-            store.setSelectedProp('defaultValue', e.target.value);
+          onChange={(val: TextWithLang) => {
+            store.setSelectedProp('defaultValue', val);
             // store.removeField(id!);
           }}
         />

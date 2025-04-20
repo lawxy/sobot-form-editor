@@ -19,10 +19,7 @@ const dateOptions = ['HH:mm:ss', 'HH:mm'].map((per) => ({
   value: per,
 }));
 
-export const SettingTime: TElementSetting = ({
-  element,
-  setElementProp,
-}) => {
+export const SettingTime: TElementSetting = ({ element, setElementProp }) => {
   const { dateFormat, addonBefore, timeRange } = element;
 
   return (
@@ -61,16 +58,6 @@ export const SettingTime: TElementSetting = ({
               fieldType="startDate"
               type="time"
             />
-
-            {/* <DefaultValueSetting>
-              {(value) => (
-                <TimePicker
-                  format={dateFormat}
-                  value={value ? moment(`2000-01-01 ${value}`) : undefined}
-                  onChange={handleChange}
-                />
-              )}
-            </DefaultValueSetting> */}
           </>
         )}
 

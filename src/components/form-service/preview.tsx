@@ -18,7 +18,7 @@ export const Preview: FC<
     setLoading(true);
     try {
       const formData = await form.validateFields();
-      const { url, method } = formData;
+      const { url, method, contentType } = formData;
       let { previewData, interceptors } = formData;
       console.log('previewData', previewData);
       previewData = parseJs({
@@ -26,7 +26,7 @@ export const Preview: FC<
         valueWhenError: {},
       }).value;
 
-      const request = createRequest(interceptors);
+      const request = createRequest({ interceptors, contentType });
 
       const config: AxiosRequestConfig = { url, method };
       const dataKey = QueryMethod.includes(method) ? 'params' : 'data';

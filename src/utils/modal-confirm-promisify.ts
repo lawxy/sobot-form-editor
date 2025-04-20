@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import type { ModalFuncProps } from 'antd';
 
-export const ModalPromisify: (config: ModalFuncProps) => Promise<any> = (
+export const ModalConfirmPromisify: (config: ModalFuncProps) => Promise<any> = (
   config,
 ) => {
   return new Promise((resolve) => {

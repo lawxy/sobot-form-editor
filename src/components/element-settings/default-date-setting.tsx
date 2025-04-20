@@ -3,7 +3,7 @@ import { DatePicker, Select, Button, TimePicker } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { EDateMode } from '@/types';
-import { AttributesSetting } from './attributes-setting';
+import { JSModal } from '..';
 import store from '@/store';
 import { SettingItem } from '../setting-common';
 
@@ -84,7 +84,7 @@ export const DefaultDateSetting = observer(
         )}
         {mode === EDateMode.CUSTOM && (
           <SettingItem label={''}>
-            <AttributesSetting
+            <JSModal
               title={'日期函数'}
               value={customValue || defaultCustomAttribute}
               onChange={(value) => {
@@ -93,7 +93,7 @@ export const DefaultDateSetting = observer(
               editorType="javascript"
             >
               <Button size="small">编辑</Button>
-            </AttributesSetting>
+            </JSModal>
           </SettingItem>
         )}
       </>

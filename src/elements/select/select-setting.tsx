@@ -20,14 +20,14 @@ export const SettingSelect: TElementSetting = ({
   setElementProp,
   setFieldValue,
 }) => {
-  const { multiple, valueOptions, addonBefore, labelWrapperStyle } = element;
+  const { multiple, options, addonBefore, labelWrapperStyle } = element;
 
   const selectOptions = useMemo(() => {
-    return valueOptions?.map((opt) => ({
+    return options?.map((opt) => ({
       ...opt,
       label: opt.label.langText,
     }));
-  }, [valueOptions]);
+  }, [options]);
 
   return (
     <>

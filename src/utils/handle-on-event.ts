@@ -9,19 +9,27 @@ import {
 import { dynamicGetStore } from '.';
 import { triggerService } from './trigger-service';
 import type { TEmitData } from './handle-emit-event';
+import { parseJs } from '@/utils';
 
 // 设置组件
 export const triggerSettingValue = (params: TEmitData) => {
-  const { setValue, value, targetPayload, targetElementId } = params;
+  const { setValue, value, targetPayload, targetElementId, customJs } = params;
   const store = dynamicGetStore();
   if (!store.getElement(targetElementId!)) return;
   switch (targetPayload) {
     case EChangeStatePayload.SYNC:
       return store.setFieldValue(targetElementId!, value);
     case EChangeStatePayload.CUSTOM:
-      return store.setFieldValue(targetElementId!, setValue);
+      // return store.setFieldValue(targetElementId!, setValue);
+      const { value: resultValue } = parseJs({
+        jsFunction: customJs!,
+        valueWhenError: undefined,
+        dependencies: [value, store],
+        dependenciesString: ['value', 'store'],
+      });
+      return resultValue;
     case EChangeStatePayload.RESET_PAGE:
-      return store.setElementProp(targetElementId!, 'currentPage', 1);
+      return store.setElementProp(targetElementId!, 'current', 1);
   }
 };
 
@@ -68,6 +76,13 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
     newData[updateField!] = value;
     store.setService(servId, { data: store.getSchema() });
   }
+  // 上传Schema
+  if (targetPayload === EChangeStatePayload.UPLOAD_SCHEMA) {
+    const { data = {} } = currentService;
+    const newData = cloneDeep(data);
+    newData[updateField!] = value;
+    store.setService(servId, { data: store.getSchema() });
+  }
 
   // 刷新服务
   if (refreshFlag) {
@@ -96,8 +111,8 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
           store.setFieldValue(id, finalRes);
         } else {
           const updateField =
-            linkRefreshType === ELinkRefreshType.VALUEOPTIONS
-              ? ELinkRefreshType.VALUEOPTIONS
+            linkRefreshType === ELinkRefreshType.OPTIONS
+              ? ELinkRefreshType.OPTIONS
               : (customRefreshField as keyof IBaseElement);
           if (updateField) {
             store.setElementProp(id, updateField, finalRes);
@@ -115,6 +130,7 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
 
 export const handleOnEvent = async (params: TEmitData) => {
   const { eventType } = params;
+  console.log('params', params);
   switch (eventType) {
     case EEventType.SETTING_VALUE:
       await triggerSettingValue(params);

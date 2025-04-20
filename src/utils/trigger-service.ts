@@ -34,9 +34,16 @@ export const appendUrl = (baseUrl: string, params: Record<string, any>) => {
 export const triggerService = async (id: string) => {
   const store = dynamicGetStore();
   const service = store.getService(id);
-  const { method, url, data, interceptors = '', params } = service!;
+  const {
+    method,
+    url,
+    data,
+    interceptors = '',
+    params,
+    contentType,
+  } = service!;
 
-  const request = createRequest(interceptors);
+  const request = createRequest({ interceptors, contentType });
 
   try {
     return request({
@@ -44,6 +51,7 @@ export const triggerService = async (id: string) => {
       url,
       data,
       params,
+      contentType,
     });
   } catch (e) {
     return { msg: DEFAULT_ERROR_MESSAGE };

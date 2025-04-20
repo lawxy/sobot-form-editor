@@ -1,9 +1,19 @@
 import axios from 'axios';
 import { message } from '@sobot/soil-ui';
 
-export function createRequest(interceptors: string) {
+export function createRequest({
+  interceptors,
+  contentType,
+}: {
+  interceptors: string;
+  contentType: string;
+}) {
   try {
-    const request = axios.create({});
+    const request = axios.create({
+      headers: {
+        'Content-Type': contentType,
+      },
+    });
     const func = new Function('message', 'axios', `${interceptors}`);
     func(message, request);
     return request;

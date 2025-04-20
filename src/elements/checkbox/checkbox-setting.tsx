@@ -16,14 +16,14 @@ export const SettingCheckbox: TElementSetting = ({
   setElementProp,
   setFieldValue,
 }) => {
-  const { valueOptions } = element;
+  const { options } = element;
 
   const checkboxOptions = useMemo(() => {
-    return valueOptions?.map((opt) => ({
+    return options?.map((opt) => ({
       ...opt,
       label: opt.label.langText,
     }));
-  }, [valueOptions]);
+  }, [options]);
 
   return (
     <>
@@ -45,19 +45,17 @@ export const SettingCheckbox: TElementSetting = ({
 
         <UseGroupSetting />
         {element.useGroup && (
-          <>
-            <SettingItem label="排列方式">
-              <Select
-                options={DirectionOpions}
-                value={element.direction}
-                onChange={(val) => {
-                  setElementProp('direction', val as TDirection);
-                }}
-              />
-            </SettingItem>
-            <OptionSetting />
-          </>
+          <SettingItem label="排列方式">
+            <Select
+              options={DirectionOpions}
+              value={element.direction}
+              onChange={(val) => {
+                setElementProp('direction', val as TDirection);
+              }}
+            />
+          </SettingItem>
         )}
+        <OptionSetting />
       </SettingWrap>
       <RegPattern />
     </>

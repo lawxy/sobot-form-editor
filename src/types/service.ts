@@ -16,6 +16,10 @@ export type TFormSerive = {
   name: string;
   url: string; // 真实请求的url，可能因为事件更改
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  contentType:
+    | 'application/json'
+    | 'application/x-www-form-urlencoded'
+    | 'multipart/form-data';
   previewData?: Record<string, any>;
   data?: Record<string, any>;
   params?: Record<string, any>;

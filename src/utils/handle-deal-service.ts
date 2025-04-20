@@ -64,7 +64,7 @@ const getServicesFromElement = (elId: string): string[] => {
   const store = dynamicGetStore();
 
   const element = store.getElement(elId);
-  const { linkServices } = element;
+  const { linkServices } = element ?? {};
   return linkServices ?? [];
 };
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Input, Select } from 'antd';
+import { Button, Input, Select, Tooltip } from 'antd';
 import { observer } from 'mobx-react-lite';
 
-import { QuestionPopover } from '@/components';
+import { QuestionPopover, JSModal } from '@/components';
 import store from '@/store';
 import { prefixCls } from '@/const';
 import {
@@ -11,33 +11,48 @@ import {
   type IEventTarget,
 } from '@/types';
 import type { IConfig } from '.';
+import { TipsIcon } from '@sobot/soil-ui';
 
-const getComponentsOptions = () => {
-  const options = [];
-  // @ts-ignore
-  for (const el of store.formElementMap.values()) {
-    options.push({
-      label: (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: el?.elementName?.langText || (el.id as string),
-          }}
-        />
-      ),
-      value: el.id,
-      disabled: store.selectedElement.id === el.id,
-    });
-  }
-  return options;
-};
+const customJSDefaultValue = `function main(value, store) {
+  const {
+    setElementProp,
+    setFieldValue,
+    setFieldsValue,
+    getElement,
+  } = store;
+   console.log(value)
+
+  
+}`;
 
 const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
-  const { targetElementId, targetPayload, setValue } = eventTarget || {};
+  const { targetElementId, targetPayload, setValue, customJs } =
+    eventTarget || {};
+
+  // console.log('targetElementId', targetElementId);
+  const getComponentsOptions = () => {
+    const options = [];
+    // @ts-ignore
+    for (const el of store.formElementMap.values()) {
+      options.push({
+        label: (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: el?.elementName?.langText || (el.id as string),
+            }}
+          />
+        ),
+        value: el.id,
+        // disabled: store.selectedElement.id === el.id,
+      });
+    }
+    return options;
+  };
 
   return (
     <>
       <div>
-        目标组件 ={' '}
+        目标组件：{' '}
         <Select
           allowClear
           className={prefixCls('event-input')}
@@ -49,47 +64,74 @@ const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
           }}
         />
       </div>
-      <div>
-        事件发生时,&nbsp;
-        <Select
-          className={prefixCls('event-input')}
-          options={changeStateActions(
-            // @ts-ignore
-            [
-              EChangeStatePayload.SYNC,
-              EChangeStatePayload.CUSTOM,
-              EChangeStatePayload.RESET_PAGE,
-            ].filter(Boolean),
-          )}
-          key="action"
-          value={targetPayload}
-          onChange={(v) => {
-            const prop: Partial<IEventTarget> = { targetPayload: v };
-            onChange?.(prop);
-          }}
-        />
-        {targetPayload && targetPayload !== EChangeStatePayload.RESET_PAGE && (
-          <>
-            &nbsp;目标表单值为
-            {targetPayload === EChangeStatePayload.SYNC ? (
-              <> &nbsp;事件源表单值</>
-            ) : (
-              <>
-                &nbsp;
-                <QuestionPopover content="按照基本数据类型填写, 比如 true 或 1 或 '1'" />
-                &nbsp;
-                <Input
-                  className={prefixCls('event-input')}
-                  defaultValue={setValue}
-                  onChange={(e) => {
-                    onChange?.({ setValue: e.target.value });
-                  }}
-                />
-              </>
+      {targetElementId && (
+        <div>
+          事件动作：&nbsp;
+          <Select
+            style={{ width: 200 }}
+            className={prefixCls('event-input')}
+            options={changeStateActions(
+              // @ts-ignore
+              [
+                EChangeStatePayload.SYNC,
+                EChangeStatePayload.SET_ATTRIBUTE,
+                EChangeStatePayload.RESET_PAGE,
+                EChangeStatePayload.CUSTOM,
+              ].filter(Boolean),
             )}
-          </>
-        )}
-      </div>
+            key="action"
+            value={targetPayload}
+            onChange={(v) => {
+              const prop: Partial<IEventTarget> = { targetPayload: v };
+              onChange?.(prop);
+            }}
+          />
+          {targetPayload === EChangeStatePayload.CUSTOM && (
+            <div className={prefixCls('event-custom-js')}>
+              <JSModal
+                title={
+                  <Tooltip placement="right" title="后期放个文档链接">
+                    <span>
+                      <span style={{ paddingRight: '4px' }}>
+                        自定义脚本设置
+                      </span>
+                      <TipsIcon />
+                    </span>
+                  </Tooltip>
+                }
+                editorType="javascript"
+                value={customJs || customJSDefaultValue}
+                onChange={(v) => {
+                  onChange?.({ customJs: v });
+                }}
+              >
+                <Button size="small">编辑</Button>
+              </JSModal>
+            </div>
+          )}
+          {/* {targetPayload && targetPayload !== EChangeStatePayload.RESET_PAGE && (
+              <>
+                &nbsp;目标表单值为
+                {targetPayload === EChangeStatePayload.SYNC ? (
+                  <> &nbsp;事件源表单值</>
+                ) : (
+                  <>
+                    &nbsp;
+                    <QuestionPopover content="按照基本数据类型填写, 比如 true 或 1 或 '1'" />
+                    &nbsp;
+                    <Input
+                      className={prefixCls('event-input')}
+                      defaultValue={setValue}
+                      onChange={(e) => {
+                        onChange?.({ setValue: e.target.value });
+                      }}
+                    />
+                  </>
+                )}
+              </>
+            )} */}
+        </div>
+      )}
     </>
   );
 };

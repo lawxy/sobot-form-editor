@@ -3,7 +3,6 @@ export * from './service';
 export * from '../store/types';
 
 import type { FC, ReactNode, CSSProperties } from 'react';
-import type { FormItemProps, FormProps } from '@sobot/soil-ui';
 import { TCustomEvents } from './event';
 import { TFormSerives } from './service';
 import { EEventAction } from './event';
@@ -228,7 +227,7 @@ export interface IBaseElement {
   /**
    * 选项
    */
-  valueOptions?: TOption[];
+  options?: TOption[];
   /**
    * 容器主轴方向 | 选项排列方式
    */
@@ -332,7 +331,7 @@ export interface IBaseElement {
   /**
    * 当前页数
    */
-  currentPage?: number;
+  current?: number;
   /**
    * tab 下划线
    */

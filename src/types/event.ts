@@ -95,19 +95,23 @@ export enum EChangeStatePayload {
   SUBMIT = 'submit',
   NULL = 'null',
   RESET_PAGE = 'reset_page',
+  SET_ATTRIBUTE = 'set_attribute',
+  UPLOAD_SCHEMA = 'upload_schema',
 }
 
 export const changeStatePayloadInChinese = {
   [EChangeStatePayload.UPDATE]: '更新',
   [EChangeStatePayload.CLEAR]: '清空',
   [EChangeStatePayload.APPEND]: '拼接',
-  [EChangeStatePayload.SYNC]: '同步',
+  [EChangeStatePayload.SYNC]: '同步表单值',
   [EChangeStatePayload.RESET_PAGE]: '重置页码',
   [EChangeStatePayload.CUSTOM]: '自定义',
   [EChangeStatePayload.REFRESH]: '刷新',
   [EChangeStatePayload.NOT_REFRESH]: '不刷新',
   [EChangeStatePayload.SUBMIT]: '提交表单',
+  [EChangeStatePayload.UPLOAD_SCHEMA]: '上传Schema',
   [EChangeStatePayload.NULL]: '无',
+  [EChangeStatePayload.SET_ATTRIBUTE]: '设置属性值',
 };
 
 export const changeStateActions = (fields: Array<EChangeStatePayload>) => {
@@ -127,12 +131,14 @@ export const refreshOptions = [
 ];
 export enum ELinkRefreshType {
   FIELDVALUE = 'fieldValue',
-  VALUEOPTIONS = 'valueOptions',
+  OPTIONS = 'options',
   CUSTOMFIELD = 'customField',
+  ATTRIBUTE = 'attribute',
 }
 export const linkRefreshFieldOptions = [
-  { label: '值', value: ELinkRefreshType.FIELDVALUE },
-  { label: '选项', value: ELinkRefreshType.VALUEOPTIONS },
+  { label: '表单值', value: ELinkRefreshType.FIELDVALUE },
+  { label: '属性', value: ELinkRefreshType.ATTRIBUTE },
+  { label: '选项', value: ELinkRefreshType.OPTIONS },
   { label: '自定义字段', value: ELinkRefreshType.CUSTOMFIELD },
 ];
 export enum EValidateType {
@@ -216,4 +222,13 @@ export interface IEventTarget {
    * 链接跳转
    */
   jumpUrl?: string;
+  /**
+   * 新窗口打开
+   */
+  newWindow?: boolean;
+
+  /**
+   * 自定义js
+   */
+  customJs?: string;
 }

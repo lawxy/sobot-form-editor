@@ -27,9 +27,9 @@ export const OptionSetting: FC = observer(() => {
     <>
       <SettingItem label="选项">
         <OptionModal
-          options={store.selectedElement.valueOptions || []}
+          options={store.selectedElement.options || []}
           onChange={(options) => {
-            store.setSelectedProp('valueOptions', options);
+            store.setSelectedProp('options', options);
           }}
         >
           <Button className={`${prefixCls('attr-setting-btn')}`} size="small">
@@ -39,7 +39,7 @@ export const OptionSetting: FC = observer(() => {
       </SettingItem>
       <Table
         columns={columns}
-        dataSource={store.selectedElement.valueOptions?.map((opt) => ({
+        dataSource={store.selectedElement.options?.map((opt) => ({
           ...opt,
           label: opt.label.langText,
         }))}

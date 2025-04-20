@@ -2,7 +2,7 @@
  * 存储事件源和事件目标间的映射关系, 用于实时通知事件失效
  */
 import { makeAutoObservable } from 'mobx';
-import { EventEmitter, ModalPromisify } from '@/utils';
+import { EventEmitter, ModalConfirmPromisify } from '@/utils';
 import { IBaseElement, TCustomEvents } from '@/types';
 import baseStore from '.';
 
@@ -63,7 +63,7 @@ class EventStore {
 
     const map = this.eventMap;
 
-    return ModalPromisify({
+    return ModalConfirmPromisify({
       // title: `${exist ? '此组件或服务有事件关联, ' : ''}确认删除?`,
       title: '此组件(含内部组件)或服务有事件关联, 确认删除?',
       onOk() {

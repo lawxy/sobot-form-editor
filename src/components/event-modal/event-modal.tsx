@@ -171,7 +171,7 @@ export const EventModal: FC<
               />
               <SelectComponent
                 className={prefixCls('type-select')}
-                title="选择对应的动作"
+                title="选择动作"
                 menuItems={tempEvent.eventAction ? eventTypeMenus : []}
                 onChange={(v) => handleChangeEvent('eventType', v)}
                 value={tempEvent?.eventType}
