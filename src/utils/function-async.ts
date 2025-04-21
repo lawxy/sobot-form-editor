@@ -20,7 +20,7 @@ const asyncFunction: AsyncFunction<TFunc> = (type, func, wait) => {
 
   return (...args: any[]) =>
     new Promise((resolve, reject) => {
-      prosifyFunc(resolve, reject, args);
+      return prosifyFunc(resolve, reject, args);
     });
 };
 

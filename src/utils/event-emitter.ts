@@ -18,7 +18,7 @@ export class EventEmitter {
     // this.listeners.get(event)?.forEach((listener) => {
     //   listener?.(...args);
     // });
-    await this.listeners.get(event)?.(...args);
+    return await this.listeners.get(event)?.(...args);
   }
 
   off(event: string) {

@@ -86,7 +86,8 @@ export enum EChangeStatePayload {
   // HIDDEN = 'hidden',
   // DISABLE = 'disable',
   UPDATE = 'update',
-  CLEAR = 'clear',
+  CLEAR_DATA = 'clear_data',
+  CLEAR_PARAMS = 'clear_paramsms',
   APPEND = 'append',
   SYNC = 'sync',
   REFRESH = 'refresh',
@@ -101,7 +102,8 @@ export enum EChangeStatePayload {
 
 export const changeStatePayloadInChinese = {
   [EChangeStatePayload.UPDATE]: '更新',
-  [EChangeStatePayload.CLEAR]: '清空',
+  [EChangeStatePayload.CLEAR_DATA]: '清空data',
+  [EChangeStatePayload.CLEAR_PARAMS]: '清空params',
   [EChangeStatePayload.APPEND]: '拼接',
   [EChangeStatePayload.SYNC]: '同步表单值',
   [EChangeStatePayload.RESET_PAGE]: '重置页码',

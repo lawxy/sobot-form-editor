@@ -13,7 +13,7 @@ import {
 import type { IConfig } from '.';
 import { TipsIcon } from '@sobot/soil-ui';
 
-const customJSDefaultValue = `function main(value, store) {
+const customJSDefaultValue = `function main(store, value) {
   const {
     setElementProp,
     setFieldValue,

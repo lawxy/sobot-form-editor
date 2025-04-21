@@ -15,7 +15,8 @@ import type { IConfig } from '.';
 const actions = changeStateActions([
   EChangeStatePayload.UPDATE,
   EChangeStatePayload.APPEND,
-  EChangeStatePayload.CLEAR,
+  EChangeStatePayload.CLEAR_PARAMS,
+  EChangeStatePayload.CLEAR_DATA,
   EChangeStatePayload.SUBMIT,
   EChangeStatePayload.UPLOAD_SCHEMA,
   EChangeStatePayload.NULL,
@@ -118,13 +119,22 @@ const RefreshService: React.FC<IConfig> = ({ onChange, eventTarget }) => {
             &nbsp;字段
           </>
         );
-      case EChangeStatePayload.CLEAR:
+      case EChangeStatePayload.CLEAR_PARAMS:
         return (
           <>
             {actionSelect}
-            {targetPayload === EChangeStatePayload.CLEAR && (
+            {/* {targetPayload === EChangeStatePayload.CLEAR_DATA && (
               <> &nbsp;所有字段，</>
-            )}
+            )} */}
+          </>
+        );
+      case EChangeStatePayload.CLEAR_DATA:
+        return (
+          <>
+            {actionSelect}
+            {/* {targetPayload === EChangeStatePayload.CLEAR_DATA && (
+              <> &nbsp;所有字段，</>
+            )} */}
           </>
         );
       default:

@@ -34,10 +34,11 @@ export type TEventFormatFunctions = {
 
 export type TEmitData = Partial<IEventTarget> & {
   eventType: EEventType;
-  value?: any;
+  value?: any; // 事件传入的相关值
+  prevFunctionReturn?: any; // 上一个事件函数的返回值
 };
 
-const withConfig = (fn: (v: IParams) => Promise<any>, target: IEventTarget) => {
+const withConfig = (fn: (v: IParams, prevFunctionReturn: any) => Promise<any>, target: IEventTarget) => {
   const { series, delayTime, delayType, sourceId } = target;
   if (delayType === EDelay.DEBOUNCE && delayTime) {
     fn = asyncDebounce(fn, delayTime);
@@ -45,7 +46,9 @@ const withConfig = (fn: (v: IParams) => Promise<any>, target: IEventTarget) => {
   if (delayType === EDelay.THROTTLE && delayTime) {
     fn = asyncThrottle(fn, delayTime);
   }
+  
   Object.assign(fn, { series, sourceId });
+
   return fn;
 };
 
@@ -56,8 +59,8 @@ export const emitSettingValue = (params: IParams) => {
   const validate = validateParams([targetElementId, targetPayload]);
   if (!validate) return;
 
-  return withConfig(
-    async (value: any) =>
+  const fn =  withConfig(
+    async (value: any, prevFunctionReturn: any) =>
       await emitter.emit(targetElementId!, {
         targetElementId,
         eventType,
@@ -65,9 +68,12 @@ export const emitSettingValue = (params: IParams) => {
         targetPayload,
         value,
         customJs,
+        prevFunctionReturn
       } as TEmitData),
     target,
   );
+
+  return fn;
 };
 
 // 更新服务
@@ -87,7 +93,7 @@ export const emitRefreshService = (params: IParams) => {
   if (!store.getService(targetServiceId!)) return;
 
   return withConfig(
-    async (value: any) =>
+    async (value: any, prevFunctionReturn: any) =>
       await emitter.emit(targetServiceId!, {
         targetServiceId,
         eventType,
@@ -96,6 +102,7 @@ export const emitRefreshService = (params: IParams) => {
         value,
         refreshFlag,
         urlAppended,
+        prevFunctionReturn
       } as TEmitData),
     target,
   );
@@ -123,7 +130,7 @@ export const emitJumpUrl = (params: IParams) => {
   const validate = validateParams([jumpUrl]);
   if (!validate) return;
 
-  return withConfig(async () => {
+  return withConfig(async (value: any, prevFunctionReturn: any) => {
     let href = jumpUrl;
     if (jumpUrl?.startsWith('http')) {
       href = jumpUrl;
@@ -199,19 +206,24 @@ export const handleEmitEvent = (
   ).reduce((memo: TEventFormatFunctions, [action, emitFns]: any) => {
     // @ts-ignore
     memo[action] = async (v: any) => {
+      let prevFunctionReturn;
       for (let i = 0; i < emitFns.length; i++) {
         const emitFn: any = emitFns[i];
         try {
           if (emitFn?.series) {
-            await emitFn?.(v);
+            // console.log('emitFn', emitFn, emitFn instanceof Promise)
+            // console.log('v', v)
+            const res: any = await emitFn?.(v, prevFunctionReturn);
+            prevFunctionReturn = res;
           } else {
-            emitFn(v)?.catch((e: any) => {
+            emitFn(v, prevFunctionReturn)?.catch((e: any) => {
               handleError({
                 emitFn,
                 error: e,
                 action,
               });
             });
+            prevFunctionReturn = undefined;
           }
         } catch (e) {
           return handleError({

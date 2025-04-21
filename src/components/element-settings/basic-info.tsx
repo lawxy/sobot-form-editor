@@ -22,6 +22,9 @@ const BasicInfo = () => {
   } = store.selectedElement;
   return (
     <SettingWrap title="基础设置">
+       <SettingItem label="元素id">
+        <div>{id}</div>
+      </SettingItem>
       {!isContainer && (
         <>
           <SettingItem label="字段">
@@ -104,9 +107,7 @@ const BasicInfo = () => {
         </>
       )}
 
-      <SettingItem label="元素id">
-        <div>{id}</div>
-      </SettingItem>
+     
 
       {/* <SettingItem label="名称对齐">
         <Select

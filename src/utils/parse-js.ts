@@ -14,7 +14,7 @@ export function parseJs({
   dependenciesString?: Array<string>;
 }): { value: any } {
   try {
-    console.log('jsFunction', jsFunction);
+    // console.log('jsFunction', jsFunction);
     const value = new Function(
       ...dependenciesString,
       `${jsFunction}; return main(${dependenciesString.join(',')})`,

@@ -13,7 +13,7 @@ import { parseJs } from '@/utils';
 
 // 设置组件
 export const triggerSettingValue = (params: TEmitData) => {
-  const { setValue, value, targetPayload, targetElementId, customJs } = params;
+  const { setValue, value, targetPayload, targetElementId, customJs, prevFunctionReturn } = params;
   const store = dynamicGetStore();
   if (!store.getElement(targetElementId!)) return;
   switch (targetPayload) {
@@ -24,8 +24,8 @@ export const triggerSettingValue = (params: TEmitData) => {
       const { value: resultValue } = parseJs({
         jsFunction: customJs!,
         valueWhenError: undefined,
-        dependencies: [value, store],
-        dependenciesString: ['value', 'store'],
+        dependencies: [store, value, prevFunctionReturn],
+        dependenciesString: ['store', 'value', 'prevFunctionReturn'],
       });
       return resultValue;
     case EChangeStatePayload.RESET_PAGE:
@@ -42,6 +42,7 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
     value,
     refreshFlag,
     urlAppended,
+    prevFunctionReturn
   } = serviceParams;
   const store = dynamicGetStore();
 
@@ -65,16 +66,20 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
     }
     store.setService(servId, { data: newData });
   }
-  // 清空参数
-  if (targetPayload === EChangeStatePayload.CLEAR) {
-    store.setService(servId, { data: {}, params: {} });
+  // 清空data
+  if (targetPayload === EChangeStatePayload.CLEAR_DATA) {
+    store.setService(servId, { params: {} });
+  }
+  // 清空params
+  if (targetPayload === EChangeStatePayload.CLEAR_PARAMS) {
+    store.setService(servId, { params: {} });
   }
   // 提交表单
   if (targetPayload === EChangeStatePayload.SUBMIT) {
     const { data = {} } = currentService;
     const newData = cloneDeep(data);
     newData[updateField!] = value;
-    store.setService(servId, { data: store.getSchema() });
+    store.setService(servId, { data: store.getFieldsValue() });
   }
   // 上传Schema
   if (targetPayload === EChangeStatePayload.UPLOAD_SCHEMA) {
@@ -130,13 +135,11 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
 
 export const handleOnEvent = async (params: TEmitData) => {
   const { eventType } = params;
-  console.log('params', params);
+  // console.log('params', params);
   switch (eventType) {
     case EEventType.SETTING_VALUE:
-      await triggerSettingValue(params);
-      break;
+      return await triggerSettingValue(params);
     case EEventType.UPDATE_SERVICE:
-      await triggerRefreshService(params);
-      break;
+      return await triggerRefreshService(params);
   }
 };
