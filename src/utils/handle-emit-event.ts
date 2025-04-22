@@ -110,39 +110,80 @@ export const emitRefreshService = (params: IParams) => {
 
 // 表单校验
 export const emitValidateForm = (params: IParams) => {
-  const store = dynamicGetStore();
+  // const store = dynamicGetStore();
+  const { emitter, eventType, target } = params;
 
-  const { target } = params;
   const { validateField, sourceId } = target;
-  const fields =
-    validateField === EValidateType.CURRENT ? [sourceId] : undefined;
+  // console.log('targetElementId', targetElementId);
+  console.log('sourceId', sourceId);
+  // const fields =
+  //   validateField === EValidateType.CURRENT ? [sourceId] : undefined;
+
+  // return withConfig(
+  //   () => store.formInstance?.validateFields(fields) as Promise<any>,
+  //   target,
+  // );
 
   return withConfig(
-    () => store.formInstance?.validateFields(fields) as Promise<any>,
+    async () =>
+      await emitter.emit(sourceId!, {
+        validateField,
+        eventType,
+        sourceId,
+      } as TEmitData),
     target,
   );
 };
 
 // 跳转链接
 export const emitJumpUrl = (params: IParams) => {
-  const { target } = params;
-  const { jumpUrl, newWindow } = target;
+  const { emitter, eventType, target } = params;
+  const { jumpUrl, newWindow, sourceId } = target;
   const validate = validateParams([jumpUrl]);
   if (!validate) return;
 
-  return withConfig(async (value: any, prevFunctionReturn: any) => {
-    let href = jumpUrl;
-    if (jumpUrl?.startsWith('http')) {
-      href = jumpUrl;
-    } else {
-      href = `${window.location.origin}${jumpUrl!}`;
-    }
-    if (newWindow) {
-      window.open(href, '_blank');
-    } else {
-      window.location.href = href;
-    }
-  }, target);
+  // return withConfig(async (value: any, prevFunctionReturn: any) => {
+  //   let href = jumpUrl;
+  //   if (jumpUrl?.startsWith('http')) {
+  //     href = jumpUrl;
+  //   } else {
+  //     href = `${window.location.origin}${jumpUrl!}`;
+  //   }
+  //   if (newWindow) {
+  //     window.open(href, '_blank');
+  //   } else {
+  //     window.location.href = href;
+  //   }
+  // }, target);
+
+  return withConfig(
+    async () =>
+      await emitter.emit(sourceId!, {
+        jumpUrl,
+        newWindow,
+        eventType,
+      } as TEmitData),
+    target,
+  );
+};
+
+// 自定义js
+export const emitCustomJs = (params: IParams) => {
+  const { emitter, eventType, target } = params;
+  const { customJs, targetServiceId } = target;
+  const validate = validateParams([customJs]);
+  if (!validate) return;
+
+  return withConfig(
+    async (value: any, prevFunctionReturn: any) =>
+      await emitter.emit(targetServiceId!, {
+        targetServiceId,
+        eventType,
+        value,
+        prevFunctionReturn
+      } as TEmitData),
+    target,
+  );
 };
 
 const handleError = ({
@@ -188,6 +229,9 @@ export const handleEmitEvent = (
           break;
         case EEventType.JMUP:
           emitFn = emitJumpUrl(params) as IEventFunction;
+          break;
+        case EEventType.CUSTOM_JS:
+          emitFn = emitCustomJs(params) as IEventFunction;
           break;
       }
 

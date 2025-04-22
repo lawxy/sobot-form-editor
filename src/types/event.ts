@@ -68,6 +68,11 @@ export enum EEventType {
    * 链接跳转
    */
   JMUP = 'jump',
+
+  /**
+   * 自定义js
+   */
+  CUSTOM_JS = 'customJs',
 }
 
 export const eventTypeChinese = {
@@ -76,6 +81,7 @@ export const eventTypeChinese = {
   [EEventType.LINK_SERVICE]: '关联服务',
   [EEventType.VALIDATE]: '表单校验',
   [EEventType.JMUP]: '跳转链接',
+  [EEventType.CUSTOM_JS]: '自定义js',
 };
 
 /**

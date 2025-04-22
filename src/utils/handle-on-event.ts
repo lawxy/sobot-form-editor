@@ -5,6 +5,7 @@ import {
   TFormSerive,
   ELinkRefreshType,
   type IBaseElement,
+  EValidateType,
 } from '@/types';
 import { dynamicGetStore } from '.';
 import { triggerService } from './trigger-service';
@@ -19,15 +20,15 @@ export const triggerSettingValue = (params: TEmitData) => {
   switch (targetPayload) {
     case EChangeStatePayload.SYNC:
       return store.setFieldValue(targetElementId!, value);
-    case EChangeStatePayload.CUSTOM:
-      // return store.setFieldValue(targetElementId!, setValue);
-      const { value: resultValue } = parseJs({
-        jsFunction: customJs!,
-        valueWhenError: undefined,
-        dependencies: [store, value, prevFunctionReturn],
-        dependenciesString: ['store', 'value', 'prevFunctionReturn'],
-      });
-      return resultValue;
+    // case EChangeStatePayload.CUSTOM:
+    //   // return store.setFieldValue(targetElementId!, setValue);
+    //   const { value: resultValue } = parseJs({
+    //     jsFunction: customJs!,
+    //     valueWhenError: undefined,
+    //     dependencies: [store, value, prevFunctionReturn],
+    //     dependenciesString: ['store', 'value', 'prevFunctionReturn'],
+    //   });
+    //   return resultValue;
     case EChangeStatePayload.RESET_PAGE:
       return store.setElementProp(targetElementId!, 'current', 1);
   }
@@ -133,6 +134,52 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
   }
 };
 
+// 自定义js
+export const triggerCustomJs = async (params: TEmitData) => {
+  const { customJs, value, prevFunctionReturn, targetElementId } = params;
+  const store = dynamicGetStore();
+  if (!store.getElement(targetElementId!)) return;
+
+  const { value: resultValue } = parseJs({
+    jsFunction: customJs!,
+    valueWhenError: undefined,
+    dependencies: [store, value, prevFunctionReturn],
+    dependenciesString: ['store', 'value', 'prevFunctionReturn'],
+  });
+  return resultValue;
+};
+
+// 表单校验
+export const triggerValidate = async (params: TEmitData) => {
+  const { validateField, sourceId } = params;
+  const store = dynamicGetStore();
+
+  const element = store.getElement(sourceId!);
+  if (!element) return;
+
+  const { fieldName, id } = element;
+
+  const fields =
+    validateField === EValidateType.CURRENT ? [fieldName! || id!] : undefined;
+  return store.formInstance?.validateFields(fields) as Promise<any>;
+};
+
+// 链接跳转
+export const triggerJump = async (params: TEmitData) => {
+  const { jumpUrl, newWindow } = params;
+      let href = jumpUrl;
+    if (jumpUrl?.startsWith('http')) {
+      href = jumpUrl;
+    } else {
+      href = `${window.location.origin}${jumpUrl!}`;
+    }
+    if (newWindow) {
+      window.open(href, '_blank');
+    } else {
+      window.location.href = href;
+    }
+};
+
 export const handleOnEvent = async (params: TEmitData) => {
   const { eventType } = params;
   // console.log('params', params);
@@ -141,5 +188,11 @@ export const handleOnEvent = async (params: TEmitData) => {
       return await triggerSettingValue(params);
     case EEventType.UPDATE_SERVICE:
       return await triggerRefreshService(params);
+    case EEventType.VALIDATE:
+      return await triggerValidate(params);
+    case EEventType.JMUP:
+      return await triggerJump(params);
+    case EEventType.CUSTOM_JS:
+      return await triggerCustomJs(params);
   }
 };

@@ -76,7 +76,7 @@ const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
                 EChangeStatePayload.SYNC,
                 EChangeStatePayload.SET_ATTRIBUTE,
                 EChangeStatePayload.RESET_PAGE,
-                EChangeStatePayload.CUSTOM,
+                // EChangeStatePayload.CUSTOM,
               ].filter(Boolean),
             )}
             key="action"
