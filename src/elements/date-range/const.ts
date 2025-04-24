@@ -18,11 +18,11 @@ export const initialData: Partial<IBaseElement> = {
   dateRangeType: EDateRangeType.SYSTEM,
   datePresets: [],
   dateRangeVersion: 'default',
-  startDateCustom: `function main(moment) {
+  startDateCustom: `function main({moment}) {
     return moment().format('YYYY-MM-DD HH:mm:ss');
 };
 `,
-  endDateCustom: `function main(moment) {
+  endDateCustom: `function main({moment}) {
     return moment().format('YYYY-MM-DD HH:mm:ss');
 };
 `,

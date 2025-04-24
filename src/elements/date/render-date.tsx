@@ -64,8 +64,8 @@ export const RenderDate: TElementRender = ({
       const { value } = parseJs({
         jsFunction: startDateCustom!,
         valueWhenError: undefined,
-        dependencies: [moment],
-        dependenciesString: ['moment'],
+        // dependencies: [moment],
+        // dependenciesString: ['moment'],
       });
       return value ? moment(value) : undefined;
     }

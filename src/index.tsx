@@ -89,7 +89,10 @@ const FormEditorContent: React.ForwardRefRenderFunction<
 
   useEffect(() => {
     store.setForm(form);
-  }, [form]);
+    if(LOCALE) {
+      store.setLocale(LOCALE);
+    }
+  }, [form, LOCALE]);
 
   useEffect(() => {
     let schema: IFormSchema = {};

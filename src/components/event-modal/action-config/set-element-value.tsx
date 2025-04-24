@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, Input, Select, Tooltip } from 'antd';
+import { Select } from 'antd';
 import { observer } from 'mobx-react-lite';
 
-import { QuestionPopover, JSModal } from '@/components';
 import store from '@/store';
 import { prefixCls } from '@/const';
 import {
@@ -11,19 +10,6 @@ import {
   type IEventTarget,
 } from '@/types';
 import type { IConfig } from '.';
-import { TipsIcon } from '@sobot/soil-ui';
-
-const customJSDefaultValue = `function main(store, value) {
-  const {
-    setElementProp,
-    setFieldValue,
-    setFieldsValue,
-    getElement,
-  } = store;
-   console.log(value)
-
-  
-}`;
 
 const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
   const { targetElementId, targetPayload, setValue, customJs } =
@@ -86,29 +72,7 @@ const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
               onChange?.(prop);
             }}
           />
-          {targetPayload === EChangeStatePayload.CUSTOM && (
-            <div className={prefixCls('event-custom-js')}>
-              <JSModal
-                title={
-                  <Tooltip placement="right" title="后期放个文档链接">
-                    <span>
-                      <span style={{ paddingRight: '4px' }}>
-                        自定义脚本设置
-                      </span>
-                      <TipsIcon />
-                    </span>
-                  </Tooltip>
-                }
-                editorType="javascript"
-                value={customJs || customJSDefaultValue}
-                onChange={(v) => {
-                  onChange?.({ customJs: v });
-                }}
-              >
-                <Button size="small">编辑</Button>
-              </JSModal>
-            </div>
-          )}
+        
           {/* {targetPayload && targetPayload !== EChangeStatePayload.RESET_PAGE && (
               <>
                 &nbsp;目标表单值为

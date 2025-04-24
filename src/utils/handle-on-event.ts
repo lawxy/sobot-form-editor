@@ -10,7 +10,7 @@ import {
 import { dynamicGetStore } from '.';
 import { triggerService } from './trigger-service';
 import type { TEmitData } from './handle-emit-event';
-import { parseJs } from '@/utils';
+import { parseJsAsync } from '@/utils';
 
 // 设置组件
 export const triggerSettingValue = (params: TEmitData) => {
@@ -136,15 +136,15 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
 
 // 自定义js
 export const triggerCustomJs = async (params: TEmitData) => {
-  const { customJs, value, prevFunctionReturn, targetElementId } = params;
+  const { customJs, value, prevFunctionReturn, sourceId } = params;
   const store = dynamicGetStore();
-  if (!store.getElement(targetElementId!)) return;
+  if (!store.getElement(sourceId!)) return;
 
-  const { value: resultValue } = parseJs({
+  const { value: resultValue } = await parseJsAsync({
     jsFunction: customJs!,
     valueWhenError: undefined,
-    dependencies: [store, value, prevFunctionReturn],
-    dependenciesString: ['store', 'value', 'prevFunctionReturn'],
+    dependencies: [value, prevFunctionReturn],
+    dependenciesString: ['value', 'prevFunctionReturn'],
   });
   return resultValue;
 };

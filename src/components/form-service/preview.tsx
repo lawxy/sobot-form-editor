@@ -21,10 +21,10 @@ export const Preview: FC<
       const { url, method, contentType } = formData;
       let { previewData, interceptors } = formData;
       console.log('previewData', previewData);
-      previewData = parseJs({
+      previewData = await parseJs({
         jsFunction: previewData,
         valueWhenError: {},
-      }).value;
+      });
 
       const request = createRequest({ interceptors, contentType });
 

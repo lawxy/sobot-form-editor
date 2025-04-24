@@ -35,6 +35,10 @@ class Store {
     makeAutoObservable(this);
   }
 
+  setLocale(LOCALE: Record<string, any>) {
+    this.LOCALE = LOCALE;
+  }
+
   getSchema() {
     return {
       formElements: this.formElements,

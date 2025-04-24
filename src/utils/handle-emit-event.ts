@@ -170,17 +170,18 @@ export const emitJumpUrl = (params: IParams) => {
 // 自定义js
 export const emitCustomJs = (params: IParams) => {
   const { emitter, eventType, target } = params;
-  const { customJs, targetServiceId } = target;
+  const { customJs, sourceId } = target;
   const validate = validateParams([customJs]);
   if (!validate) return;
 
   return withConfig(
     async (value: any, prevFunctionReturn: any) =>
-      await emitter.emit(targetServiceId!, {
-        targetServiceId,
+      await emitter.emit(sourceId!, {
+        sourceId,
         eventType,
         value,
-        prevFunctionReturn
+        prevFunctionReturn,
+        customJs
       } as TEmitData),
     target,
   );

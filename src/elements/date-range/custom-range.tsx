@@ -30,11 +30,11 @@ const defaultPreset = {
     langKey: '',
   },
   id: idCreator('custom-range'),
-  startDate: `function main(moment) {
+  startDate: `function main({moment}) {
     return moment();
 };
 `,
-  endDate: `function main(moment) {
+  endDate: `function main({moment}) {
     return moment();
 };
 `,

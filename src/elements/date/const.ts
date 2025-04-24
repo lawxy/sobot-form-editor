@@ -14,7 +14,7 @@ export const initialData: Partial<IBaseElement> = {
   placeholder: {langText: '请选择日期', langKey: ''},
   allowClear: true,
   datePickerType: '',
-  startDateCustom: `function main(moment) {
+  startDateCustom: `function main({moment}) {
     return moment().format('YYYY-MM-DD HH:mm:ss');
 };
 `,

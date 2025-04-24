@@ -163,4 +163,6 @@ export interface IBaseStore
     IFormStore,
     IExtendStore {
   getSchema: () => IFormSchema;
+  LOCALE?: Record<string, any>;
+  setLocale: (LOCALE: Record<string, any>) => void;
 }

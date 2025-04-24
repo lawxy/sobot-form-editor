@@ -82,8 +82,8 @@ export const RenderDateRange: TElementRender = ({
       const { value } = parseJs({
         jsFunction: startDateCustom!,
         valueWhenError: undefined,
-        dependencies: [moment],
-        dependenciesString: ['moment'],
+        // dependencies: [moment],
+        // dependenciesString: ['moment'],
       });
       startValue = value ? moment(value) : undefined;
     }
@@ -100,8 +100,8 @@ export const RenderDateRange: TElementRender = ({
       const { value } = parseJs({
         jsFunction: endDateCustom!,
         valueWhenError: undefined,
-        dependencies: [moment],
-        dependenciesString: ['moment'],
+        // dependencies: [moment],
+        // dependenciesString: ['moment'],
       });
       endValue = value ? moment(value) : undefined;
     }
@@ -133,15 +133,15 @@ export const RenderDateRange: TElementRender = ({
         const { value: startValue } = parseJs({
           jsFunction: item.startDate,
           valueWhenError: undefined,
-          dependencies: [moment],
-          dependenciesString: ['moment'],
+          // dependencies: [moment],
+          // dependenciesString: ['moment'],
         });
 
         const { value: endValue } = parseJs({
           jsFunction: item.endDate,
           valueWhenError: undefined,
-          dependencies: [moment],
-          dependenciesString: ['moment'],
+          // dependencies: [moment],
+          // dependenciesString: ['moment'],
         });
 
         return {
