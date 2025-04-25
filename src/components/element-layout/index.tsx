@@ -69,11 +69,18 @@ export const ElementLayout: FC<
       .forEach((patternItem) => {
         arr.push({
           validator(_: any, value: any = '') {
-            const reg = new RegExp(patternItem.regexp as string);
-            if (value?.match(reg)) {
+            try {
+              
+              const reg = new RegExp(patternItem.regexp as string);
+              if (value?.match(reg)) {
+                return Promise.resolve();
+              }
+              return Promise.reject(patternItem.message?.langText);
+            } catch (error) {
+              console.warn(`正则表达式错误，组件id: ${id}，组件名称: ${elementName?.langText}`);
+              console.warn(error);
               return Promise.resolve();
             }
-            return Promise.reject(patternItem.message?.langText);
           },
         });
       });
