@@ -148,6 +148,10 @@ export interface IBaseElement {
    * 元素id
    */
   id?: string;
+   /**
+   * 是否隐藏 事件触发
+   */
+   hidden?: boolean;
   /**
    * 默认值
    */

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Input } from '@sobot/soil-ui';
-import { useRegisterEvents, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 import { isUndefined } from 'lodash-es';
@@ -29,7 +29,7 @@ export const RenderInput: TElementRender = ({
     defaultValue,
   } = element;
 
-  const { eventFunctions } = useRegisterEvents(element);
+  const { eventFunctions } = useGetEventFunctions(element);
 
   const handleEvent =
     (action: EEventAction) =>
@@ -47,16 +47,16 @@ export const RenderInput: TElementRender = ({
     eventFunctions[EEventAction.ON_LOADED]?.();
   }, [eventFunctions[EEventAction.ON_LOADED]]);
 
-  useFormUpdate(() => {
-    eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
-  }, [fieldValue]);
-
   const inputValue = useMemo(() => {
     if (isUndefined(fieldValue)) {
       return defaultValue?.langText;
     }
     return fieldValue;
   }, [fieldValue, defaultValue]);
+
+  useFormUpdate(() => {
+    eventFunctions[EEventAction.VALUE_CHANGE]?.(inputValue);
+  }, [inputValue]);
 
   return (
     <>

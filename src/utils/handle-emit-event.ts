@@ -38,7 +38,7 @@ export type TEmitData = Partial<IEventTarget> & {
   prevFunctionReturn?: any; // 上一个事件函数的返回值
 };
 
-const withConfig = (fn: (v: IParams, prevFunctionReturn: any) => Promise<any>, target: IEventTarget) => {
+const withConfig = (fn: (v: any, prevFunctionReturn: any) => Promise<any>, target: IEventTarget) => {
   const { series, delayTime, delayType, sourceId } = target;
   if (delayType === EDelay.DEBOUNCE && delayTime) {
     fn = asyncDebounce(fn, delayTime);
@@ -59,21 +59,19 @@ export const emitSettingValue = (params: IParams) => {
   const validate = validateParams([targetElementId, targetPayload]);
   if (!validate) return;
 
-  const fn =  withConfig(
-    async (value: any, prevFunctionReturn: any) =>
+  return withConfig(
+    async (eventValue: any, prevFunctionReturn: any) =>
       await emitter.emit(targetElementId!, {
         targetElementId,
         eventType,
         setValue: getValueFromInput(setValue),
         targetPayload,
-        value,
+        eventValue,
         customJs,
         prevFunctionReturn
       } as TEmitData),
     target,
   );
-
-  return fn;
 };
 
 // 更新服务
@@ -93,13 +91,13 @@ export const emitRefreshService = (params: IParams) => {
   if (!store.getService(targetServiceId!)) return;
 
   return withConfig(
-    async (value: any, prevFunctionReturn: any) =>
+    async (eventValue: any, prevFunctionReturn: any) =>
       await emitter.emit(targetServiceId!, {
         targetServiceId,
         eventType,
         updateField,
         targetPayload,
-        value,
+        eventValue,
         refreshFlag,
         urlAppended,
         prevFunctionReturn
@@ -115,7 +113,7 @@ export const emitValidateForm = (params: IParams) => {
 
   const { validateField, sourceId } = target;
   // console.log('targetElementId', targetElementId);
-  console.log('sourceId', sourceId);
+  // console.log('sourceId', sourceId);
   // const fields =
   //   validateField === EValidateType.CURRENT ? [sourceId] : undefined;
 
@@ -175,11 +173,11 @@ export const emitCustomJs = (params: IParams) => {
   if (!validate) return;
 
   return withConfig(
-    async (value: any, prevFunctionReturn: any) =>
+    async (eventValue: any, prevFunctionReturn: any) =>
       await emitter.emit(sourceId!, {
         sourceId,
         eventType,
-        value,
+        eventValue,
         prevFunctionReturn,
         customJs
       } as TEmitData),

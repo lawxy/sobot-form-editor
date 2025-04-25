@@ -58,8 +58,6 @@ export enum EEventType {
    * 关联服务
    */
   LINK_SERVICE = 'linkService',
-  // 显示/隐藏
-  // CHANGE_VISIBILITY = 'changeVisibility',
   /**
    * 设置组件
    */
@@ -92,8 +90,8 @@ export const eventTypeChinese = {
  * 事件动作
  */
 export enum EChangeStatePayload {
-  // SHOW = 'show',
-  // HIDDEN = 'hidden',
+  SHOW = 'show',
+  HIDDEN = 'hidden',
   // DISABLE = 'disable',
   UPDATE = 'update',
   CLEAR_DATA = 'clear_data',
@@ -124,6 +122,8 @@ export const changeStatePayloadInChinese = {
   [EChangeStatePayload.UPLOAD_SCHEMA]: '上传Schema',
   [EChangeStatePayload.NULL]: '无',
   [EChangeStatePayload.SET_ATTRIBUTE]: '设置属性值',
+  [EChangeStatePayload.SHOW]: '显示',
+  [EChangeStatePayload.HIDDEN]: '隐藏',
 };
 
 export const changeStateActions = (fields: Array<EChangeStatePayload>) => {

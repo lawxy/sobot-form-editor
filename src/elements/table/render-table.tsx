@@ -4,7 +4,7 @@ import { Table } from '@sobot/soil-ui';
 import type { TElementRender } from '@sobot/form-editor';
 import {
   useFormUpdate,
-  useRegisterEvents,
+  useGetEventFunctions,
   EEventAction,
 } from '@sobot/form-editor';
 import type { ITableEdit } from './type';
@@ -27,7 +27,7 @@ export const RenderTable: TElementRender = ({
     extendProps,
   } = element;
 
-  const { eventFunctions } = useRegisterEvents(element);
+  const { eventFunctions } = useGetEventFunctions(element);
 
   const editData = useRef<ITableEdit>({});
 

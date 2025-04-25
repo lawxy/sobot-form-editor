@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from '@sobot/soil-ui';
-import { useRegisterEvents, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 
@@ -13,7 +13,7 @@ export const RenderSearch: TElementRender = ({
 }) => {
   const { id, placeholder, allowClear, disabled } = element;
 
-  const { eventFunctions } = useRegisterEvents(element);
+  const { eventFunctions } = useGetEventFunctions(element);
 
   const handleEvent =
     (action: EEventAction) =>

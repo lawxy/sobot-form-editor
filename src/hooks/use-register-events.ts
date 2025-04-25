@@ -14,10 +14,7 @@ interface IRegisterEvents {
   (element: Pick<IBaseElement, 'id' | 'events'>): any;
 }
 
-export const useRegisterEvents: IRegisterEvents = (element) => {
-  const { events, id } = element;
-  const eventFunctions = useRef<TEventFormatFunctions>({});
-  const forceRender = useForceRender();
+export const useRegisterEvents = (id: IBaseElement['id']) => {
 
   useFormEffect(() => {
     if (!id) return;
@@ -27,12 +24,12 @@ export const useRegisterEvents: IRegisterEvents = (element) => {
     };
   }, [id]);
 
-  useEffect(() => {
-    if (!events?.length) return;
-    const functions = handleEmitEvent(eventStore.emitter, events);
-    eventFunctions.current = functions;
-    forceRender();
-  }, [events]);
+  // useEffect(() => {
+  //   if (!events?.length) return;
+  //   const functions = handleEmitEvent(eventStore.emitter, events);
+  //   eventFunctions.current = functions;
+  //   forceRender();
+  // }, [events]);
 
-  return { eventFunctions: eventFunctions.current };
+  // return { eventFunctions: eventFunctions.current };
 };

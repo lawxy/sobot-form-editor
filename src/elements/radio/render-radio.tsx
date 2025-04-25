@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Radio, type RadioChangeEvent } from '@sobot/soil-ui';
 import { isUndefined } from 'lodash-es';
 
-import { useRegisterEvents, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 
@@ -15,7 +15,7 @@ export const RenderRadio: TElementRender = ({
 }) => {
   const { useGroup, options, direction, defaultValue } = element;
 
-  const { eventFunctions } = useRegisterEvents(element);
+  const { eventFunctions } = useGetEventFunctions(element);
 
   const onChange = (e: RadioChangeEvent) => {
     setFieldValue(e.target.value);
@@ -24,10 +24,6 @@ export const RenderRadio: TElementRender = ({
   useFormUpdate(() => {
     eventFunctions[EEventAction.ON_LOADED]?.();
   }, [eventFunctions[EEventAction.ON_LOADED]]);
-
-  useFormUpdate(() => {
-    eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
-  }, [fieldValue]);
 
   const radioOptions = useMemo(() => {
     return options?.map((opt) => ({
@@ -42,6 +38,10 @@ export const RenderRadio: TElementRender = ({
     }
     return fieldValue;
   }, [fieldValue, defaultValue]);
+
+  useFormUpdate(() => {
+    eventFunctions[EEventAction.VALUE_CHANGE]?.(radioValue);
+  }, [radioValue]);
 
   return useGroup ? (
     <Radio.Group

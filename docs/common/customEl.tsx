@@ -1,5 +1,5 @@
 import React from 'react';
-import { SettingItem, SettingWrap, useRegisterEvents, EEventAction, useFormUpdate } from '@sobot/form-editor';
+import { SettingItem, SettingWrap, useGetEventFunctions, EEventAction, useFormUpdate } from '@sobot/form-editor';
 import type { IBaseElement, TElementRender, TElementSetting } from '@sobot/form-editor';
 import { Select } from '@sobot/soil-ui';
 
@@ -10,7 +10,7 @@ const RenderContent: TElementRender = ({
   setFieldValue,
 }) => {
   const { placement } = element;
-  const { eventFunctions } = useRegisterEvents(element);
+  const { eventFunctions } = useGetEventFunctions(element);
 
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);

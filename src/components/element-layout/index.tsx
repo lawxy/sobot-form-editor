@@ -7,7 +7,7 @@ import { cloneDeep } from 'lodash-es';
 import c from 'classnames';
 import store from '@/store';
 import { prefixCls } from '@/const';
-import { useElementCommon } from '@/hooks';
+import { useElementCommon, useRegisterEvents } from '@/hooks';
 import { useEditorContext } from '@/context';
 import type { IBaseElement } from '../../types';
 import { WrapEl } from './wrap-el';
@@ -154,6 +154,9 @@ export const ElementLayout: FC<
 export const RenderElementWithLayout: FC<{
   element: IBaseElement;
 }> = observer(({ element }) => {
+  
+  useRegisterEvents(element.id!);
+
   const { ElementsMap, LOCALE } = useEditorContext();
 
   const Component = useMemo(() => {
@@ -180,9 +183,11 @@ export const RenderElementWithLayout: FC<{
     [element.id],
   );
 
-  const extendProps = store.getElementExtendAttrs(element.id!) || {};
-
   if (!Component) return null;
+
+  if (element.hidden) return null;
+
+  const extendProps = store.getElementExtendAttrs(element.id!) || {};
 
   return (
     <ElementLayout element={element}>

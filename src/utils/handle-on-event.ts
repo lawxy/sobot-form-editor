@@ -14,21 +14,19 @@ import { parseJsAsync } from '@/utils';
 
 // 设置组件
 export const triggerSettingValue = (params: TEmitData) => {
-  const { setValue, value, targetPayload, targetElementId, customJs, prevFunctionReturn } = params;
+  const { eventValue, targetPayload, targetElementId } = params;
   const store = dynamicGetStore();
   if (!store.getElement(targetElementId!)) return;
   switch (targetPayload) {
     case EChangeStatePayload.SYNC:
-      return store.setFieldValue(targetElementId!, value);
-    // case EChangeStatePayload.CUSTOM:
-    //   // return store.setFieldValue(targetElementId!, setValue);
-    //   const { value: resultValue } = parseJs({
-    //     jsFunction: customJs!,
-    //     valueWhenError: undefined,
-    //     dependencies: [store, value, prevFunctionReturn],
-    //     dependenciesString: ['store', 'value', 'prevFunctionReturn'],
-    //   });
-    //   return resultValue;
+      const element = store.getElement(targetElementId!);
+      if (!element) return;
+      const { fieldName } = element;
+      return store.setFieldValue(fieldName! || targetElementId!, eventValue);
+    case EChangeStatePayload.SHOW:
+      return store.setElementProp(targetElementId!, 'hidden', false);
+    case EChangeStatePayload.HIDDEN:
+      return store.setElementProp(targetElementId!, 'hidden', true);
     case EChangeStatePayload.RESET_PAGE:
       return store.setElementProp(targetElementId!, 'current', 1);
   }
@@ -40,7 +38,7 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
     targetServiceId,
     updateField,
     targetPayload,
-    value,
+    eventValue,
     refreshFlag,
     urlAppended,
     prevFunctionReturn
@@ -54,7 +52,7 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
     const { params = {} } = currentService;
     const newParams = cloneDeep(params);
     if (urlAppended) {
-      newParams[urlAppended!] = value;
+      newParams[urlAppended!] = eventValue;
     }
     store.setService(servId, { params: newParams });
   }
@@ -63,7 +61,7 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
     const { data = {} } = currentService;
     const newData = cloneDeep(data);
     if (updateField) {
-      newData[updateField!] = value;
+      newData[updateField!] = eventValue;
     }
     store.setService(servId, { data: newData });
   }
@@ -79,14 +77,14 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
   if (targetPayload === EChangeStatePayload.SUBMIT) {
     const { data = {} } = currentService;
     const newData = cloneDeep(data);
-    newData[updateField!] = value;
+    newData[updateField!] = eventValue;
     store.setService(servId, { data: store.getFieldsValue() });
   }
   // 上传Schema
   if (targetPayload === EChangeStatePayload.UPLOAD_SCHEMA) {
     const { data = {} } = currentService;
     const newData = cloneDeep(data);
-    newData[updateField!] = value;
+    newData[updateField!] = eventValue;
     store.setService(servId, { data: store.getSchema() });
   }
 
@@ -114,7 +112,8 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
         const element = store.getElement(id);
         if (!element || !linkRefreshType) return;
         if (linkRefreshType === ELinkRefreshType.FIELDVALUE) {
-          store.setFieldValue(id, finalRes);
+          const { fieldName } = element;
+          store.setFieldValue(fieldName! || id, finalRes);
         } else {
           const updateField =
             linkRefreshType === ELinkRefreshType.OPTIONS
@@ -125,7 +124,8 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
           }
         }
       });
-    } catch {
+    } catch (error) {
+      console.error('error', error);
       linkingElements?.forEach((item) => {
         const { id } = item;
         store.setElementProp(id, 'linkLoading', false);

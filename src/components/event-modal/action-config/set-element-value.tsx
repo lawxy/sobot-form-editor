@@ -59,10 +59,10 @@ const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
             options={changeStateActions(
               // @ts-ignore
               [
+                EChangeStatePayload.SHOW,
+                EChangeStatePayload.HIDDEN,
                 EChangeStatePayload.SYNC,
-                EChangeStatePayload.SET_ATTRIBUTE,
                 EChangeStatePayload.RESET_PAGE,
-                // EChangeStatePayload.CUSTOM,
               ].filter(Boolean),
             )}
             key="action"
@@ -72,28 +72,6 @@ const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
               onChange?.(prop);
             }}
           />
-        
-          {/* {targetPayload && targetPayload !== EChangeStatePayload.RESET_PAGE && (
-              <>
-                &nbsp;目标表单值为
-                {targetPayload === EChangeStatePayload.SYNC ? (
-                  <> &nbsp;事件源表单值</>
-                ) : (
-                  <>
-                    &nbsp;
-                    <QuestionPopover content="按照基本数据类型填写, 比如 true 或 1 或 '1'" />
-                    &nbsp;
-                    <Input
-                      className={prefixCls('event-input')}
-                      defaultValue={setValue}
-                      onChange={(e) => {
-                        onChange?.({ setValue: e.target.value });
-                      }}
-                    />
-                  </>
-                )}
-              </>
-            )} */}
         </div>
       )}
     </>

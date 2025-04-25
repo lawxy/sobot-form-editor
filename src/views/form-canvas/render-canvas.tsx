@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import type { FC, PropsWithChildren } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ReactSortable } from '@sobot/form-editor-ui';
-import { useRegisterEvents, useFormUpdate, useDesignEffect } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate, useDesignEffect } from '@/hooks';
 import { EEventAction } from '@/types';
 import { prefixCls } from '@/const';
 import eventStore from '@/store/eventStore';
@@ -30,7 +30,7 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
 }) => {
   const { horizontalGap, verticalGap, id, events, customCss, align, justify } =
     store.editorAttrs;
-  const { eventFunctions } = useRegisterEvents({ id, events });
+  const { eventFunctions } = useGetEventFunctions({ id, events });
   const { ElementsMap } = useEditorContext();
 
   const formStyle = useMemo(() => {

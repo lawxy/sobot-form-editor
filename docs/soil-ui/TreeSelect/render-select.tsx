@@ -1,5 +1,5 @@
 import { TreeSelect, Spin } from '@sobot/soil-ui';
-import { useRegisterEvents, useFormUpdate, EEventAction } from '@sobot/form-editor';
+import { useGetEventFunctions, useFormUpdate, EEventAction } from '@sobot/form-editor';
 import type { TElementRender } from '@sobot/form-editor';
 
 export const RenderTreeSelect: TElementRender = ({
@@ -12,7 +12,7 @@ export const RenderTreeSelect: TElementRender = ({
 
   // console.log('fieldValue', fieldValue);
 
-  const { eventFunctions } = useRegisterEvents(element);
+  const { eventFunctions } = useGetEventFunctions(element);
 
   const handleChange = (val) => {
     setFieldValue(val);

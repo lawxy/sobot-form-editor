@@ -20,7 +20,7 @@ interface IDragElementProp {
 以颜色选择器为例，配置事件-值变化同步其他组件，属性可设置弹框位置placement
 ```javascript
 import React from 'react';
-import { SettingItem, SettingWrap, useRegisterEvents, EEventAction, useFormUpdate } from '@sobot/form-editor';
+import { SettingItem, SettingWrap, useGetEventFunctions, EEventAction, useFormUpdate } from '@sobot/form-editor';
 import type { IBaseElement, TElementRender, TElementSetting } from '@sobot/form-editor';
 import { ColorPicker, Select } from '@sobot/soil-ui';
 
@@ -31,7 +31,7 @@ const RenderContent: TElementRender = ({
   setFieldValue,
 }) => {
   const { placement } = element;
-  const { eventFunctions } = useRegisterEvents(element);
+  const { eventFunctions } = useGetEventFunctions(element);
 
   // 监听值发生变化的hook
   useFormUpdate(() => {

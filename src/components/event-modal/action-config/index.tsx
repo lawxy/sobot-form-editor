@@ -158,8 +158,6 @@ export const ActionConfig: React.FC<{
             animation={150}
             // handle=".fe-event-action-config"
             onSort={({ newIndex, oldIndex }) => {
-              console.log('newIndex', newIndex);
-              console.log('oldIndex', oldIndex);
               const newEventTargets = cloneDeep(currentEvent!.eventTargets);
 
               const afterMove = arrayMoveImmutable(

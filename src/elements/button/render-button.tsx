@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@sobot/soil-ui';
-import { useRegisterEvents } from '@/hooks';
+import { useGetEventFunctions } from '@/hooks';
 
 import { EEventAction, TElementRender } from '@/types';
 
@@ -9,7 +9,7 @@ export const RenderButton: TElementRender = ({
   customStyle,
   extendProps,
 }) => {
-  const { eventFunctions } = useRegisterEvents(element);
+  const { eventFunctions } = useGetEventFunctions(element);
   const { btnText, linkLoading, btnType, size } = element;
 
   return (

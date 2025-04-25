@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { DatePicker } from '@sobot/soil-ui';
 import moment, { type Moment } from 'moment';
 import { assign, range } from 'lodash';
-import { useRegisterEvents, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate } from '@/hooks';
 import { EEventAction, EDateMode, EDateRangeType } from '@/types';
 import type { TElementRender } from '@/types';
 import { parseJs, showTimeFormat } from '@/utils';
@@ -37,7 +37,7 @@ export const RenderDateRange: TElementRender = ({
     dateRangeType,
   } = element;
 
-  const { eventFunctions } = useRegisterEvents(element);
+  const { eventFunctions } = useGetEventFunctions(element);
 
   const handleEvent = (action: EEventAction) => (e: any) => {
     eventFunctions[action]?.(e.target.value);
@@ -53,9 +53,7 @@ export const RenderDateRange: TElementRender = ({
     eventFunctions[EEventAction.ON_LOADED]?.();
   }, [eventFunctions[EEventAction.ON_LOADED]]);
 
-  useFormUpdate(() => {
-    eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
-  }, [fieldValue]);
+ 
 
   const value = useMemo(() => {
     // 表单值有值(null也算有值) - 表示这是人为操作过的表单
@@ -117,6 +115,10 @@ export const RenderDateRange: TElementRender = ({
     endDateCustom,
     fieldValue,
   ]);
+
+  useFormUpdate(() => {
+    eventFunctions[EEventAction.VALUE_CHANGE]?.(value);
+  }, [value]);
 
   const attributes = useMemo(() => {
     const baseAttributes = {

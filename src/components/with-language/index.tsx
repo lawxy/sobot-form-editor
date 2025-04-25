@@ -40,10 +40,12 @@ export const WithLanguage: WithLanguageType = ({ children, value, onChange }) =>
   }, [value, LOCALE]);
 
   const format = (originValue: string) => {
-    onChange?.({
-      langText: originValue,
-      langKey: value?.langKey || '',
-    });
+    if (originValue !== value?.langText) {
+      onChange?.({
+        langText: originValue,
+        langKey: value?.langKey || '',
+      });
+    }
   };
 
   return (
@@ -79,15 +81,32 @@ const WithLanguageInput = forwardRef(
     }: { value: TextWithLang; onChange: (value: TextWithLang) => void },
     ref,
   ) => {
+    const [composing, setComposing] = useState(false);
+    const [tempValue, setTempValue] = useState('');
+    
+    useEffect(() => {
+      if (value?.langText) {
+        setTempValue(value.langText);
+      }
+    }, [value?.langText]);
+
     return (
       <WithLanguage value={value} onChange={onChange}>
         {({ value: text, onChange: onChangeText, useLocale }) => (
           <Input
             ref={ref as any}
             disabled={useLocale}
-            value={text}
+            value={composing ? tempValue : text}
             onChange={(e) => {
-              onChangeText(e.target.value);
+              setTempValue(e.target.value);
+              if (!composing) {
+                onChangeText(e.target.value);
+              }
+            }}
+            onCompositionStart={() => setComposing(true)}
+            onCompositionEnd={(e) => {
+              setComposing(false);
+              onChangeText((e.target as HTMLInputElement).value);
             }}
             {...props}
           />

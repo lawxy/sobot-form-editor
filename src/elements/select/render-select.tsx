@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import { Select } from '@sobot/soil-ui';
-import { useRegisterEvents, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 import { parseCSS } from '@/utils';
@@ -27,7 +27,7 @@ export const RenderSelect: TElementRender = ({
     defaultValue,
   } = element;
 
-  const { eventFunctions } = useRegisterEvents(element);
+  const { eventFunctions } = useGetEventFunctions(element);
 
   const onChange = useCallback(
     (val: any) => {
