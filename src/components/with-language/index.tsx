@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useRef, useState, useMemo } from 'react';
 import type { ConsumerProps, FC } from 'react';
 import { Popconfirm, Input } from 'antd';
 import { prefixCls } from '@/const';
@@ -13,25 +13,20 @@ type WithLanguageType = FC<{
   Input: React.FC<any>;
 };
 
-
 export const WithLanguage: WithLanguageType = ({ children, value, onChange }) => {
   const { LOCALE } = useEditorContext();
   const inputRef = useRef<any>(null);
 
-  const [text, setText] = useState<string>('');
-  const [useLocale, setUseLocale] = useState<boolean>(false);
+  const {text, useLocale} = useMemo(() => {
+    if (!value?.langKey || !LOCALE[value?.langKey]) {
+      return { text: value?.langText, useLocale: false };
+    }
+
+    return { text: LOCALE[value.langKey], useLocale: true };
+  }, [value, LOCALE]);
 
   useEffect(() => {
-    if (!value?.langKey || !LOCALE[value?.langKey]) {
-      setText(value?.langText);
-      setUseLocale(false);
-      return;
-    }
-    setText(LOCALE[value.langKey]);
-
-    setUseLocale(true);
-
-    if (value.langText !== LOCALE[value.langKey]) {
+     if (value?.langText && LOCALE[value?.langKey] && value.langText !== LOCALE[value.langKey]) {
       onChange?.({
         langText: LOCALE[value.langKey],
         langKey: value?.langKey || '',
@@ -81,14 +76,6 @@ const WithLanguageInput = forwardRef(
     }: { value: TextWithLang; onChange: (value: TextWithLang) => void },
     ref,
   ) => {
-    const [composing, setComposing] = useState(false);
-    const [tempValue, setTempValue] = useState('');
-    
-    useEffect(() => {
-      if (value?.langText) {
-        setTempValue(value.langText);
-      }
-    }, [value?.langText]);
 
     return (
       <WithLanguage value={value} onChange={onChange}>
@@ -96,17 +83,9 @@ const WithLanguageInput = forwardRef(
           <Input
             ref={ref as any}
             disabled={useLocale}
-            value={composing ? tempValue : text}
+            value={text}
             onChange={(e) => {
-              setTempValue(e.target.value);
-              if (!composing) {
-                onChangeText(e.target.value);
-              }
-            }}
-            onCompositionStart={() => setComposing(true)}
-            onCompositionEnd={(e) => {
-              setComposing(false);
-              onChangeText((e.target as HTMLInputElement).value);
+              onChangeText(e.target.value);
             }}
             {...props}
           />
