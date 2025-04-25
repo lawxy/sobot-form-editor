@@ -60,6 +60,7 @@ export const DefaultDateSetting = observer(
       <>
         <SettingItem label={label}>
           <Select
+          allowClear
             options={type === 'date' ? dateModeOptions : timeModeOptions}
             value={mode}
             onChange={(value) =>

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
-import { MenuProps, message, Modal } from 'antd';
+import { message, Modal } from 'antd';
 import type { FC, PropsWithChildren } from 'react';
 
 import { ActionConfig } from './action-config';
@@ -18,7 +18,12 @@ import {
 import { idCreator } from '@/utils';
 import './style.less';
 
-export type MenuItem = Required<MenuProps>['items'][number];
+// export type MenuItem = Required<MenuProps>['items'][number];
+export type MenuItem = {
+  key: string;
+  label: string;
+  disabled?: boolean;
+};
 
 const getNewEvent = (newProps = {}) => ({
   id: idCreator('event'),

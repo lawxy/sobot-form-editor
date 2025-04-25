@@ -3,6 +3,7 @@ import type { FC, PropsWithChildren } from 'react';
 import { Modal, message } from 'antd';
 import { MonacoEditor } from '@sobot/form-editor-ui';
 import { injectSchema } from '@/index';
+import store from '@/store';
 
 export const InjectSchema: FC<PropsWithChildren<any>> = ({ children }) => {
   const [open, setOpen] = useState(false);
@@ -33,6 +34,7 @@ export const InjectSchema: FC<PropsWithChildren<any>> = ({ children }) => {
             }
             injectSchema(schema);
             setOpen(false);
+            store.setSelectedElement({});
           } catch (e) {
             return message.error('json解析出错');
           }

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Popconfirm, Space } from 'antd';
+import { Input, Popconfirm, Space } from 'antd';
 import c from 'classnames';
 import { cloneDeep } from 'lodash-es';
 import { ReactSortable } from '@sobot/form-editor-ui';
@@ -143,45 +143,56 @@ export const ActionConfig: React.FC<{
         <QuestionPopover content="可拖拽排序" />
       </div>
       {currentEvent?.eventAction && currentEvent?.eventType && (
-        <ReactSortable
-          list={currentEvent?.eventTargets || []}
-          animation={150}
-          // handle=".fe-event-action-config"
-          onSort={({ newIndex, oldIndex }) => {
-            console.log('newIndex', newIndex);
-            console.log('oldIndex', oldIndex);
-            const newEventTargets = cloneDeep(currentEvent!.eventTargets);
-
-            const afterMove = arrayMoveImmutable(
-              newEventTargets!,
-              oldIndex!,
-              newIndex!,
-            );
-            handleChangeEvent('eventTargets', afterMove);
-          }}
-        >
-          {currentEvent?.eventTargets?.map((eventTarget, i) => (
-            <ActionItem
-              key={eventTarget.id}
-              onChange={(targetAttr) =>
-                handleChange(EChangeType.EDIT, targetAttr, i)
-              }
-              event={currentEvent}
-              eventTarget={eventTarget}
-              last={i === currentEvent?.eventTargets!.length - 1}
-              onAdd={() => handleChange(EChangeType.ADD)}
-              onDelete={() => handleDelete(i)}
+        <>
+          <div className={prefixCls('event-name-setting')}>
+            事件名：
+            <Input
+              style={{ width: 200 }}
+              placeholder="输入名称"
+              value={currentEvent?.eventName}
+              onChange={(e) => handleChangeEvent('eventName', e.target.value)}
             />
-          ))}
-          {!currentEvent?.eventTargets?.length && (
-            <div
-              className={prefixCls('event-action-config')}
-              style={{ justifyContent: 'flex-end' }}
-            >
-              <PlusIcon onClick={() => handleChange(EChangeType.ADD)} />
-            </div>
-          )}
-        </ReactSortable>
+          </div>
+          <ReactSortable
+            list={currentEvent?.eventTargets || []}
+            animation={150}
+            // handle=".fe-event-action-config"
+            onSort={({ newIndex, oldIndex }) => {
+              console.log('newIndex', newIndex);
+              console.log('oldIndex', oldIndex);
+              const newEventTargets = cloneDeep(currentEvent!.eventTargets);
+
+              const afterMove = arrayMoveImmutable(
+                newEventTargets!,
+                oldIndex!,
+                newIndex!,
+              );
+              handleChangeEvent('eventTargets', afterMove);
+            }}
+          >
+            {currentEvent?.eventTargets?.map((eventTarget, i) => (
+              <ActionItem
+                key={eventTarget.id}
+                onChange={(targetAttr) =>
+                  handleChange(EChangeType.EDIT, targetAttr, i)
+                }
+                event={currentEvent}
+                eventTarget={eventTarget}
+                last={i === currentEvent?.eventTargets!.length - 1}
+                onAdd={() => handleChange(EChangeType.ADD)}
+                onDelete={() => handleDelete(i)}
+              />
+            ))}
+            {!currentEvent?.eventTargets?.length && (
+              <div
+                className={prefixCls('event-action-config')}
+                style={{ justifyContent: 'flex-end' }}
+              >
+                <PlusIcon onClick={() => handleChange(EChangeType.ADD)} />
+              </div>
+            )}
+          </ReactSortable>
+        </>
       )}
     </div>
   );

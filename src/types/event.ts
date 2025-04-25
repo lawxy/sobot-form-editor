@@ -6,6 +6,10 @@ export type TCustomEvent = {
   eventType?: EEventType;
   // 事件的目标
   eventTargets?: IEventTarget[];
+  /**
+   * 事件名称
+   */
+  eventName?: string;
 };
 
 export type TCustomEvents = TCustomEvent[];
@@ -77,8 +81,8 @@ export enum EEventType {
 
 export const eventTypeChinese = {
   [EEventType.UPDATE_SERVICE]: '更新服务',
-  [EEventType.SETTING_VALUE]: '设置组件',
   [EEventType.LINK_SERVICE]: '关联服务',
+  [EEventType.SETTING_VALUE]: '设置组件',
   [EEventType.VALIDATE]: '表单校验',
   [EEventType.JMUP]: '跳转链接',
   [EEventType.CUSTOM_JS]: '自定义js',
@@ -169,6 +173,7 @@ export const delayOptions = [
 ];
 export interface IEventTarget {
   id: string;
+
   /**
    * 目标组件id
    */

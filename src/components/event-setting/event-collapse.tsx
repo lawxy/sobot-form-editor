@@ -69,6 +69,7 @@ export const EventCollapse: FC<{
         >
           <div className="collapse-item">
             {eventTypeChinese[event!.eventType!]}
+            {event?.eventName && ` - (${event.eventName})`}
           </div>
         </Dropdown>
       </EditComponent>

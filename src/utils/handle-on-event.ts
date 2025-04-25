@@ -136,15 +136,15 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
 
 // 自定义js
 export const triggerCustomJs = async (params: TEmitData) => {
-  const { customJs, value, prevFunctionReturn, sourceId } = params;
+  const { customJs, eventValue, prevFunctionReturn, sourceId } = params;
   const store = dynamicGetStore();
   if (!store.getElement(sourceId!)) return;
 
   const { value: resultValue } = await parseJsAsync({
     jsFunction: customJs!,
     valueWhenError: undefined,
-    dependencies: [value, prevFunctionReturn],
-    dependenciesString: ['value', 'prevFunctionReturn'],
+    dependencies: [eventValue, prevFunctionReturn],
+    dependenciesString: ['eventValue', 'prevFunctionReturn'],
   });
   return resultValue;
 };

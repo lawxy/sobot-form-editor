@@ -34,7 +34,7 @@ export type TEventFormatFunctions = {
 
 export type TEmitData = Partial<IEventTarget> & {
   eventType: EEventType;
-  value?: any; // 事件传入的相关值
+  eventValue?: any; // 事件传入的相关值
   prevFunctionReturn?: any; // 上一个事件函数的返回值
 };
 
@@ -268,7 +268,7 @@ export const handleEmitEvent = (
                 action,
               });
             });
-            prevFunctionReturn = undefined;
+            // prevFunctionReturn = undefined;
           }
         } catch (e) {
           return handleError({
