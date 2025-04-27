@@ -4,7 +4,6 @@ import {
   IEventTarget,
   TCustomEvent,
   TCustomEvents,
-  EValidateType,
   eventActionInChinese,
   eventTypeChinese,
   EDelay,
@@ -55,20 +54,17 @@ const withConfig = (fn: (v: any, prevFunctionReturn: any) => Promise<any>, targe
 // 设置组件
 export const emitSettingValue = (params: IParams) => {
   const { emitter, eventType, target } = params;
-  const { targetElementId, setValue, targetPayload, customJs } = target;
+  const { targetElementId, targetPayload } = target;
   const validate = validateParams([targetElementId, targetPayload]);
   if (!validate) return;
 
   return withConfig(
     async (eventValue: any, prevFunctionReturn: any) =>
       await emitter.emit(targetElementId!, {
-        targetElementId,
         eventType,
-        setValue: getValueFromInput(setValue),
-        targetPayload,
         eventValue,
-        customJs,
-        prevFunctionReturn
+        prevFunctionReturn,
+        ...target,
       } as TEmitData),
     target,
   );
@@ -80,9 +76,6 @@ export const emitRefreshService = (params: IParams) => {
   const {
     targetServiceId,
     targetPayload,
-    refreshFlag,
-    updateField,
-    urlAppended,
   } = target;
   const validate = validateParams([targetServiceId, targetPayload]);
   if (!validate) return;
@@ -93,14 +86,10 @@ export const emitRefreshService = (params: IParams) => {
   return withConfig(
     async (eventValue: any, prevFunctionReturn: any) =>
       await emitter.emit(targetServiceId!, {
-        targetServiceId,
         eventType,
-        updateField,
-        targetPayload,
         eventValue,
-        refreshFlag,
-        urlAppended,
-        prevFunctionReturn
+        prevFunctionReturn,
+        ...target
       } as TEmitData),
     target,
   );
@@ -108,26 +97,15 @@ export const emitRefreshService = (params: IParams) => {
 
 // 表单校验
 export const emitValidateForm = (params: IParams) => {
-  // const store = dynamicGetStore();
   const { emitter, eventType, target } = params;
 
-  const { validateField, sourceId } = target;
-  // console.log('targetElementId', targetElementId);
-  // console.log('sourceId', sourceId);
-  // const fields =
-  //   validateField === EValidateType.CURRENT ? [sourceId] : undefined;
-
-  // return withConfig(
-  //   () => store.formInstance?.validateFields(fields) as Promise<any>,
-  //   target,
-  // );
+  const { sourceId } = target;
 
   return withConfig(
     async () =>
       await emitter.emit(sourceId!, {
-        validateField,
         eventType,
-        sourceId,
+        ...target
       } as TEmitData),
     target,
   );
@@ -136,7 +114,7 @@ export const emitValidateForm = (params: IParams) => {
 // 跳转链接
 export const emitJumpUrl = (params: IParams) => {
   const { emitter, eventType, target } = params;
-  const { jumpUrl, newWindow, sourceId } = target;
+  const { jumpUrl, sourceId } = target;
   const validate = validateParams([jumpUrl]);
   if (!validate) return;
 
@@ -157,9 +135,8 @@ export const emitJumpUrl = (params: IParams) => {
   return withConfig(
     async () =>
       await emitter.emit(sourceId!, {
-        jumpUrl,
-        newWindow,
         eventType,
+        ...target
       } as TEmitData),
     target,
   );
@@ -175,11 +152,10 @@ export const emitCustomJs = (params: IParams) => {
   return withConfig(
     async (eventValue: any, prevFunctionReturn: any) =>
       await emitter.emit(sourceId!, {
-        sourceId,
         eventType,
         eventValue,
         prevFunctionReturn,
-        customJs
+        ...target
       } as TEmitData),
     target,
   );

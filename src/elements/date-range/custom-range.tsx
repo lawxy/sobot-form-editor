@@ -108,7 +108,6 @@ export const OperationModal: FC<
             onChange={(v) => {
               handleChange(idx, 'startDate', v);
             }}
-            editorType="javascript"
           >
             <Button size="small">编辑</Button>
           </JSModal>
@@ -126,7 +125,6 @@ export const OperationModal: FC<
             onChange={(v) => {
               handleChange(idx, 'endDate', v);
             }}
-            editorType="javascript"
           >
             <Button size="small">编辑</Button>
           </JSModal>

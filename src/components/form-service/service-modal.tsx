@@ -193,7 +193,6 @@ const ServiceModal: FC<
                         <span>拦截器设置</span>
                         <JSModal
                           title="拦截器设置"
-                          editorType="javascript"
                           value={form.getFieldValue('interceptors')}
                           onChange={(v) => {
                             form.setFieldsValue({
@@ -222,7 +221,6 @@ const ServiceModal: FC<
                         <span>预览参数</span>
                         <JSModal
                           title="编辑参数"
-                          editorType="javascript"
                           value={
                             getFieldValue('previewData') ||
                             'function main() {\n\treturn {\n\t\t\n\t}\n}'

@@ -2,38 +2,18 @@ import React from 'react';
 import { Select } from 'antd';
 import { observer } from 'mobx-react-lite';
 
-import store from '@/store';
 import { prefixCls } from '@/const';
 import {
   changeStateActions,
   EChangeStatePayload,
   type IEventTarget,
 } from '@/types';
+import { getElementOptions } from '@/utils';
 import type { IConfig } from '.';
 
 const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
-  const { targetElementId, targetPayload, setValue, customJs } =
+  const { targetElementId, targetPayload } =
     eventTarget || {};
-
-  // console.log('targetElementId', targetElementId);
-  const getComponentsOptions = () => {
-    const options = [];
-    // @ts-ignore
-    for (const el of store.formElementMap.values()) {
-      options.push({
-        label: (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: el?.elementName?.langText || (el.id as string),
-            }}
-          />
-        ),
-        value: el.id,
-        // disabled: store.selectedElement.id === el.id,
-      });
-    }
-    return options;
-  };
 
   return (
     <>
@@ -42,7 +22,7 @@ const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
         <Select
           allowClear
           className={prefixCls('event-input')}
-          options={getComponentsOptions()}
+          options={getElementOptions()}
           style={{ width: 200 }}
           value={targetElementId}
           onChange={(v) => {

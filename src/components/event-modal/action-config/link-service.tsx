@@ -6,6 +6,13 @@ import { prefixCls } from '@/const';
 import store from '@/store';
 import { linkRefreshFieldOptions, ELinkRefreshType } from '@/types';
 import type { IConfig } from '.';
+import { JSModal } from '@/components/js-modal';
+
+const defaultCustomJs = `function main({ store, serviceValue, eventValue}) {
+  console.log('serviceValue', serviceValue)
+  console.log('eventValue', eventValue)
+}
+`;
 
 const LinkService: React.FC<IConfig> = ({ onChange, eventTarget }) => {
   const {
@@ -13,6 +20,7 @@ const LinkService: React.FC<IConfig> = ({ onChange, eventTarget }) => {
     linkRefreshType,
     getFieldFromService,
     customRefreshField,
+    customJs
   } = eventTarget || {};
 
   return (
@@ -61,6 +69,18 @@ const LinkService: React.FC<IConfig> = ({ onChange, eventTarget }) => {
             }}
           />
         )}
+        {
+          linkRefreshType === ELinkRefreshType.CUSTOMJS && (
+            <JSModal
+              title="自定义js"
+              value={customJs || defaultCustomJs}
+              hasDefaultValue={!!customJs}
+              onChange={(v) => {
+                onChange?.({ customJs: v });
+              }}
+            />
+          )
+        }
       </div>
     </>
   );

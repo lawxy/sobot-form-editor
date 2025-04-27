@@ -11,7 +11,7 @@ import { TCustomEvent, EEventType, IEventTarget, EChangeType } from '@/types';
 import { idCreator } from '@/utils';
 import { WithCommon } from './with-common';
 
-import LinkServcie from './link-service';
+import LinkService from './link-service';
 import RefreshService from './refresh-service';
 import SetElementValue from './set-element-value';
 import Validate from './validate';
@@ -39,7 +39,7 @@ const ActionItem: React.FC<
       case EEventType.UPDATE_SERVICE:
         return <RefreshService />;
       case EEventType.LINK_SERVICE:
-        return <LinkServcie />;
+        return <LinkService />;
       case EEventType.VALIDATE:
         return <Validate />;
       case EEventType.JMUP:
@@ -100,6 +100,7 @@ export const ActionConfig: React.FC<{
     targetAttr?: Omit<IEventTarget, 'id' | 'sourceId'>,
     idx?: number,
   ) => {
+    console.log(targetAttr, 'targetAttr');
     if (type === EChangeType.EDIT) {
       const newEventTargets = cloneDeep(currentEvent!.eventTargets);
       newEventTargets![idx!] = Object.assign(

@@ -1,9 +1,10 @@
 /**
  * 存储事件源和事件目标间的映射关系, 用于实时通知事件失效
  */
+import React from 'react';
 import { makeAutoObservable } from 'mobx';
 import { EventEmitter, ModalConfirmPromisify } from '@/utils';
-import { IBaseElement, TCustomEvents } from '@/types';
+import { EEventType, EValidateRange, IBaseElement, TFormSerive, TCustomEvents } from '@/types';
 import baseStore from '.';
 
 class EventStore {
@@ -33,6 +34,8 @@ class EventStore {
     if (set) sets.push(set);
 
     const targetElement = baseStore.getElement(targetId);
+    
+    if (!targetElement) return sets;
     // 容器组件要判断内部子组件
     baseStore.dfsEl(targetElement, (child) => {
       sets.push(...this.getSetsFromId(child.id!));
@@ -48,11 +51,20 @@ class EventStore {
 
     let exist = false;
 
+    const sourceElements = new Set<IBaseElement>();
+    const sourceServices = new Set<TFormSerive>();
+
     sets.forEach((set) => {
       // @ts-ignore
       for (const sourceId of set.keys()) {
-        if (baseStore.getElement(sourceId) || baseStore.getService(sourceId)) {
+        const sourceElement = baseStore.getElement(sourceId);
+        const sourceService = baseStore.getService(sourceId);
+        if (sourceElement ) {
           exist = true;
+          sourceElements.add(sourceElement);
+        } else if (sourceService) {
+          exist = true;
+          sourceServices.add(sourceService);
         } else {
           set.delete(sourceId);
         }
@@ -64,8 +76,31 @@ class EventStore {
     const map = this.eventMap;
 
     return ModalConfirmPromisify({
-      // title: `${exist ? '此组件或服务有事件关联, ' : ''}确认删除?`,
       title: '此组件(含内部组件)或服务有事件关联, 确认删除?',
+      content: (
+        <div>
+          {sourceElements.size > 0 && (
+            <div>
+              <span>关联组件</span>
+              <ul>
+                {Array.from(sourceElements).map((el) => (
+                  <li key={el.id}>{el.elementName?.langText ? el.elementName?.langText + ' ( ' + el.id + ' )' : el.id}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {sourceServices.size > 0 && (
+            <div>
+              <span>关联服务</span>
+              <ul>
+                {Array.from(sourceServices).map((service) => (
+                  <li key={service.id}>{service.name}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ),
       onOk() {
         if (exist) {
           map.delete(targetId);
@@ -80,11 +115,16 @@ class EventStore {
         ? this.addRelation.bind(this)
         : this.deleteRelation.bind(this);
     events.forEach((event) => {
-      const { eventTargets } = event;
+      const { eventTargets, eventType } = event;
       eventTargets?.forEach((target) => {
-        const { targetElementId, targetServiceId, sourceId } = target;
+        const { targetElementId, targetServiceId, sourceId, validateRange, validateFields } = target;
         if (targetElementId) handleFn(targetElementId, sourceId);
         if (targetServiceId) handleFn(targetServiceId, sourceId);
+        if (eventType === EEventType.VALIDATE && validateRange === EValidateRange.CUSTOM && validateFields?.length) {
+          validateFields.forEach((field) => {
+            handleFn(field, sourceId);
+          });
+        }
       });
     });
   }

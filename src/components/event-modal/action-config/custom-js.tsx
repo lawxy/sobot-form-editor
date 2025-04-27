@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Input, Switch, Tooltip } from 'antd';
+import { Icons } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import { JSModal } from '@/components';
 import { prefixCls } from '@/const';
@@ -28,18 +29,16 @@ const CustomJs: React.FC<IConfig> = ({ onChange, eventTarget }) => {
                 <Tooltip placement="right" title="后期放个文档链接">
                     <span>
                         <span style={{ paddingRight: '4px' }}>自定义脚本设置</span>
-                        <TipsIcon />
+                        <Icons name="shuoming" />
                     </span>
                 </Tooltip>
             }
-            editorType="javascript"
             value={customJs || customJSDefaultValue}
+            hasDefaultValue={!!customJs}
             onChange={(v) => {
                 onChange?.({ customJs: v });
             }}
-        >
-            <Button size="small">编辑</Button>
-        </JSModal>
+        />
     );
 };
 

@@ -24,10 +24,8 @@ const handleDealService = (type: 'link' | 'unlink', event: TCustomEvent) => {
     // 关联
     if (type === 'link') {
       const linkData = {
+        ...target,
         id: sourceId,
-        linkRefreshType,
-        getFieldFromService,
-        customRefreshField,
       };
       if (!linkingElements) {
         store.setService(targetServiceId, { linkingElements: [linkData] });

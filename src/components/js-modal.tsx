@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import type { FC, PropsWithChildren } from 'react';
-import { Modal, message } from 'antd';
+import { Button, Modal, message } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import { MonacoEditor } from '@sobot/form-editor-ui';
 
@@ -11,13 +11,14 @@ export const JSModal: FC<
     title: string | React.ReactNode;
     value?: any;
     onChange?: (v: any) => void;
-    editorType: string;
     style?: React.CSSProperties;
+    hasDefaultValue?: boolean;
   }>
-> = observer(({ children, title, value, onChange, editorType, style }) => {
+> = observer(({ children, title, value, onChange, style, hasDefaultValue }) => {
   const [open, setOpen] = useState(false);
   const [val, setVal] = useState<string>('');
   const isJsonValidate = useRef<boolean>(true);
+  const changed = useRef<boolean>(false);
 
   useEffect(() => {
     if (!open) {
@@ -27,17 +28,33 @@ export const JSModal: FC<
 
   return (
     <div>
-      {React.isValidElement(children) &&
-        React.cloneElement<any>(children, {
-          onClick: () => setOpen(true),
-        })}
+      {
+        children ? (
+          React.isValidElement(children) &&
+          React.cloneElement<any>(children, {
+            onClick: () => setOpen(true),
+          })
+        ) : (
+          <Button ghost={hasDefaultValue} type={hasDefaultValue ? 'primary' : 'default'} size="small" onClick={() => setOpen(true)}>编辑</Button>
+        )
+      }
       <Modal
-        width={600}
+        width={1200}
         visible={open}
         title={title}
         onCancel={() => {
-          setOpen(false);
+          if (changed.current) {
+            Modal.confirm({
+              title: '确认不保存？',
+              onOk: () => {
+              setOpen(false);
+              },
+            });
+          } else {
+            setOpen(false);
+          }
         }}
+        maskClosable={false}
         onOk={() => {
           if (isJsonValidate.current) {
             onChange?.(val);
@@ -50,14 +67,17 @@ export const JSModal: FC<
         <MonacoEditor
           style={
             style ?? {
-              height: 400,
+              height: 450,
             }
           }
-          language={editorType}
+          language="typescript"
           value={val}
-          onChange={(v) => setVal(v!)}
+          onChange={(v) => {
+            setVal(v!);
+            changed.current = true;
+          }}
           onValidate={(errors) => {
-            // console.log('errors', errors);
+            console.log('errors', errors);
             // 6133 6198 参数变量未使用时不校验
             isJsonValidate.current =
               errors.filter((item: any) => !filterErrors.includes(item?.code))

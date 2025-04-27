@@ -145,21 +145,23 @@ export enum ELinkRefreshType {
   FIELDVALUE = 'fieldValue',
   OPTIONS = 'options',
   CUSTOMFIELD = 'customField',
-  ATTRIBUTE = 'attribute',
+  CUSTOMJS = 'customJs',
 }
 export const linkRefreshFieldOptions = [
   { label: '表单值', value: ELinkRefreshType.FIELDVALUE },
-  { label: '属性', value: ELinkRefreshType.ATTRIBUTE },
   { label: '选项', value: ELinkRefreshType.OPTIONS },
-  { label: '自定义字段', value: ELinkRefreshType.CUSTOMFIELD },
+  { label: '自定义属性', value: ELinkRefreshType.CUSTOMFIELD },
+  { label: '自定义js', value: ELinkRefreshType.CUSTOMJS },
 ];
-export enum EValidateType {
+export enum EValidateRange {
   CURRENT = 'current',
   ALL = 'all',
+  CUSTOM = 'custom',
 }
 export const validateTypeOptions = [
-  { label: '当前组件', value: EValidateType.CURRENT },
-  { label: '表单', value: EValidateType.ALL },
+  { label: '当前组件', value: EValidateRange.CURRENT },
+  { label: '表单', value: EValidateRange.ALL },
+  { label: '自定义', value: EValidateRange.CUSTOM },
 ];
 
 export enum EDelay {
@@ -207,13 +209,13 @@ export interface IEventTarget {
    * */
   urlAppended?: string;
   /**
-   * 设置组件
+   * 表单校验范围
    */
-  setValue?: any;
+  validateRange?: EValidateRange;
   /**
-   * 表单校验的字段，为空时校验整个表单
+   * 表单检验自定义组件
    */
-  validateField?: EValidateType;
+  validateFields?: string[];
   /**
    * 设置关联服务后，刷新服务需要更新的字段
    */

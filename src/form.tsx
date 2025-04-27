@@ -13,7 +13,6 @@ const FormContent: FC<
     store.setForm(form);
   }, [form]);
 
-  const { extendForm } = store.getFormAttrs();
 
   const formClassName = useMemo(() => {
     const classObj = {
@@ -21,8 +20,9 @@ const FormContent: FC<
       [prefixCls('form-design')]: mode === 'design',
     };
     if (className) {
-      Object.assign(classObj, className);
+      Object.assign(classObj, { [className]: true });
     }
+    console.log('classObj', classObj);
     return c(classObj);
   }, [className, mode]);
 

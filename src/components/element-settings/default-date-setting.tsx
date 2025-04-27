@@ -91,7 +91,6 @@ export const DefaultDateSetting = observer(
               onChange={(value) => {
                 store.setSelectedProp(customAttribute, value);
               }}
-              editorType="javascript"
             >
               <Button size="small">编辑</Button>
             </JSModal>

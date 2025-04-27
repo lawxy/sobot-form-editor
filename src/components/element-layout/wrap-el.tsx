@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import c from 'classnames';
 import store, { tabStore } from '@/store';
 import type { IBaseElement, TCustomEvents, TMode } from '@/types';
+import { EEventType, EValidateRange } from '@/types';
 import { useDesignEffect } from '@/hooks';
 import eventStore from '@/store/eventStore';
 import { prefixCls } from '@/const';
@@ -14,13 +15,28 @@ const EventIcon: React.FC<{
   if (!events?.length) return null;
 
   const valid = events.every((event) => {
-    const { eventTargets } = event;
+    const { eventTargets, eventType } = event;
+
+    if (eventType === EEventType.VALIDATE) {
+      return eventTargets?.every((target) => {
+        const { validateRange, validateFields } = target;
+        if (validateRange === EValidateRange.CUSTOM && validateFields?.length) {
+          return validateFields.every((field) => {
+            return !!store.getElement(field);
+          });
+        }
+        return true;
+      });
+    }
+
     if (!eventTargets?.length) return true;
+
     return eventTargets.every((target) => {
       const { targetElementId, targetServiceId } = target;
       if (!targetElementId && !targetServiceId) return true;
       if (targetElementId) return !!store.getElement(targetElementId);
       if (targetServiceId) return !!store.getService(targetServiceId);
+    
       return true;
     });
   });

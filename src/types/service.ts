@@ -9,6 +9,7 @@ export type TLinkElement = {
    * 设置关联服务后，获取服务返回的字段值 比如data.a.b
    */
   getFieldFromService?: string;
+  customJs?: string; // 自定义js
 };
 
 export type TFormSerive = {

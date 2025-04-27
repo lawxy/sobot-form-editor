@@ -1,11 +1,12 @@
 import { cloneDeep, result } from 'lodash-es';
+import type { NamePath } from 'antd/es/form/interface';
 import {
   EEventType,
   EChangeStatePayload,
   TFormSerive,
   ELinkRefreshType,
   type IBaseElement,
-  EValidateType,
+  EValidateRange,
 } from '@/types';
 import { dynamicGetStore } from '.';
 import { triggerService } from './trigger-service';
@@ -32,7 +33,7 @@ export const triggerSettingValue = (params: TEmitData) => {
   }
 };
 
-// 更新服务
+// 更新服务 和 关联服务
 export const triggerRefreshService = async (serviceParams: TEmitData) => {
   const {
     targetServiceId,
@@ -41,7 +42,6 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
     eventValue,
     refreshFlag,
     urlAppended,
-    prevFunctionReturn
   } = serviceParams;
   const store = dynamicGetStore();
 
@@ -96,6 +96,7 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
       const { id } = item;
       store.setElementProp(id, 'linkLoading', true);
     });
+    
     try {
       const serviceRes: any = await triggerService(targetServiceId!);
       linkingElements?.forEach((item) => {
@@ -104,25 +105,40 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
           customRefreshField,
           linkRefreshType,
           getFieldFromService = 'data',
+          customJs,
         } = item;
+
+        console.log(item, 'item');
+
         store.setElementProp(id, 'linkLoading', false);
 
         const finalRes: any = result(serviceRes, getFieldFromService);
 
         const element = store.getElement(id);
         if (!element || !linkRefreshType) return;
+
         if (linkRefreshType === ELinkRefreshType.FIELDVALUE) {
           const { fieldName } = element;
           store.setFieldValue(fieldName! || id, finalRes);
-        } else {
-          const updateField =
-            linkRefreshType === ELinkRefreshType.OPTIONS
-              ? ELinkRefreshType.OPTIONS
-              : (customRefreshField as keyof IBaseElement);
-          if (updateField) {
-            store.setElementProp(id, updateField, finalRes);
-          }
+        } 
+
+        if(linkRefreshType === ELinkRefreshType.OPTIONS) {
+          store.setElementProp(id, ELinkRefreshType.OPTIONS, finalRes);
         }
+
+        if(linkRefreshType === ELinkRefreshType.CUSTOMFIELD) {
+          store.setElementProp(id, customRefreshField as keyof IBaseElement, finalRes);
+        }
+
+        if(linkRefreshType === ELinkRefreshType.CUSTOMJS) {
+          parseJsAsync({
+            jsFunction: customJs!,
+            valueWhenError: undefined,
+            dependencies: [finalRes, eventValue],
+            dependenciesString: ['serviceValue', 'eventValue'],
+          });
+        }
+        
       });
     } catch (error) {
       console.error('error', error);
@@ -151,17 +167,26 @@ export const triggerCustomJs = async (params: TEmitData) => {
 
 // 表单校验
 export const triggerValidate = async (params: TEmitData) => {
-  const { validateField, sourceId } = params;
+  const { validateRange, sourceId, validateFields } = params;
   const store = dynamicGetStore();
 
-  const element = store.getElement(sourceId!);
-  if (!element) return;
+  let fields;
+  switch(validateRange) {
+    case EValidateRange.CURRENT:
+      fields = [sourceId!];
+      break;
+    case EValidateRange.CUSTOM:
+      fields = validateFields;
+      break;
+  }
+  const fieldsName = fields?.map((field) => {
+    const element = store.getElement(field);
+    if (!element) return;
+    const { fieldName, id } = element;
+    return fieldName || id;
+  });
 
-  const { fieldName, id } = element;
-
-  const fields =
-    validateField === EValidateType.CURRENT ? [fieldName! || id!] : undefined;
-  return store.formInstance?.validateFields(fields) as Promise<any>;
+  return store.formInstance?.validateFields(fieldsName as NamePath[]) as Promise<any>;
 };
 
 // 链接跳转
