@@ -251,7 +251,7 @@ export interface IBaseElement {
   /**
    * 按钮文案
    */
-  btnText?: TextWithLang;
+  text?: TextWithLang;
   /**
    * 按钮大小
    */
@@ -425,6 +425,10 @@ export interface IBaseElement {
    * 表单项属性
    */
   // extendFormItem?: FormItemProps;
+  /**
+   * 文本框 是否可切换
+   */
+  toggle?: boolean;
 }
 export interface IFormAttributesProps {
   formName?: string;

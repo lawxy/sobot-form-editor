@@ -8,9 +8,9 @@ export const SettingButton: TElementSetting = ({ element, setElementProp }) => {
     <SettingWrap title="按钮设置">
       <SettingItem label="按钮文案">
         <WithLanguage.Input
-          value={element.btnText!}
+          value={element.text!}
           onChange={(val: TextWithLang) => {
-            setElementProp('btnText', val);
+            setElementProp('text', val);
           }}
         />
       </SettingItem>

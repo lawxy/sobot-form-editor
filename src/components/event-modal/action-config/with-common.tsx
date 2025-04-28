@@ -11,7 +11,7 @@ export const WithCommon: FC<PropsWithChildren<IConfig>> = ({
   eventTarget,
   event,
 }) => {
-  const { series, delayTime, delayType } = eventTarget || {};
+  const { series, delayTime, delayType, immediately } = eventTarget || {};
   console.log(event, 'event');
 
   const needDelay = [EEventAction.ON_CLICK, EEventAction.VALUE_CHANGE].includes(
@@ -26,6 +26,26 @@ export const WithCommon: FC<PropsWithChildren<IConfig>> = ({
           eventTarget,
           event,
         })}
+        {
+          event?.eventAction === EEventAction.VALUE_CHANGE && (
+            <div>
+              立即执行
+              <QuestionPopover
+                content={
+                  <>
+                    默认值会触发事件
+                  </>
+                }
+              />
+              &nbsp;: &nbsp;
+              <Switch
+                checked={!!immediately}
+                size="small"
+                onChange={(c) => onChange?.({ immediately: c })}
+              />
+            </div>
+        )
+      }
       {
         event?.eventType !== EEventType.LINK_SERVICE && (
           <>

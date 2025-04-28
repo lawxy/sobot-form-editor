@@ -34,7 +34,7 @@ const RenderSwitchContent: TElementRender = ({
     }
     return fieldValue;
   }, [fieldValue, defaultValue]);
-
+  
   return (
     <Switch
       disabled={disabled}
@@ -47,7 +47,7 @@ const RenderSwitchContent: TElementRender = ({
       style={customStyle}
       {...extendProps}
     >
-      {addonAfter}
+      {addonAfter?.langText}
     </Switch>
   );
 };

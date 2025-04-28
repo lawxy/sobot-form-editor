@@ -8,7 +8,7 @@ export const RenderUpload: TElementRender = ({
   customStyle,
   extendProps,
 }) => {
-  const { btnText, uploadUrl, addonAfter } = element;
+  const { text, uploadUrl, addonAfter } = element;
 
   const handleChange = (info: any) => {
     if (info.file.status !== 'uploading') {
@@ -29,7 +29,7 @@ export const RenderUpload: TElementRender = ({
       style={customStyle}
       {...extendProps}
     >
-      <Button icon={<UploadOutlined />}>{btnText?.langText}</Button>
+      <Button icon={<UploadOutlined />}>{text?.langText}</Button>
     </Upload>
   );
 };

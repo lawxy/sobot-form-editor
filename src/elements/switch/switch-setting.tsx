@@ -6,14 +6,14 @@ import {
   SettingWrap,
   DefaultValueSetting,
   DisabledSetting,
+  WithLanguage,
 } from '@/components';
-import type { TElementSetting } from '@/types';
+import type { TElementSetting, TextWithLang } from '@/types';
 import { getValueFromInput } from '@/utils';
 
 export const SettingSwitch: TElementSetting = ({
   element,
   setElementProp,
-  setFieldValue,
 }) => {
   const { openValue, closeValue, addonAfter } = element;
 
@@ -24,9 +24,9 @@ export const SettingSwitch: TElementSetting = ({
   return (
     <SettingWrap title="元素设置">
       <SettingItem label="后缀文案">
-        <Input
+        <WithLanguage.Input
           value={addonAfter}
-          onChange={(e) => setElementProp('addonAfter', e.target.value)}
+          onChange={(value: TextWithLang) => setElementProp('addonAfter', value)}
         />
       </SettingItem>
       <SettingItem

@@ -10,7 +10,7 @@ export const RenderButton: TElementRender = ({
   extendProps,
 }) => {
   const { eventFunctions } = useGetEventFunctions(element);
-  const { btnText, linkLoading, btnType, size } = element;
+  const { text, linkLoading, btnType, size } = element;
 
   return (
     <Button
@@ -23,7 +23,7 @@ export const RenderButton: TElementRender = ({
       size={size as any}
       {...extendProps}
     >
-      {btnText?.langText}
+      {text?.langText}
     </Button>
   );
 };

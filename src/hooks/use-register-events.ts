@@ -1,18 +1,10 @@
-import { useRef, useEffect } from 'react';
 import type { IBaseElement } from '@/types';
 import {
-  handleEmitEvent,
   handleOnEvent,
-  type TEventFormatFunctions,
 } from '@/utils';
 import eventStore from '@/store/eventStore';
-import { useForceRender, useFormEffect } from '.';
-
-export * from '@/utils/handle-emit-event';
-
-interface IRegisterEvents {
-  (element: Pick<IBaseElement, 'id' | 'events'>): any;
-}
+import { useFormEffect } from '.';
+// export * from '@/utils/handle-emit-event';
 
 export const useRegisterEvents = (id: IBaseElement['id']) => {
 
@@ -24,12 +16,4 @@ export const useRegisterEvents = (id: IBaseElement['id']) => {
     };
   }, [id]);
 
-  // useEffect(() => {
-  //   if (!events?.length) return;
-  //   const functions = handleEmitEvent(eventStore.emitter, events);
-  //   eventFunctions.current = functions;
-  //   forceRender();
-  // }, [events]);
-
-  // return { eventFunctions: eventFunctions.current };
 };

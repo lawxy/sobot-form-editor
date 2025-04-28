@@ -22,11 +22,12 @@ export const useFormEffect = (
   useEffect(mode === 'design' ? () => {} : effect, deps);
 };
 
-export const useFormUpdate = (effect: EffectCallback, deps: DependencyList) => {
+export const useFormUpdate = (effect: EffectCallback, deps: DependencyList, immediately = false) => {
   const { mode } = useEditorContext();
   const firstRender = useRef<boolean>(true);
+
   useEffect(
-    firstRender.current || mode === 'design'
+    (!immediately && firstRender.current) || mode === 'design'
       ? () => {
           firstRender.current = false;
         }

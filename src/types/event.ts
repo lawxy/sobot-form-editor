@@ -149,7 +149,7 @@ export enum ELinkRefreshType {
 }
 export const linkRefreshFieldOptions = [
   { label: '表单值', value: ELinkRefreshType.FIELDVALUE },
-  { label: '选项', value: ELinkRefreshType.OPTIONS },
+  // { label: '选项', value: ELinkRefreshType.OPTIONS },
   { label: '自定义属性', value: ELinkRefreshType.CUSTOMFIELD },
   { label: '自定义js', value: ELinkRefreshType.CUSTOMJS },
 ];
@@ -246,4 +246,8 @@ export interface IEventTarget {
    * 自定义js
    */
   customJs?: string;
+  /**
+   * 是否立即执行
+   */
+  immediately?: boolean;
 }

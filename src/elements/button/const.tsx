@@ -5,7 +5,7 @@ export const ELEMENT_BUTTON = 'fe-button';
 export const BUTTON_TEXT = '按钮';
 export const eventActions = [EEventAction.ON_CLICK, EEventAction.ON_LOADED];
 export const initialData: Partial<IBaseElement> = {
-  btnText: {langText: '按钮', langKey: ''},
+  text: {langText: '按钮', langKey: ''},
   elementName: { langText: '按钮', langKey: '' },
   gridSpan: 2,
 };

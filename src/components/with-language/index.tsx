@@ -26,7 +26,7 @@ export const WithLanguage: WithLanguageType = ({ children, value, onChange }) =>
   }, [value, LOCALE]);
 
   useEffect(() => {
-     if (value?.langText && LOCALE[value?.langKey] && value.langText !== LOCALE[value.langKey]) {
+     if (LOCALE[value?.langKey] && value.langText !== LOCALE[value.langKey]) {
       onChange?.({
         langText: LOCALE[value.langKey],
         langKey: value?.langKey || '',
@@ -51,6 +51,7 @@ export const WithLanguage: WithLanguageType = ({ children, value, onChange }) =>
         overlayClassName={`${prefixCls('with-language-popconfirm')}`}
         destroyTooltipOnHide
         onConfirm={() => {
+          // console.log('inputRef.current?.input?.value', inputRef.current?.input?.value)
           onChange?.({
             langKey: inputRef.current?.input?.value || '',
             langText: text,
