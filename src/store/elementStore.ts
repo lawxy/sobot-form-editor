@@ -237,6 +237,10 @@ export default {
    */
   async deleteEl(el?: IBaseElement, move?: boolean) {
     if (!el) return false;
+    // const parentEl = this.getElement(el.parentId);
+    // if (parentEl?.isGroup) {
+    //   el = parentEl;
+    // }
 
     const parentChildren = this.getParentChildren(el.parentId);
 
@@ -271,6 +275,7 @@ export default {
 
     this.addTraceAction({
       undo: async () => {
+        // console.log('undo', el);
         const deletedEl = this.deleteElementMap.get(el.id!);
         if (deletedEl) {
           await this.insertEl(deletedEl, idx);
@@ -288,6 +293,11 @@ export default {
    * 复制元素
    */
   copyEl(el: IBaseElement): IBaseElement {
+    // const parentEl = this.getElement(el.parentId);
+    // if (parentEl?.isGroup) {
+    //   el = parentEl;
+    // }
+
     const parentChildren = this.getParentChildren(el.parentId);
 
     const idx = parentChildren.findIndex((item) => item.id === el.id);

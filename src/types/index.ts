@@ -289,6 +289,14 @@ export interface IBaseElement {
    */
   isContainer?: boolean;
   /**
+   * 是否为子容器, 兼容antd的bug
+   */
+  subContainer?: boolean;
+  /**
+   * 组合式组件 比如select-input
+   */
+  isGroup?: boolean;
+  /**
    * 子节点
    */
   children?: Array<IBaseElement>;

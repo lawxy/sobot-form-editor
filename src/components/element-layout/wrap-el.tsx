@@ -82,6 +82,12 @@ const WrapDesignEl: React.FC<
     };
   };
 
+  const showSelectedActions = () => {
+    const parentEl = store.getElement(store.selectedElement.parentId);
+    if (parentEl?.isGroup) return parentEl.id === el.id;
+    return store.selectedElement?.id === el.id;
+  }
+
   return (
     <div
       className={c({
@@ -92,8 +98,8 @@ const WrapDesignEl: React.FC<
       onMouseDownCapture={handleSelect}
       ref={ref}
     >
-      <div className={prefixCls('element-mask')} style={getMaskStyle()} />
-      {store.selectedElement?.id === el.id && <SelectedActions />}
+      {/* <div className={prefixCls('element-mask')} style={getMaskStyle()} /> */}
+      {showSelectedActions() && <SelectedActions />}
       {children}
       <EventIcon events={el.events} />
     </div>

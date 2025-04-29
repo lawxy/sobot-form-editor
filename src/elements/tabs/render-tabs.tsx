@@ -5,17 +5,24 @@ import store from '@/store';
 import type { TElementRender } from '@/types';
 import { idCreator } from '@/utils';
 import { RenderElementWithLayout } from '@/components';
-import { initialData, ELEMENT_CONTAINER } from '../container';
+import { initialData, ELEMENT_CONTAINER, createContainer } from '../container';
 import { prefixCls } from '@/index';
 
 export const createPanel = (props = {}) => {
-  const panel = {
-    ...initialData,
+  // const panel = {
+  //   ...initialData,
+  //   elementName: { langText: 'tab选项卡', langKey: '' },
+  //   type: ELEMENT_CONTAINER,
+  //   id: idCreator('tab-panel'),
+  //   ...props,
+  // };
+
+  const panel = createContainer({
     elementName: { langText: 'tab选项卡', langKey: '' },
-    type: ELEMENT_CONTAINER,
     id: idCreator('tab-panel'),
     ...props,
-  };
+  })
+
   store.appendEl(panel, false);
 };
 

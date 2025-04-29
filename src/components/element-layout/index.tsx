@@ -34,6 +34,7 @@ export const ElementLayout: FC<
     colon,
     fieldTooltip,
     showElementName,
+    subContainer,
     // extendFormItem
   } = element;
   const { elCss, contaninerCss } = useElementCommon(element);
@@ -51,8 +52,13 @@ export const ElementLayout: FC<
         maxWidth: 'inherit',
       });
     }
+    if (subContainer) {
+      Object.assign(finnalStyle, {
+        padding: 0,
+      });
+    }
     return finnalStyle;
-  }, [contaninerCss, gridLayout]);
+  }, [contaninerCss, gridLayout, subContainer]);
 
   // 校验规则
   const rules = useMemo<Rule[]>(() => {
@@ -137,6 +143,7 @@ export const ElementLayout: FC<
       data-id={id}
       data-type={type}
       data-field-name={fieldName}
+      data-is-group={element.isGroup}
     >
       <WrapEl el={element} mode={mode}>
         {isFormItem ? (

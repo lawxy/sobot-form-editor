@@ -12,6 +12,7 @@ const exportFile = path.join(componentsDir, 'export.ts');
 const SortedName = [
   'text', // 文本框
   'input', // 输入框
+  'select_input', // 下拉输入
   'search', // 搜索框
   'number', // 数字框
   'date', // 日期
@@ -27,6 +28,7 @@ const SortedName = [
   'table', // 表格
   'container', // 容器
   'tabs', // tabs
+  // 'input_group', // 输入组
 ];
 
 const handleSort = (v1, v2) => {

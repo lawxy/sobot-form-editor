@@ -18,3 +18,12 @@ export const initialData: Partial<IBaseElement> = {
   verticalGap: 0,
   direction: 'horizontal',
 };
+
+export const createContainer = (props = {}) => {
+  return {
+    type: ELEMENT_CONTAINER,
+    subContainer: true,
+    ...initialData,
+    ...props,
+  };
+};
