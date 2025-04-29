@@ -161,6 +161,7 @@ export const ElementLayout: FC<
 export const RenderElementWithLayout: FC<{
   element: IBaseElement;
 }> = observer(({ element }) => {
+  const { mode } = useEditorContext();
   
   useRegisterEvents(element.id!);
 
@@ -192,7 +193,7 @@ export const RenderElementWithLayout: FC<{
 
   if (!Component) return null;
 
-  if (element.hidden) return null;
+  if (element.hidden && mode !== 'design') return null;
 
   const extendProps = store.getElementExtendAttrs(element.id!) || {};
 

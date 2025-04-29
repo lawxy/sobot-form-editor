@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Checkbox, Space } from '@sobot/soil-ui';
 
-import { useGetEventFunctions, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EEventAction, type TElementRender } from '@/types';
 import { isUndefined } from 'lodash-es';
 
@@ -14,7 +14,7 @@ export const RenderCheckbox: TElementRender = ({
 }) => {
   const { useGroup, options, direction, indeterminate, defaultValue } = element;
 
-  const { eventFunctions } = useGetEventFunctions(element);
+  const { eventFunctions, immediateFunctions } = useGetEventFunctions(element);
 
   const handleChange = (val: Array<string | number | boolean>) => {
     setFieldValue(val);
@@ -41,6 +41,8 @@ export const RenderCheckbox: TElementRender = ({
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(checkboxValue);
   }, [checkboxValue]);
+
+  useValueImmediately(immediateFunctions, checkboxValue);
 
   return useGroup ? (
     <Checkbox.Group

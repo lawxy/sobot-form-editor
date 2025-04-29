@@ -14,6 +14,7 @@ interface IParams {
   emitter: EventEmitter;
   eventType: EEventType;
   target: IEventTarget;
+  eventAction?: EEventAction;
 }
 
 export interface IEventFunction {
@@ -35,6 +36,7 @@ export type TEmitData = Partial<IEventTarget> & {
   eventType: EEventType;
   eventValue?: any; // 事件传入的相关值
   prevFunctionReturn?: any; // 上一个事件函数的返回值
+  eventAction: EEventAction;
 };
 
 const withConfig = (fn: (v: any, prevFunctionReturn: any) => Promise<any>, target: IEventTarget) => {
@@ -53,7 +55,7 @@ const withConfig = (fn: (v: any, prevFunctionReturn: any) => Promise<any>, targe
 
 // 设置组件
 export const emitSettingValue = (params: IParams) => {
-  const { emitter, eventType, target } = params;
+  const { emitter, eventType, target, eventAction } = params;
   const { targetElementId, targetPayload } = target;
   const validate = validateParams([targetElementId, targetPayload]);
   if (!validate) return;
@@ -64,6 +66,7 @@ export const emitSettingValue = (params: IParams) => {
         eventType,
         eventValue,
         prevFunctionReturn,
+        eventAction,
         ...target,
       } as TEmitData),
     target,
@@ -72,7 +75,7 @@ export const emitSettingValue = (params: IParams) => {
 
 // 更新服务
 export const emitRefreshService = (params: IParams) => {
-  const { emitter, eventType, target } = params;
+  const { emitter, eventType, target, eventAction } = params;
   const {
     targetServiceId,
     targetPayload,
@@ -89,6 +92,7 @@ export const emitRefreshService = (params: IParams) => {
         eventType,
         eventValue,
         prevFunctionReturn,
+        eventAction,
         ...target
       } as TEmitData),
     target,
@@ -97,7 +101,7 @@ export const emitRefreshService = (params: IParams) => {
 
 // 表单校验
 export const emitValidateForm = (params: IParams) => {
-  const { emitter, eventType, target } = params;
+  const { emitter, eventType, target, eventAction } = params;
 
   const { sourceId } = target;
 
@@ -105,6 +109,7 @@ export const emitValidateForm = (params: IParams) => {
     async () =>
       await emitter.emit(sourceId!, {
         eventType,
+        eventAction,
         ...target
       } as TEmitData),
     target,
@@ -113,7 +118,7 @@ export const emitValidateForm = (params: IParams) => {
 
 // 跳转链接
 export const emitJumpUrl = (params: IParams) => {
-  const { emitter, eventType, target } = params;
+  const { emitter, eventType, target, eventAction } = params;
   const { jumpUrl, sourceId } = target;
   const validate = validateParams([jumpUrl]);
   if (!validate) return;
@@ -136,6 +141,7 @@ export const emitJumpUrl = (params: IParams) => {
     async () =>
       await emitter.emit(sourceId!, {
         eventType,
+        eventAction,
         ...target
       } as TEmitData),
     target,
@@ -144,7 +150,7 @@ export const emitJumpUrl = (params: IParams) => {
 
 // 自定义js
 export const emitCustomJs = (params: IParams) => {
-  const { emitter, eventType, target } = params;
+  const { emitter, eventType, target, eventAction } = params;
   const { customJs, sourceId } = target;
   const validate = validateParams([customJs]);
   if (!validate) return;
@@ -155,6 +161,7 @@ export const emitCustomJs = (params: IParams) => {
         eventType,
         eventValue,
         prevFunctionReturn,
+        eventAction,
         ...target
       } as TEmitData),
     target,
@@ -182,15 +189,56 @@ const handleError = ({
     错误返回: ${JSON.stringify(error)}`);
 };
 
+
+const formatFunctions = (functions: TEventFunctions): TEventFormatFunctions => Object.entries(
+  functions,
+).reduce((memo: TEventFormatFunctions, [action, emitFns]: any) => {
+  // @ts-ignore
+  memo[action] = async (v: any) => {
+    let prevFunctionReturn;
+    for (let i = 0; i < emitFns.length; i++) {
+      const emitFn: any = emitFns[i];
+      try {
+        if (emitFn?.series) {
+          // console.log('emitFn', emitFn, emitFn instanceof Promise)
+          // console.log('v', v)
+          const res: any = await emitFn?.(v, prevFunctionReturn);
+          prevFunctionReturn = res;
+        } else {
+          emitFn(v, prevFunctionReturn)?.catch((e: any) => {
+            handleError({
+              emitFn,
+              error: e,
+              action,
+            });
+          });
+          // prevFunctionReturn = undefined;
+        }
+      } catch (e) {
+        return handleError({
+          emitFn,
+          error: e,
+          action,
+        });
+      }
+    }
+  };
+
+  return memo;
+}, {});
+
 export const handleEmitEvent = (
   emitter: EventEmitter,
   events: TCustomEvents,
-): TEventFormatFunctions => {
+): { functions: TEventFormatFunctions, immediateFunctions: TEventFormatFunctions } => {
+  
   const functions: TEventFunctions = {};
+  const immediateFunctions: TEventFunctions = {};
+
   events.forEach((event: TCustomEvent) => {
     const { eventAction, eventType, eventTargets } = event;
     eventTargets?.forEach((target) => {
-      const params = { emitter, eventType, target } as IParams;
+      const params = { emitter, eventType, target, eventAction } as IParams;
       let emitFn: IEventFunction | undefined;
       switch (eventType) {
         case EEventType.SETTING_VALUE:
@@ -217,45 +265,54 @@ export const handleEmitEvent = (
       } else {
         functions[eventAction!] = [emitFn];
       }
+
+      if (target.immediately) {
+        if (immediateFunctions[eventAction!]) {
+          immediateFunctions[eventAction!]?.push(emitFn);
+        } else {
+          immediateFunctions[eventAction!] = [emitFn];
+        }
+      }
     });
   });
 
-  const formatFunctions: TEventFormatFunctions = Object.entries(
-    functions,
-  ).reduce((memo: TEventFormatFunctions, [action, emitFns]: any) => {
-    // @ts-ignore
-    memo[action] = async (v: any) => {
-      let prevFunctionReturn;
-      for (let i = 0; i < emitFns.length; i++) {
-        const emitFn: any = emitFns[i];
-        try {
-          if (emitFn?.series) {
-            // console.log('emitFn', emitFn, emitFn instanceof Promise)
-            // console.log('v', v)
-            const res: any = await emitFn?.(v, prevFunctionReturn);
-            prevFunctionReturn = res;
-          } else {
-            emitFn(v, prevFunctionReturn)?.catch((e: any) => {
-              handleError({
-                emitFn,
-                error: e,
-                action,
-              });
-            });
-            // prevFunctionReturn = undefined;
-          }
-        } catch (e) {
-          return handleError({
-            emitFn,
-            error: e,
-            action,
-          });
-        }
-      }
-    };
+  // const formatFunctions: TEventFormatFunctions = Object.entries(
+  //   functions,
+  // ).reduce((memo: TEventFormatFunctions, [action, emitFns]: any) => {
+  //   // @ts-ignore
+  //   memo[action] = async (v: any) => {
+  //     let prevFunctionReturn;
+  //     for (let i = 0; i < emitFns.length; i++) {
+  //       const emitFn: any = emitFns[i];
+  //       try {
+  //         if (emitFn?.series) {
+  //           // console.log('emitFn', emitFn, emitFn instanceof Promise)
+  //           // console.log('v', v)
+  //           const res: any = await emitFn?.(v, prevFunctionReturn);
+  //           prevFunctionReturn = res;
+  //         } else {
+  //           emitFn(v, prevFunctionReturn)?.catch((e: any) => {
+  //             handleError({
+  //               emitFn,
+  //               error: e,
+  //               action,
+  //             });
+  //           });
+  //           // prevFunctionReturn = undefined;
+  //         }
+  //       } catch (e) {
+  //         return handleError({
+  //           emitFn,
+  //           error: e,
+  //           action,
+  //         });
+  //       }
+  //     }
+  //   };
 
-    return memo;
-  }, {});
+  //   return memo;
+  // }, {});
 
-  return formatFunctions;
+  // return formatFunctions;
+  return { functions: formatFunctions(functions), immediateFunctions: formatFunctions(immediateFunctions) };
 };

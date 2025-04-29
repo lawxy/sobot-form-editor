@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { TimePicker } from '@sobot/soil-ui';
 import moment from 'moment';
-import { useGetEventFunctions, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EDateMode, EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 
@@ -27,7 +27,7 @@ export const RenderTime: TElementRender = ({
     endDate,
   } = element;
 
-  const { eventFunctions } = useGetEventFunctions(element);
+  const { eventFunctions, immediateFunctions } = useGetEventFunctions(element);
 
   const handleEvent = (action: EEventAction) => (e: any) => {
     eventFunctions[action]?.(e.target.value);
@@ -107,6 +107,9 @@ export const RenderTime: TElementRender = ({
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(value);
   }, [value]);
+
+  useValueImmediately(immediateFunctions, value);
+
 
   return (
     <Time.Component

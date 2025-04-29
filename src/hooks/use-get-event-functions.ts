@@ -17,15 +17,17 @@ export const useGetEventFunctions: IRegisterEvents = (element) => {
   const { events } = element;
   // const eventFunctions = useRef<TEventFormatFunctions>({});
   const [eventFunctions, setEventFunctions] = useState<TEventFormatFunctions>({});
+  const [immediateFunctions, setImmediateFunctions] = useState<TEventFormatFunctions>({});
   // const forceRender = useForceRender();
 
   useEffect(() => {
     if (!events?.length) return;
-    const functions = handleEmitEvent(eventStore.emitter, events);
+    const {functions, immediateFunctions} = handleEmitEvent(eventStore.emitter, events);
     // eventFunctions.current = functions;
     setEventFunctions(functions);
+    setImmediateFunctions(immediateFunctions);
     // forceRender();
   }, [events]);
 
-  return { eventFunctions };
+  return { eventFunctions, immediateFunctions };
 };

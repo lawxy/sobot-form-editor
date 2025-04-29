@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { DatePicker } from '@sobot/soil-ui';
 import moment, { type Moment } from 'moment';
 import { assign, range } from 'lodash';
-import { useGetEventFunctions, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EEventAction, EDateMode, EDateRangeType } from '@/types';
 import type { TElementRender } from '@/types';
 import { parseJs, showTimeFormat } from '@/utils';
@@ -37,7 +37,7 @@ export const RenderDateRange: TElementRender = ({
     dateRangeType,
   } = element;
 
-  const { eventFunctions } = useGetEventFunctions(element);
+  const { eventFunctions, immediateFunctions } = useGetEventFunctions(element);
 
   const handleEvent = (action: EEventAction) => (e: any) => {
     eventFunctions[action]?.(e.target.value);
@@ -119,6 +119,8 @@ export const RenderDateRange: TElementRender = ({
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(value);
   }, [value]);
+
+  useValueImmediately(immediateFunctions, value);
 
   const attributes = useMemo(() => {
     const baseAttributes = {

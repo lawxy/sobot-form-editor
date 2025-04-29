@@ -1,5 +1,5 @@
 import React, { type FC, type PropsWithChildren } from 'react';
-import { Switch, Select, InputNumber } from 'antd';
+import { Switch, Select, InputNumber, Input } from 'antd';
 import { prefixCls } from '@/const';
 import type { IConfig } from '.';
 import { delayOptions, EEventAction, EEventType } from '@/types';
@@ -11,8 +11,7 @@ export const WithCommon: FC<PropsWithChildren<IConfig>> = ({
   eventTarget,
   event,
 }) => {
-  const { series, delayTime, delayType, immediately } = eventTarget || {};
-  console.log(event, 'event');
+  const { series, delayTime, delayType, immediately, triggerValue } = eventTarget || {};
 
   const needDelay = [EEventAction.ON_CLICK, EEventAction.VALUE_CHANGE].includes(
     event!.eventAction!,
@@ -28,22 +27,42 @@ export const WithCommon: FC<PropsWithChildren<IConfig>> = ({
         })}
         {
           event?.eventAction === EEventAction.VALUE_CHANGE && (
-            <div>
-              立即执行
-              <QuestionPopover
-                content={
-                  <>
-                    默认值会触发事件
-                  </>
-                }
-              />
-              &nbsp;: &nbsp;
-              <Switch
-                checked={!!immediately}
-                size="small"
-                onChange={(c) => onChange?.({ immediately: c })}
-              />
-            </div>
+            <>
+              <div>
+                事件触发值
+                <QuestionPopover
+                  content={
+                    <>
+                      触发事件的值，不填则直接触发事件
+                      <br />
+                      按照基本数据类型填写, 比如 true 或 1 或 '1'
+                    </>
+                  }
+                />
+                &nbsp;： &nbsp;
+                <Input
+                  className={prefixCls('event-input')}
+                  value={triggerValue}
+                  onChange={(e) => onChange?.({ triggerValue: e.target.value })}
+                />
+              </div>
+              <div>
+                立即执行
+                <QuestionPopover
+                  content={
+                    <>
+                      打开以后初始值（默认值或表单值）会触发事件
+                    </>
+                  }
+                />
+                &nbsp;: &nbsp;
+                <Switch
+                  checked={!!immediately}
+                  size="small"
+                  onChange={(c) => onChange?.({ immediately: c })}
+                />
+              </div>
+            </>
         )
       }
       {

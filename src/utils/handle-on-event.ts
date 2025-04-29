@@ -7,17 +7,29 @@ import {
   ELinkRefreshType,
   type IBaseElement,
   EValidateRange,
+  EEventAction,
 } from '@/types';
 import { dynamicGetStore } from '.';
 import { triggerService } from './trigger-service';
 import type { TEmitData } from './handle-emit-event';
-import { parseJsAsync } from '@/utils';
+import { parseJsAsync, getValueFromInput } from '@/utils';
+
+// 值变化事件判断触发值是否满足条件
+const valueChangeContinue = (params: TEmitData) => {
+  const { eventAction, triggerValue, eventValue } = params;
+  if(!triggerValue) return true;
+  if(eventAction === EEventAction.VALUE_CHANGE) {
+    return getValueFromInput(triggerValue) === eventValue;
+  }
+  return true;
+}
 
 // 设置组件
 export const triggerSettingValue = (params: TEmitData) => {
-  const { eventValue, targetPayload, targetElementId } = params;
+  const { eventValue, targetPayload, targetElementId, eventAction, triggerValue } = params;
   const store = dynamicGetStore();
   if (!store.getElement(targetElementId!)) return;
+
   switch (targetPayload) {
     case EChangeStatePayload.SYNC:
       const element = store.getElement(targetElementId!);
@@ -208,6 +220,8 @@ export const triggerJump = async (params: TEmitData) => {
 export const handleOnEvent = async (params: TEmitData) => {
   const { eventType } = params;
   // console.log('params', params);
+  if(!valueChangeContinue(params)) return;
+
   switch (eventType) {
     case EEventType.SETTING_VALUE:
       return await triggerSettingValue(params);

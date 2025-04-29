@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import type { EffectCallback, DependencyList } from 'react';
 import { useEditorContext } from '@/context';
 
@@ -20,6 +20,14 @@ export const useFormEffect = (
 ) => {
   const { mode } = useEditorContext();
   useEffect(mode === 'design' ? () => {} : effect, deps);
+};
+
+export const useFormLayoutEffect = (
+  effect: EffectCallback,
+  deps: DependencyList = [],
+) => {
+  const { mode } = useEditorContext();
+  useLayoutEffect(mode === 'design' ? () => {} : effect, deps);
 };
 
 export const useFormUpdate = (effect: EffectCallback, deps: DependencyList, immediately = false) => {

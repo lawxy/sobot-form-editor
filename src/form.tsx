@@ -22,7 +22,7 @@ const FormContent: FC<
     if (className) {
       Object.assign(classObj, { [className]: true });
     }
-    console.log('classObj', classObj);
+    // console.log('classObj', classObj);
     return c(classObj);
   }, [className, mode]);
 

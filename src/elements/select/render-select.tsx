@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import { Select } from '@sobot/soil-ui';
-import { useGetEventFunctions, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 import { parseCSS } from '@/utils';
@@ -27,7 +27,7 @@ export const RenderSelect: TElementRender = ({
     defaultValue,
   } = element;
 
-  const { eventFunctions } = useGetEventFunctions(element);
+  const { eventFunctions, immediateFunctions } = useGetEventFunctions(element);
 
   const onChange = useCallback(
     (val: any) => {
@@ -44,6 +44,8 @@ export const RenderSelect: TElementRender = ({
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(fieldValue);
   }, [fieldValue]);
+
+  useValueImmediately(immediateFunctions, fieldValue);
 
   const _labelWrapperStyle = useMemo(() => {
     return parseCSS(labelWrapperStyle)?.labelWrapperStyle || {};

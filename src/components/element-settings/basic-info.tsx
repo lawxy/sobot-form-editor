@@ -19,12 +19,25 @@ const BasicInfo = () => {
     colon,
     showElementName,
     elementName,
+    hidden,
   } = store.selectedElement;
   return (
     <SettingWrap title="基础设置">
-       <SettingItem label="元素id">
+      <SettingItem label="元素id">
         <div>{id}</div>
       </SettingItem>
+
+      <SettingItem label="表单(组件)名">
+        <WithLanguage.Input
+          value={elementName!}
+          onChange={(value: TextWithLang) => {
+            store.setSelectedProp('elementName', value);
+          }}
+          placeholder="请输入表单名称"
+        />
+      </SettingItem>
+
+
       {!isContainer && (
         <>
           <SettingItem label="字段">
@@ -61,15 +74,6 @@ const BasicInfo = () => {
 
           {isFormItem && (
             <>
-              <SettingItem label="表单名称">
-                <WithLanguage.Input
-                  value={elementName!}
-                  onChange={(value: TextWithLang) => {
-                    store.setSelectedProp('elementName', value);
-                  }}
-                  placeholder="请输入表单名称"
-                />
-              </SettingItem>
               <SettingItem label="显示名称">
                 <Switch
                   checked={showElementName}
@@ -79,7 +83,6 @@ const BasicInfo = () => {
                   size="small"
                 />
               </SettingItem>
-
               {
                 showElementName && (
                   <SettingItem label="显示冒号">
@@ -93,7 +96,7 @@ const BasicInfo = () => {
                   </SettingItem>
                 )
               }
-              
+
               <SettingItem label="字段提示" tips="tooltip">
                 <WithLanguage.Input
                   value={fieldTooltip}
@@ -107,7 +110,7 @@ const BasicInfo = () => {
         </>
       )}
 
-     
+
 
       {/* <SettingItem label="名称对齐">
         <Select
@@ -156,6 +159,15 @@ const BasicInfo = () => {
           </SettingItem>
         </>
       )}
+      <SettingItem label="默认显示">
+        <Switch
+          checked={!hidden}
+          onChange={(checked) => {
+            store.setSelectedProp('hidden', !checked);
+          }}
+          size="small"
+        />
+      </SettingItem>
     </SettingWrap>
   );
 };

@@ -250,4 +250,8 @@ export interface IEventTarget {
    * 是否立即执行
    */
   immediately?: boolean;
+  /**
+   * 触发值(值发生变化时的触发值)
+   */
+  triggerValue?: any;
 }

@@ -151,7 +151,7 @@ export interface IBaseElement {
    /**
    * 是否隐藏 事件触发
    */
-   hidden?: boolean;
+  hidden?: boolean;
   /**
    * 默认值
    */

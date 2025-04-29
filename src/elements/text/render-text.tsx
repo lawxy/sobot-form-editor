@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 import { getValueFromInput } from '@/utils';
-import { useFormUpdate, useGetEventFunctions, useValueImmediately } from '@/hooks';
+import { useFormEffect, useFormLayoutEffect, useFormUpdate, useGetEventFunctions, useValueImmediately } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 import { prefixCls } from '@/const';
@@ -18,7 +18,7 @@ export const RenderText: TElementRender = ({
 }) => {
   const { text, toggle, openValue, closeValue, defaultValue } = element;
 
-  const { eventFunctions } = useGetEventFunctions(element);
+  const { eventFunctions, immediateFunctions } = useGetEventFunctions(element);
 
   const realOpenValue = useMemo(() => {
     return getValueFromInput(openValue);
@@ -43,14 +43,16 @@ export const RenderText: TElementRender = ({
     return fieldValue ?? getValueFromInput(defaultValue)
   }, [fieldValue, defaultValue])
 
-  console.log('defalut', defaultValue)
-  console.log('fieldValue', fieldValue)
+  // console.log('defalut', defaultValue)
+  // console.log('fieldValue', fieldValue)
 
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(value);
   }, [value]);
 
-  useValueImmediately(element, eventFunctions, value);
+  useValueImmediately(immediateFunctions, value);
+
+
 
   return (
     <div

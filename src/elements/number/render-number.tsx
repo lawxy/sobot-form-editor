@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { InputNumber } from '@sobot/soil-ui';
-import { useGetEventFunctions, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 import { EValueType } from './const';
@@ -14,7 +14,7 @@ export const RenderNumber: TElementRender = ({
   extendProps,
 }) => {
   const { id, minNum, maxNum, valueType, defaultValue } = element;
-  const { eventFunctions } = useGetEventFunctions(element);
+  const { eventFunctions, immediateFunctions } = useGetEventFunctions(element);
 
   const [precision, step] = useMemo(() => {
     switch (valueType) {
@@ -52,6 +52,8 @@ export const RenderNumber: TElementRender = ({
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(inputValue);
   }, [inputValue]);
+
+  useValueImmediately(immediateFunctions, inputValue);
 
   return (
     <InputNumber

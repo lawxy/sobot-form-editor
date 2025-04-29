@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Radio, type RadioChangeEvent } from '@sobot/soil-ui';
 import { isUndefined } from 'lodash-es';
 
-import { useGetEventFunctions, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 
@@ -15,7 +15,7 @@ export const RenderRadio: TElementRender = ({
 }) => {
   const { useGroup, options, direction, defaultValue } = element;
 
-  const { eventFunctions } = useGetEventFunctions(element);
+  const { eventFunctions, immediateFunctions } = useGetEventFunctions(element);
 
   const onChange = (e: RadioChangeEvent) => {
     setFieldValue(e.target.value);
@@ -42,6 +42,8 @@ export const RenderRadio: TElementRender = ({
   useFormUpdate(() => {
     eventFunctions[EEventAction.VALUE_CHANGE]?.(radioValue);
   }, [radioValue]);
+
+  useValueImmediately(immediateFunctions, radioValue);
 
   return useGroup ? (
     <Radio.Group

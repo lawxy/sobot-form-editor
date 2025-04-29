@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Switch } from '@sobot/soil-ui';
-import { useGetEventFunctions, useFormUpdate } from '@/hooks';
+import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { isNil, isUndefined } from 'lodash-es';
 
 import { EEventAction, type TElementRender } from '@/types';
@@ -14,7 +14,7 @@ const RenderSwitchContent: TElementRender = ({
   extendProps,
 }) => {
   const { openValue, closeValue, addonAfter, disabled, defaultValue } = element;
-  const { eventFunctions } = useGetEventFunctions(element);
+  const { eventFunctions, immediateFunctions } = useGetEventFunctions(element);
 
   const realCheckedValue = useMemo(() => {
     return getValueFromInput(openValue);
@@ -34,6 +34,8 @@ const RenderSwitchContent: TElementRender = ({
     }
     return fieldValue;
   }, [fieldValue, defaultValue]);
+
+  useValueImmediately(immediateFunctions, switchValue);
   
   return (
     <Switch
