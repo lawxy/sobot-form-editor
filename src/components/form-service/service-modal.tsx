@@ -11,30 +11,36 @@ import { Preview } from './preview';
 
 import { JSModal } from '..';
 
-const defaultInterceptor = `axios.interceptors.request.use(config =>{
-  return config
-})
 
-const DEFAULT_ERROR_MESSAGE = '请求服务报错';
-
-const HttpStatusCode = { Ok: 200 };
-
-axios.interceptors.response.use(function (res) {
-  try {
-    const { code } = res.data || {};
-    if (HttpStatusCode.Ok === code) {
-      return res.data;
+const defaultInterceptor = `function main({axios, antd}) {
+  axios.interceptors.request.use(config =>{
+    return config
+  })
+  
+  const DEFAULT_ERROR_MESSAGE = '请求服务报错';
+  
+  const HttpStatusCode = { Ok: 200 };
+  
+  axios.interceptors.response.use(
+    function (res) {
+      try {
+        const { code } = res.data || {};
+        if (HttpStatusCode.Ok === code) {
+          return res.data;
+        }
+        antd.message.error(DEFAULT_ERROR_MESSAGE);
+      } catch (e) {
+        antd.message.error(DEFAULT_ERROR_MESSAGE);
+      }
+    },
+    function (err) {
+      antd.message.error(err?.message || DEFAULT_ERROR_MESSAGE);
+      return Promise.reject(err);
     }
-    message.error(errMsg || DEFAULT_ERROR_MESSAGE);
-  } catch (e) {
-    message.error(DEFAULT_ERROR_MESSAGE);
-  }
-},
-function (err) {
-  message.error(err?.message || DEFAULT_ERROR_MESSAGE);
-  return Promise.reject(err);
-})
-`;
+  )
+}
+`
+;
 
 const ServiceModal: FC<
   PropsWithChildren<{

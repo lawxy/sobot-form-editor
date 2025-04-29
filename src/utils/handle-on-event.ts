@@ -135,7 +135,12 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
         } 
 
         if(linkRefreshType === ELinkRefreshType.OPTIONS) {
-          store.setElementProp(id, ELinkRefreshType.OPTIONS, finalRes);
+          finalRes?.forEach((item: any) => {
+            const { label } = item;
+            if(typeof label === 'string' ) {
+              item.label = {langText: label, langKey: ''}
+            }
+          });
         }
 
         if(linkRefreshType === ELinkRefreshType.CUSTOMFIELD) {

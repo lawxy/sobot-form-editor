@@ -4,7 +4,8 @@ import { Button, Modal, message } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import { MonacoEditor } from '@sobot/form-editor-ui';
 
-const filterErrors = ['6133', '6198'];
+// 6133 6198 参数变量未使用时不校验， 7044未定义类型
+const filterErrors = ['6133', '6198', '7044'];
 
 export const JSModal: FC<
   PropsWithChildren<{
@@ -77,8 +78,7 @@ export const JSModal: FC<
             changed.current = true;
           }}
           onValidate={(errors) => {
-            console.log('errors', errors);
-            // 6133 6198 参数变量未使用时不校验
+            console.log('ts语法报错', errors);
             isJsonValidate.current =
               errors.filter((item: any) => !filterErrors.includes(item?.code))
                 .length === 0;

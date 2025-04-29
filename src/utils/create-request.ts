@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { message } from '@sobot/soil-ui';
+import { parseJs } from './parse-js';
 
 export function createRequest({
   interceptors,
@@ -14,8 +14,15 @@ export function createRequest({
         'Content-Type': contentType,
       },
     });
-    const func = new Function('message', 'axios', `${interceptors}`);
-    func(message, request);
+    // const func = new Function('message', 'axios', `${interceptors}`);
+    // func(message, request);
+
+    parseJs({
+      jsFunction: interceptors,
+      dependencies: [request],
+      dependenciesString: ['axios'],
+    });
+
     return request;
   } catch (e) {
     console.log('createRequest error');

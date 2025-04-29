@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren, useEffect, useMemo } from 'react';
-import { Form, FormInstance, FormProps } from '@sobot/soil-ui';
+import { Form, FormInstance } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import c from 'classnames';
 import { prefixCls } from './const';
@@ -13,7 +13,6 @@ const FormContent: FC<
     store.setForm(form);
   }, [form]);
 
-
   const formClassName = useMemo(() => {
     const classObj = {
       [prefixCls('form')]: true,
@@ -22,23 +21,12 @@ const FormContent: FC<
     if (className) {
       Object.assign(classObj, { [className]: true });
     }
-    // console.log('classObj', classObj);
     return c(classObj);
   }, [className, mode]);
 
   const { layout } = store.editorAttrs;
 
   const formProps = store.getFormExtendAttrs();
-
-  // const formProps = useMemo(() => {
-  //   const props: FormProps = {
-  //     layout,
-  //   };
-  //   if (extendForm && typeof extendForm === 'object') {
-  //     Object.assign(props, extendForm);
-  //   }
-  //   return props;
-  // }, [extendForm, layout]);
 
   return (
     <Form form={form} layout={layout} {...formProps}>

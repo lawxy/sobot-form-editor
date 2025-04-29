@@ -10,7 +10,7 @@ import store from '@/store';
  */
 interface IParseJsProps {
   jsFunction: string;
-  valueWhenError: any;
+  valueWhenError?: any;
   dependencies?: Array<any>;
   dependenciesString?: Array<string>;
 }
@@ -27,7 +27,12 @@ export function parseJs({
   dependencies = [],
   dependenciesString = [],
 }: IParseJsProps): { value: any } {
-  // const store = dynamicGetStore();
+  if (!jsFunction) {
+    return {
+      value: valueWhenError,
+    };
+  }
+
   setCommonDependencies(dependencies, dependenciesString);
   try {
     const value = new Function(
@@ -53,7 +58,13 @@ export async function parseJsAsync({
   dependencies = [],
   dependenciesString = [],
 }: IParseJsProps): Promise<{ value: any }> {
-  // const store = dynamicGetStore();
+
+  if (!jsFunction) {
+    return {
+      value: valueWhenError,
+    };
+  }
+
   setCommonDependencies(dependencies, dependenciesString);
 
   try {
