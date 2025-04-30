@@ -141,7 +141,7 @@ export const ElementCssSetting = observer(() => {
     <CustomCssSetting
       defaultValue={value}
       editorStyle={{
-        height: 'calc(100vh - 150px)',
+        height: 'calc(100vh - 200px)',
       }}
       onSave={handleSave}
     />

@@ -5,6 +5,7 @@ import {
   Settings,
   FormCanvas,
   IEditorInstance,
+  SideBar,
 } from '@sobot/form-editor';
 // import { customElement } from '../common/customEl';
 import SoilUi from '../soil-ui';
@@ -45,7 +46,7 @@ const Comp = () => {
       customElements={SoilUi}
       LOCALE={LOCALE}
     >
-      <Material />
+      <SideBar />
       <FormCanvas />
       <Settings />
     </FormEditor>

@@ -32,7 +32,7 @@ const items: TabsProps['items'] = [
   },
 ];
 
-const Settings = () => {
+const SettingsContent = () => {
   return (
     <div className={prefixCls('setting')}>
       <Tabs
@@ -48,4 +48,4 @@ const Settings = () => {
     </div>
   );
 };
-export default observer(Settings);
+export const Settings = observer(SettingsContent);

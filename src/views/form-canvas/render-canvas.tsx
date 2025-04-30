@@ -2,12 +2,13 @@ import React, { useMemo } from 'react';
 import type { FC, PropsWithChildren } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ReactSortable } from '@sobot/form-editor-ui';
+import c from 'classnames';
 import { useGetEventFunctions, useFormUpdate, useDesignEffect } from '@/hooks';
 import { EEventAction } from '@/types';
 import { prefixCls } from '@/const';
 import eventStore from '@/store/eventStore';
 import store from '@/store';
-import type { IBaseElement, TJustify, TMode } from '@/types';
+import type { IBaseElement, TMode } from '@/types';
 import { handleOnEvent, parseCSS, handleSort } from '@/utils';
 import { RenderElementWithLayout } from '@/components';
 
@@ -70,8 +71,11 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
   }, [store.formServices]);
 
   return (
-    <div className={prefixCls('canvas-wrap')}>
-      {actions && <>{actions}</>}
+    <div className={c({
+      [prefixCls('canvas-wrap')]: true,
+      [prefixCls('canvas-wrap-design')]: mode === 'design',
+    })}>
+      {/* {actions && <>{actions}</>} */}
 
       <ReactSortable<IBaseElement>
         className={prefixCls('canvas')}

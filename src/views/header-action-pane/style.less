@@ -1,13 +1,34 @@
 .fe {
+  &-header-action-pane{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    padding: 0 10px;
+    background-color: white;
+    padding-right: 360px;
+  }
+  &-header-action-pane-title {
+    font-size: 16px;
+    font-weight: 600;
+    img {
+      width: 80px;
+      margin-right: 10px;
+    }
+    span {
+      position: relative;
+      top: 7px;
+    }
+  }
   &-action-group {
     display: flex;
     height: 40px;
-    padding: 0 10px;
+    // padding: 0 10px;
     background-color: white;
     align-items: center;
     // justify-content: flex-end;
     justify-content: space-between;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
     // gap: 10px;
    
     &-icon-button {

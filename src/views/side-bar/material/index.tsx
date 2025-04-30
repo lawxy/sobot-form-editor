@@ -62,13 +62,13 @@ export const Material = observer(() => {
   // console.log('renderList', renderList);
   return (
     <div className={prefixCls('material')} ref={wrapEl}>
-      <div className={prefixCls('title')}>组件库</div>
-      <div style={{ height: 10, backgroundColor: '#f5f5f5' }} />
+      <div className={prefixCls('material-title')}>组件库</div>
+      {/* <div style={{ height: 10, backgroundColor: '#f5f5f5' }} /> */}
       {renderList.map((list, i) => (
         <React.Fragment key={i}>
           {!!list.length && (
             <>
-              <div className={prefixCls('title')}>{titles[i]}</div>
+              <div className={prefixCls('material-title')} style={{borderBottom: 0}}>{titles[i]}</div>
               <ReactSortable
                 list={list}
                 className={prefixCls('element-wrap')}

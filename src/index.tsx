@@ -13,6 +13,7 @@ import 'reflect-metadata';
 import 'moment/locale/zh-cn';
 
 import c from 'classnames';
+import { HeaderActionPane } from './views/header-action-pane';
 import { IBaseStore } from './store/types';
 import { ElementsMap } from './elements';
 import type {
@@ -25,7 +26,7 @@ import { prefixCls } from './const';
 import store from './store';
 import { injectSchema } from '.';
 import { EditorContext, type IEditorContext } from './context';
-import { wrapObserver, withPromise } from './utils';
+import { wrapObserver } from './utils';
 import { FormComponent } from './form';
 import { useExpose } from './hooks';
 import './index.less';
@@ -144,9 +145,10 @@ const FormEditorContent: React.ForwardRefRenderFunction<
   return (
     <EditorContext.Provider value={contextValue}>
       <ConfigProvider lang={lang || 'zh'}>
-        <FormComponent mode={mode} form={form} className={formClassName}>
-          {children}
-        </FormComponent>
+          <HeaderActionPane />
+          <FormComponent mode={mode} form={form} className={formClassName}>
+            {children}
+          </FormComponent>
       </ConfigProvider>
     </EditorContext.Provider>
   );

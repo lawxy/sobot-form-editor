@@ -24,7 +24,7 @@ const ActionItem: React.FC<
   );
 };
 
-const ActionGroup = () => {
+const HeaderActionPaneContent = () => {
   const { actionProp, LOCALE } = useEditorContext();
 
   const handleSave = useCallback(() => {
@@ -87,53 +87,65 @@ const ActionGroup = () => {
   };
 
   return (
-    <div className={prefixCls('action-group')}>
-      <div>
-        <UndoAndRedo />
+    <div className={prefixCls('header-action-pane')}>
+      <div className={prefixCls('header-action-pane-title')}>
+        <img src='/sobot-logo.png' alt="logo" />
+        <span>表单设计器</span>
       </div>
-      <div className={prefixCls('action-group-right')}>
-        <ActionItem text="预览" onClick={handlePreview} />
-        {actionProp?.download && (
-          <ActionItem text="下载" onClick={handleDownload} />
-        )}
-        {
-          LOCALE && (
-            <PreviewLocale>
-              <ActionItem text="多语言" />
-            </PreviewLocale>
-          )
-        }
-
-        <PreviewSchema>
-          <ActionItem text="查看Schema" />
-        </PreviewSchema>
-        <InjectSchema>
-          <ActionItem text="注入Schema" />
-        </InjectSchema>
-        <ActionItem text="保存" onClick={handleSave} />
-        <Popconfirm
-          title="确定要清空所有组件吗？"
-          onConfirm={() => {
-            store.clearAllElements();
-            store.setFieldsValue({});
-            store.setSelectedElement({});
-            eventStore.clearMap();
-            store.formServices?.forEach((serv) => {
-              if (serv?.linkingElements?.length) {
-                store.setService(serv.id, { linkingElements: [] });
-              }
-            });
-          }}
-          // @ts-ignore
-          getPopupContainer={(n) => n.parentNode}
-        >
+      <div className={prefixCls('action-group')}>
+        <div className={prefixCls('action-group-right')}>
           <div>
-            <ActionItem text="清空" />
+            <UndoAndRedo />
           </div>
-        </Popconfirm>
+          <ActionItem text="预览" onClick={handlePreview} />
+          {actionProp?.download && (
+            <ActionItem text="下载" onClick={handleDownload} />
+          )}
+          {
+            LOCALE && (
+              <PreviewLocale>
+                <ActionItem text="多语言" />
+              </PreviewLocale>
+            )
+          }
+
+          <PreviewSchema>
+            <ActionItem text="查看Schema" />
+          </PreviewSchema>
+          <InjectSchema>
+            <ActionItem text="注入Schema" />
+          </InjectSchema>
+          <ActionItem text="保存" onClick={handleSave} />
+          <Popconfirm
+            title="确定要清空所有组件吗？"
+            onConfirm={() => {
+              store.clearAllElements();
+              store.setFieldsValue({});
+              store.setSelectedElement({});
+              eventStore.clearMap();
+              store.formServices?.forEach((serv) => {
+                if (serv?.linkingElements?.length) {
+                  store.setService(serv.id, { linkingElements: [] });
+                }
+              });
+            }}
+            // @ts-ignore
+            getPopupContainer={(n) => n.parentNode}
+          >
+            <div>
+              <ActionItem text="清空" />
+            </div>
+          </Popconfirm>
+        </div>
       </div>
     </div>
   );
-};
+}; 
 
-export default observer(ActionGroup);
+export const HeaderActionPane = observer(() => {
+  const { mode } = useEditorContext();
+  if (mode === 'design') {
+    return <HeaderActionPaneContent />;
+  }
+  return null;
+});
