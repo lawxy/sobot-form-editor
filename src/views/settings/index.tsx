@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 
 import ElementSetting from './element-setting';
-import FormSetting from './form-setting';
+import EditorSetting from './editor-setting';
 
 import { FormService } from '@/components';
 import { prefixCls } from '@/const';
@@ -20,13 +20,13 @@ const items: TabsProps['items'] = [
   },
   {
     key: 'form',
-    label: `表单属性`,
+    label: `编辑器属性`,
     closable: false,
-    children: <FormSetting />,
+    children: <EditorSetting />,
   },
   {
     key: 'service',
-    label: `表单服务`,
+    label: `接口服务`,
     closable: false,
     children: <FormService />,
   },
@@ -40,7 +40,7 @@ const SettingsContent = () => {
         type="editable-card"
         hideAdd
         items={items}
-        className={`${prefixCls('form-setting-tab')}`}
+        className={`${prefixCls('editor-setting-tab')}`}
         onChange={(tab: any) => {
           tabStore.setFormTab(tab);
         }}

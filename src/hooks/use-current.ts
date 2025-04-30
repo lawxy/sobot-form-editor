@@ -9,6 +9,6 @@ export const useCurrent = (type: 'element' | 'form') => {
   }
   return {
     current: store.editorAttrs,
-    setProp: store.setFormAttr as any,
+    setProp: store.setEditorAttr as any,
   };
 };

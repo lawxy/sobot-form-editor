@@ -439,7 +439,7 @@ export interface IBaseElement {
   toggle?: boolean;
 }
 export interface IFormAttributesProps {
-  formName?: string;
+  editorName?: string;
   id?: string;
   horizontalGap: number;
   verticalGap: number;

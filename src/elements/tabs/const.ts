@@ -2,6 +2,8 @@ import type { IBaseElement } from '@/types';
 
 export const ELEMENT_TABS = 'fe-tabs';
 
+export const ELEMENT_TAB_PANEL = 'fe-tab-panel';
+
 export const TABS_TEXT = 'tabs';
 
 export const eventActions = [];
@@ -14,3 +16,6 @@ export const initialData: Partial<IBaseElement> = {
   children: [],
   isContainer: true,
 };
+
+export const isTabs = (id: string) => id.includes(ELEMENT_TABS);
+export const isTabPanel = (id: string) => id.includes(ELEMENT_TAB_PANEL);

@@ -7,19 +7,19 @@ export default {
    */
   editorAttrs: {},
 
-  getFormAttrs() {
+  getEditorAttrs() {
     return this.editorAttrs;
   },
 
-  getFormAttr(key: keyof IFormAttributesProps) {
+  getEditorAttr(key: keyof IFormAttributesProps) {
     return this.editorAttrs[key];
   },
 
-  setFormAttrs(attrs: IFormAttributesProps) {
+  setEditorAttrs(attrs: IFormAttributesProps) {
     this.editorAttrs = attrs;
   },
 
-  setFormAttr(key, value) {
+  setEditorAttr(key, value) {
     this.editorAttrs[key] = value;
   },
 } as Pick<IBaseStore, keyof IEditorAttrStore>;

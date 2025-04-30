@@ -12,12 +12,12 @@ import { EEventAction, EEventType, TDirection } from '@/types';
 import store from '@/store';
 import { prefixCls, DirectionOpions } from '@/const';
 
-const FormSetting = () => {
-  const { id, formName, horizontalGap, verticalGap, layout } =
+const EditorSetting = () => {
+  const { id, editorName, horizontalGap, verticalGap, layout } =
     store.editorAttrs;
 
   return (
-    <div className={prefixCls('form-setting')}>
+    <div className={prefixCls('editor-setting')}>
       <div
         style={{
           flex: 1,
@@ -28,22 +28,22 @@ const FormSetting = () => {
         }}
       >
         <SettingWrap title="基本属性">
-          <SettingItem label="表单id">{id}</SettingItem>
-          <SettingItem label="表单名称">
+          <SettingItem label="编辑器id">{id}</SettingItem>
+          <SettingItem label="编辑器名称">
             <Input
-              value={formName}
+              value={editorName}
               onChange={(e) => {
-                store.setFormAttr<'formName'>('formName', e.target.value);
+                store.setEditorAttr<'editorName'>('editorName', e.target.value);
               }}
             />
           </SettingItem>
 
-          <SettingItem label="表单布局">
+          <SettingItem label="布局">
             <Select
               options={DirectionOpions}
               value={layout}
               onChange={(val) => {
-                store.setFormAttr<'layout'>('layout', val as TDirection);
+                store.setEditorAttr<'layout'>('layout', val as TDirection);
               }}
             />
           </SettingItem>
@@ -53,7 +53,7 @@ const FormSetting = () => {
               value={horizontalGap}
               min={0}
               onChange={(val) => {
-                store.setFormAttr<'horizontalGap'>(
+                store.setEditorAttr<'horizontalGap'>(
                   'horizontalGap',
                   Number(val),
                 );
@@ -66,7 +66,7 @@ const FormSetting = () => {
               value={verticalGap}
               min={0}
               onChange={(val) => {
-                store.setFormAttr<'verticalGap'>('verticalGap', Number(val));
+                store.setEditorAttr<'verticalGap'>('verticalGap', Number(val));
               }}
             />
           </SettingItem>
@@ -88,4 +88,4 @@ const FormSetting = () => {
   );
 };
 
-export default observer(FormSetting);
+export default observer(EditorSetting);

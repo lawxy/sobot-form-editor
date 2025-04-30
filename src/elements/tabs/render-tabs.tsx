@@ -5,8 +5,9 @@ import store from '@/store';
 import type { TElementRender } from '@/types';
 import { idCreator } from '@/utils';
 import { RenderElementWithLayout } from '@/components';
-import { initialData, ELEMENT_CONTAINER, createContainer } from '../container';
+import { createContainer } from '../container';
 import { prefixCls } from '@/index';
+import { ELEMENT_TAB_PANEL } from './const';
 
 export const createPanel = (props = {}) => {
   // const panel = {
@@ -19,7 +20,7 @@ export const createPanel = (props = {}) => {
 
   const panel = createContainer({
     elementName: { langText: 'tab选项卡', langKey: '' },
-    id: idCreator('tab-panel'),
+    id: idCreator(ELEMENT_TAB_PANEL),
     ...props,
   })
 

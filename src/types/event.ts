@@ -27,7 +27,7 @@ export enum EEventAction {
   ON_BLUR = 'onBlur',
   // 组件加载后
   ON_LOADED = 'onLoaded',
-  // 表单加载后
+  // 编辑器加载后
   FORM_LOADED = 'formLoaded',
   // 分页切换时
   PAGINATION_CHANGE = 'paginationChange',
@@ -41,7 +41,7 @@ export const eventActionInChinese: Record<EEventAction, string> = {
   [EEventAction.ON_FOCUS]: '获得焦点',
   [EEventAction.ON_BLUR]: '失去焦点',
   [EEventAction.ON_LOADED]: '组件加载后',
-  [EEventAction.FORM_LOADED]: '表单加载后',
+  [EEventAction.FORM_LOADED]: '编辑器加载后',
   [EEventAction.PAGINATION_CHANGE]: '分页切换',
   [EEventAction.ON_SEARCH]: '搜索',
 };

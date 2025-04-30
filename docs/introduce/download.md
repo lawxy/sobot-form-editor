@@ -68,7 +68,7 @@ window.GLOBAL_FORM_EDITOR_DEFAULT_VALUE = {
     customCss:
       '#form {\n\tpadding: 10px;\n\twidth: 1000px;\n\tmargin: 0 auto;\n}',
     id: 'form-o6jcsla52uo',
-    formName: '我的表单',
+    editorName: '我的表单',
   },
   formServices: [
     {

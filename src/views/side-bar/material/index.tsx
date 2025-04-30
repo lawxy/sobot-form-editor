@@ -11,7 +11,6 @@ import DragItem from './drag-item';
 
 import './style.less';
 
-// const titles = ['基础组件', '容器组件', '自定义组件'];
 const titles = ['sui组件', '容器组件', '自定义组件'];
 
 export const Material = observer(() => {
@@ -59,16 +58,14 @@ export const Material = observer(() => {
     };
   }, []);
 
-  // console.log('renderList', renderList);
   return (
-    <div className={prefixCls('material')} ref={wrapEl}>
-      <div className={prefixCls('material-title')}>组件库</div>
-      {/* <div style={{ height: 10, backgroundColor: '#f5f5f5' }} /> */}
+    <div className={prefixCls('side-bar-content')} ref={wrapEl}>
+      <div className={prefixCls('side-bar-content-title')}>组件库</div>
       {renderList.map((list, i) => (
         <React.Fragment key={i}>
           {!!list.length && (
             <>
-              <div className={prefixCls('material-title')} style={{borderBottom: 0}}>{titles[i]}</div>
+              <div className={prefixCls('side-bar-content-title')} style={{borderBottom: 0}}>{titles[i]}</div>
               <ReactSortable
                 list={list}
                 className={prefixCls('element-wrap')}

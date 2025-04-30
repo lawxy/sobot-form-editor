@@ -98,7 +98,7 @@ const WrapDesignEl: React.FC<
       onMouseDownCapture={handleSelect}
       ref={ref}
     >
-      {/* <div className={prefixCls('element-mask')} style={getMaskStyle()} /> */}
+      <div className={prefixCls('element-mask')} style={getMaskStyle()} />
       {showSelectedActions() && <SelectedActions />}
       {children}
       <EventIcon events={el.events} />

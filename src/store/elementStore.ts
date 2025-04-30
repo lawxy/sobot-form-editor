@@ -164,6 +164,8 @@ export default {
    * 移动元素
    */
   moveElInSameParent(parentId: string, fromIndex: number, toIndex: number) {
+    console.log('fromIndex', fromIndex)
+    console.log('toIndex', toIndex)
     const el = this.getElement(parentId);
     const parentChildren = this.getParentChildren(parentId);
     const afterSort = arrayMoveImmutable(parentChildren, fromIndex, toIndex);
@@ -189,6 +191,7 @@ export default {
     newIndex: number,
     fromHuman?: boolean,
   ) {
+    // console.log('htmlElement', htmlElement)
     this.tracing = false;
 
     const current = this.getElement(htmlElement.dataset.id)!;

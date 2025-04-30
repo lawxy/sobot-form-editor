@@ -26,6 +26,8 @@ const defaultPattern: TPattern = {
 };
 
 export const RegPattern = observer(() => {
+  if(!store.selectedElement?.isFormItem) return null;
+
   const regExps = store.selectedElement?.regExps ?? [requiredPattern];
 
   const handleChange = <T extends keyof TPattern>(

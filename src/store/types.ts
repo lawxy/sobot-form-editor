@@ -97,15 +97,15 @@ export interface IServiceStore {
 export interface IEditorAttrStore {
   editorAttrs: IFormAttributesProps;
 
-  getFormAttrs: () => IFormAttributesProps;
+  getEditorAttrs: () => IFormAttributesProps;
 
-  getFormAttr: (
+  getEditorAttr: (
     key: keyof IFormAttributesProps,
   ) => IFormAttributesProps[keyof IFormAttributesProps];
 
-  setFormAttrs: (attrs: IFormAttributesProps) => void;
+  setEditorAttrs: (attrs: IFormAttributesProps) => void;
 
-  setFormAttr: <T extends keyof IFormAttributesProps>(
+  setEditorAttr: <T extends keyof IFormAttributesProps>(
     key: T,
     value: IFormAttributesProps[T],
   ) => void;
