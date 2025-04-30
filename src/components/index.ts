@@ -11,3 +11,4 @@ export * from './question-popover';
 export * from './element-settings';
 export * from './option-modal';
 export * from './with-language';
+export * from './event-relation-modal';

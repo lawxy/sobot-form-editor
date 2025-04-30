@@ -4,7 +4,7 @@ import {
   handleEmitEvent,
   type TEventFormatFunctions,
 } from '@/utils';
-import eventStore from '@/store/eventStore';
+import eventRelationStore from '@/store/eventRelationStore';
 // import { useForceRender, useFormEffect } from '.';
 
 export * from '@/utils/handle-emit-event';
@@ -22,7 +22,7 @@ export const useGetEventFunctions: IRegisterEvents = (element) => {
 
   useEffect(() => {
     if (!events?.length) return;
-    const {functions, immediateFunctions} = handleEmitEvent(eventStore.emitter, events);
+    const {functions, immediateFunctions} = handleEmitEvent(eventRelationStore.emitter, events);
     // eventFunctions.current = functions;
     setEventFunctions(functions);
     setImmediateFunctions(immediateFunctions);

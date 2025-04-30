@@ -1,20 +1,24 @@
 import React, { useCallback, useRef, type PropsWithChildren } from 'react';
 import { observer } from 'mobx-react-lite';
+import { Popover } from 'antd';
 import c from 'classnames';
 import store, { tabStore } from '@/store';
 import type { IBaseElement, TCustomEvents, TMode } from '@/types';
 import { EEventType, EValidateRange } from '@/types';
 import { useDesignEffect } from '@/hooks';
-import eventStore from '@/store/eventStore';
+import eventRelationStore from '@/store/eventRelationStore';
 import { prefixCls } from '@/const';
 import { SelectedActions } from './selected-actions';
+import { EventRelationModal } from '../event-relation-modal';
+import { LinkOutlined } from '@ant-design/icons';
 
 const EventIcon: React.FC<{
   events?: TCustomEvents;
-}> = observer(({ events }) => {
-  if (!events?.length) return null;
+  id: string;
+}> = observer(({ events, id }) => {
+  // if (!events?.length) return null;
 
-  const valid = events.every((event) => {
+  const valid = events?.every((event) => {
     const { eventTargets, eventType } = event;
 
     if (eventType === EEventType.VALIDATE) {
@@ -41,13 +45,36 @@ const EventIcon: React.FC<{
     });
   });
 
+  // const  = eventRelationStore.eventRelationMap?.get(id)?.values()?.length > 0
+  const hasEventRelation = eventRelationStore.eventRelationMap?.get(id)?.size > 0
+  console.log('hasEventRelation', hasEventRelation)
+
   return (
-    <div
-      className={c({
-        [prefixCls('event-icon')]: true,
-        [prefixCls('event-icon-invalid')]: !valid,
-      })}
-    />
+    <>
+      {
+        events?.length && (
+          <div
+            className={c({
+              [prefixCls('event-icon')]: true,
+              [prefixCls('event-icon-invalid')]: !valid,
+            })}
+          />
+        )
+      }
+      {
+        hasEventRelation && (
+          <EventRelationModal id={id}>
+          <div
+            className={c({
+              [prefixCls('event-relation-icon')]: true,
+            })}
+          >
+            <LinkOutlined />
+            </div>
+          </EventRelationModal>
+        )
+      }
+    </>
   );
 });
 
@@ -60,8 +87,8 @@ const WrapDesignEl: React.FC<
   const prevEvents = useRef<TCustomEvents>([]);
 
   useDesignEffect(() => {
-    eventStore.clearEvents(prevEvents.current);
-    eventStore.iterateEl(el);
+    eventRelationStore.clearEvents(prevEvents.current);
+    eventRelationStore.iterateEl(el);
     prevEvents.current = el.events ?? [];
   }, [el.events]);
 
@@ -101,7 +128,7 @@ const WrapDesignEl: React.FC<
       <div className={prefixCls('element-mask')} style={getMaskStyle()} />
       {showSelectedActions() && <SelectedActions />}
       {children}
-      <EventIcon events={el.events} />
+      <EventIcon id={el.id} events={el.events} />
     </div>
   );
 });

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { message, Tree, Input, Highlight, Menu, Popconfirm } from '@sobot/soil-ui';
+import { message, Tree, Input, Highlight, Menu, Popconfirm, Ellipsis } from '@sobot/soil-ui';
 import { Dropdown } from 'antd';
 import type { DataNode } from 'antd/lib/tree';
 import { isTabs, isTabPanel } from '@/elements/tabs';
@@ -12,37 +12,39 @@ import './style.less'
 const loop = (data: IBaseElement[], { isDraggable, searchValue }: { isDraggable: boolean, searchValue: string }): DataNode[] => {
     if (!data?.length) return [];
 
+    const searchElement = store.getElement(searchValue.trim());
 
-
-    return data.map((item: IBaseElement) => ({
-        key: item.id,
-        // title: <span data-id={item.id}><Highlight input={item.elementName?.langText} text={searchValue} /></span>,
-        title: (
-            <Dropdown
-                overlay={
-                    <Menu>
-                        <Menu.Item key='delete'>
-                            <Popconfirm
-                                title="确认删除"
-                                onConfirm={() => {
-                                    store.deleteEl(item);
-                                }}
-                            >
-                                删除
-                            </Popconfirm>
-                        </Menu.Item>
-                    </Menu>
-                }
-                trigger={['contextMenu']}
-                // @ts-ignore
-                getPopupContainer={(n) => n.parentNode}
-            >
-                <span data-id={item.id}><Highlight input={item.elementName?.langText} text={searchValue} /></span>
-            </Dropdown>
-        ),
-        children: loop(item?.children || [], { isDraggable: !item.isGroup, searchValue }),
-        isDraggable,
-    } as DataNode));
+    return data.map((item: IBaseElement) => {
+        searchValue = (searchElement ? searchElement.id === item.id ? searchElement.elementName?.langText : '' : searchValue) as string;
+        return {
+            key: item.id,
+            title: (
+                <Dropdown
+                    overlay={
+                        <Menu>
+                            <Menu.Item key='delete'>
+                                <Popconfirm
+                                    title="确认删除"
+                                    onConfirm={() => {
+                                        store.deleteEl(item);
+                                    }}
+                                >
+                                    删除
+                                </Popconfirm>
+                            </Menu.Item>
+                        </Menu>
+                    }
+                    trigger={['contextMenu']}
+                    // @ts-ignore
+                    getPopupContainer={(n) => n.parentNode}
+                >
+                    <span data-id={item.id}><Ellipsis><Highlight input={item.elementName?.langText} text={searchValue} /></Ellipsis></span>
+                </Dropdown>
+            ),
+            children: loop(item?.children || [], { isDraggable: !item.isGroup, searchValue }),
+            isDraggable,
+        } as DataNode
+    });
 };
 
 const validateMove = (fromId: string, toParentId: string) => {
@@ -125,7 +127,6 @@ export const ElementTree = observer(() => {
                 }
             }
         }
-
     }
 
     const handleSelect = (selectedKeys: string[]) => {
@@ -143,16 +144,7 @@ export const ElementTree = observer(() => {
             <Input.Search 
                 placeholder='请输入组件名或完整的组件id' 
                 // value={searchValue} 
-                onSearch={(e: any) => {
-                    const val = e.target.value;
-                    const searchElement = store.getElement(val.trim())
-                    if(searchElement) {
-                        setSearchValue(searchElement.elementName?.langText!)
-                    }else {
-                        setSearchValue(e.target.value)
-                    }
-
-                }} 
+                onSearch={(e: any) => setSearchValue(e.target.value)} 
             />
             <Tree
                 onDrop={handleDrop}

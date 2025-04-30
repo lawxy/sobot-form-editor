@@ -5,7 +5,7 @@ import { cloneDeep } from 'lodash-es';
 import { useEditorContext } from '@/context';
 import { prefixCls } from '@/const';
 import store from '@/store';
-import eventStore from '@/store/eventStore';
+import eventRelationStore from '@/store/eventRelationStore';
 import { PreviewSchema } from './preview-schema';
 import { InjectSchema } from './inject-schema';
 import { UndoAndRedo } from './undo-redo';
@@ -90,7 +90,7 @@ const HeaderActionPaneContent = () => {
     <div className={prefixCls('header-action-pane')}>
       <div className={prefixCls('header-action-pane-title')}>
         <img src='/sobot-logo.png' alt="logo" />
-        <span>表单设计器</span>
+        <span>表单编辑器</span>
       </div>
       <div className={prefixCls('action-group')}>
         <div className={prefixCls('action-group-right')}>
@@ -122,7 +122,7 @@ const HeaderActionPaneContent = () => {
               store.clearAllElements();
               store.setFieldsValue({});
               store.setSelectedElement({});
-              eventStore.clearMap();
+              eventRelationStore.clearMap();
               store.formServices?.forEach((serv) => {
                 if (serv?.linkingElements?.length) {
                   store.setService(serv.id, { linkingElements: [] });

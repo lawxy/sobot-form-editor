@@ -2,7 +2,7 @@ import type { IBaseElement } from '@/types';
 import {
   handleOnEvent,
 } from '@/utils';
-import eventStore from '@/store/eventStore';
+import eventRelationStore from '@/store/eventRelationStore';
 import { useFormEffect } from '.';
 // export * from '@/utils/handle-emit-event';
 
@@ -10,9 +10,9 @@ export const useRegisterEvents = (id: IBaseElement['id']) => {
 
   useFormEffect(() => {
     if (!id) return;
-    eventStore.emitter.on(id!, handleOnEvent);
+    eventRelationStore.emitter.on(id!, handleOnEvent);
     return () => {
-      eventStore.emitter.off(id!);
+      eventRelationStore.emitter.off(id!);
     };
   }, [id]);
 

@@ -65,7 +65,7 @@ export const Material = observer(() => {
         <React.Fragment key={i}>
           {!!list.length && (
             <>
-              <div className={prefixCls('side-bar-content-title')} style={{borderBottom: 0}}>{titles[i]}</div>
+              <div className={prefixCls('side-bar-content-sub-title')} style={{borderBottom: 0}}>{titles[i]}</div>
               <ReactSortable
                 list={list}
                 className={prefixCls('element-wrap')}

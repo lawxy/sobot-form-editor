@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash-es';
 import { runInAction } from 'mobx';
 import { idCreator, bindFromCopiedElement, unBindFromElement } from '@/utils';
 import { tabStore } from './tabStore';
-import eventStore from './eventStore';
+import eventRelationStore from './eventRelationStore';
 import type { IBaseElement, TElementSearch } from '../types';
 import { IBaseStore, IElementStore } from './types';
 // import baseStore from '.';
@@ -250,7 +250,7 @@ export default {
     const idx = parentChildren.findIndex((item) => item.id === el.id);
     // 容器间的移动会删除原有元素 但是绑定的服务和事件不变
     if (!move) {
-      const confirmDelete = await eventStore.deleteId(el.id!);
+      const confirmDelete = await eventRelationStore.deleteId(el.id!);
       if (!confirmDelete) return false;
       this.dfsEl(
         el,

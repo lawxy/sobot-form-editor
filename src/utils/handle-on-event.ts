@@ -141,6 +141,7 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
               item.label = {langText: label, langKey: ''}
             }
           });
+          store.setElementProp(id, ELinkRefreshType.OPTIONS, finalRes);
         }
 
         if(linkRefreshType === ELinkRefreshType.CUSTOMFIELD) {

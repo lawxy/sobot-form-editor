@@ -7,30 +7,34 @@ import { EventEmitter, ModalConfirmPromisify } from '@/utils';
 import { EEventType, EValidateRange, IBaseElement, TFormSerive, TCustomEvents } from '@/types';
 import baseStore from '.';
 
-class EventStore {
+class EventRelationStore {
   constructor() {
     makeAutoObservable(this);
   }
 
   emitter = new EventEmitter();
 
-  eventMap = new Map();
+  eventRelationMap = new Map();
 
   addRelation(targetId: string, sourceId: string) {
-    const set = this.eventMap.get(targetId) ?? new Set();
+    const set = this.eventRelationMap.get(targetId) ?? new Set();
     set.add(sourceId);
-    this.eventMap.set(targetId, set);
+    this.eventRelationMap.set(targetId, set);
+
+    const set2 = this.eventRelationMap.get(sourceId)  ?? new Set();
+    set2.add(targetId)
+    this.eventRelationMap.set(sourceId, set2);
   }
 
   deleteRelation(targetId: string, sourceId: string) {
-    const set = this.eventMap.get(targetId) ?? new Set();
+    const set = this.eventRelationMap.get(targetId) ?? new Set();
     set.delete(sourceId);
-    this.eventMap.set(targetId, set);
+    this.eventRelationMap.set(targetId, set);
   }
 
   getSetsFromId(targetId: string) {
     const sets: Array<Set<string>> = [];
-    const set = this.eventMap.get(targetId);
+    const set = this.eventRelationMap.get(targetId);
     if (set) sets.push(set);
 
     const targetElement = baseStore.getElement(targetId);
@@ -49,7 +53,8 @@ class EventStore {
 
     if (!sets.length) return Promise.resolve(true);
 
-    let exist = false;
+    let linkElement = false;
+    let linkEditor = false;
 
     const sourceElements = new Set<IBaseElement>();
     const sourceServices = new Set<TFormSerive>();
@@ -59,11 +64,14 @@ class EventStore {
       for (const sourceId of set.keys()) {
         const sourceElement = baseStore.getElement(sourceId);
         const sourceService = baseStore.getService(sourceId);
-        if (sourceElement ) {
-          exist = true;
+
+        if (sourceId === baseStore.getEditorAttr('id')) {
+          linkEditor = true;
+        } else if (sourceElement) {
+          linkElement = true;
           sourceElements.add(sourceElement);
         } else if (sourceService) {
-          exist = true;
+          linkElement = true;
           sourceServices.add(sourceService);
         } else {
           set.delete(sourceId);
@@ -71,14 +79,24 @@ class EventStore {
       }
     });
 
-    if (!exist) return Promise.resolve(true);
+    if (!linkElement && !linkEditor) return Promise.resolve(true);
 
-    const map = this.eventMap;
+    const map = this.eventRelationMap;
 
     return ModalConfirmPromisify({
       title: '此组件(含内部组件)或服务有事件关联, 确认删除?',
       content: (
         <div>
+          {linkEditor && (
+            <div>
+              <span>关联编辑器</span>
+              <ul>
+                <li>
+                  <span>{baseStore.getEditorAttr('id')}</span>
+                </li>
+              </ul>
+            </div>
+          )}
           {sourceElements.size > 0 && (
             <div>
               <span>关联组件</span>
@@ -102,9 +120,7 @@ class EventStore {
         </div>
       ),
       onOk() {
-        if (exist) {
-          map.delete(targetId);
-        }
+        map.delete(targetId);
       },
     });
   }
@@ -114,6 +130,7 @@ class EventStore {
       type === 'add'
         ? this.addRelation.bind(this)
         : this.deleteRelation.bind(this);
+
     events.forEach((event) => {
       const { eventTargets, eventType } = event;
       eventTargets?.forEach((target) => {
@@ -142,8 +159,8 @@ class EventStore {
   }
 
   clearMap() {
-    this.eventMap.clear();
+    this.eventRelationMap.clear();
   }
 }
 
-export default new EventStore();
+export default new EventRelationStore();

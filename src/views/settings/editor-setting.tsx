@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Input, InputNumber, Select } from 'antd';
 import { observer } from 'mobx-react-lite';
 
@@ -8,13 +8,24 @@ import {
   EventSetting,
   FormCssSetting,
 } from '@/components';
-import { EEventAction, EEventType, TDirection } from '@/types';
+import { EEventAction, EEventType, TCustomEvents, TDirection } from '@/types';
 import store from '@/store';
 import { prefixCls, DirectionOpions } from '@/const';
+import eventRelationStore from '@/store/eventRelationStore';
+import { useDesignEffect } from '@/hooks';
 
 const EditorSetting = () => {
-  const { id, editorName, horizontalGap, verticalGap, layout } =
+  const { id, editorName, horizontalGap, verticalGap, layout, events } =
     store.editorAttrs;
+
+    const prevEvents = useRef<TCustomEvents>([]);
+
+    useDesignEffect(() => {
+      // console.log('events', events);
+      eventRelationStore.clearEvents(prevEvents.current);
+      eventRelationStore.iterate(events, 'add');
+      prevEvents.current = events ?? [];
+    }, [events]);
 
   return (
     <div className={prefixCls('editor-setting')}>

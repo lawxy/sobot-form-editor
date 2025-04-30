@@ -6,7 +6,7 @@ import c from 'classnames';
 import { useGetEventFunctions, useFormUpdate, useDesignEffect } from '@/hooks';
 import { EEventAction } from '@/types';
 import { prefixCls } from '@/const';
-import eventStore from '@/store/eventStore';
+import eventRelationStore from '@/store/eventRelationStore';
 import store from '@/store';
 import type { IBaseElement, TMode } from '@/types';
 import { handleOnEvent, parseCSS, handleSort } from '@/utils';
@@ -61,11 +61,11 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
   useFormUpdate(() => {
     if (!store.formServices.length) return;
     store.formServices.forEach((serv) => {
-      eventStore.emitter.on(serv.id!, handleOnEvent);
+      eventRelationStore.emitter.on(serv.id!, handleOnEvent);
     });
     return () => {
       store.formServices.forEach((serv) => {
-        eventStore.emitter.off(serv.id!);
+        eventRelationStore.emitter.off(serv.id!);
       });
     };
   }, [store.formServices]);

@@ -1,7 +1,7 @@
 import { idCreator, unBindFromService } from '@/utils';
 import { TFormSerive, TFormSerives } from '@/types';
 import { IBaseStore, IServiceStore } from './types';
-import eventStore from './eventStore';
+import eventRelationStore from './eventRelationStore';
 
 export default {
   /**
@@ -35,7 +35,7 @@ export default {
    * 删除服务
    */
   async deleteService(id: string) {
-    const confirmDelete = await eventStore.deleteId(id!);
+    const confirmDelete = await eventRelationStore.deleteId(id!);
     if (!confirmDelete) return;
     const idx = this.formServices!.findIndex((item) => item.id === id);
     unBindFromService(id);
