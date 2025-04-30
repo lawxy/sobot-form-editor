@@ -13,7 +13,7 @@ import { WithCommon } from './with-common';
 
 import LinkService from './link-service';
 import RefreshService from './refresh-service';
-import SetElementValue from './set-element-value';
+import SetElement from './set-element';
 import Validate from './validate';
 import JumpLink from './jump-link';
 import CustomJs from './custom-js';
@@ -35,7 +35,7 @@ const ActionItem: React.FC<
   const renderConfig = () => {
     switch (event.eventType) {
       case EEventType.SETTING_VALUE:
-        return <SetElementValue />;
+        return <SetElement />;
       case EEventType.UPDATE_SERVICE:
         return <RefreshService />;
       case EEventType.LINK_SERVICE:
@@ -100,7 +100,7 @@ export const ActionConfig: React.FC<{
     targetAttr?: Omit<IEventTarget, 'id' | 'sourceId'>,
     idx?: number,
   ) => {
-    console.log(targetAttr, 'targetAttr');
+    
     if (type === EChangeType.EDIT) {
       const newEventTargets = cloneDeep(currentEvent!.eventTargets);
       newEventTargets![idx!] = Object.assign(

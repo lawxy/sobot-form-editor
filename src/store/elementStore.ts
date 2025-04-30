@@ -365,7 +365,8 @@ export default {
     value: IBaseElement[T],
   ) {
     const element = this.getElement(id);
-    element![field] = value;
+    if (!element) return;
+    element[field] = value;
   },
 
   /**

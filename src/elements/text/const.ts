@@ -14,5 +14,5 @@ export const initialData: Partial<IBaseElement> = {
   openValue: 'true',
   closeValue: 'false',
   text: { langText: '文本框', langKey: '' },
-  defaultValue: 'true',
+  defaultValue: 'false',
 };

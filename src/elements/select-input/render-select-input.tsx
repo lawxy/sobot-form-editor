@@ -5,23 +5,26 @@ import { RenderElementWithLayout } from '@/components';
 import store from '@/store';
 import { useDesignEffect } from '@/hooks';
 import { getChildren } from './const';
+import { prefixCls } from '@/index';
+import './style.less';
 
 export const RenderSelectInput: TElementRender = ({
   element,
+  customStyle,
 }) => {
   const { children, id } = element;
 
   useDesignEffect(() => {
-    store.setSelectedProp('children', getChildren(id));
+    store.setSelectedProp('children', getChildren(id!));
   }, [])
 
-  useDesignEffect(() => {
-    if (children?.length) return;
-    store.setSelectedElement(element.children![0]);
-  }, [children])
+  // useDesignEffect(() => {
+  //   if (children?.length) return;
+  //   store.setSelectedElement(element.children![0]);
+  // }, [children])
 
   return (
-    <Input.Group compact >
+    <Input.Group compact className={`${prefixCls}-input-group`} style={customStyle}>
       {
         children?.map((child) => {
           store.flatElement(child);

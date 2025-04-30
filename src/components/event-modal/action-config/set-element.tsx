@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select } from 'antd';
 import { observer } from 'mobx-react-lite';
-
+import store from '@/store';
 import { prefixCls } from '@/const';
 import {
   changeStateActions,
@@ -11,9 +11,18 @@ import {
 import { getElementOptions } from '@/utils';
 import type { IConfig } from '.';
 
-const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
+const SetElement: React.FC<IConfig> = ({ onChange, eventTarget }) => {
   const { targetElementId, targetPayload } =
     eventTarget || {};
+
+  const filter = (action: EChangeStatePayload) => {
+    const el = store.getElement(targetElementId);
+    const parentEl = store.getElement(el?.parentId);
+    if (parentEl?.isGroup) {
+      return action !== EChangeStatePayload.SHOW && action !== EChangeStatePayload.HIDDEN;
+    }
+    return true;
+  }
 
   return (
     <>
@@ -26,7 +35,7 @@ const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
           style={{ width: 200 }}
           value={targetElementId}
           onChange={(v) => {
-            onChange?.({ targetElementId: v });
+            onChange?.({ targetElementId: v, targetPayload: undefined });
           }}
         />
       </div>
@@ -43,7 +52,7 @@ const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
                 EChangeStatePayload.HIDDEN,
                 EChangeStatePayload.SYNC,
                 EChangeStatePayload.RESET_PAGE,
-              ].filter(Boolean),
+              ].filter(filter),
             )}
             key="action"
             value={targetPayload}
@@ -58,4 +67,4 @@ const SetElementValue: React.FC<IConfig> = ({ onChange, eventTarget }) => {
   );
 };
 
-export default observer(SetElementValue);
+export default observer(SetElement);

@@ -19,6 +19,7 @@ const BasicInfo = () => {
     colon,
     showElementName,
     elementName,
+    isGroup,
     hidden,
   } = store.selectedElement;
   return (
@@ -38,7 +39,7 @@ const BasicInfo = () => {
       </SettingItem>
 
 
-      {!isContainer && (
+      {!isContainer && !isGroup && (
         <>
           <SettingItem label="字段">
             <Input
