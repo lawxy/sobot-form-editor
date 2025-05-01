@@ -49,14 +49,14 @@ const EventIcon: React.FC<{
   return (
     <>
       {
-        events?.length && (
+        events?.length ? (
           <div
             className={c({
               [prefixCls('event-icon')]: true,
               [prefixCls('event-icon-invalid')]: !valid,
             })}
           />
-        )
+        ) : null
       }
       {
         hasEventRelation && (
@@ -125,7 +125,7 @@ const WrapDesignEl: React.FC<
       <div className={prefixCls('element-mask')} style={getMaskStyle()} />
       {showSelectedActions() && <SelectedActions />}
       {children}
-      <EventIcon id={el.id} events={el.events} />
+      <EventIcon id={el.id!} events={el.events} />
     </div>
   );
 });

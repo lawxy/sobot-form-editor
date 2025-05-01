@@ -9,7 +9,7 @@ import {
   Select,
   Button,
   Switch,
-} from '@sobot/soil-ui';
+} from 'antd';
 import type { TColumn } from '@/types';
 import { OptionModal, WithLanguage } from '@/components';
 import type { TextWithLang } from '@/types';
@@ -83,9 +83,6 @@ export const EditModal: FC<
           </Form.Item>
           <Form.Item label="类型" name="valueType" initialValue="text">
             <Select options={valueTypeList} />
-          </Form.Item>
-          <Form.Item label="必填" name="required" valuePropName="checked">
-            <Switch size="small" />
           </Form.Item>
           <Form.Item noStyle shouldUpdate>
             {({ getFieldValue, setFieldsValue, getFieldsValue }) => (

@@ -145,6 +145,15 @@ const ServiceModal: FC<
           layout="vertical"
           initialValues={getDefaultService(service)}
         >
+          {
+            service?.id && (
+              <Form.Item
+                name="id"
+                label={`id：${service.id}`}
+                style={{ marginBottom: 0 }}
+              />
+            )
+          }
           <Form.Item
             name="name"
             label="名称"
