@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useLayoutEffect } from 'react';
 import c from 'classnames';
 import { useEditorContext } from '@/context';
 import { prefixCls } from '@/const';
@@ -12,7 +12,6 @@ import './style.less';
 export const RenderContainer: TElementRender = ({
   element,
   customStyle,
-  extendProps,
 }) => {
   const { id } = store.editorAttrs;
   const { mode, ElementsMap } = useEditorContext();
@@ -31,6 +30,7 @@ export const RenderContainer: TElementRender = ({
       ...customStyle,
     };
   }, [customStyle]);
+
 
   return (
     <ReactSortable<IBaseElement>
@@ -57,7 +57,6 @@ export const RenderContainer: TElementRender = ({
       }}
       forbidden={mode !== 'design'}
       style={style}
-      {...extendProps}
     >
       {element.children?.map((item: IBaseElement) => {
         store.flatElement(item);

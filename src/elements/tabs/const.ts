@@ -1,12 +1,12 @@
 import type { IBaseElement } from '@/types';
-
+import { EEventAction } from '@/types';
 export const ELEMENT_TABS = 'fe-tabs';
 
 export const ELEMENT_TAB_PANEL = 'fe-tab-panel';
 
 export const TABS_TEXT = 'tabs';
 
-export const eventActions = [];
+export const eventActions = [EEventAction.ON_LOADED, EEventAction.VALUE_CHANGE];
 
 export const initialData: Partial<IBaseElement> = {
   elementName: { langText: 'tabs', langKey: '' },

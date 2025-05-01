@@ -133,9 +133,9 @@ export interface IBaseElement {
    */
   fieldName?: string;
   /**
-   * 字段提示
+   * 是否显示字段提示
    */
-  fieldTooltip?: TextWithLang;
+  tooltip?: TextWithLang;
   /**
    * 是否显示冒号
    */

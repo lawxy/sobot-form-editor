@@ -24,8 +24,10 @@ const ObserverInput: React.FC<{ idx: number }> = observer(({ idx }) => {
 });
 
 export const SettingTabs: TElementSetting = ({ element, setElementProp }) => {
-  const { children, id, tabType, underline } = element;
+  const { children, id, tabType, underline, fieldName } = element;
   const { length } = children!;
+
+  const defaultSelectedId = store.getFieldValue(fieldName! || id!);
 
   const handleAddPanel = () => {
     createPanel({
@@ -40,6 +42,14 @@ export const SettingTabs: TElementSetting = ({ element, setElementProp }) => {
       dataIndex: 'elementName',
       render(val: string, _: any, idx: number) {
         return <ObserverInput idx={idx} />;
+      },
+    },
+    {
+      title: '默认项',
+      dataIndex: 'defaultSelected',
+      width: 80,
+      render(val: boolean, _: any, idx: number) {
+        return defaultSelectedId === children![idx].id ? '是' : '否';
       },
     },
     {
@@ -87,6 +97,7 @@ export const SettingTabs: TElementSetting = ({ element, setElementProp }) => {
       </SettingItem>
       <SettingItem label="下划线">
         <Switch
+          size="small"
           checked={underline}
           onChange={(checked) => setElementProp('underline', checked)}
         />

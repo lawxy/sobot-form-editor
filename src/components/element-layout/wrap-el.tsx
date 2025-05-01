@@ -16,7 +16,6 @@ const EventIcon: React.FC<{
   events?: TCustomEvents;
   id: string;
 }> = observer(({ events, id }) => {
-  // if (!events?.length) return null;
 
   const valid = events?.every((event) => {
     const { eventTargets, eventType } = event;
@@ -45,9 +44,7 @@ const EventIcon: React.FC<{
     });
   });
 
-  // const  = eventRelationStore.eventRelationMap?.get(id)?.values()?.length > 0
   const hasEventRelation = eventRelationStore.eventRelationMap?.get(id)?.size > 0
-  console.log('hasEventRelation', hasEventRelation)
 
   return (
     <>

@@ -14,7 +14,7 @@ const BasicInfo = () => {
     gridOffset,
     fieldName,
     isContainer,
-    fieldTooltip,
+    tooltip,
     isFormItem,
     colon,
     showElementName,
@@ -38,31 +38,30 @@ const BasicInfo = () => {
         />
       </SettingItem>
 
+      <SettingItem label="字段">
+        <Input
+          value={fieldName}
+          onChange={(e) => {
+            const inputValue = e.target.value;
 
+            const formValue = store.getFieldValue(fieldName! || id!);
+
+            store.removeField(id!);
+
+            if (fieldName) {
+              store.removeField(fieldName);
+            }
+
+            if (formValue) {
+              store.setFieldValue(inputValue! || id!, formValue);
+            }
+
+            store.setSelectedProp('fieldName', inputValue);
+          }}
+        />
+      </SettingItem>
       {!isContainer && !isGroup && (
         <>
-          <SettingItem label="字段">
-            <Input
-              value={fieldName}
-              onChange={(e) => {
-                const inputValue = e.target.value;
-
-                const formValue = store.getFieldValue(fieldName! || id!);
-
-                store.removeField(id!);
-
-                if (fieldName) {
-                  store.removeField(fieldName);
-                }
-
-                if (formValue) {
-                  store.setFieldValue(inputValue! || id!, formValue);
-                }
-
-                store.setSelectedProp('fieldName', inputValue);
-              }}
-            />
-          </SettingItem>
           <SettingItem label="表单项">
             <Switch
               size="small"
@@ -100,9 +99,9 @@ const BasicInfo = () => {
 
               <SettingItem label="字段提示" tips="tooltip">
                 <WithLanguage.Input
-                  value={fieldTooltip}
+                  value={tooltip}
                   onChange={(value: TextWithLang) => {
-                    store.setSelectedProp('fieldTooltip', value);
+                    store.setSelectedProp('tooltip', value);
                   }}
                 />
               </SettingItem>
@@ -111,17 +110,6 @@ const BasicInfo = () => {
         </>
       )}
 
-
-
-      {/* <SettingItem label="名称对齐">
-        <Select
-          options={DirectionOpions}
-          value={store.selectedElement.elementNameDisplay || 'vertical'}
-          onChange={(val: TDirection) => {
-            store.setSelectedProp('elementNameDisplay', val);
-          }}
-        />
-      </SettingItem> */}
       <SettingItem label="栅格布局">
         <Switch
           checked={store.selectedElement?.gridLayout}

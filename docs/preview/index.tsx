@@ -1,14 +1,17 @@
-import React from 'react';
-import { FormEditor, FormCanvas } from '@sobot/form-editor';
+import React, { useEffect, useRef } from 'react';
+import { FormEditor, FormCanvas, IEditorInstance } from '@sobot/form-editor';
 // import { customElement } from '../common/customEl';
 import SoilUi from '../soil-ui';
-import { LOCALE } from '../common/locale';
+import { LOCALE, useCommon } from '../common';
 const Comp = () => {
+  const ref = useRef<IEditorInstance>();
+  useCommon(ref)
   return (
     <FormEditor
       mode="form"
       customElements={SoilUi}
       LOCALE={LOCALE}
+      ref={ref}
     >
       <FormCanvas />
     </FormEditor>

@@ -1,23 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Tabs } from '@sobot/soil-ui';
+import { isUndefined, rest } from 'lodash-es';
 
 import store from '@/store';
+import { prefixCls } from '@/const';
+import { EEventAction } from '@/types';
+import { useFormUpdate, useValueImmediately, useGetEventFunctions } from '@/hooks';
 import type { TElementRender } from '@/types';
-import { idCreator } from '@/utils';
+import { idCreator, formatTooltip } from '@/utils';
 import { RenderElementWithLayout } from '@/components';
 import { createContainer } from '../container';
-import { prefixCls } from '@/index';
 import { ELEMENT_TAB_PANEL } from './const';
+import { useEditorContext } from '@/context';
 
 export const createPanel = (props = {}) => {
-  // const panel = {
-  //   ...initialData,
-  //   elementName: { langText: 'tab选项卡', langKey: '' },
-  //   type: ELEMENT_CONTAINER,
-  //   id: idCreator('tab-panel'),
-  //   ...props,
-  // };
-
   const panel = createContainer({
     elementName: { langText: 'tab选项卡', langKey: '' },
     id: idCreator(ELEMENT_TAB_PANEL),
@@ -31,17 +27,14 @@ export const RenderTabs: TElementRender = ({
   element,
   customStyle,
   extendProps,
+  fieldValue,
+  setFieldValue
 }) => {
   const { children, underline } = element;
 
-  const items = children?.map((child) => {
-    store.flatElement(child);
-    return {
-      label: child.elementName?.langText,
-      key: child.id!,
-      children: <RenderElementWithLayout element={child} />,
-    };
-  });
+  const { mode } = useEditorContext();
+
+  const { eventFunctions, immediateFunctions } = useGetEventFunctions(element);
 
   useEffect(() => {
     if (!children?.length) {
@@ -50,8 +43,45 @@ export const RenderTabs: TElementRender = ({
     }
   }, [children?.length]);
 
+  useFormUpdate(() => {
+    eventFunctions[EEventAction.ON_LOADED]?.();
+  }, [eventFunctions[EEventAction.ON_LOADED]]);
+
+  const activeKey = useMemo(() => {
+    if (isUndefined(fieldValue)) {
+      return children?.[0]?.id;
+    }
+    return fieldValue;
+  }, [fieldValue, children]);
+
+  useFormUpdate(() => {
+    eventFunctions[EEventAction.VALUE_CHANGE]?.(activeKey);
+  }, [activeKey]);
+
+  useValueImmediately(immediateFunctions, activeKey);
+
+  const items = children?.map((child) => {
+    store.flatElement(child);
+    const { tooltip, disabled } = child;
+    const extendProps = store.getElementExtendAttrs(child.id!);
+    const { tooltip: extendTooltip, ...extendRest } = extendProps;
+
+    return {
+      label: child.elementName?.langText,
+      key: child.id!,
+      children: <RenderElementWithLayout element={child} />,
+      tooltip: formatTooltip(extendTooltip || tooltip) || null,
+      disabled: mode === 'design' ? false : !!disabled,
+      ...extendRest,
+    };
+  });
+
   return (
     <Tabs
+      activeKey={activeKey}
+      onChange={(key) => {
+        setFieldValue(key);
+      }}
       className={prefixCls('render-tabs')}
       items={items}
       type={element.tabType}

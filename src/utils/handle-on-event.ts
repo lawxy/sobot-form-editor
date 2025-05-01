@@ -120,8 +120,6 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
           customJs,
         } = item;
 
-        console.log(item, 'item');
-
         store.setElementProp(id, 'linkLoading', false);
 
         const finalRes: any = result(serviceRes, getFieldFromService);

@@ -32,7 +32,7 @@ export const ElementLayout: FC<
     type,
     isFormItem,
     colon,
-    fieldTooltip,
+    tooltip,
     showElementName,
     subContainer,
     // extendFormItem
@@ -151,7 +151,7 @@ export const ElementLayout: FC<
             name={fieldName || id}
             rules={rules}
             label={showElementName ? elementName?.langText : null}
-            tooltip={fieldTooltip?.langText || null}
+            tooltip={tooltip?.langText || null}
             colon={!!colon}
             {...formItemProps}
           >
