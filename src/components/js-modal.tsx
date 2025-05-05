@@ -4,8 +4,8 @@ import { Button, Modal, message } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import { MonacoEditor } from '@sobot/form-editor-ui';
 
-// 6133 6198 参数变量未使用时不校验， 7044未定义类型
-const filterErrors = ['6133', '6198', '7044'];
+// 6133 6198 参数变量未使用时不校验， 7044未定义类型 2933"Duplicate function implementation."
+const filterErrors = ['6133', '6198', '7044', '2393'];
 
 export const JSModal: FC<
   PropsWithChildren<{
@@ -78,10 +78,11 @@ export const JSModal: FC<
             changed.current = true;
           }}
           onValidate={(errors) => {
-            console.log('ts语法报错', errors);
-            isJsonValidate.current =
-              errors.filter((item: any) => !filterErrors.includes(item?.code))
-                .length === 0;
+            const finnalErrors = errors.filter((item: any) => !filterErrors.includes(item?.code));
+            isJsonValidate.current = finnalErrors.length === 0;
+            if (!isJsonValidate.current) {
+              console.log('ts语法报错', finnalErrors);
+            }
           }}
           options={{
             tabSize: 2,

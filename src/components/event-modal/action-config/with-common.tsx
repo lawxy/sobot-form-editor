@@ -3,7 +3,12 @@ import { Switch, Select, InputNumber, Input } from 'antd';
 import { prefixCls } from '@/const';
 import type { IConfig } from '.';
 import { delayOptions, EEventAction, EEventType } from '@/types';
-import { QuestionPopover } from '@/components';
+import { QuestionPopover, JSModal } from '@/components';
+
+const defaultEventValueInterceptor = `function main({eventValue}) {
+  return eventValue;
+}
+`;
 
 export const WithCommon: FC<PropsWithChildren<IConfig>> = ({
   children,
@@ -11,7 +16,7 @@ export const WithCommon: FC<PropsWithChildren<IConfig>> = ({
   eventTarget,
   event,
 }) => {
-  const { series, delayTime, delayType, immediately, triggerValue } = eventTarget || {};
+  const { series, delayTime, delayType, immediately, triggerValue, eventValueInterceptor } = eventTarget || {};
 
   const needDelay = [EEventAction.ON_CLICK, EEventAction.VALUE_CHANGE].includes(
     event!.eventAction!,
@@ -19,50 +24,74 @@ export const WithCommon: FC<PropsWithChildren<IConfig>> = ({
 
   return (
     <div className={prefixCls('with-series')}>
+      {
+        event?.eventAction === EEventAction.VALUE_CHANGE && (
+          <>
+            <div className={prefixCls('custom-js')}>
+              事件值拦截器
+              <QuestionPopover
+                content={
+                  <>
+                    可自定义修改事件触发值
+                  </>
+                }
+              />
+              &nbsp;： &nbsp;
+              <JSModal
+                title="拦截器设置"
+                value={eventValueInterceptor || defaultEventValueInterceptor}
+                onChange={(v) => onChange?.({ eventValueInterceptor: v })}
+                hasDefaultValue={!!eventValueInterceptor}
+              />
+            </div>
+            <div>
+              事件触发值
+              <QuestionPopover
+                content={
+                  <>
+                    触发事件的值，不填则直接触发事件
+                    <br />
+                    按照基本数据类型填写, 比如 true 或 1 或 '1'
+                  </>
+                }
+              />
+              &nbsp;： &nbsp;
+              <Input
+                className={prefixCls('event-input')}
+                value={triggerValue}
+                onChange={(e) => onChange?.({ triggerValue: e.target.value })}
+              />
+            </div>
+          </>
+        )
+      }
       {React.isValidElement(children) &&
         React.cloneElement<any>(children, {
           onChange,
           eventTarget,
           event,
         })}
-        {
-          event?.eventAction === EEventAction.VALUE_CHANGE && (
-            <>
-              <div>
-                事件触发值
-                <QuestionPopover
-                  content={
-                    <>
-                      触发事件的值，不填则直接触发事件
-                      <br />
-                      按照基本数据类型填写, 比如 true 或 1 或 '1'
-                    </>
-                  }
-                />
-                &nbsp;： &nbsp;
-                <Input
-                  className={prefixCls('event-input')}
-                  value={triggerValue}
-                  onChange={(e) => onChange?.({ triggerValue: e.target.value })}
-                />
-              </div>
-              <div>
-                立即执行
-                <QuestionPopover
-                  content={
-                    <>
-                      打开以后初始值（默认值或表单值）会触发事件
-                    </>
-                  }
-                />
-                &nbsp;: &nbsp;
-                <Switch
-                  checked={!!immediately}
-                  size="small"
-                  onChange={(c) => onChange?.({ immediately: c })}
-                />
-              </div>
-            </>
+      {
+        event?.eventAction === EEventAction.VALUE_CHANGE && (
+          <>
+
+            <div>
+              立即执行
+              <QuestionPopover
+                content={
+                  <>
+                    打开以后初始值（默认值或表单值）会触发事件
+                  </>
+                }
+              />
+              &nbsp;: &nbsp;
+              <Switch
+                checked={!!immediately}
+                size="small"
+                onChange={(c) => onChange?.({ immediately: c })}
+              />
+            </div>
+          </>
         )
       }
       {

@@ -69,7 +69,6 @@ export const EventModal: FC<
   // 选择事件 菜单项
   const eventActionsMenus = useMemo<MenuItem[]>(() => {
     return eventActions.map((action) => {
-      console.log(action, 'action')
       const menuItem: MenuItem = {
         key: action,
         label: eventActionInChinese[action],

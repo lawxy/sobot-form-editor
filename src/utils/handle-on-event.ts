@@ -24,9 +24,20 @@ const valueChangeContinue = (params: TEmitData) => {
   return true;
 }
 
+const formatEventValue = async (params: TEmitData) => {
+  const { eventValueInterceptor, eventValue } = params;
+  if(!eventValueInterceptor) return params;
+  const { value: resultValue } = await parseJsAsync({
+    jsFunction: eventValueInterceptor,
+    valueWhenError: undefined,
+    dependencies: [eventValue],
+    dependenciesString: ['eventValue'],
+  });
+  return { ...params, eventValue: resultValue };
+}
 // 设置组件
-export const triggerSettingValue = (params: TEmitData) => {
-  const { eventValue, targetPayload, targetElementId, eventAction, triggerValue } = params;
+export const triggerSettingValue = async (params: TEmitData) => {
+  const { eventValue, targetPayload, targetElementId, eventAction, triggerValue } = await formatEventValue(params);
   const store = dynamicGetStore();
   if (!store.getElement(targetElementId!)) return;
 
@@ -54,7 +65,7 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
     eventValue,
     refreshFlag,
     urlAppended,
-  } = serviceParams;
+  } = await formatEventValue(serviceParams);
   const store = dynamicGetStore();
 
   const servId = targetServiceId!;
@@ -168,7 +179,7 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
 
 // 自定义js
 export const triggerCustomJs = async (params: TEmitData) => {
-  const { customJs, eventValue, prevFunctionReturn, sourceId } = params;
+  const { customJs, eventValue, prevFunctionReturn, sourceId } = await formatEventValue(params);
   const store = dynamicGetStore();
   if (!store.getElement(sourceId!)) return;
 
