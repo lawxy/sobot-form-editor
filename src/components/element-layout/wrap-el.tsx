@@ -1,6 +1,5 @@
 import React, { useCallback, useRef, type PropsWithChildren } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Popover } from 'antd';
 import c from 'classnames';
 import store, { tabStore } from '@/store';
 import type { IBaseElement, TCustomEvents, TMode } from '@/types';

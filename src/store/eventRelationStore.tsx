@@ -120,6 +120,16 @@ class EventRelationStore {
         </div>
       ),
       onOk() {
+        const set = map.get(targetId);
+        if (set) {
+          for (const sourceId of set.keys()) {
+            const sourceSet = map.get(sourceId);
+            if (sourceSet) {
+              sourceSet.delete(targetId);
+              map.set(sourceId, sourceSet);
+            }
+          }
+        }
         map.delete(targetId);
       },
     });

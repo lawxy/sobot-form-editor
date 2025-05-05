@@ -58,9 +58,13 @@ export const RenderCheckbox: TElementRender = ({
       {checkboxOptions?.map((opt) => (
         <Checkbox
           key={opt.id}
-          value={opt.value}
+          checked={checkboxValue?.includes(opt.value)}
           indeterminate={indeterminate}
           style={customStyle}
+          onChange={(e) => {
+            const value = Array.isArray(checkboxValue) ? [...checkboxValue] : [];
+            handleChange(e.target.checked ? [...value, opt.value] : value.filter((val: string | number | boolean) => val !== opt.value));
+          }}
         >
           {opt.label}
         </Checkbox>
