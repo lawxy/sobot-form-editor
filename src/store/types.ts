@@ -153,6 +153,8 @@ export interface IExtendStore {
   setFormExtendAttr: (key: string, value: any) => void;
 
   setFormExtendAttrs: (attrs: Record<string, any>) => void;
+
+  extendServiceEmitter: any;
 }
 
 export type TFormTabType = 'element' | 'form' | 'service';

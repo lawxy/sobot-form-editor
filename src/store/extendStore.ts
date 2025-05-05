@@ -1,4 +1,5 @@
 import { IBaseStore, IExtendStore } from './types';
+import { EventEmitter } from '@/utils';
 
 /**
  * 前端扩展属性
@@ -18,6 +19,8 @@ export default {
    * 表单扩展属性
    */
   formExtendAttrs: {},
+
+  extendServiceEmitter: new EventEmitter(),
 
   getElementExtendAttrs(id: string) {
     return this.elementExtendAttrs[id] || {};

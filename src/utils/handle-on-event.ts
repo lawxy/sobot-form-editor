@@ -13,7 +13,7 @@ import { dynamicGetStore } from '.';
 import { triggerService } from './trigger-service';
 import type { TEmitData } from './handle-emit-event';
 import { parseJsAsync, getValueFromInput } from '@/utils';
-
+import extendStore from '@/store/extendStore';
 // 值变化事件判断触发值是否满足条件
 const valueChangeContinue = (params: TEmitData) => {
   const { eventAction, triggerValue, eventValue } = params;
@@ -29,7 +29,7 @@ const formatEventValue = async (params: TEmitData) => {
   if(!eventValueInterceptor) return params;
   const { value: resultValue } = await parseJsAsync({
     jsFunction: eventValueInterceptor,
-    valueWhenError: undefined,
+    valueWhenError: eventValue,
     dependencies: [eventValue],
     dependenciesString: ['eventValue'],
   });
@@ -122,6 +122,9 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
     
     try {
       const serviceRes: any = await triggerService(targetServiceId!);
+      // 扩展服务事件
+      extendStore.extendServiceEmitter.emit(currentService.id!, serviceRes);
+
       linkingElements?.forEach((item) => {
         const {
           id,

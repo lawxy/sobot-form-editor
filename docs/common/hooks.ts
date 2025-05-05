@@ -25,5 +25,10 @@ export const useCommon = (ref) => {
             tooltip,
         });
 
+        // getOptions
+        ref.current?.extendServiceEmitter.on('service-8e312rbg3ds', (data) => {
+            console.log( data);
+        })
+
     }, []);
 }

@@ -1,6 +1,7 @@
 import { useImperativeHandle } from 'react';
 import { withPromise } from '@/utils';
 import store from '@/store';
+import eventRelationStore from '@/store/eventRelationStore';
 import { IBaseElement } from '@/types';
 import { TElementSearch } from '@/types';
 import { FormProps, FormItemProps } from '@sobot/soil-ui';
@@ -12,6 +13,9 @@ export const useExpose = (
 ) => {
   useImperativeHandle(ref, () => ({
     ...others,
+
+    extendServiceEmitter: store.extendServiceEmitter,
+
     setElementProp(
       search: TElementSearch,
       field: keyof IBaseElement,
@@ -96,5 +100,6 @@ export const useExpose = (
     getSchema() {
       return store.getSchema();
     },
+
   }));
 };
