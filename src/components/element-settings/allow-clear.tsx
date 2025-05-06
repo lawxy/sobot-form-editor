@@ -6,7 +6,7 @@ import { SettingItem } from '../setting-common';
 
 export const AllowClear = observer(() => {
   return (
-    <SettingItem label="支持清空">
+    <SettingItem label="支持清空" tips='allowClear'>
       <Switch
         size="small"
         checked={store.selectedElement.allowClear}

@@ -28,7 +28,7 @@ export const SettingCheckbox: TElementSetting = ({
   return (
     <>
       <SettingWrap title="元素设置">
-        <DefaultValueSetting>
+        <DefaultValueSetting tips='defaultValue'>
           {(value) => (
             <Select
               allowClear
@@ -45,7 +45,7 @@ export const SettingCheckbox: TElementSetting = ({
 
         <UseGroupSetting />
         {element.useGroup && (
-          <SettingItem label="排列方式">
+          <SettingItem label="排列方式" tips='direction'>
             <Select
               options={DirectionOpions}
               value={element.direction}

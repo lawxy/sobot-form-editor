@@ -8,7 +8,7 @@ export const CanSearchSetting = observer(() => {
   const { canSearch } = store.selectedElement;
 
   return (
-    <SettingItem label="支持搜索">
+    <SettingItem label="支持搜索" tips='canSearch'>
       <Switch
         size="small"
         checked={canSearch}

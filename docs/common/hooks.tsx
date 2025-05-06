@@ -2,6 +2,10 @@ import React from 'react'
 import { useEffect } from "react";
 import { cloneDeep } from 'lodash-es';
 import { Button } from 'antd'; 
+import { triggerLinkingService, triggerService } from '@sobot/form-editor';
+
+// console.log('triggerLinkingService', triggerLinkingService)
+// console.log('triggerService', triggerService)
 
 const tooltip = {
     title: '该报表仅展示 「最后排队技能组」 是当前技能组时的今日累计电话数据',
@@ -24,28 +28,46 @@ const tooltip = {
 
 export const useCommon = (ref) => {
     useEffect(() => {
+       
+        
         // 服务监听getOptions
-
-        ref.current?.extendElementAttr({fieldName: 'tab1'}, 'tooltip', tooltip)
-
         // ref.current?.extendServiceEmitter.on('service-8e312rbg3ds', (data) => {
         //     console.log( data);
         // })
 
         // 前端扩展
+        // 设置tab1的tooltip
+        ref.current?.extendElementAttr({fieldName: 'tab1'}, 'tooltip', tooltip)
+
+         // 设置table的columns
         ref.current?.getElement({fieldName: 'table'}).then((el) => {
             if(!el) return;
             const columns = cloneDeep(el?.columns);
             columns.push({
                 title: '操作',
-                // title: {langText: '操作'},
                 width: 100,
                 render(){
                     return <Button>操作</Button>
                 }
             })
-            ref.current?.extendElementAttr(el.id, 'columns', columns)
+            ref.current?.extendElementAttrs(el.id,  {
+                columns,
+                rowSelection: {
+                    type: 'checkbox',
+                    fixed: 'left',
+                }
+            })
         })
+
+        setTimeout(() => {
+            triggerLinkingService({
+                serviceId: 'service-8e312rbg3ds',
+                eventValue: '123'
+            })
+            // triggerService('service-8e312rbg3ds').then((res) => {
+            //     console.log('res', res)
+            // })
+        }, 3000)
 
 
     }, []);

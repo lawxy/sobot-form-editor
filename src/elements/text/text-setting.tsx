@@ -12,14 +12,14 @@ export const SettingText: TElementSetting = ({ element, setElementProp, setField
   const { toggle, text, openValue, closeValue, defaultValue } = element;
   return (
     <SettingWrap title="元素设置">
-      <SettingItem label="文案">
+      <SettingItem label="文案"  tips='text'>
         <WithLanguage.Input
           value={text}
           onChange={(value: TextWithLang) => setElementProp('text', value)}
         />
       </SettingItem>
 
-      <SettingItem label="是否可切换">
+      <SettingItem label="是否可切换" tips='toggle'>
         <Switch size='small' checked={toggle} onChange={(checked) => setElementProp('toggle', checked)}/>
       </SettingItem>
 
@@ -27,7 +27,7 @@ export const SettingText: TElementSetting = ({ element, setElementProp, setField
         toggle && (
           <>
             <SettingItem
-              tips="按照基本数据类型填写, 比如 true 或 1 或 '1'"
+              tips="openValue: 按照基本数据类型填写, 比如 true 或 1 或 '1'"
               label="开启值"
             >
               <Input
@@ -37,7 +37,7 @@ export const SettingText: TElementSetting = ({ element, setElementProp, setField
                 }}
               />
             </SettingItem>
-            <SettingItem label="关闭值">
+            <SettingItem label="关闭值" tips='closeValue'>
               <Input
                 value={closeValue}
                 onChange={(e) => {
@@ -45,7 +45,7 @@ export const SettingText: TElementSetting = ({ element, setElementProp, setField
                 }}
               />
             </SettingItem>
-            <SettingItem label="默认值">
+            <SettingItem label="默认值" tips='defaultValue'>
               <Input
                 value={defaultValue}
                 onChange={(e) => {

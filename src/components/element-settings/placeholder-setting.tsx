@@ -15,7 +15,7 @@ export const PlaceholderSetting = observer(
     field?: keyof IBaseElement;
   }) => {
     return (
-      <SettingItem label={label}>
+      <SettingItem label={label} tips={field}>
         <WithLanguage.Input
           value={store.selectedElement[field]}
           onChange={(val: TextWithLang) => {

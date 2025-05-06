@@ -37,7 +37,7 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
       <SettingWrap title="元素设置">
         <DefaultValueSetting />
         <PlaceholderSetting />
-        <SettingItem label="文本类型">
+        <SettingItem label="文本类型" tips='textType'>
           <Select
             value={textType}
             style={{ width: '100%' }}
@@ -52,7 +52,7 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
         </SettingItem>
         <DisabledSetting />
         <AllowClear />
-        <SettingItem label="显示字数">
+        <SettingItem label="显示字数" tips='showCount'>
           <Switch
             size="small"
             checked={showCount}
@@ -62,7 +62,7 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
           />
         </SettingItem>
 
-        <SettingItem label="最小长度">
+        <SettingItem label="最小长度" tips='minNum'>
           <InputNumber
             value={minNum}
             min={0}
@@ -72,7 +72,7 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
             }}
           />
         </SettingItem>
-        <SettingItem label="最大长度">
+        <SettingItem label="最大长度" tips='maxNum'>
           <InputNumber
             value={maxNum}
             min={1}
@@ -84,7 +84,7 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
         </SettingItem>
         {textType === 'single' && (
           <>
-            <SettingItem label="前缀">
+            <SettingItem label="前缀" tips='addonBefore'>
               <WithLanguage.Input
                 value={addonBefore!}
                 onChange={(val: TextWithLang) =>
@@ -92,7 +92,7 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
                 }
               />
             </SettingItem>
-            <SettingItem label="后缀">
+            <SettingItem label="后缀" tips='addonAfter'>
               <WithLanguage.Input
                 value={addonAfter!}
                 onChange={(val: TextWithLang) =>
@@ -104,7 +104,7 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
         )}
         {textType === 'multiple' && (
           <>
-            <SettingItem label="自适应行数">
+            <SettingItem label="自适应行数" tips='autoSize'>
               <Switch
                 size="small"
                 checked={autoSize}
@@ -115,7 +115,7 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
             </SettingItem>
             {!autoSize && (
               <>
-                <SettingItem label="最小行数">
+                <SettingItem label="最小行数" tips='minRows'>
                   <InputNumber
                     value={minRows}
                     style={{ width: '100%' }}
@@ -124,7 +124,7 @@ export const SettingInput: TElementSetting = ({ element, setElementProp }) => {
                     }}
                   />
                 </SettingItem>
-                <SettingItem label="最大行数">
+                <SettingItem label="最大行数" tips='maxRows'>
                   <InputNumber
                     value={maxRows}
                     min={minRows}

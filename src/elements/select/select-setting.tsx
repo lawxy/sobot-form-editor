@@ -51,7 +51,7 @@ export const SettingSelect: TElementSetting = ({
         <DisabledSetting />
         <AllowClear />
         <CanSearchSetting />
-        <SettingItem label="前缀">
+        <SettingItem label="前缀" tips='addonBefore'>
           <WithLanguage.Input
             value={addonBefore!}
             onChange={(val: TextWithLang) => setElementProp('addonBefore', val)}
@@ -69,10 +69,11 @@ export const SettingSelect: TElementSetting = ({
               height: 70,
             }}
             onSave={(v) => setElementProp('labelWrapperStyle', v)}
+            tips='labelWrapperStyle'
           />
         )}
 
-        <SettingItem label="多选模式" style={{ marginTop: 20 }}>
+        <SettingItem label="多选模式" style={{ marginTop: 20 }} tips='multiple'>
           <Switch
             size="small"
             checked={!!element.multiple}
@@ -80,7 +81,7 @@ export const SettingSelect: TElementSetting = ({
           />
         </SettingItem>
         {element.multiple && (
-          <SettingItem label="多选文本形式">
+          <SettingItem label="多选文本形式" tips='tagRenderText'>
             <Switch
               size="small"
               checked={!!element.tagRenderText}

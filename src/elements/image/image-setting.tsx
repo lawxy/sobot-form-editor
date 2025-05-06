@@ -8,8 +8,8 @@ export const SettingImage: TElementSetting = ({ element, setElementProp }) => {
   return (
     <>
       <SettingWrap title="元素设置">
-        <DefaultValueSetting label="默认地址" />
-        <SettingItem label="占位地址">
+        <DefaultValueSetting label="默认地址" tips='defaultValue' />
+        <SettingItem label="占位地址" tips='placeholder'>
           <Input
             value={placeholder}
             onChange={(e) => {
@@ -17,7 +17,7 @@ export const SettingImage: TElementSetting = ({ element, setElementProp }) => {
             }}
           />
         </SettingItem>
-        <SettingItem label="支持预览">
+        <SettingItem label="支持预览" tips='preview'>
           <Switch
             checked={preview}
             size="small"
@@ -25,7 +25,7 @@ export const SettingImage: TElementSetting = ({ element, setElementProp }) => {
           />
         </SettingItem>
         {preview && (
-          <SettingItem label="预览地址">
+          <SettingItem label="预览地址" tips='previewSrc'>
             <Input
               value={previewSrc}
               onChange={(e) => {

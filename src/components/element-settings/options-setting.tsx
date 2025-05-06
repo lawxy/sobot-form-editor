@@ -26,7 +26,7 @@ const columns: TableColumnProps<TOption>[] = [
 export const OptionSetting: FC = observer(() => {
   return (
     <>
-      <SettingItem label="选项">
+      <SettingItem label="选项" tips='options'>
         <OptionModal
           options={store.selectedElement.options || []}
           onChange={(options) => {
@@ -46,7 +46,7 @@ export const OptionSetting: FC = observer(() => {
         }))}
         pagination={false}
         scroll={{ y: 300 }}
-        rowKey="id"
+        rowKey="value"
       />
     </>
   );

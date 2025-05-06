@@ -31,6 +31,7 @@ interface CustomCssSettingProps {
   editorStyle: React.CSSProperties;
   onSave: (value: string) => void;
   label?: string;
+  tips?: string;
 }
 
 export const CustomCssSetting: React.FC<CustomCssSettingProps> = ({
@@ -39,6 +40,7 @@ export const CustomCssSetting: React.FC<CustomCssSettingProps> = ({
   onSave,
   label,
   style,
+  tips,
 }) => {
   const [canSave, setCanSave] = useState(false);
   const isJsonValidate = useRef<boolean>(true);
@@ -83,7 +85,7 @@ export const CustomCssSetting: React.FC<CustomCssSettingProps> = ({
   return (
     <>
       <SettingItem
-        tips="选择器是为了方便格式书写，并不存在于html中"
+        tips={`${tips? tips + ': ' : ''}选择器是为了方便格式书写，并不存在于html中`}
         label={label || '自定义CSS'}
         style={style || {}}
       >

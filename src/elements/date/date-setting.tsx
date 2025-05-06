@@ -26,7 +26,7 @@ export const SettingDate: TElementSetting = ({
       <SettingWrap title="元素设置">
         <PlaceholderSetting />
 
-        <SettingItem label="日期类型">
+        <SettingItem label="日期类型" tips='datePickerType'>
           <Select
             value={datePickerType}
             options={datePickerTypeOptions}
@@ -35,7 +35,7 @@ export const SettingDate: TElementSetting = ({
         </SettingItem>
 
         {datePickerType === '' && (
-          <SettingItem label="日期格式">
+          <SettingItem label="日期格式" tips='dateFormat'>
             <Select
               value={element.dateFormat}
               style={{ width: '100%' }}
@@ -52,7 +52,7 @@ export const SettingDate: TElementSetting = ({
           fieldType="startDate"
           type="date"
         />
-        <SettingItem label="标题">
+        <SettingItem label="标题" tips='addonBefore'>
           <WithLanguage.Input
             value={addonBefore!}
             onChange={(val: TextWithLang) => setElementProp('addonBefore', val)}

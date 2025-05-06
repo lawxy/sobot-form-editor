@@ -26,18 +26,18 @@ export const SettingTable: TElementSetting = ({ element, setElementProp }) => {
 
   return (
     <SettingWrap title="元素设置">
-      <SettingItem label="rowKey">
+      <SettingItem label="rowKey" tips='rowKey'>
         <Input value={rowKey} onChange={handleChange('rowKey')} />
       </SettingItem>
 
-      <SettingItem label="横向滚动宽度">
+      <SettingItem label="横向滚动" tips='scrollX'>
         <Input value={scrollX} onChange={handleChange('scrollX')} />
       </SettingItem>
-      <SettingItem label="纵向滚动高度">
+      <SettingItem label="纵向滚动" tips='scrollY'>
         <Input value={scrollY} onChange={handleChange('scrollY')} />
       </SettingItem>
 
-      <SettingItem label="是否可分页">
+      <SettingItem label="是否可分页" tips='pagination'>
         <Switch
           size="small"
           checked={element.pagination}
@@ -48,7 +48,7 @@ export const SettingTable: TElementSetting = ({ element, setElementProp }) => {
       </SettingItem>
       {pagination && (
         <>
-          <SettingItem label="每页条数">
+          <SettingItem label="每页条数" tips='pageSize'>
             <Select
               value={pageSize}
               options={pageSizeOptions}

@@ -49,7 +49,6 @@ export const RenderTable: TElementRender = ({
   }, [current, pageSize]);
 
   const tableColumns = useMemo(() => {
-    console.log('extendProps?.columns', extendProps?.columns)
     const iterateColumns = extendProps?.columns || columns;
 
     return iterateColumns.map((column) => {
@@ -75,7 +74,6 @@ export const RenderTable: TElementRender = ({
       loading={linkLoading}
       style={customStyle}
       scroll={{ y: scrollY, x: scrollX }}
-      // rowSelection={{ type: 'checkbox' }}
       pagination={
         pagination && {
           total: total ?? fieldValue?.length,

@@ -8,7 +8,7 @@ export const DisabledSetting = observer(() => {
   const { disabled } = store.selectedElement;
 
   return (
-    <SettingItem label="是否禁用">
+    <SettingItem label="是否禁用" tips='disabled'>
       <Switch
         size="small"
         checked={disabled}

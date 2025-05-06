@@ -7,7 +7,7 @@ export const SettingUpload: TElementSetting = ({ element, setElementProp }) => {
   const { uploadUrl, addonAfter } = element;
   return (
     <SettingWrap title='元素设置'>
-      <SettingItem label="tip">
+      <SettingItem label="tip" tips='addonAfter'>
         <WithLanguage.Input
           value={addonAfter!}
           onChange={(val: TextWithLang) => {
@@ -15,7 +15,7 @@ export const SettingUpload: TElementSetting = ({ element, setElementProp }) => {
           }}
         />
       </SettingItem>
-      <SettingItem label="上传地址">
+      <SettingItem label="上传地址" tips='uploadUrl'>
         <Input
           value={uploadUrl}
           onChange={(e) => {

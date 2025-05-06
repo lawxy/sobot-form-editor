@@ -25,13 +25,13 @@ export const SettingTime: TElementSetting = ({ element, setElementProp }) => {
   return (
     <>
       <SettingWrap title="元素设置">
-        <SettingItem label="标题">
+        <SettingItem label="标题" tips='addonBefore'>
           <WithLanguage.Input
             value={addonBefore!}
             onChange={(val: TextWithLang) => setElementProp('addonBefore', val)}
           />
         </SettingItem>
-        <SettingItem label="时间格式">
+        <SettingItem label="时间格式" tips='dateFormat'>
           <Select
             value={dateFormat}
             style={{ width: '100%' }}
@@ -41,7 +41,7 @@ export const SettingTime: TElementSetting = ({ element, setElementProp }) => {
             }}
           />
         </SettingItem>
-        <SettingItem label="时间范围">
+        <SettingItem label="时间范围" tips='timeRange'>
           <Switch
             size="small"
             checked={!!timeRange}
@@ -57,6 +57,7 @@ export const SettingTime: TElementSetting = ({ element, setElementProp }) => {
               label="默认时间"
               fieldType="startDate"
               type="time"
+              tips='defaultValue'
             />
           </>
         )}

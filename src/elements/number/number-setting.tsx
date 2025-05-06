@@ -21,7 +21,7 @@ export const SettingNumber: TElementSetting = ({
   return (
     <>
       <SettingWrap title="元素设置">
-        <DefaultValueSetting>
+        <DefaultValueSetting tips='defaultValue'>
           {(value) => (
             <InputNumber
               min={element?.minNum}
@@ -34,19 +34,19 @@ export const SettingNumber: TElementSetting = ({
             />
           )}
         </DefaultValueSetting>
-        <SettingItem label="最小值">
+        <SettingItem label="最小值" tips='minNum'>
           <InputNumber
             value={element?.minNum}
             onChange={handleChange('minNum')}
           />
         </SettingItem>
-        <SettingItem label="最大值">
+        <SettingItem label="最大值" tips='maxNum'>
           <InputNumber
             value={element?.maxNum}
             onChange={handleChange('maxNum')}
           />
         </SettingItem>
-        <SettingItem label="数据类型">
+        <SettingItem label="数据类型" tips='valueType'>
           <Select
             value={element?.valueType}
             options={valueTypeOptions}

@@ -7,11 +7,11 @@ import { SettingItem } from '../setting-common';
 import store from '../../store';
 import type { TextWithLang } from '../../types';
 const DefaultValueSettingContent: FC<
-  { label?: string } & Partial<ConsumerProps<any>>
-> = ({ children, label }) => {
+  { label?: string, tips?: string } & Partial<ConsumerProps<any>>
+> = ({ children, label, tips }) => {
   const { defaultValue } = store.selectedElement || {};
   return (
-    <SettingItem label={label ?? '默认值'}>
+    <SettingItem label={label ?? '默认值'} tips={tips}>
       {children ? (
         children(defaultValue)
       ) : (

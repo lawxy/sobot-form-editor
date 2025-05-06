@@ -11,4 +11,5 @@ export const LOCALE = {
   "error-en": "Error",
   "today": "今天",
   "today-en": "Today",
+  "textFunc": "文案函数-${text}"
 }

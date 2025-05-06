@@ -58,7 +58,7 @@ export const DefaultDateSetting = observer(
 
     return (
       <>
-        <SettingItem label={label}>
+        <SettingItem label={label} tips={modeAttribute}>
           <Select
           allowClear
             options={type === 'date' ? dateModeOptions : timeModeOptions}
@@ -69,7 +69,7 @@ export const DefaultDateSetting = observer(
           />
         </SettingItem>
         {mode === EDateMode.PICKER && (
-          <SettingItem label={''}>
+          <SettingItem label={''} tips={fieldType}>
             <Picker
               format={type === 'date' ? dateFormat : timeFormat}
               showTime
@@ -84,7 +84,7 @@ export const DefaultDateSetting = observer(
           </SettingItem>
         )}
         {mode === EDateMode.CUSTOM && (
-          <SettingItem label={''}>
+          <SettingItem label={''} tips={customAttribute}>
             <JSModal
               title={'日期函数'}
               value={customValue || defaultCustomAttribute}

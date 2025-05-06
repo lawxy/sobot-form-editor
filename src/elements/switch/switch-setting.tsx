@@ -23,14 +23,14 @@ export const SettingSwitch: TElementSetting = ({
 
   return (
     <SettingWrap title="元素设置">
-      <SettingItem label="后缀文案">
+      <SettingItem label="后缀文案" tips='addonAfter'>
         <WithLanguage.Input
           value={addonAfter}
           onChange={(value: TextWithLang) => setElementProp('addonAfter', value)}
         />
       </SettingItem>
       <SettingItem
-        tips="按照基本数据类型填写, 比如 true 或 1 或 '1'"
+        tips="openValue: 按照基本数据类型填写, 比如 true 或 1 或 '1'"
         label="开启值"
       >
         <Input
@@ -40,7 +40,7 @@ export const SettingSwitch: TElementSetting = ({
           }}
         />
       </SettingItem>
-      <SettingItem label="关闭值">
+      <SettingItem label="关闭值" tips='closeValue'>
         <Input
           value={element?.closeValue}
           onChange={(e) => {
@@ -48,7 +48,7 @@ export const SettingSwitch: TElementSetting = ({
           }}
         />
       </SettingItem>
-      <DefaultValueSetting>
+      <DefaultValueSetting tips='defaultValue'>
         {(value) => (
           <Switch
             size="small"

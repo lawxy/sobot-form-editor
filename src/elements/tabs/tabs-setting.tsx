@@ -83,7 +83,7 @@ export const SettingTabs: TElementSetting = ({ element, setElementProp }) => {
   ];
   return (
     <SettingWrap title="元素设置">
-      <SettingItem label="tab类型">
+      <SettingItem label="tab类型" tips='tabType'>
         <Select
           value={tabType}
           options={['line', 'card', 'split'].map((item) => ({
@@ -95,7 +95,7 @@ export const SettingTabs: TElementSetting = ({ element, setElementProp }) => {
           }}
         />
       </SettingItem>
-      <SettingItem label="下划线">
+      <SettingItem label="下划线" tips='underline'>
         <Switch
           size="small"
           checked={underline}

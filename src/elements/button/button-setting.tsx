@@ -6,7 +6,7 @@ import type { TElementSetting, TextWithLang } from '@/types';
 export const SettingButton: TElementSetting = ({ element, setElementProp }) => {
   return (
     <SettingWrap title="按钮设置">
-      <SettingItem label="按钮文案">
+      <SettingItem label="按钮文案" tips='text'>
         <WithLanguage.Input
           value={element.text!}
           onChange={(val: TextWithLang) => {
@@ -14,7 +14,7 @@ export const SettingButton: TElementSetting = ({ element, setElementProp }) => {
           }}
         />
       </SettingItem>
-      <SettingItem label="按钮类型">
+      <SettingItem label="按钮类型" tips='btnType'>
         <Select
           value={element.btnType}
           options={[
@@ -43,7 +43,7 @@ export const SettingButton: TElementSetting = ({ element, setElementProp }) => {
           }}
         />
       </SettingItem>
-      <SettingItem label="按钮大小">
+      <SettingItem label="按钮大小" tips='size'>
         <Select
           value={element.size}
           options={[
