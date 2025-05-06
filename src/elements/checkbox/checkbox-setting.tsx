@@ -10,7 +10,7 @@ import {
 } from '@/components';
 import { DirectionOpions } from '@/const';
 import type { TDirection, TElementSetting } from '@/types';
-
+import { parseText } from '@/utils';
 export const SettingCheckbox: TElementSetting = ({
   element,
   setElementProp,
@@ -21,7 +21,7 @@ export const SettingCheckbox: TElementSetting = ({
   const checkboxOptions = useMemo(() => {
     return options?.map((opt) => ({
       ...opt,
-      label: opt.label.langText,
+      label: parseText(opt.label),
     }));
   }, [options]);
 

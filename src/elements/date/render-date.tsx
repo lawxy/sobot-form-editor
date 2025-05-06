@@ -5,7 +5,7 @@ import { assign } from 'lodash';
 import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EEventAction, EDateMode } from '@/types';
 import type { TElementRender } from '@/types';
-import { parseJs, showTimeFormat } from '@/utils';
+import { parseJs, parseText, showTimeFormat } from '@/utils';
 
 export const RenderDate: TElementRender = ({
   fieldValue,
@@ -78,7 +78,7 @@ export const RenderDate: TElementRender = ({
 
   const attributes = useMemo(() => {
     const baseAttributes = {
-      label: addonBefore?.langText,
+      label: parseText(addonBefore),
       placement,
     };
 
@@ -103,7 +103,7 @@ export const RenderDate: TElementRender = ({
       onBlur={handleEvent(EEventAction.ON_BLUR)}
       disabled={disabled}
       allowClear={allowClear}
-      placeholder={placeholder?.langText}
+      placeholder={parseText(placeholder)}
       style={customStyle}
       {...attributes}
       {...extendProps}

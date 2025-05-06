@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
-import { getValueFromInput } from '@/utils';
-import { useFormEffect, useFormLayoutEffect, useFormUpdate, useGetEventFunctions, useValueImmediately } from '@/hooks';
+import { getValueFromInput, parseText } from '@/utils';
+import { useFormUpdate, useGetEventFunctions, useValueImmediately } from '@/hooks';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 import { prefixCls } from '@/const';
@@ -64,7 +64,7 @@ export const RenderText: TElementRender = ({
       style={style}
       {...extendProps}
     >
-      {text?.langText}
+      {parseText(text)}
       {
         toggle && (
           <>

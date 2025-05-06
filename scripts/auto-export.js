@@ -87,7 +87,7 @@ import type { IDragElementProp } from '../types'
       const iconName = `${AllUpper}_Icon`;
       content += `
 import { ${typeKey}, ${renderComponent}, ${settingComponent}, ${text}, initialData as ${initData}, eventActions as ${eventActions}, Icon as ${iconName} } from './${elementName}'
-export { ${typeKey}, ${renderComponent}, ${settingComponent}, ${text} } from './${elementName}'
+export { ${typeKey}, ${renderComponent}, ${settingComponent}, ${text}, initialData as ${initData}, } from './${elementName}'
         `;
       elementList.push({
         typeKey,
@@ -116,5 +116,14 @@ export const ElementsMap: Record<string, IDragElementProp> = {
   });
   content += '}';
   // console.log(content)
+//   content += `
+// export const elementInitialData= {
+//       `;
+//   elementList.sort(handleSort).forEach((item) => {
+//     content += `
+//   ${item.initData},\n`;
+//   });
+//   content += '}';
+
   fs.writeFileSync(exportFile, content);
 });

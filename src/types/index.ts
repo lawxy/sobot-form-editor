@@ -23,7 +23,7 @@ export type TDragElementObject = Record<
 >;
 export type TElementSearch = string | { id?: string; fieldName?: string };
 export type TDragElement = TDragElementObject | IDragElementProp[];
-export type TextWithLang = { langText: string; langKey: string };
+export type TextWithLang = { langText: string; langKey: string, params?: Record<string, any> } | string;
 export type TDirection = 'vertical' | 'horizontal';
 export type TMode = 'design' | 'form';
 export type TOption = {
@@ -436,6 +436,10 @@ export interface IBaseElement {
    * 文本框 是否可切换
    */
   toggle?: boolean;
+  /**
+   * 表格行key
+   */ 
+  rowKey?: string;
 }
 export interface IFormAttributesProps {
   editorName?: string;

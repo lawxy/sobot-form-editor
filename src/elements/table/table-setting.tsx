@@ -12,20 +12,24 @@ const pageSizeOptions = ['10', '20', '50', '100'].map((item) => ({
 }));
 
 export const SettingTable: TElementSetting = ({ element, setElementProp }) => {
-  const { scrollX, scrollY, pagination, pageSize } = element;
+  const { scrollX, scrollY, pagination, pageSize, rowKey } = element;
 
   const handleChange = useCallback((attr: keyof IBaseElement) => {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
-      const number = +e.target.value;
-      const value =
-        isNumber(number) && !isNaN(number) ? +number : e.target.value;
+      // const number = +e.target.value;
+      // const value =
+      //   isNumber(number) && !isNaN(number) ? +number : e.target.value;
       // console.log('value', value);
-      setElementProp(attr, value);
+      setElementProp(attr, e.target.value);
     };
   }, []);
 
   return (
     <SettingWrap title="元素设置">
+      <SettingItem label="rowKey">
+        <Input value={rowKey} onChange={handleChange('rowKey')} />
+      </SettingItem>
+
       <SettingItem label="横向滚动宽度">
         <Input value={scrollX} onChange={handleChange('scrollX')} />
       </SettingItem>

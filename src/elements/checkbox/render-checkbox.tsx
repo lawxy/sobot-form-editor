@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react';
-import { Checkbox, Space } from '@sobot/soil-ui';
+import { Checkbox } from '@sobot/soil-ui';
 
 import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
-import { EEventAction, type TElementRender } from '@/types';
+import { EEventAction, TOption, type TElementRender } from '@/types';
 import { isUndefined } from 'lodash-es';
+import { parseText } from '@/utils';
 
 export const RenderCheckbox: TElementRender = ({
   fieldValue,
@@ -25,11 +26,13 @@ export const RenderCheckbox: TElementRender = ({
   }, [eventFunctions[EEventAction.ON_LOADED]]);
 
   const checkboxOptions = useMemo(() => {
-    return options?.map((opt) => ({
+    const iterateOptions = extendProps?.options || options;
+
+    return iterateOptions?.map((opt: TOption) => ({
       ...opt,
-      label: opt.label.langText,
+      label: parseText(opt.label),
     }));
-  }, [options]);
+  }, [options, extendProps?.options]);
 
   const checkboxValue = useMemo(() => {
     if (isUndefined(fieldValue)) {
@@ -50,12 +53,12 @@ export const RenderCheckbox: TElementRender = ({
       value={checkboxValue}
       style={customStyle}
       direction={direction}
-      options={checkboxOptions}
       {...extendProps}
+      options={checkboxOptions}
     />
   ) : (
     <>
-      {checkboxOptions?.map((opt) => (
+      {checkboxOptions?.map((opt: TOption) => (
         <Checkbox
           key={opt.id}
           checked={checkboxValue?.includes(opt.value)}

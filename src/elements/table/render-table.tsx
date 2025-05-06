@@ -7,6 +7,7 @@ import {
   useGetEventFunctions,
   EEventAction,
 } from '@sobot/form-editor';
+import { parseText } from '@/utils'
 import type { ITableEdit } from './type';
 
 export const RenderTable: TElementRender = ({
@@ -14,6 +15,7 @@ export const RenderTable: TElementRender = ({
   element,
   customStyle,
   setElementProp,
+  extendProps,
 }) => {
   const {
     columns = [],
@@ -24,7 +26,7 @@ export const RenderTable: TElementRender = ({
     pagination,
     total,
     current,
-    extendProps,
+    rowKey
   } = element;
 
   const { eventFunctions } = useGetEventFunctions(element);
@@ -47,22 +49,33 @@ export const RenderTable: TElementRender = ({
   }, [current, pageSize]);
 
   const tableColumns = useMemo(() => {
-    return columns.map((column) => {
+    console.log('extendProps?.columns', extendProps?.columns)
+    const iterateColumns = extendProps?.columns || columns;
+
+    return iterateColumns.map((column) => {
+      const { title, width, render } = column
+
       return {
         ...column,
-        title: column.title.langText,
+        title: parseText(title),
+        width: parseText(width),
+        render: render ? render : (val) => {
+          if(column.valueType === 'text') return val;
+          const item = column?.options?.find((item) => item.value == val);
+          return parseText(item?.label);
+        }
       };
     });
-  }, [columns]);
+  }, [columns, extendProps?.columns]);
 
   return (
     <Table
-      columns={tableColumns}
-      rowKey="id"
+      rowKey={rowKey}
       dataSource={fieldValue}
       loading={linkLoading}
       style={customStyle}
       scroll={{ y: scrollY, x: scrollX }}
+      // rowSelection={{ type: 'checkbox' }}
       pagination={
         pagination && {
           total: total ?? fieldValue?.length,
@@ -75,6 +88,7 @@ export const RenderTable: TElementRender = ({
         }
       }
       {...extendProps}
+      columns={tableColumns}
     />
   );
 };

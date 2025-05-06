@@ -14,7 +14,7 @@ import {
   WithLanguage,
 } from '@/components';
 import type { TElementSetting, TextWithLang } from '@/types';
-
+import { parseText } from '@/utils';
 export const SettingSelect: TElementSetting = ({
   element,
   setElementProp,
@@ -25,7 +25,7 @@ export const SettingSelect: TElementSetting = ({
   const selectOptions = useMemo(() => {
     return options?.map((opt) => ({
       ...opt,
-      label: opt.label.langText,
+      label: parseText(opt.label),
     }));
   }, [options]);
 
@@ -58,7 +58,7 @@ export const SettingSelect: TElementSetting = ({
           />
         </SettingItem>
 
-        {addonBefore?.langText && (
+        {parseText(addonBefore) && (
           <CustomCssSetting
             label="带标题样式"
             defaultValue={labelWrapperStyle || `.labelWrapperStyle {\n\t\t\n}`}

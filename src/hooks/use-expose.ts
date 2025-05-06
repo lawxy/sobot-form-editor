@@ -16,18 +16,18 @@ export const useExpose = (
 
     extendServiceEmitter: store.extendServiceEmitter,
 
-    setElementProp(
-      search: TElementSearch,
-      field: keyof IBaseElement,
-      value: any,
-    ) {
-      withPromise(() => {
-        const element = store.getElement(search);
-        if (element) {
-          store.setElementProp(element.id!, field, value);
-        }
-      });
-    },
+    // setElementProp(
+    //   search: TElementSearch,
+    //   field: keyof IBaseElement,
+    //   value: any,
+    // ) {
+    //   withPromise(() => {
+    //     const element = store.getElement(search);
+    //     if (element) {
+    //       store.setElementProp(element.id!, field, value);
+    //     }
+    //   });
+    // },
 
     extendFormAttr(key: keyof FormProps, value: any) {
       store.setFormExtendAttr(key, value);

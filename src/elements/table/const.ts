@@ -16,49 +16,18 @@ export const initialData: Partial<IBaseElement> = {
   pagination: false,
   pageSize: 10,
   current: 1,
+  rowKey: 'id',
 };
 
 export const valueTypeList = [
   {
-    label: '枚举',
-    value: 'enum',
-  },
-  {
-    label: '文本框',
+    label: '文本',
     value: 'text',
   },
   {
-    label: '下拉框',
-    value: 'select',
-  },
-  {
-    label: '单选',
-    value: 'radio',
-  },
-  {
-    label: '多选',
-    value: 'checkbox',
-  },
-  {
-    label: '数字框',
-    value: 'digit',
-  },
-  {
-    label: '日期',
-    value: 'date',
-  },
-  {
-    label: '时间',
-    value: 'time',
-  },
-  {
-    label: '日期时间',
-    value: 'dateTime',
-  },
-  {
-    label: '日期区间',
-    value: 'dateRange',
+    label: '枚举',
+    value: 'enum',
   },
 ];
 
-export const elementWithOptions = ['select', 'radio', 'checkbox'];
+export const columnWithOptions = ['enum'];

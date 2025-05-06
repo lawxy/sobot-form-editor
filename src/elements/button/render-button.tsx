@@ -3,6 +3,7 @@ import { Button } from '@sobot/soil-ui';
 import { useGetEventFunctions } from '@/hooks';
 
 import { EEventAction, TElementRender } from '@/types';
+import { parseText } from '@/utils';
 
 export const RenderButton: TElementRender = ({
   element,
@@ -23,7 +24,7 @@ export const RenderButton: TElementRender = ({
       size={size as any}
       {...extendProps}
     >
-      {text?.langText}
+      {parseText(text)}
     </Button>
   );
 };

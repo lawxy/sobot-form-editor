@@ -7,7 +7,7 @@ import { prefixCls } from '@/const';
 import { EEventAction } from '@/types';
 import { useFormUpdate, useValueImmediately, useGetEventFunctions } from '@/hooks';
 import type { TElementRender } from '@/types';
-import { idCreator, formatTooltip } from '@/utils';
+import { idCreator, formatTooltip, parseText } from '@/utils';
 import { RenderElementWithLayout } from '@/components';
 import { createContainer } from '../container';
 import { ELEMENT_TAB_PANEL } from './const';
@@ -67,7 +67,7 @@ export const RenderTabs: TElementRender = ({
     const { tooltip: extendTooltip, ...extendRest } = extendProps;
 
     return {
-      label: child.elementName?.langText,
+      label: parseText(child.elementName),
       key: child.id!,
       children: <RenderElementWithLayout element={child} />,
       tooltip: formatTooltip(extendTooltip || tooltip) || null,

@@ -8,7 +8,7 @@ import {
   eventTypeChinese,
   EDelay,
 } from '@/types';
-import { EventEmitter, getValueFromInput, dynamicGetStore } from '@/utils';
+import { EventEmitter, dynamicGetStore, parseText } from '@/utils';
 import { validateParams, asyncDebounce, asyncThrottle } from '.';
 interface IParams {
   emitter: EventEmitter;
@@ -182,7 +182,7 @@ const handleError = ({
   const el = store.getElement(sourceId);
   console.log(`
     事件报错:\n 
-    组件: ${el?.elementName?.langText ?? sourceId}\n 
+    组件: ${parseText(el?.elementName) ?? sourceId}\n 
     事件动作: ${eventActionInChinese[action as EEventAction]} - ${
     eventTypeChinese[eventType]
   } \n

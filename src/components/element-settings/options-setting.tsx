@@ -10,6 +10,7 @@ import { OptionModal } from '../option-modal';
 import { SettingItem } from '@/components';
 import store from '@/store';
 import type { TOption } from '@/types';
+import { parseText } from '@/utils';
 
 const columns: TableColumnProps<TOption>[] = [
   {
@@ -41,7 +42,7 @@ export const OptionSetting: FC = observer(() => {
         columns={columns}
         dataSource={store.selectedElement.options?.map((opt) => ({
           ...opt,
-          label: opt.label.langText,
+          label: parseText(opt.label),
         }))}
         pagination={false}
         scroll={{ y: 300 }}

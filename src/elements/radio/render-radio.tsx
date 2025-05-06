@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { Radio, type RadioChangeEvent } from '@sobot/soil-ui';
 import { isUndefined } from 'lodash-es';
-
+import { parseText } from '@/utils';
 import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EEventAction } from '@/types';
-import type { TElementRender } from '@/types';
+import type { TElementRender, TOption } from '@/types';
 
 export const RenderRadio: TElementRender = ({
   fieldValue,
@@ -26,11 +26,12 @@ export const RenderRadio: TElementRender = ({
   }, [eventFunctions[EEventAction.ON_LOADED]]);
 
   const radioOptions = useMemo(() => {
-    return options?.map((opt) => ({
+    const iterateOptions = extendProps?.options || options;
+    return iterateOptions?.map((opt: TOption) => ({
       ...opt,
-      label: opt.label.langText,
+      label: parseText(opt.label),
     }));
-  }, [options]);
+  }, [options, extendProps?.options]);
 
   const radioValue = useMemo(() => {
     if (isUndefined(fieldValue)) {
@@ -51,8 +52,8 @@ export const RenderRadio: TElementRender = ({
       value={radioValue}
       style={customStyle}
       direction={direction}
-      options={radioOptions}
       {...extendProps}
+      options={radioOptions}
     />
   ) : (
     <>

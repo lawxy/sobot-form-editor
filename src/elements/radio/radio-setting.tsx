@@ -10,6 +10,7 @@ import {
 } from '@/components';
 import { DirectionOpions } from '@/const';
 import type { TDirection, TElementSetting } from '@/types';
+import { parseText } from '@/utils';
 
 export const SettingRadio: TElementSetting = ({
   element,
@@ -21,7 +22,7 @@ export const SettingRadio: TElementSetting = ({
   const radioOptions = useMemo(() => {
     return options?.map((opt) => ({
       ...opt,
-      label: opt.label.langText,
+      label: parseText(opt.label),
     }));
   }, [options]);
 

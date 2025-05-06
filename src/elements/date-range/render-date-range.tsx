@@ -5,7 +5,7 @@ import { assign, range } from 'lodash';
 import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EEventAction, EDateMode, EDateRangeType } from '@/types';
 import type { TElementRender } from '@/types';
-import { parseJs, showTimeFormat } from '@/utils';
+import { parseJs, parseText, showTimeFormat } from '@/utils';
 
 const { RangePicker, RangePickerV2 } = DatePicker;
 
@@ -124,7 +124,7 @@ export const RenderDateRange: TElementRender = ({
 
   const attributes = useMemo(() => {
     const baseAttributes = {
-      label: addonBefore?.langText,
+      label: parseText(addonBefore),
       placement,
     };
 
@@ -150,7 +150,7 @@ export const RenderDateRange: TElementRender = ({
 
         return {
           ...memo,
-          [item.label?.langText]: [startValue, endValue],
+          [parseText(item.label)]: [startValue, endValue],
         };
       }, {});
 
@@ -191,8 +191,8 @@ export const RenderDateRange: TElementRender = ({
       allowClear={allowClear}
       style={customStyle}
       placeholder={[
-        startPlaceholder?.langText as string,
-        endPlaceholder?.langText as string,
+        parseText(startPlaceholder),
+        parseText(endPlaceholder),
       ]}
       {...attributes}
       {...extendProps}

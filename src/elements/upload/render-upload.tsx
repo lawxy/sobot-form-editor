@@ -2,6 +2,7 @@ import React from 'react';
 import { Upload, Button, message } from '@sobot/soil-ui';
 import { UploadOutlined } from '@ant-design/icons';
 import type { TElementRender } from '@/types';
+import { parseText } from '@/utils';
 
 export const RenderUpload: TElementRender = ({
   element,
@@ -29,7 +30,7 @@ export const RenderUpload: TElementRender = ({
       style={customStyle}
       {...extendProps}
     >
-      <Button icon={<UploadOutlined />}>{text?.langText}</Button>
+      <Button icon={<UploadOutlined />}>{parseText(text)}</Button>
     </Upload>
   );
 };

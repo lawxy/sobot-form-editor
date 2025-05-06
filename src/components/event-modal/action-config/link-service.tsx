@@ -52,7 +52,7 @@ const LinkService: React.FC<IConfig> = ({ onChange, eventTarget }) => {
       <div>
         更新组件{' '}
         <Select
-          style={{ width: 120 }}
+          style={{ width: 150 }}
           options={linkRefreshFieldOptions}
           defaultValue={linkRefreshType}
           onChange={(v) => {

@@ -4,6 +4,7 @@ import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hook
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 import { isUndefined } from 'lodash-es';
+import { parseText } from '@/utils';
 
 export const RenderInput: TElementRender = ({
   fieldValue,
@@ -49,7 +50,7 @@ export const RenderInput: TElementRender = ({
 
   const inputValue = useMemo(() => {
     if (isUndefined(fieldValue)) {
-      return defaultValue?.langText;
+      return parseText(defaultValue);
     }
     return fieldValue;
   }, [fieldValue, defaultValue]);
@@ -73,7 +74,7 @@ export const RenderInput: TElementRender = ({
                 }
           }
           value={inputValue}
-          placeholder={placeholder?.langText}
+          placeholder={parseText(placeholder)}
           id={id}
           onChange={handleChange}
           onFocus={handleEvent(EEventAction.ON_FOCUS)}
@@ -88,7 +89,7 @@ export const RenderInput: TElementRender = ({
         />
       ) : (
         <Input
-          placeholder={placeholder?.langText}
+          placeholder={parseText(placeholder)}
           id={id}
           onChange={handleChange}
           onFocus={handleEvent(EEventAction.ON_FOCUS)}
@@ -102,8 +103,8 @@ export const RenderInput: TElementRender = ({
           showCount={showCount}
           minLength={minNum}
           maxLength={maxNum}
-          addonBefore={addonBefore?.langText}
-          addonAfter={addonAfter?.langText}
+          addonBefore={parseText(addonBefore)}
+          addonAfter={parseText(addonAfter)}
           {...extendProps}
         />
       )}

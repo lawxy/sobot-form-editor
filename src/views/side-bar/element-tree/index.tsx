@@ -7,6 +7,7 @@ import { isTabs, isTabPanel } from '@/elements/tabs';
 import { prefixCls } from '@/const';
 import store from '@/store';
 import { IBaseElement } from '@/types';
+import { parseText } from '@/utils';
 import './style.less'
 
 const loop = (data: IBaseElement[], { isDraggable, searchValue }: { isDraggable: boolean, searchValue: string }): DataNode[] => {
@@ -15,7 +16,7 @@ const loop = (data: IBaseElement[], { isDraggable, searchValue }: { isDraggable:
     const searchElement = store.getElement(searchValue.trim());
 
     return data.map((item: IBaseElement) => {
-        searchValue = (searchElement ? searchElement.id === item.id ? searchElement.elementName?.langText : '' : searchValue) as string;
+        searchValue = (searchElement ? searchElement.id === item.id ? parseText(searchElement.elementName) : '' : searchValue) as string;
         return {
             key: item.id,
             title: (
@@ -38,7 +39,7 @@ const loop = (data: IBaseElement[], { isDraggable, searchValue }: { isDraggable:
                     // @ts-ignore
                     getPopupContainer={(n) => n.parentNode}
                 >
-                    <span data-id={item.id}><Ellipsis><Highlight input={item.elementName?.langText} text={searchValue} /></Ellipsis></span>
+                    <span data-id={item.id}><Ellipsis><Highlight input={parseText(item.elementName)} text={searchValue} /></Ellipsis></span>
                 </Dropdown>
             ),
             children: loop(item?.children || [], { isDraggable: !item.isGroup, searchValue }),

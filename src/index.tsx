@@ -34,6 +34,7 @@ import './index.less';
 
 export * from './types';
 export * from './views';
+export * from './elements'
 export * from './const';
 export * from './utils';
 export * from './hooks';

@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EDateMode, EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
+import { parseText } from '@/utils';
 
 export const RenderTime: TElementRender = ({
   fieldValue,
@@ -49,8 +50,8 @@ export const RenderTime: TElementRender = ({
     const Component = timeRange ? TimePicker.RangePicker : TimePicker;
 
     const _placeholder = timeRange
-      ? [startPlaceholder?.langText, endPlaceholder?.langText]
-      : placeholder?.langText;
+      ? [parseText(startPlaceholder), parseText(endPlaceholder)]
+      : parseText(placeholder);
 
     return {
       Component,
@@ -121,7 +122,7 @@ export const RenderTime: TElementRender = ({
       placeholder={Time.placeholder as any}
       allowClear={allowClear}
       style={customStyle}
-      label={addonBefore?.langText}
+      label={parseText(addonBefore)}
       disabled={disabled}
       {...extendProps}
     />

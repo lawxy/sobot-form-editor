@@ -147,12 +147,12 @@ export const triggerRefreshService = async (serviceParams: TEmitData) => {
         } 
 
         if(linkRefreshType === ELinkRefreshType.OPTIONS) {
-          finalRes?.forEach((item: any) => {
-            const { label } = item;
-            if(typeof label === 'string' ) {
-              item.label = {langText: label, langKey: ''}
-            }
-          });
+          // finalRes?.forEach((item: any) => {
+          //   const { label } = item;
+          //   if(typeof label === 'string' ) {
+          //     item.label = {langText: label, langKey: ''}
+          //   }
+          // });
           store.setElementProp(id, ELinkRefreshType.OPTIONS, finalRes);
         }
 

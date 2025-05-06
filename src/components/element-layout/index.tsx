@@ -8,6 +8,7 @@ import c from 'classnames';
 import store from '@/store';
 import { prefixCls } from '@/const';
 import { useElementCommon, useRegisterEvents } from '@/hooks';
+import { parseText } from '@/utils';
 import { useEditorContext } from '@/context';
 import type { IBaseElement } from '../../types';
 import { WrapEl } from './wrap-el';
@@ -67,11 +68,11 @@ export const ElementLayout: FC<
     const requiredRule = regExps[0];
     arr.push({
       required: requiredRule?.enable,
-      message: requiredRule?.message?.langText,
+      message: parseText(requiredRule?.message),
     });
     regExps
       .slice(1)
-      .filter((item) => item.enable && item.regexp && item.message?.langText)
+      .filter((item) => item.enable && item.regexp && parseText(item.message))
       .forEach((patternItem) => {
         arr.push({
           validator(_: any, value: any = '') {
@@ -81,9 +82,9 @@ export const ElementLayout: FC<
               if (value?.match(reg)) {
                 return Promise.resolve();
               }
-              return Promise.reject(patternItem.message?.langText);
+              return Promise.reject(parseText(patternItem.message));
             } catch (error) {
-              console.warn(`正则表达式错误，组件id: ${id}，组件名称: ${elementName?.langText}`);
+              console.warn(`正则表达式错误，组件id: ${id}，组件名称: ${parseText(elementName)}`);
               console.warn(error);
               return Promise.resolve();
             }
@@ -150,8 +151,8 @@ export const ElementLayout: FC<
           <Form.Item
             name={fieldName || id}
             rules={rules}
-            label={showElementName ? elementName?.langText : null}
-            tooltip={tooltip?.langText || null}
+            label={showElementName ? parseText(elementName) : null}
+            tooltip={parseText(tooltip)}
             colon={!!colon}
             {...formItemProps}
           >

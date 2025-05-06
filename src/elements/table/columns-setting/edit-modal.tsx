@@ -13,7 +13,7 @@ import {
 import type { TColumn } from '@/types';
 import { OptionModal, WithLanguage } from '@/components';
 import type { TextWithLang } from '@/types';
-import { valueTypeList, elementWithOptions } from '../const';
+import { valueTypeList, columnWithOptions } from '../const';
 
 const WithLanguageInput = ({value, onChange}: {value: TextWithLang, onChange: (val: TextWithLang) => void}) => {
   return <WithLanguage.Input value={value} onChange={onChange} />
@@ -76,8 +76,6 @@ export const EditModal: FC<
           <Form.Item
             label="字段"
             name="dataIndex"
-            required
-            rules={[{ required: true, message: '必填' }]}
           >
             <Input />
           </Form.Item>
@@ -87,11 +85,12 @@ export const EditModal: FC<
           <Form.Item noStyle shouldUpdate>
             {({ getFieldValue, setFieldsValue, getFieldsValue }) => (
               <>
-                {elementWithOptions.includes(getFieldValue('valueType')) && (
+                {columnWithOptions.includes(getFieldValue('valueType')) && (
                   <Form.Item label="选项" name="options">
                     <OptionModal
                       options={getFieldValue('options') || []}
                       onChange={(options) => {
+                        console.log('options', options)
                         setFieldsValue({ ...getFieldsValue(), options });
                       }}
                     >
@@ -102,8 +101,8 @@ export const EditModal: FC<
               </>
             )}
           </Form.Item>
-          <Form.Item label="宽度" name="width">
-            <InputNumber min={0} addonAfter="px" />
+          <Form.Item label="宽度" name="width" tooltip='注意带单位, 如100px'>
+            <WithLanguageInput />
           </Form.Item>
           <Form.Item label="对齐方式" name="align" initialValue="left">
             <Radio.Group>

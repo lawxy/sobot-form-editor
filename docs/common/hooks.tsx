@@ -1,4 +1,8 @@
+import React from 'react'
 import { useEffect } from "react";
+import { cloneDeep } from 'lodash-es';
+import { Button } from 'antd'; 
+
 const tooltip = {
     title: '该报表仅展示 「最后排队技能组」 是当前技能组时的今日累计电话数据',
     placeholder: '搜索指标名称',
@@ -20,15 +24,29 @@ const tooltip = {
 
 export const useCommon = (ref) => {
     useEffect(() => {
-        // ref.current?.setFieldValue('tabs', 'fe-tab-panel-uvq08ouhlqg');
-        ref.current?.extendElementAttrs({ fieldName: 'tab1' }, {
-            tooltip,
-        });
+        // 服务监听getOptions
 
-        // getOptions
-        ref.current?.extendServiceEmitter.on('service-8e312rbg3ds', (data) => {
-            console.log( data);
+        ref.current?.extendElementAttr({fieldName: 'tab1'}, 'tooltip', tooltip)
+
+        // ref.current?.extendServiceEmitter.on('service-8e312rbg3ds', (data) => {
+        //     console.log( data);
+        // })
+
+        // 前端扩展
+        ref.current?.getElement({fieldName: 'table'}).then((el) => {
+            if(!el) return;
+            const columns = cloneDeep(el?.columns);
+            columns.push({
+                title: '操作',
+                // title: {langText: '操作'},
+                width: 100,
+                render(){
+                    return <Button>操作</Button>
+                }
+            })
+            ref.current?.extendElementAttr(el.id, 'columns', columns)
         })
+
 
     }, []);
 }

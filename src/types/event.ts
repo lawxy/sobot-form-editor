@@ -148,7 +148,7 @@ export enum ELinkRefreshType {
   CUSTOMJS = 'customJs',
 }
 export const linkRefreshFieldOptions = [
-  { label: '表单值', value: ELinkRefreshType.FIELDVALUE },
+  { label: '表单值或表格列表', value: ELinkRefreshType.FIELDVALUE },
   { label: '选项', value: ELinkRefreshType.OPTIONS },
   { label: '自定义属性', value: ELinkRefreshType.CUSTOMFIELD },
   { label: '自定义js', value: ELinkRefreshType.CUSTOMJS },

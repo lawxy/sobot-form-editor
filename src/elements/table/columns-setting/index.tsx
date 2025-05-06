@@ -6,7 +6,7 @@ import { ReactSortable } from '@sobot/form-editor-ui';
 import { arrayMoveImmutable } from 'array-move';
 import { prefixCls } from '@/const';
 import { SettingItem } from '@/components';
-import { idCreator } from '@/utils';
+import { idCreator, parseText } from '@/utils';
 import { EditModal } from './edit-modal';
 import type { TColumn, TElementSetting } from '@/types';
 import './style.less';
@@ -31,7 +31,7 @@ export const ColumnsSetting: TElementSetting = ({
         handle={'.' + prefixCls('column-setting-drag-icon')}
       >
         {columns?.map((column: TColumn, idx: number) => (
-          <div key={column.id} className={prefixCls('column-setting')}>
+          <div key={idx} className={prefixCls('column-setting')}>
             <span className={prefixCls('column-setting-drag-icon')}>
               <MenuOutlined />
             </span>
@@ -41,7 +41,7 @@ export const ColumnsSetting: TElementSetting = ({
               // }}
               style={{ width: 200 }}
             >
-              <Input value={column.title.langText} readOnly />
+              <Input value={parseText(column.title)} readOnly />
             </Typography.Text>
             <EditModal
               onChange={(values) => {

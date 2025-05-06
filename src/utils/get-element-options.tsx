@@ -1,6 +1,7 @@
 import React from 'react';
 import { Ellipsis } from '@sobot/soil-ui';
 import store from '@/store';
+import { parseText } from './parse-text';
 
 export const getElementOptions = () => {
     const options = [];
@@ -8,8 +9,8 @@ export const getElementOptions = () => {
     for (const el of store.formElementMap.values()) {
       options.push({
         label: (
-          <Ellipsis tooltip={el?.elementName?.langText || (el.id as string)}>
-            {el?.elementName?.langText || (el.id as string)}
+          <Ellipsis tooltip={parseText(el?.elementName) || (el.id as string)}>
+            {parseText(el?.elementName) || (el.id as string)}
           </Ellipsis>
         ),
         value: el.id,

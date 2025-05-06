@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input } from '@sobot/soil-ui';
 import { useGetEventFunctions, useFormUpdate } from '@/hooks';
+import { parseText } from '@/utils';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 
@@ -43,7 +44,7 @@ export const RenderSearch: TElementRender = ({
 
   return (
     <Input.Search
-      placeholder={placeholder?.langText}
+      placeholder={parseText(placeholder)}
       id={id}
       // @ts-ignore
       onSearch={handleSearch}

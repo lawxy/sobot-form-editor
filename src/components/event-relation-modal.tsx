@@ -6,6 +6,7 @@ import baseStore from '@/store';
 import eventRelationStore from '@/store/eventRelationStore';
 import type { TFormSerive, IBaseElement } from '@/types';
 import store from '@/store';
+import { parseText } from '@/utils';
 
 const EventRelationModalContent: FC<
   PropsWithChildren<{
@@ -78,7 +79,7 @@ const EventRelationModalContent: FC<
               <span>关联组件</span>
               <ul>
                 {Array.from(sourceElements).map((el) => (
-                  <li key={el.id}>{el.elementName?.langText ? el.elementName?.langText + ' ( ' + el.id + ' )' : el.id}</li>
+                  <li key={el.id}>{parseText(el.elementName) ? parseText(el.elementName) + ' ( ' + el.id + ' )' : el.id}</li>
                 ))}
               </ul>
             </div>

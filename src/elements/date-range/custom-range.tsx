@@ -21,7 +21,7 @@ import {
   WithLanguage,
 } from '@/components';
 import type { TCustomPreset, TextWithLang } from '@/types';
-import { idCreator } from '@/utils';
+import { idCreator, parseText } from '@/utils';
 import store from '@/store';
 
 const defaultPreset = {
@@ -67,7 +67,7 @@ export const OperationModal: FC<
 
   const judgeOptionsInvalid = () => {
     return valueOptions.some(
-      (item) => !item.label?.langText || !item.startDate || !item.endDate,
+      (item) => !parseText(item.label) || !item.startDate || !item.endDate,
     );
   };
 

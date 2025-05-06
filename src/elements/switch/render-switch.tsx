@@ -4,7 +4,7 @@ import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hook
 import { isNil, isUndefined } from 'lodash-es';
 
 import { EEventAction, type TElementRender } from '@/types';
-import { getValueFromInput } from '@/utils';
+import { getValueFromInput, parseText } from '@/utils';
 
 const RenderSwitchContent: TElementRender = ({
   element,
@@ -49,7 +49,7 @@ const RenderSwitchContent: TElementRender = ({
       style={customStyle}
       {...extendProps}
     >
-      {addonAfter?.langText}
+      {parseText(addonAfter)}
     </Switch>
   );
 };

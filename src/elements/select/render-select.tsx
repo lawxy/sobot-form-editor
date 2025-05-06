@@ -2,8 +2,8 @@ import React, { useMemo, useCallback } from 'react';
 import { Select } from '@sobot/soil-ui';
 import { useGetEventFunctions, useFormUpdate, useValueImmediately } from '@/hooks';
 import { EEventAction } from '@/types';
-import type { TElementRender } from '@/types';
-import { parseCSS } from '@/utils';
+import type { TElementRender, TOption } from '@/types';
+import { parseCSS, parseText } from '@/utils';
 import { isUndefined } from 'lodash-es';
 
 export const RenderSelect: TElementRender = ({
@@ -59,16 +59,17 @@ export const RenderSelect: TElementRender = ({
   }, [fieldValue, defaultValue]);
 
   const dataSoruce = useMemo(() => {
-    return options?.map((item) => ({
+    const iterateOptions = extendProps?.options || options;
+
+    return iterateOptions?.map((item: TOption) => ({
       key: item.value,
-      value: item?.label?.langText,
+      value: parseText(item?.label),
     }));
-  }, [options]);
+  }, [options, extendProps?.options]);
 
   return (
     <Select
-      placeholder={placeholder?.langText}
-      dataSoruce={dataSoruce}
+      placeholder={parseText(placeholder)}
       onChange={onChange}
       loading={linkLoading}
       style={customStyle}
@@ -76,11 +77,12 @@ export const RenderSelect: TElementRender = ({
       allowClear={allowClear}
       value={selectValue}
       disabled={disabled}
-      label={addonBefore?.langText}
+      label={parseText(addonBefore)}
       search={canSearch}
       labelWrapperStyle={_labelWrapperStyle}
       tagRenderText={tagRenderText}
       {...extendProps}
+      dataSoruce={dataSoruce}
     />
   );
 };

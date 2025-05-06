@@ -11,58 +11,58 @@
 import type { IDragElementProp } from '../types'
   
 import { ELEMENT_BUTTON, RenderButton, SettingButton, BUTTON_TEXT, initialData as Button_initData, eventActions as Button_eventActions, Icon as BUTTON_Icon } from './button'
-export { ELEMENT_BUTTON, RenderButton, SettingButton, BUTTON_TEXT } from './button'
+export { ELEMENT_BUTTON, RenderButton, SettingButton, BUTTON_TEXT, initialData as Button_initData, } from './button'
         
 import { ELEMENT_CHECKBOX, RenderCheckbox, SettingCheckbox, CHECKBOX_TEXT, initialData as Checkbox_initData, eventActions as Checkbox_eventActions, Icon as CHECKBOX_Icon } from './checkbox'
-export { ELEMENT_CHECKBOX, RenderCheckbox, SettingCheckbox, CHECKBOX_TEXT } from './checkbox'
+export { ELEMENT_CHECKBOX, RenderCheckbox, SettingCheckbox, CHECKBOX_TEXT, initialData as Checkbox_initData, } from './checkbox'
         
 import { ELEMENT_CONTAINER, RenderContainer, SettingContainer, CONTAINER_TEXT, initialData as Container_initData, eventActions as Container_eventActions, Icon as CONTAINER_Icon } from './container'
-export { ELEMENT_CONTAINER, RenderContainer, SettingContainer, CONTAINER_TEXT } from './container'
+export { ELEMENT_CONTAINER, RenderContainer, SettingContainer, CONTAINER_TEXT, initialData as Container_initData, } from './container'
         
 import { ELEMENT_DATE, RenderDate, SettingDate, DATE_TEXT, initialData as Date_initData, eventActions as Date_eventActions, Icon as DATE_Icon } from './date'
-export { ELEMENT_DATE, RenderDate, SettingDate, DATE_TEXT } from './date'
+export { ELEMENT_DATE, RenderDate, SettingDate, DATE_TEXT, initialData as Date_initData, } from './date'
         
 import { ELEMENT_DATE_RANGE, RenderDateRange, SettingDateRange, DATE_RANGE_TEXT, initialData as DateRange_initData, eventActions as DateRange_eventActions, Icon as DATE_RANGE_Icon } from './date-range'
-export { ELEMENT_DATE_RANGE, RenderDateRange, SettingDateRange, DATE_RANGE_TEXT } from './date-range'
+export { ELEMENT_DATE_RANGE, RenderDateRange, SettingDateRange, DATE_RANGE_TEXT, initialData as DateRange_initData, } from './date-range'
         
 import { ELEMENT_IMAGE, RenderImage, SettingImage, IMAGE_TEXT, initialData as Image_initData, eventActions as Image_eventActions, Icon as IMAGE_Icon } from './image'
-export { ELEMENT_IMAGE, RenderImage, SettingImage, IMAGE_TEXT } from './image'
+export { ELEMENT_IMAGE, RenderImage, SettingImage, IMAGE_TEXT, initialData as Image_initData, } from './image'
         
 import { ELEMENT_INPUT, RenderInput, SettingInput, INPUT_TEXT, initialData as Input_initData, eventActions as Input_eventActions, Icon as INPUT_Icon } from './input'
-export { ELEMENT_INPUT, RenderInput, SettingInput, INPUT_TEXT } from './input'
+export { ELEMENT_INPUT, RenderInput, SettingInput, INPUT_TEXT, initialData as Input_initData, } from './input'
         
 import { ELEMENT_NUMBER, RenderNumber, SettingNumber, NUMBER_TEXT, initialData as Number_initData, eventActions as Number_eventActions, Icon as NUMBER_Icon } from './number'
-export { ELEMENT_NUMBER, RenderNumber, SettingNumber, NUMBER_TEXT } from './number'
+export { ELEMENT_NUMBER, RenderNumber, SettingNumber, NUMBER_TEXT, initialData as Number_initData, } from './number'
         
 import { ELEMENT_RADIO, RenderRadio, SettingRadio, RADIO_TEXT, initialData as Radio_initData, eventActions as Radio_eventActions, Icon as RADIO_Icon } from './radio'
-export { ELEMENT_RADIO, RenderRadio, SettingRadio, RADIO_TEXT } from './radio'
+export { ELEMENT_RADIO, RenderRadio, SettingRadio, RADIO_TEXT, initialData as Radio_initData, } from './radio'
         
 import { ELEMENT_SEARCH, RenderSearch, SettingSearch, SEARCH_TEXT, initialData as Search_initData, eventActions as Search_eventActions, Icon as SEARCH_Icon } from './search'
-export { ELEMENT_SEARCH, RenderSearch, SettingSearch, SEARCH_TEXT } from './search'
+export { ELEMENT_SEARCH, RenderSearch, SettingSearch, SEARCH_TEXT, initialData as Search_initData, } from './search'
         
 import { ELEMENT_SELECT, RenderSelect, SettingSelect, SELECT_TEXT, initialData as Select_initData, eventActions as Select_eventActions, Icon as SELECT_Icon } from './select'
-export { ELEMENT_SELECT, RenderSelect, SettingSelect, SELECT_TEXT } from './select'
+export { ELEMENT_SELECT, RenderSelect, SettingSelect, SELECT_TEXT, initialData as Select_initData, } from './select'
         
 import { ELEMENT_SELECT_INPUT, RenderSelectInput, SettingSelectInput, SELECT_INPUT_TEXT, initialData as SelectInput_initData, eventActions as SelectInput_eventActions, Icon as SELECT_INPUT_Icon } from './select-input'
-export { ELEMENT_SELECT_INPUT, RenderSelectInput, SettingSelectInput, SELECT_INPUT_TEXT } from './select-input'
+export { ELEMENT_SELECT_INPUT, RenderSelectInput, SettingSelectInput, SELECT_INPUT_TEXT, initialData as SelectInput_initData, } from './select-input'
         
 import { ELEMENT_SWITCH, RenderSwitch, SettingSwitch, SWITCH_TEXT, initialData as Switch_initData, eventActions as Switch_eventActions, Icon as SWITCH_Icon } from './switch'
-export { ELEMENT_SWITCH, RenderSwitch, SettingSwitch, SWITCH_TEXT } from './switch'
+export { ELEMENT_SWITCH, RenderSwitch, SettingSwitch, SWITCH_TEXT, initialData as Switch_initData, } from './switch'
         
 import { ELEMENT_TABLE, RenderTable, SettingTable, TABLE_TEXT, initialData as Table_initData, eventActions as Table_eventActions, Icon as TABLE_Icon } from './table'
-export { ELEMENT_TABLE, RenderTable, SettingTable, TABLE_TEXT } from './table'
+export { ELEMENT_TABLE, RenderTable, SettingTable, TABLE_TEXT, initialData as Table_initData, } from './table'
         
 import { ELEMENT_TABS, RenderTabs, SettingTabs, TABS_TEXT, initialData as Tabs_initData, eventActions as Tabs_eventActions, Icon as TABS_Icon } from './tabs'
-export { ELEMENT_TABS, RenderTabs, SettingTabs, TABS_TEXT } from './tabs'
+export { ELEMENT_TABS, RenderTabs, SettingTabs, TABS_TEXT, initialData as Tabs_initData, } from './tabs'
         
 import { ELEMENT_TEXT, RenderText, SettingText, TEXT_TEXT, initialData as Text_initData, eventActions as Text_eventActions, Icon as TEXT_Icon } from './text'
-export { ELEMENT_TEXT, RenderText, SettingText, TEXT_TEXT } from './text'
+export { ELEMENT_TEXT, RenderText, SettingText, TEXT_TEXT, initialData as Text_initData, } from './text'
         
 import { ELEMENT_TIME, RenderTime, SettingTime, TIME_TEXT, initialData as Time_initData, eventActions as Time_eventActions, Icon as TIME_Icon } from './time'
-export { ELEMENT_TIME, RenderTime, SettingTime, TIME_TEXT } from './time'
+export { ELEMENT_TIME, RenderTime, SettingTime, TIME_TEXT, initialData as Time_initData, } from './time'
         
 import { ELEMENT_UPLOAD, RenderUpload, SettingUpload, UPLOAD_TEXT, initialData as Upload_initData, eventActions as Upload_eventActions, Icon as UPLOAD_Icon } from './upload'
-export { ELEMENT_UPLOAD, RenderUpload, SettingUpload, UPLOAD_TEXT } from './upload'
+export { ELEMENT_UPLOAD, RenderUpload, SettingUpload, UPLOAD_TEXT, initialData as Upload_initData, } from './upload'
         
 export const ElementsMap: Record<string, IDragElementProp> = {
       

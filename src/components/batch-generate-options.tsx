@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import type { FC } from 'react';
 import { Modal, Button, Input } from '@sobot/soil-ui';
-import { idCreator } from '@/utils';
+import { idCreator, parseText } from '@/utils';
 import { QuestionPopover } from './question-popover';
 
 type TOption = Record<string, any>;
@@ -24,7 +24,7 @@ export const BatchGenerateOptions: FC<{
       return (
         memo +
         (idx === 0 ? '' : '\n') +
-        cur.label.langText +
+        parseText(cur.label) +
         (cur.value ? `:${cur.value}` : '')
       );
     }, '');
@@ -34,7 +34,7 @@ export const BatchGenerateOptions: FC<{
     const couples = str.split('\n');
     const newOptions = couples.map((couple) => {
       const [label = '', value = ''] = couple.split(':');
-      const oldOpt = options.find((item) => item.label.langText === label);
+      const oldOpt = options.find((item) => parseText(item.label) === label);
       if (oldOpt) return oldOpt;
       return {
         label: { langText: label.trim(), langKey: '' },
@@ -78,7 +78,7 @@ export const BatchGenerateOptions: FC<{
           setOpen(false);
         }}
         onOk={() => {
-          setOptions(tempOptions.filter((item) => Boolean(item?.label?.langText)));
+          setOptions(tempOptions.filter((item) => Boolean(parseText(item?.label))));
           setOpen(false);
         }}
         destroyOnClose

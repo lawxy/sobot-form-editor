@@ -17,7 +17,13 @@ export const WithLanguage: WithLanguageType = ({ children, value, onChange }) =>
   const { LOCALE } = useEditorContext();
   const inputRef = useRef<any>(null);
 
+  const valueIsString = typeof value === 'string'
+
   const {text, useLocale} = useMemo(() => {
+    if(valueIsString) {
+      return { text: value, useLocale: false };
+    }
+
     if (!value?.langKey || !LOCALE[value?.langKey]) {
       return { text: value?.langText, useLocale: false };
     }
@@ -26,6 +32,14 @@ export const WithLanguage: WithLanguageType = ({ children, value, onChange }) =>
   }, [value, LOCALE]);
 
   useEffect(() => {
+    if(valueIsString) {
+      onChange?.({
+        langText: value,
+        langKey: '',
+      });
+      return 
+    }
+
      if (LOCALE[value?.langKey] && value.langText !== LOCALE[value.langKey]) {
       onChange?.({
         langText: LOCALE[value.langKey],
@@ -35,6 +49,13 @@ export const WithLanguage: WithLanguageType = ({ children, value, onChange }) =>
   }, [value, LOCALE]);
 
   const format = (originValue: string) => {
+    if(valueIsString) {
+      onChange?.({
+        langText: originValue,
+        langKey: '',
+      });
+      return;
+    }
     if (originValue !== value?.langText) {
       onChange?.({
         langText: originValue,
@@ -47,7 +68,7 @@ export const WithLanguage: WithLanguageType = ({ children, value, onChange }) =>
     <div className={`${prefixCls('with-language')}`}>
       {children!({ value: text, onChange: format, useLocale })}
       <Popconfirm
-        title={<Input defaultValue={value?.langKey} ref={inputRef} placeholder="请输入多语言key" />}
+        title={<Input defaultValue={typeof value ==='string' ? value :value?.langKey} ref={inputRef} placeholder="请输入多语言key" />}
         overlayClassName={`${prefixCls('with-language-popconfirm')}`}
         destroyTooltipOnHide
         onConfirm={() => {

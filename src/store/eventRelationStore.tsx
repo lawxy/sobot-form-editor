@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { makeAutoObservable } from 'mobx';
-import { EventEmitter, ModalConfirmPromisify } from '@/utils';
+import { EventEmitter, ModalConfirmPromisify, parseText } from '@/utils';
 import { EEventType, EValidateRange, IBaseElement, TFormSerive, TCustomEvents } from '@/types';
 import baseStore from '.';
 
@@ -102,7 +102,7 @@ class EventRelationStore {
               <span>关联组件</span>
               <ul>
                 {Array.from(sourceElements).map((el) => (
-                  <li key={el.id}>{el.elementName?.langText ? el.elementName?.langText + ' ( ' + el.id + ' )' : el.id}</li>
+                  <li key={el.id}>{parseText(el.elementName) ? parseText(el.elementName) + ' ( ' + el.id + ' )' : el.id}</li>
                 ))}
               </ul>
             </div>
