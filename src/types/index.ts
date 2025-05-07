@@ -2,7 +2,7 @@ export * from './event';
 export * from './service';
 export * from '../store/types';
 
-import type { FC, ReactNode } from 'react';
+import type { CSSProperties, FC, ReactNode } from 'react';
 import type { FormInstance, FormProps } from 'antd';
 import type { FormItemProps } from 'antd';
 import type { TCustomEvents } from './event';
@@ -58,10 +58,11 @@ export type TColumn = {
   title: TextWithLang;
   dataIndex: string;
   fixed: '' | 'left' | 'right';
-  width?: number;
+  width?: string;
   align: 'left' | 'right' | 'center';
   valueType?: string;
   options?: TOption[];
+  render?: (value: any, record: any, index: number) => ReactNode;
 };
 export enum EChangeType {
   ADD = 'add',

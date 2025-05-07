@@ -5,7 +5,7 @@ export default defineConfig({
   esm: { output: 'es' },
   cjs: {
     output: 'lib',
-    platform: 'browser', // 设置 platform 为 'browser'
+    // platform: 'browser', // 设置 platform 为 'browser'
   },
   // umd: {
   //   output: 'umd',

@@ -57,9 +57,9 @@ export const RenderRadio: TElementRender = ({
     />
   ) : (
     <>
-      {radioOptions?.map((opt) => (
+      {radioOptions?.map((opt: TOption) => (
         <Radio key={opt.id} value={opt.value} style={customStyle}>
-          {opt.label}
+          {parseText(opt.label)}
         </Radio>
       ))}
     </>

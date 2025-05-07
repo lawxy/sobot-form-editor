@@ -23,6 +23,7 @@ export const RenderUpload: TElementRender = ({
   };
 
   return (
+    // @ts-ignore
     <Upload
       onChange={handleChange}
       action={uploadUrl}

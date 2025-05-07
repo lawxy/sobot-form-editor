@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Switch } from '@sobot/soil-ui';
-import { SettingWrap, SettingItem, DefaultValueSetting } from '@/components';
-import type { TElementSetting } from '@/types';
+import { SettingWrap, SettingItem, DefaultValueSetting, WithLanguage } from '@/components';
+import type { TElementSetting, TextWithLang } from '@/types';
 
 export const SettingImage: TElementSetting = ({ element, setElementProp }) => {
   const { placeholder, preview, previewSrc } = element;
@@ -10,10 +10,10 @@ export const SettingImage: TElementSetting = ({ element, setElementProp }) => {
       <SettingWrap title="元素设置">
         <DefaultValueSetting label="默认地址" tips='defaultValue' />
         <SettingItem label="占位地址" tips='placeholder'>
-          <Input
+          <WithLanguage.Input
             value={placeholder}
-            onChange={(e) => {
-              setElementProp('placeholder', e.target.value);
+            onChange={(v: TextWithLang) => {
+              setElementProp('placeholder', v);
             }}
           />
         </SettingItem>

@@ -179,12 +179,12 @@ export const RenderDateRange: TElementRender = ({
     datePresets,
   ]);
 
-  const Component = dateRangeVersion === 'v2' ? RangePickerV2 : RangePicker;
+  const Component: any = dateRangeVersion === 'v2' ? RangePickerV2 : RangePicker;
 
   return (
     <Component
       value={value}
-      onChange={handleChange}
+      onChange={handleChange as any}
       onFocus={handleEvent(EEventAction.ON_FOCUS)}
       onBlur={handleEvent(EEventAction.ON_BLUR)}
       disabled={disabled}

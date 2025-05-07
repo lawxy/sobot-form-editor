@@ -186,7 +186,7 @@ export const OperationModal: FC<
       >
         <TableSortable
           onSort={(newDatas: any) => setOption(newDatas)}
-          columns={columns}
+          columns={columns as any}
           rowKey="id"
           dataSource={valueOptions}
           pagination={false}

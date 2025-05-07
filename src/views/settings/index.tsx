@@ -37,6 +37,7 @@ const SettingsContent = () => {
     <div className={prefixCls('setting')}>
       <Tabs
         activeKey={tabStore.formTab}
+        // @ts-ignore
         type="editable-card"
         hideAdd
         items={items}

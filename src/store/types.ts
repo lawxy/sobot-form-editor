@@ -146,7 +146,7 @@ export interface IExtendStore {
 
   setElementExtendAttrs: (id: string, attrs: Record<string, any>) => void;
 
-  setFormItemExtendAttr: (key: string, value: any) => void;
+  setFormItemExtendAttr: (id: string, key: string, value: any) => void;
 
   setFormItemExtendAttrs: (id: string, attrs: Record<string, any>) => void;
 

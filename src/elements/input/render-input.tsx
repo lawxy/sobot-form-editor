@@ -100,6 +100,7 @@ export const RenderInput: TElementRender = ({
           allowClear={allowClear}
           style={customStyle}
           disabled={disabled}
+          // @ts-ignore
           showCount={showCount}
           minLength={minNum}
           maxLength={maxNum}

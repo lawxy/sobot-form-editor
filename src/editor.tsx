@@ -3,9 +3,6 @@ import type { PropsWithChildren } from 'react';
 import {
   ConfigProvider,
   Form,
-  FormItemProps,
-  FormProps,
-  type FormInstance,
 } from '@sobot/soil-ui';
 import type { I18nLang } from '@sobot/utils/es/i18n';
 
@@ -14,33 +11,20 @@ import 'moment/locale/zh-cn';
 
 import c from 'classnames';
 import { HeaderActionPane } from './views/header-action-pane';
-import { IBaseStore } from './store/types';
 import { ElementsMap } from './elements';
 import type {
-  IBaseElement,
-  IExtendStore,
   IFormSchema,
   TDragElement,
-  TElementSearch,
   IEditorInstance
 } from './types';
 import { prefixCls } from './const';
 import store from './store';
-import { injectSchema } from '.';
+import { injectSchema } from './';
 import { EditorContext, type IEditorContext } from './context';
 import { wrapObserver } from './utils';
 import { FormComponent } from './form';
 import { useExpose } from './hooks';
 import './index.less';
-
-export * from './types';
-export * from './views';
-export * from './elements'
-export * from './const';
-export * from './utils';
-export * from './hooks';
-export * from './components';
-export * from './context';
 
 export type TFormProps = {
   defaultValue?: IFormSchema;

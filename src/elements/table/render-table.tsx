@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useMemo } from 'react';
 import { Table } from '@sobot/soil-ui';
 
-import type { TElementRender } from '@sobot/form-editor';
-import {
-  useFormUpdate,
-  useGetEventFunctions,
-  EEventAction,
-} from '@sobot/form-editor';
+import type { TElementRender, TColumn, TOption } from '@/types';
+import { EEventAction } from '@/types'
+import { useFormUpdate, useGetEventFunctions } from '@/hooks'
+
 import { parseText } from '@/utils'
 import type { ITableEdit } from './type';
 
@@ -51,16 +49,16 @@ export const RenderTable: TElementRender = ({
   const tableColumns = useMemo(() => {
     const iterateColumns = extendProps?.columns || columns;
 
-    return iterateColumns.map((column) => {
+    return iterateColumns.map((column: TColumn) => {
       const { title, width, render } = column
 
       return {
         ...column,
         title: parseText(title),
         width: parseText(width),
-        render: render ? render : (val) => {
-          if(column.valueType === 'text') return val;
-          const item = column?.options?.find((item) => item.value == val);
+        render: render ? render : (val: any) => {
+          if (column.valueType === 'text') return val;
+          const item = column?.options?.find((item: TOption) => item.value == val);
           return parseText(item?.label);
         }
       };

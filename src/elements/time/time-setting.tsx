@@ -57,7 +57,6 @@ export const SettingTime: TElementSetting = ({ element, setElementProp }) => {
               label="默认时间"
               fieldType="startDate"
               type="time"
-              tips='defaultValue'
             />
           </>
         )}

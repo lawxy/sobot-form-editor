@@ -43,7 +43,7 @@ export const triggerService = async (id: string) => {
     contentType,
   } = service!;
 
-  const request = createRequest({ interceptors, contentType });
+  const request: any = createRequest({ interceptors, contentType });
 
   try {
     return request({

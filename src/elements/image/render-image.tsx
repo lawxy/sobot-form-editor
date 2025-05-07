@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from '@sobot/soil-ui';
 import { useGetEventFunctions, useFormUpdate } from '@/hooks';
-
+import { parseText } from '@/utils';
 import { EEventAction } from '@/types';
 import type { TElementRender } from '@/types';
 
@@ -21,7 +21,7 @@ export const RenderImage: TElementRender = ({
   return (
     <Image
       src={fieldValue || placeholder}
-      fallback={placeholder}
+      fallback={parseText(placeholder)}
       preview={preview ? (previewSrc ? { src: previewSrc } : true) : false}
       style={customStyle}
       {...extendProps}

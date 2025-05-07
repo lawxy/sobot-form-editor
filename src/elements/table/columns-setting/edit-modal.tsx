@@ -15,7 +15,7 @@ import { OptionModal, WithLanguage } from '@/components';
 import type { TextWithLang } from '@/types';
 import { valueTypeList, columnWithOptions } from '../const';
 
-const WithLanguageInput = ({value, onChange}: {value: TextWithLang, onChange: (val: TextWithLang) => void}) => {
+const WithLanguageInput = ({value, onChange}: {value?: TextWithLang, onChange?: (val: TextWithLang) => void}) => {
   return <WithLanguage.Input value={value} onChange={onChange} />
 }
 

@@ -1,3 +1,4 @@
+// @ts-ignore
 import { interpolate } from '@sobot/utils/i18n';
 
 import type { TextWithLang } from '@/types';

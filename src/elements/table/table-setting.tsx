@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { Switch, Input, Select } from 'antd';
-import { isNumber } from 'lodash-es';
+import { noop } from 'lodash-es';
 
-import { SettingItem, SettingWrap } from '@sobot/form-editor';
-import type { IBaseElement, TElementSetting } from '@sobot/form-editor';
+import { SettingItem, SettingWrap } from '@/components';
+import type { IBaseElement, TElementSetting } from '@/types';
 import { ColumnsSetting } from './columns-setting';
 
 const pageSizeOptions = ['10', '20', '50', '100'].map((item) => ({
@@ -57,7 +57,7 @@ export const SettingTable: TElementSetting = ({ element, setElementProp }) => {
           </SettingItem>
         </>
       )}
-      <ColumnsSetting element={element} setElementProp={setElementProp} />
+      <ColumnsSetting setFieldValue={noop} element={element} setElementProp={setElementProp} />
     </SettingWrap>
   );
 };

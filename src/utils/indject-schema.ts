@@ -1,6 +1,6 @@
 import { dynamicGetStore } from '.';
-import { defaultFormAttrs } from '..';
-import type { IFormSchema } from '..';
+import { defaultFormAttrs } from '../';
+import type { IFormSchema } from '../';
 
 export const injectSchema = (schema: IFormSchema) => {
   const store = dynamicGetStore();

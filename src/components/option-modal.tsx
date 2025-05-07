@@ -11,7 +11,7 @@ import { cloneDeep } from 'lodash-es';
 import { TableSortable } from '@sobot/form-editor-ui';
 
 import { MinusIcon, PlusIcon, WithLanguage } from '@/components';
-import type { TOption } from '@/types';
+import type { TextWithLang, TOption } from '@/types';
 import { idCreator } from '@/utils';
 import { BatchGenerateOptions } from './batch-generate-options';
 
@@ -58,7 +58,7 @@ export const OptionModal: FC<
         return (
           <WithLanguage.Input
             value={val}
-            onChange={(v) => {
+            onChange={(v: TextWithLang) => {
               handleInputChange(idx, 'label', v);
             }}
           />
@@ -140,7 +140,7 @@ export const OptionModal: FC<
       >
         <TableSortable
           onSort={(newDatas: any) => setOption(newDatas)}
-          columns={columns}
+          columns={columns as any}
           rowKey="id"
           dataSource={valueOptions}
           pagination={false}

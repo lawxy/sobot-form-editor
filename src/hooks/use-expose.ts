@@ -1,8 +1,7 @@
 import { useImperativeHandle } from 'react';
 import { withPromise } from '@/utils';
 import store from '@/store';
-import eventRelationStore from '@/store/eventRelationStore';
-import { IBaseElement, IEditorInstance } from '@/types';
+import { IEditorInstance } from '@/types';
 import { TElementSearch } from '@/types';
 import { FormProps, FormItemProps, FormInstance } from '@sobot/soil-ui';
 import { triggerService, triggerLinkingService } from '@/utils';
@@ -17,7 +16,7 @@ export const useExpose = (
     extendServiceEmitter: store.extendServiceEmitter,
 
     triggerService,
-    
+
     triggerLinkingService,
 
     extendFormAttr(key: keyof FormProps, value: any) {

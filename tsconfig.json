@@ -5,6 +5,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "jsx": "react",
+    "moduleResolution": "node", // 确保模块解析策略为 Node
     "baseUrl": "./",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
