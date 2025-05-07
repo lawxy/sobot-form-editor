@@ -2,32 +2,23 @@ import { useImperativeHandle } from 'react';
 import { withPromise } from '@/utils';
 import store from '@/store';
 import eventRelationStore from '@/store/eventRelationStore';
-import { IBaseElement } from '@/types';
+import { IBaseElement, IEditorInstance } from '@/types';
 import { TElementSearch } from '@/types';
-import { FormProps, FormItemProps } from '@sobot/soil-ui';
-import { IEditorInstance } from '@sobot/form-editor';
+import { FormProps, FormItemProps, FormInstance } from '@sobot/soil-ui';
+import { triggerService, triggerLinkingService } from '@/utils';
 
 export const useExpose = (
   ref: React.RefObject<IEditorInstance>,
-  others: Record<string, any>,
+  others: { form: FormInstance },
 ) => {
   useImperativeHandle(ref, () => ({
     ...others,
 
     extendServiceEmitter: store.extendServiceEmitter,
 
-    // setElementProp(
-    //   search: TElementSearch,
-    //   field: keyof IBaseElement,
-    //   value: any,
-    // ) {
-    //   withPromise(() => {
-    //     const element = store.getElement(search);
-    //     if (element) {
-    //       store.setElementProp(element.id!, field, value);
-    //     }
-    //   });
-    // },
+    triggerService,
+    
+    triggerLinkingService,
 
     extendFormAttr(key: keyof FormProps, value: any) {
       store.setFormExtendAttr(key, value);

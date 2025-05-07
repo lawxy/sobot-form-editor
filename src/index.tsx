@@ -22,6 +22,7 @@ import type {
   IFormSchema,
   TDragElement,
   TElementSearch,
+  IEditorInstance
 } from './types';
 import { prefixCls } from './const';
 import store from './store';
@@ -40,32 +41,6 @@ export * from './utils';
 export * from './hooks';
 export * from './components';
 export * from './context';
-export interface IEditorInstance {
-  getSchema: IBaseStore['getSchema'];
-  getElement: (search?: TElementSearch) => Promise<IBaseElement | undefined>;
-
-  // 表单
-  form: FormInstance;
-  getFieldValue: IBaseStore['getFieldValue'];
-  getFieldsValue: IBaseStore['getFieldsValue'];
-  setFieldValue: IBaseStore['setFieldValue'];
-  setFieldsValue: IBaseStore['setFieldsValue'];
-  // 扩展
-  extendServiceEmitter: IExtendStore['extendServiceEmitter'];
-  extendFormAttr: (key: keyof FormProps, value: any) => void;
-  extendFormAttrs: (extend: FormProps) => void;
-  extendFormItemAttr: (
-    search: TElementSearch,
-    key: keyof FormItemProps,
-    value: any,
-  ) => void;
-  extendFormItemAttrs: (search: TElementSearch, extend: FormItemProps) => void;
-  extendElementAttr: (search: TElementSearch, key: string, value: any) => void;
-  extendElementAttrs: (
-    search: TElementSearch,
-    extend: Record<string, any>,
-  ) => void;
-}
 
 export type TFormProps = {
   defaultValue?: IFormSchema;
@@ -117,7 +92,7 @@ const FormEditorContent: React.ForwardRefRenderFunction<
     injectSchema(schema);
   }, [defaultValue]);
 
-  useExpose(ref, {
+  useExpose(ref as React.RefObject<IEditorInstance>, {
     form,
   });
 

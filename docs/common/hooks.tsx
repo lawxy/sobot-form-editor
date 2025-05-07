@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from "react";
 import { cloneDeep } from 'lodash-es';
 import { Button } from 'antd'; 
-import { triggerLinkingService, triggerService } from '@sobot/form-editor';
+// import { triggerLinkingService, triggerService } from '@sobot/form-editor';
 
 // console.log('triggerLinkingService', triggerLinkingService)
 // console.log('triggerService', triggerService)
@@ -31,9 +31,9 @@ export const useCommon = (ref) => {
        
         
         // 服务监听getOptions
-        // ref.current?.extendServiceEmitter.on('service-8e312rbg3ds', (data) => {
-        //     console.log( data);
-        // })
+        ref.current?.extendServiceEmitter.on('service-8e312rbg3ds', (data) => {
+            console.log( data);
+        })
 
         // 前端扩展
         // 设置tab1的tooltip
@@ -60,7 +60,7 @@ export const useCommon = (ref) => {
         })
 
         setTimeout(() => {
-            triggerLinkingService({
+            ref.current?.triggerLinkingService({
                 serviceId: 'service-8e312rbg3ds',
                 eventValue: '123'
             })

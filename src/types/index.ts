@@ -2,11 +2,13 @@ export * from './event';
 export * from './service';
 export * from '../store/types';
 
-import type { FC, ReactNode, CSSProperties } from 'react';
-import { TCustomEvents } from './event';
-import { TFormSerives } from './service';
+import type { FC, ReactNode } from 'react';
+import type { FormInstance, FormProps } from 'antd';
+import type { FormItemProps } from 'antd';
+import type { TCustomEvents } from './event';
+import type { TFormSerives } from './service';
 import { EEventAction } from './event';
-import { IBaseStore } from '../store/types';
+import type { IBaseStore, IExtendStore } from '../store/types';
 
 export interface IDragElementProp {
   type: string;
@@ -482,3 +484,45 @@ export type TElementSetting = FC<{
   setElementProp: IBaseStore['setSelectedProp'];
   setFieldValue: (value: any) => void;
 }>;
+
+export interface IEditorInstance {
+  getSchema: IBaseStore['getSchema'];
+  getElement: (search?: TElementSearch) => Promise<IBaseElement | undefined>;
+
+  // 表单
+  form: FormInstance;
+  getFieldValue: IBaseStore['getFieldValue'];
+  getFieldsValue: IBaseStore['getFieldsValue'];
+  setFieldValue: IBaseStore['setFieldValue'];
+  setFieldsValue: IBaseStore['setFieldsValue'];
+  // 扩展
+  /**
+   * 监听服务结果
+  */
+  extendServiceEmitter: IExtendStore['extendServiceEmitter'];
+  /**
+   * 扩展表单属性
+  */
+  extendFormAttr: (key: keyof FormProps, value: any) => void;
+  extendFormAttrs: (extend: FormProps) => void;
+  extendFormItemAttr: (
+    search: TElementSearch,
+    key: keyof FormItemProps,
+    value: any,
+  ) => void;
+  extendFormItemAttrs: (search: TElementSearch, extend: FormItemProps) => void;
+  extendElementAttr: (search: TElementSearch, key: string, value: any) => void;
+  extendElementAttrs: (
+    search: TElementSearch,
+    extend: Record<string, any>,
+  ) => void;
+
+  /**
+   * 只触发服务，返回结果
+  */
+  triggerService: (serviceId: string) => Promise<any>;
+  /**
+   * 触发服务且执行关联事件，返回结果
+  */
+  triggerLinkingService: ({serviceId, eventValue}: {serviceId: string, eventValue: any}) => Promise<void>;
+}
