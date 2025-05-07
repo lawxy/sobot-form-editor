@@ -300,7 +300,7 @@ export const handleOnEvent = async (params: TEmitData) => {
   if(!valueChangeContinue(params)) return;
 
   switch (eventType) {
-    case EEventType.SETTING_VALUE:
+    case EEventType.SETTING_ELEMENT:
       return await triggerSettingValue(params);
     case EEventType.UPDATE_SERVICE:
       return await triggerRefreshService(params);

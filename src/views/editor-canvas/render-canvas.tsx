@@ -27,17 +27,17 @@ const EditorCanvas: FC<PropsWithChildren<{}>> = () => {
     return Object.values(cssObj)[0];
   }, [customCss]);
 
-  useDesignEffect(() => {
-    const keydonwFn = (e: KeyboardEvent) => {
-      if (e.key === 'Backspace' && document.activeElement === document.body) {
-        store.deleteEl(store.selectedElement);
-      }
-    };
-    document.addEventListener('keydown', keydonwFn);
-    return () => {
-      document.removeEventListener('keydown', keydonwFn);
-    };
-  });
+  // useDesignEffect(() => {
+  //   const keydonwFn = (e: KeyboardEvent) => {
+  //     if (e.key === 'Backspace' && document.activeElement === document.body) {
+  //       store.deleteEl(store.selectedElement);
+  //     }
+  //   };
+  //   document.addEventListener('keydown', keydonwFn);
+  //   return () => {
+  //     document.removeEventListener('keydown', keydonwFn);
+  //   };
+  // });
 
   // 表单加载事件
   useFormUpdate(() => {

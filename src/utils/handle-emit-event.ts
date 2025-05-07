@@ -241,7 +241,7 @@ export const handleEmitEvent = (
       const params = { emitter, eventType, target, eventAction } as IParams;
       let emitFn: IEventFunction | undefined;
       switch (eventType) {
-        case EEventType.SETTING_VALUE:
+        case EEventType.SETTING_ELEMENT:
           emitFn = emitSettingValue(params) as IEventFunction;
           break;
         case EEventType.UPDATE_SERVICE:

@@ -33,6 +33,10 @@ export enum EEventAction {
   PAGINATION_CHANGE = 'paginationChange',
   // 搜索
   ON_SEARCH = 'onSearch',
+  // 隐藏
+  ON_CLOSE = 'onClose',
+  // 显示
+  ON_SHOW = 'onShow',
 }
 export const eventActionInChinese: Record<EEventAction, string> = {
   [EEventAction.ON_CLICK]: '鼠标单击',
@@ -44,6 +48,8 @@ export const eventActionInChinese: Record<EEventAction, string> = {
   [EEventAction.FORM_LOADED]: '编辑器加载后',
   [EEventAction.PAGINATION_CHANGE]: '分页切换',
   [EEventAction.ON_SEARCH]: '搜索',
+  [EEventAction.ON_CLOSE]: '隐藏',
+  [EEventAction.ON_SHOW]: '显示',
 };
 
 /**
@@ -61,7 +67,7 @@ export enum EEventType {
   /**
    * 设置组件
    */
-  SETTING_VALUE = 'settingValue',
+  SETTING_ELEMENT = 'settingElement',
   /**
    * 表单校验
    */
@@ -80,7 +86,7 @@ export enum EEventType {
 export const eventTypeChinese = {
   [EEventType.UPDATE_SERVICE]: '更新服务',
   [EEventType.LINK_SERVICE]: '关联服务',
-  [EEventType.SETTING_VALUE]: '设置组件',
+  [EEventType.SETTING_ELEMENT]: '设置组件',
   [EEventType.VALIDATE]: '表单校验',
   [EEventType.JMUP]: '跳转链接',
   [EEventType.CUSTOM_JS]: '自定义js',

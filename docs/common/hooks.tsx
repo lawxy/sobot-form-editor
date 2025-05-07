@@ -31,43 +31,43 @@ export const useCommon = (ref) => {
        
         
         // 服务监听getOptions
-        ref.current?.extendServiceEmitter.on('service-8e312rbg3ds', (data) => {
-            console.log( data);
-        })
+        // ref.current?.extendServiceEmitter.on('service-8e312rbg3ds', (data) => {
+        //     console.log( data);
+        // })
 
         // 前端扩展
         // 设置tab1的tooltip
-        ref.current?.extendElementAttr({fieldName: 'tab1'}, 'tooltip', tooltip)
+        // ref.current?.extendElementAttr({fieldName: 'tab1'}, 'tooltip', tooltip)
 
-         // 设置table的columns
-        ref.current?.getElement({fieldName: 'table'}).then((el) => {
-            if(!el) return;
-            const columns = cloneDeep(el?.columns);
-            columns.push({
-                title: '操作',
-                width: 100,
-                render(){
-                    return <Button>操作</Button>
-                }
-            })
-            ref.current?.extendElementAttrs(el.id,  {
-                columns,
-                rowSelection: {
-                    type: 'checkbox',
-                    fixed: 'left',
-                }
-            })
-        })
+        //  // 设置table的columns
+        // ref.current?.getElement({fieldName: 'table'}).then((el) => {
+        //     if(!el) return;
+        //     const columns = cloneDeep(el?.columns);
+        //     columns.push({
+        //         title: '操作',
+        //         width: 100,
+        //         render(){
+        //             return <Button>操作</Button>
+        //         }
+        //     })
+        //     ref.current?.extendElementAttrs(el.id,  {
+        //         columns,
+        //         rowSelection: {
+        //             type: 'checkbox',
+        //             fixed: 'left',
+        //         }
+        //     })
+        // })
 
-        setTimeout(() => {
-            ref.current?.triggerLinkingService({
-                serviceId: 'service-8e312rbg3ds',
-                eventValue: '123'
-            })
-            // triggerService('service-8e312rbg3ds').then((res) => {
-            //     console.log('res', res)
-            // })
-        }, 3000)
+        // setTimeout(() => {
+        //     ref.current?.triggerLinkingService({
+        //         serviceId: 'service-8e312rbg3ds',
+        //         eventValue: '123'
+        //     })
+        //     // triggerService('service-8e312rbg3ds').then((res) => {
+        //     //     console.log('res', res)
+        //     // })
+        // }, 3000)
 
 
     }, []);

@@ -17,7 +17,7 @@ export const WithLanguage: WithLanguageType = ({ children, value, onChange }) =>
   const { LOCALE } = useEditorContext();
   const inputRef = useRef<any>(null);
 
-  const valueIsString = typeof value === 'string'
+  const valueIsString = typeof value === 'string';
 
   const {text, useLocale} = useMemo(() => {
     if(valueIsString) {
@@ -107,6 +107,7 @@ const WithLanguageInput = forwardRef(
             disabled={useLocale}
             value={text}
             onChange={(e) => {
+              // console.log('e.target.value', e.target.value)
               onChangeText(e.target.value);
             }}
             {...props}

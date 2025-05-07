@@ -34,7 +34,7 @@ const ActionItem: React.FC<
 > = ({ onChange, eventTarget, last, onAdd, onDelete, event }) => {
   const renderConfig = () => {
     switch (event.eventType) {
-      case EEventType.SETTING_VALUE:
+      case EEventType.SETTING_ELEMENT:
         return <SetElement />;
       case EEventType.UPDATE_SERVICE:
         return <RefreshService />;

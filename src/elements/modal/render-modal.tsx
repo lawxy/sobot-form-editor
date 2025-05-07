@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { Modal } from '@sobot/soil-ui';
 import c from 'classnames';
-import { useDesignEffect, useGetEventFunctions } from '@/hooks';
-import { TElementRender } from '@/types';
+import { useDesignEffect, useFormUpdate, useGetEventFunctions } from '@/hooks';
+import { EEventAction, TElementRender } from '@/types';
 import store from '@/store';
 import { RenderElementWithLayout } from '@/components/element-layout';
 import { useEditorContext } from '@/context';
@@ -37,6 +37,14 @@ export const RenderModal: TElementRender = ({
       }
     }
   }, [children?.length])
+
+  useFormUpdate(() => {
+    if(hidden) {
+      eventFunctions[EEventAction.ON_CLOSE]?.();
+    } else {
+      eventFunctions[EEventAction.ON_SHOW]?.();
+    }
+  }, [hidden, eventFunctions[EEventAction.ON_SHOW], eventFunctions[EEventAction.ON_CLOSE]]);
 
   return (
     <Modal

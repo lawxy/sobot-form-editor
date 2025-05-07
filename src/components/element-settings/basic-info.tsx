@@ -25,7 +25,7 @@ const BasicInfo = () => {
     modalOrDrawer
   } = store.selectedElement;
 
-  const BasicSetting = () => (
+  const basicSetting = (
     <>
       <SettingItem label="元素id">
         <div>{id}</div>
@@ -67,9 +67,9 @@ const BasicInfo = () => {
     </>
   )
 
-  const FormSetting = () => {
-    if (isContainer || isGroup || modalOrDrawer) return null;
-    return (
+  let formSetting = null
+  if (!isContainer && !isGroup && !modalOrDrawer) {
+    formSetting = (
       <>
         <SettingItem label="表单项" tips="isFormItem">
           <Switch
@@ -120,9 +120,9 @@ const BasicInfo = () => {
     )
   }
 
-  const GridSetting = () => {
-    if (modalOrDrawer) return null;
-    return (
+  let gridSetting = null
+  if (!modalOrDrawer) {
+    gridSetting = (
       <>
         <SettingItem label="栅格布局" tips="gridLayout">
           <Switch
@@ -168,11 +168,11 @@ const BasicInfo = () => {
 
   return (
     <SettingWrap title="基础设置">
-      <BasicSetting />
+      {basicSetting}
 
-      <FormSetting />
+      {formSetting}
 
-      <GridSetting />
+      {gridSetting}
 
       <SettingItem label="默认显示" tips="hidden">
         <Switch

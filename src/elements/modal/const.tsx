@@ -1,4 +1,4 @@
-import { EEventAction } from '@/types';
+import { EChangeStatePayload, EEventAction, EEventType } from '@/types';
 import type { IBaseElement } from '@/types';
 import { ELEMENT_CONTAINER, initialData as containerInitData } from '../container/const';
 import { ELEMENT_BUTTON, initialData as buttonInitData } from '../button/const';
@@ -6,7 +6,7 @@ import { idCreator } from '@/utils';
 
 export const ELEMENT_MODAL = 'fe-modal';
 export const MODAL_TEXT = '弹窗';
-export const eventActions = [EEventAction.ON_CLICK, EEventAction.ON_LOADED];
+export const eventActions = [EEventAction.ON_SHOW, EEventAction.ON_CLOSE];
 
 export const createContent = (parentId: string): IBaseElement => {
   return {
@@ -24,6 +24,24 @@ export const createContent = (parentId: string): IBaseElement => {
 
 export const createFooter = (parentId: string): IBaseElement => {
   const id = idCreator('modal-footer');
+
+  const cancelId = idCreator('cancel-button');
+  const confirmId = idCreator('confirm-button');
+
+  const closeModalEvent = (sourceId: string) => ({
+    id: idCreator('cancel-button-event'),
+    eventAction: EEventAction.ON_CLICK,
+    eventType: EEventType.SETTING_ELEMENT,
+    eventTargets: [
+      {
+        id: idCreator('event-target'),
+        sourceId,
+        targetElementId: parentId,
+        targetPayload: EChangeStatePayload.HIDDEN
+      }
+    ]
+  })
+
   return {
       type: ELEMENT_CONTAINER,
       id,
@@ -39,7 +57,7 @@ export const createFooter = (parentId: string): IBaseElement => {
       children: [
         {
           type: ELEMENT_BUTTON,
-          id: idCreator('cancel-button'),
+          id: cancelId,
           parentId: id,
           ...buttonInitData,
           elementName: {
@@ -49,11 +67,14 @@ export const createFooter = (parentId: string): IBaseElement => {
           text: {
             langText: '取消',
             langKey: ''
-          }
+          },
+          events: [
+            closeModalEvent(cancelId)
+          ]
         },
         {
           type: ELEMENT_BUTTON,
-          id: idCreator('confirm-button'),
+          id: confirmId,
           parentId: id,
           ...buttonInitData,
           elementName: {
@@ -64,7 +85,10 @@ export const createFooter = (parentId: string): IBaseElement => {
           text: {
             langText: '确定',
             langKey: ''
-          }
+          },
+          events: [
+            closeModalEvent(confirmId)
+          ]
         }
       ]
     }

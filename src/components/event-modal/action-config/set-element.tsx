@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from 'antd';
+import { Select, Tree, TreeSelect } from 'antd';
 import { observer } from 'mobx-react-lite';
 import store from '@/store';
 import { prefixCls } from '@/const';
@@ -8,7 +8,7 @@ import {
   EChangeStatePayload,
   type IEventTarget,
 } from '@/types';
-import { getElementOptions } from '@/utils';
+import { getElementOptions, getElementTree } from '@/utils';
 import type { IConfig } from '.';
 
 const SetElement: React.FC<IConfig> = ({ onChange, eventTarget }) => {
@@ -28,7 +28,16 @@ const SetElement: React.FC<IConfig> = ({ onChange, eventTarget }) => {
     <>
       <div>
         目标组件：{' '}
-        <Select
+        <TreeSelect
+          allowClear
+          className={prefixCls('event-select')}
+          treeData={getElementTree()}
+          value={targetElementId}
+          onChange={(v) => {
+            onChange?.({ targetElementId: v, targetPayload: undefined });
+          }}
+            />
+        {/* <Select
           allowClear
           className={prefixCls('event-input')}
           options={getElementOptions()}
@@ -37,7 +46,7 @@ const SetElement: React.FC<IConfig> = ({ onChange, eventTarget }) => {
           onChange={(v) => {
             onChange?.({ targetElementId: v, targetPayload: undefined });
           }}
-        />
+        /> */}
       </div>
       {targetElementId && (
         <div>

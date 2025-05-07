@@ -15,31 +15,32 @@ const EventRelationModalContent: FC<
 > = ({ children, id }) => {
   const [open, setOpen] = useState(false);
 
-  const sets = eventRelationStore.getSetsFromId(id);
+  // const sets = eventRelationStore.getSetsFromId(id);
+  const { sets, linkElement, linkEditor, render } = eventRelationStore.findRelationWhenDelete(id);
 
-  let linkElement = false;
-  let linkEditor = false;
+  // let linkElement = false;
+  // let linkEditor = false;
 
-  const sourceElements = new Set<IBaseElement>();
-  const sourceServices = new Set<TFormSerive>();
+  // const sourceElements = new Set<IBaseElement>();
+  // const sourceServices = new Set<TFormSerive>();
 
-  sets.forEach((set) => {
-    // @ts-ignore
-    for (const sourceId of set.keys()) {
-      const sourceElement = baseStore.getElement(sourceId);
-      const sourceService = baseStore.getService(sourceId);
+  // sets.forEach((set) => {
+  //   // @ts-ignore
+  //   for (const sourceId of set.keys()) {
+  //     const sourceElement = baseStore.getElement(sourceId);
+  //     const sourceService = baseStore.getService(sourceId);
 
-      if (sourceId === baseStore.getEditorAttr('id')) {
-        linkEditor = true;
-      } else if (sourceElement) {
-        linkElement = true;
-        sourceElements.add(sourceElement);
-      } else if (sourceService) {
-        linkElement = true;
-        sourceServices.add(sourceService);
-      }
-    }
-  });
+  //     if (sourceId === baseStore.getEditorAttr('id')) {
+  //       linkEditor = true;
+  //     } else if (sourceElement) {
+  //       linkElement = true;
+  //       sourceElements.add(sourceElement);
+  //     } else if (sourceService) {
+  //       linkElement = true;
+  //       sourceServices.add(sourceService);
+  //     }
+  //   }
+  // });
 
   return (
     <>
@@ -63,7 +64,8 @@ const EventRelationModalContent: FC<
           setOpen(false);
         }}
       >
-        <div>
+        {render}
+        {/* <div>
           {linkEditor && (
             <div>
               <span>关联编辑器</span>
@@ -94,7 +96,7 @@ const EventRelationModalContent: FC<
               </ul>
             </div>
           )}
-        </div>
+        </div> */}
       </Modal>
     </>
   );
