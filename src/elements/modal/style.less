@@ -10,4 +10,22 @@
     height: 100%;
    }
   }
+  &-modal-wrapper {
+    padding-bottom: 0;
+    .ant-modal-footer {
+      [data-type='fe-container'] {
+        padding: 0 !important;
+      }
+    }
+  }
+  &-modal-wrapper-design {
+    // outline: 1px solid red;
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2px solid #3370ff !important;
+      z-index: 100;
+    }
+  }
 }

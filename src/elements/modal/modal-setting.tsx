@@ -1,74 +1,42 @@
 import React from 'react';
-import { Select } from '@sobot/soil-ui';
+import { Switch } from 'antd';
 import { SettingItem, SettingWrap, WithLanguage } from '@/components';
 import type { TElementSetting, TextWithLang } from '@/types';
 
 export const SettingModal: TElementSetting = ({ element, setElementProp }) => {
+  const { mask, maskClosable, title } = element;
   return (
-    <SettingWrap title="按钮设置">
-      <SettingItem label="按钮文案" tips='text'>
+    <SettingWrap title="弹窗设置">
+      <SettingItem label="标题" tips='title'>
         <WithLanguage.Input
-          value={element.text!}
+          value={title}
           onChange={(val: TextWithLang) => {
-            setElementProp('text', val);
+            setElementProp('title', val);
           }}
         />
       </SettingItem>
-      <SettingItem label="按钮类型" tips='btnType'>
-        <Select
-          value={element.btnType}
-          options={[
-            {
-              label: '主要按钮',
-              value: 'primary',
-            },
-            {
-              label: '次要按钮',
-              value: '',
-            },
-            {
-              label: '文字按钮',
-              value: 'text',
-            },
-            {
-              label: '链接按钮',
-              value: 'link',
-            },
-          ]}
-          onChange={(v) => {
-            setElementProp(
-              'btnType',
-              v as 'primary' | '' | 'dashed' | 'link' | 'text',
-            );
+      <SettingItem label="展示遮罩" tips='mask'>
+        <Switch
+          size='small'
+          checked={mask}
+          onChange={(val) => {
+            setElementProp('mask', val);
           }}
         />
       </SettingItem>
-      <SettingItem label="按钮大小" tips='size'>
-        <Select
-          value={element.size}
-          options={[
-            {
-              label: '大按钮',
-              value: 'large',
-            },
-            {
-              label: '默认按钮',
-              value: '',
-            },
-            {
-              label: '小按钮',
-              value: 'small',
-            },
-            {
-              label: 'mini按钮',
-              value: 'mini',
-            },
-          ]}
-          onChange={(v) => {
-            setElementProp('size', v as 'large' | '' | 'small' | 'mini');
-          }}
-        />
-      </SettingItem>
+      {
+        mask && (
+          <SettingItem label="点击蒙层是否允许关闭" tips='maskClosable'>
+            <Switch
+              size='small'
+              checked={maskClosable}
+              onChange={(val) => {
+                setElementProp('maskClosable', val);
+              }}
+            />
+          </SettingItem>
+        )
+      }
     </SettingWrap>
   );
 };

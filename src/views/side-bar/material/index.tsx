@@ -72,6 +72,7 @@ export const Material = observer(() => {
                 animation={150}
                 sort={false}
                 group={{ name: 'nested', pull: 'clone', put: false }}
+                filter={'.fe-modal, .fe-drawer'}
               >
                 {list.map((item: IDragElementProp) => (
                   <DragItem key={item.type} item={item} />

@@ -61,7 +61,7 @@ export const RenderTabs: TElementRender = ({
   useValueImmediately(immediateFunctions, activeKey);
 
   const items = children?.map((child) => {
-    store.flatElement(child);
+    // store.flatElement(child);
     const { tooltip, disabled } = child;
     const extendProps = store.getElementExtendAttrs(child.id!);
     const { tooltip: extendTooltip, ...extendRest } = extendProps;

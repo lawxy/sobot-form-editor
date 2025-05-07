@@ -22,7 +22,13 @@ const loop = (data: IBaseElement[], { isDraggable, searchValue }: { isDraggable:
             title: (
                 <Dropdown
                     overlay={
-                        <Menu>
+                        <Menu
+                            onClick={(e) => {
+                                if(e.key === 'copy') {
+                                    store.copyEl(item);
+                                }
+                            }}
+                        >
                             <Menu.Item key='delete'>
                                 <Popconfirm
                                     title="确认删除"
@@ -32,6 +38,9 @@ const loop = (data: IBaseElement[], { isDraggable, searchValue }: { isDraggable:
                                 >
                                     删除
                                 </Popconfirm>
+                            </Menu.Item>
+                            <Menu.Item key='copy'>
+                                复制
                             </Menu.Item>
                         </Menu>
                     }

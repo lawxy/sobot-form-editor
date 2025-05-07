@@ -122,7 +122,7 @@ const WrapDesignEl: React.FC<
       ref={ref}
     >
       <div className={prefixCls('element-mask')} style={getMaskStyle()} />
-      {showSelectedActions() && <SelectedActions />}
+      {showSelectedActions() && <SelectedActions cannotCopy={el.cannotCopy}/>}
       {children}
       <EventIcon id={el.id!} events={el.events} />
     </div>

@@ -59,7 +59,7 @@ export const RenderContainer: TElementRender = ({
       style={style}
     >
       {element.children?.map((item: IBaseElement) => {
-        store.flatElement(item);
+        // store.flatElement(item);
         return <RenderElementWithLayout element={item} key={item.id} />;
       })}
     </ReactSortable>

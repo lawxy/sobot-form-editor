@@ -439,6 +439,22 @@ export interface IBaseElement {
    * 表格行key
    */ 
   rowKey?: string;
+  /**
+   * 禁止复制
+   */
+  cannotCopy?: boolean;
+  /**
+   * 标题
+   */
+  title?: TextWithLang;
+  /**
+   * 是否展示遮罩	
+  */
+  mask?: boolean;
+  /**
+   * 点击蒙层是否允许关闭	
+   */
+  maskClosable?: boolean;
 }
 export interface IFormAttributesProps {
   editorName?: string;

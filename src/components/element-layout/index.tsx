@@ -171,6 +171,8 @@ export const ElementLayout: FC<
 export const RenderElementWithLayout: FC<{
   element: IBaseElement;
 }> = observer(({ element }) => {
+  store.flatElement(element);
+
   const { isDesign } = useEditorContext();
   
   useRegisterEvents(element.id!);

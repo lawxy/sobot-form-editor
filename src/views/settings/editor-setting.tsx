@@ -87,7 +87,7 @@ const EditorSetting = () => {
           <EventSetting
             type="form"
             eventActions={[EEventAction.FORM_LOADED]}
-            eventTypeOptions={[EEventType.UPDATE_SERVICE]}
+            // eventTypeOptions={[EEventType.UPDATE_SERVICE]}
           />
         </SettingWrap>
 

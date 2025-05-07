@@ -27,7 +27,7 @@ export const RenderSelectInput: TElementRender = ({
     <Input.Group compact className={`${prefixCls}-input-group`} style={customStyle}>
       {
         children?.map((child) => {
-          store.flatElement(child);
+          // store.flatElement(child);
           return <RenderElementWithLayout key={child.id} element={child} />
         })
       }
