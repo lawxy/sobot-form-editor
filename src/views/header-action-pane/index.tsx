@@ -143,8 +143,8 @@ const HeaderActionPaneContent = () => {
 }; 
 
 export const HeaderActionPane = observer(() => {
-  const { mode } = useEditorContext();
-  if (mode === 'design') {
+  const { isDesign } = useEditorContext();
+  if (isDesign) {
     return <HeaderActionPaneContent />;
   }
   return null;

@@ -31,6 +31,9 @@ export { ELEMENT_IMAGE, RenderImage, SettingImage, IMAGE_TEXT, initialData as Im
 import { ELEMENT_INPUT, RenderInput, SettingInput, INPUT_TEXT, initialData as Input_initData, eventActions as Input_eventActions, Icon as INPUT_Icon } from './input'
 export { ELEMENT_INPUT, RenderInput, SettingInput, INPUT_TEXT, initialData as Input_initData, } from './input'
         
+import { ELEMENT_MODAL, RenderModal, SettingModal, MODAL_TEXT, initialData as Modal_initData, eventActions as Modal_eventActions, Icon as MODAL_Icon } from './modal'
+export { ELEMENT_MODAL, RenderModal, SettingModal, MODAL_TEXT, initialData as Modal_initData, } from './modal'
+        
 import { ELEMENT_NUMBER, RenderNumber, SettingNumber, NUMBER_TEXT, initialData as Number_initData, eventActions as Number_eventActions, Icon as NUMBER_Icon } from './number'
 export { ELEMENT_NUMBER, RenderNumber, SettingNumber, NUMBER_TEXT, initialData as Number_initData, } from './number'
         
@@ -244,5 +247,15 @@ export const ElementsMap: Record<string, IDragElementProp> = {
     eventActions: Tabs_eventActions,
     initialData: Tabs_initData,
     Icon: TABS_Icon
+  },
+
+  [ELEMENT_MODAL]: {
+    type: ELEMENT_MODAL,
+    render: RenderModal,
+    setting: SettingModal,
+    text: MODAL_TEXT,
+    eventActions: Modal_eventActions,
+    initialData: Modal_initData,
+    Icon: MODAL_Icon
   },
 }

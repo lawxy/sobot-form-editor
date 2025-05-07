@@ -89,7 +89,7 @@ const EventRelationModalContent: FC<
               <span>关联服务</span>
               <ul>
                 {Array.from(sourceServices).map((service) => (
-                  <li key={service.id}>{service.name}</li>
+                  <li key={service.id}>{service.name} ( {service.id} )</li>
                 ))}
               </ul>
             </div>

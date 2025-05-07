@@ -18,24 +18,24 @@ export const useFormEffect = (
   effect: EffectCallback,
   deps: DependencyList = [],
 ) => {
-  const { mode } = useEditorContext();
-  useEffect(mode === 'design' ? () => {} : effect, deps);
+  const { isDesign } = useEditorContext();
+  useEffect(isDesign ? () => {} : effect, deps);
 };
 
 export const useFormLayoutEffect = (
   effect: EffectCallback,
   deps: DependencyList = [],
 ) => {
-  const { mode } = useEditorContext();
-  useLayoutEffect(mode === 'design' ? () => {} : effect, deps);
+  const { isDesign } = useEditorContext();
+  useLayoutEffect(isDesign ? () => {} : effect, deps);
 };
 
 export const useFormUpdate = (effect: EffectCallback, deps: DependencyList, immediately = false) => {
-  const { mode } = useEditorContext();
+  const { isDesign } = useEditorContext();
   const firstRender = useRef<boolean>(true);
 
   useEffect(
-    (!immediately && firstRender.current) || mode === 'design'
+    (!immediately && firstRender.current) || isDesign
       ? () => {
           firstRender.current = false;
         }
@@ -48,18 +48,18 @@ export const useDesignEffect = (
   effect: EffectCallback,
   deps: DependencyList = [],
 ) => {
-  const { mode } = useEditorContext();
-  useEffect(mode !== 'design' ? () => {} : effect, deps);
+  const { isDesign } = useEditorContext();
+  useEffect(!isDesign ? () => {} : effect, deps);
 };
 
 export const useDesignUpdate = (
   effect: EffectCallback,
   deps: DependencyList,
 ) => {
-  const { mode } = useEditorContext();
+  const { isDesign } = useEditorContext();
   const firstRender = useRef<boolean>(true);
   useEffect(
-    firstRender.current || mode !== 'design'
+    firstRender.current || isDesign
       ? () => {
           firstRender.current = false;
         }

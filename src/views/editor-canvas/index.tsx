@@ -6,6 +6,6 @@ import {HeaderActionPane} from '../header-action-pane';
 export const FormCanvas: FC = () => {
   const { mode } = useEditorContext();
   return (
-    <EditorCanvas mode={mode} actions={mode === 'design' && <HeaderActionPane />} />
+    <EditorCanvas mode={mode} />
   );
 };

@@ -32,7 +32,7 @@ export const RenderTabs: TElementRender = ({
 }) => {
   const { children, underline } = element;
 
-  const { mode } = useEditorContext();
+  const { isDesign } = useEditorContext();
 
   const { eventFunctions, immediateFunctions } = useGetEventFunctions(element);
 
@@ -71,7 +71,7 @@ export const RenderTabs: TElementRender = ({
       key: child.id!,
       children: <RenderElementWithLayout element={child} />,
       tooltip: formatTooltip(extendTooltip || tooltip) || null,
-      disabled: mode === 'design' ? false : !!disabled,
+      disabled: isDesign ? false : !!disabled,
       ...extendRest,
     };
   });

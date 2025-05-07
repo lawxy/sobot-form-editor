@@ -135,6 +135,8 @@ export const ElementLayout: FC<
 
   const formItemProps = store.getFormItemExtendAttrs(id!);
 
+  if(element.modalOrDrawer) return <>{children}</>;
+
   return (
     <Col
       span={gridSpan}
@@ -169,7 +171,7 @@ export const ElementLayout: FC<
 export const RenderElementWithLayout: FC<{
   element: IBaseElement;
 }> = observer(({ element }) => {
-  const { mode } = useEditorContext();
+  const { isDesign } = useEditorContext();
   
   useRegisterEvents(element.id!);
 
@@ -201,7 +203,7 @@ export const RenderElementWithLayout: FC<{
 
   if (!Component) return null;
 
-  if (element.hidden && mode !== 'design') return null;
+  if (element.hidden && !isDesign && !element.modalOrDrawer) return null;
 
   const extendProps = store.getElementExtendAttrs(element.id!) || {};
 

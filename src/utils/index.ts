@@ -20,5 +20,6 @@ export * from './component-has-observered';
 export * from './date-utils';
 export * from './with-promise';
 export * from './get-element-options';
+export * from './get-element-tree';
 export * from './format-tooltip';
 export * from './parse-text';

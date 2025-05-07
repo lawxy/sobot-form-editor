@@ -44,6 +44,7 @@ const loop = (data: IBaseElement[], { isDraggable, searchValue }: { isDraggable:
             ),
             children: loop(item?.children || [], { isDraggable: !item.isGroup, searchValue }),
             isDraggable,
+            // isDraggable: !item.modalOrDrawer && isDraggable,
         } as DataNode
     });
 };

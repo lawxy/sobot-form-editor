@@ -14,7 +14,7 @@ export const RenderContainer: TElementRender = ({
   customStyle,
 }) => {
   const { id } = store.editorAttrs;
-  const { mode, ElementsMap } = useEditorContext();
+  const { mode, ElementsMap, isDesign } = useEditorContext();
   const {
     parentId,
     horizontalGap = 0,
@@ -42,9 +42,9 @@ export const RenderContainer: TElementRender = ({
         className: c({
           [`${prefixCls('row')}`]: true,
           [`${prefixCls('row-el')}`]: true,
-          [`${prefixCls('row-el-design')}`]: mode === 'design',
+          [`${prefixCls('row-el-design')}`]: isDesign,
           [`${prefixCls('row-empty')}`]:
-            mode === 'design' && !element.children?.length,
+            isDesign && !element.children?.length,
         }),
         align,
         justify,
@@ -55,7 +55,7 @@ export const RenderContainer: TElementRender = ({
           flexDirection: direction === 'vertical' ? 'column' : 'row',
         },
       }}
-      forbidden={mode !== 'design'}
+      forbidden={!isDesign}
       style={style}
     >
       {element.children?.map((item: IBaseElement) => {

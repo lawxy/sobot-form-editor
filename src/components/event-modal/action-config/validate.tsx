@@ -1,9 +1,9 @@
 import React from 'react';
-import { Select } from 'antd';
+import { Select, TreeSelect } from 'antd';
 
 import { prefixCls } from '@/const';
 import { EValidateRange, validateTypeOptions } from '@/types';
-import { getElementOptions } from '@/utils';
+import { getElementOptions, getElementTree } from '@/utils';
 import type { IConfig } from '.';
 
 const Validate: React.FC<IConfig> = ({ onChange, eventTarget }) => {
@@ -29,7 +29,17 @@ const Validate: React.FC<IConfig> = ({ onChange, eventTarget }) => {
         validateRange === EValidateRange.CUSTOM && (
           <div>
             选择组件：
-            <Select
+            <TreeSelect
+              allowClear
+              className={prefixCls('event-select')}
+              treeData={getElementTree()}
+              treeCheckable
+              defaultValue={validateFields}
+              onChange={(v) => {
+                onChange?.({ validateFields: v });
+              }}
+            />
+            {/* <Select
               allowClear
               style={{ width: 150 }}
               className={prefixCls('event-select')}
@@ -39,9 +49,10 @@ const Validate: React.FC<IConfig> = ({ onChange, eventTarget }) => {
               onChange={(v) => {
                 onChange?.({ validateFields: v });
               }}
-          />
-        </div>
-      )}
+          /> */}
+          </div>
+        )}
+
     </>
   );
 };

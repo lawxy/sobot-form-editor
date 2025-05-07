@@ -299,6 +299,10 @@ export interface IBaseElement {
    */
   isGroup?: boolean;
   /**
+   * modal或者drawer
+   */
+  modalOrDrawer?: boolean;
+  /**
    * 子节点
    */
   children?: Array<IBaseElement>;
@@ -427,14 +431,6 @@ export interface IBaseElement {
    * 日期范围自定义
    */
   customPresets?: Array<TCustomPreset>;
-  /**
-   * 自定义属性 - 前端扩展使用
-   */
-  // extendProps?: Record<string, any>;
-  /**
-   * 表单项属性
-   */
-  // extendFormItem?: FormItemProps;
   /**
    * 文本框 是否可切换
    */

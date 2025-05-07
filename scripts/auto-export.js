@@ -29,6 +29,7 @@ const SortedName = [
   'container', // 容器
   'tabs', // tabs
   // 'input_group', // 输入组
+  'modal', // 弹窗
 ];
 
 const handleSort = (v1, v2) => {

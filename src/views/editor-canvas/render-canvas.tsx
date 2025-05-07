@@ -14,25 +14,12 @@ import { RenderElementWithLayout } from '@/components';
 
 import './style.less';
 import { useEditorContext } from '@/context';
-export interface IEditorCanvasProp {
-  /**
-   * 表单模式
-   */
-  mode: TMode;
-  /**
-   * 表单操作按钮
-   */
-  actions?: React.ReactNode; // 表单操作按钮组
-}
 
-const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
-  mode,
-  actions,
-}) => {
+const EditorCanvas: FC<PropsWithChildren<{}>> = () => {
   const { horizontalGap, verticalGap, id, events, customCss, align, justify } =
     store.editorAttrs;
   const { eventFunctions } = useGetEventFunctions({ id, events });
-  const { ElementsMap } = useEditorContext();
+  const { ElementsMap, isDesign } = useEditorContext();
 
   const formStyle = useMemo(() => {
     if (!customCss) return {};
@@ -73,10 +60,8 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
   return (
     <div className={c({
       [prefixCls('canvas-wrap')]: true,
-      [prefixCls('canvas-wrap-design')]: mode === 'design',
+      [prefixCls('canvas-wrap-design')]: isDesign,
     })}>
-      {/* {actions && <>{actions}</>} */}
-
       <ReactSortable<IBaseElement>
         className={prefixCls('canvas')}
         style={formStyle}
@@ -91,7 +76,7 @@ const EditorCanvas: FC<PropsWithChildren<IEditorCanvasProp>> = ({
           align,
           justify,
         }}
-        forbidden={mode !== 'design'}
+        forbidden={!isDesign}
       >
         {store.formElements.map((item: IBaseElement) => {
           store.flatElement(item);
