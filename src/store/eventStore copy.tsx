@@ -4,10 +4,10 @@
 import React from 'react';
 import { makeAutoObservable } from 'mobx';
 import { EventEmitter, ModalConfirmPromisify, parseText } from '@/utils';
-import { EEventType, EValidateRange, IBaseElement, TFormSerive, TCustomEvents } from '@/types';
+import { EEventType, EValidateRange, IBaseElement, TFormSerive, TCustomEvents, EEventAction } from '@/types';
 import baseStore from '.';
 
-class EventRelationStore {
+class eventStore {
   constructor() {
     makeAutoObservable(this);
   }
@@ -16,7 +16,7 @@ class EventRelationStore {
 
   eventRelationMap = new Map();
 
-  addRelation(targetId: string, sourceId: string) {
+  addRelation({ targetId, sourceId, eventAction, eventType }: { targetId: string, sourceId: string, eventAction?: EEventAction, eventType?: EEventType }) {
     const set = this.eventRelationMap.get(targetId) ?? new Set();
     set.add(sourceId);
     this.eventRelationMap.set(targetId, set);
@@ -24,9 +24,23 @@ class EventRelationStore {
     const set2 = this.eventRelationMap.get(sourceId) ?? new Set();
     set2.add(targetId)
     this.eventRelationMap.set(sourceId, set2);
+
+    // 设置关联关系元数据
+    const targetObj = baseStore.getElement(targetId) || baseStore.getService(targetId);
+    const sourceObj = baseStore.getElement(sourceId) || baseStore.getService(sourceId);
+
+    const metadata = { targetId, eventAction, eventType, sourceId }
+    const eventMetadata = Reflect.getMetadata('eventMetadata', targetObj!) ?? [];
+    eventMetadata.push(metadata);
+    Reflect.defineMetadata('eventMetadata', eventMetadata, targetObj!);
+
+    const eventMetadata2 = Reflect.getMetadata('eventMetadata', sourceObj!) ?? [];
+    eventMetadata2.push(metadata);
+    Reflect.defineMetadata('eventMetadata', eventMetadata2, sourceObj!);
+
   }
 
-  deleteRelation(targetId: string, sourceId: string) {
+  deleteRelation({ targetId, sourceId }: { targetId: string, sourceId: string }) {
     const set = this.eventRelationMap.get(targetId) ?? new Set();
     set.delete(sourceId);
     this.eventRelationMap.set(targetId, set);
@@ -48,6 +62,12 @@ class EventRelationStore {
     return sets;
   }
 
+  getEventMetadata(targetId: string) {
+    const targetElement = baseStore.getElement(targetId);
+    if (!targetElement) return [];
+    const eventMetadata = Reflect.getMetadata('eventMetadata', targetElement) ?? [];
+  }
+
   findRelationWhenDelete(targetId: string) {
     const sets = this.getSetsFromId(targetId);
 
@@ -57,7 +77,9 @@ class EventRelationStore {
     const sourceElements = new Set<IBaseElement>();
     const sourceServices = new Set<TFormSerive>();
 
-    const target = baseStore.getElement(targetId) || baseStore.getService(targetId);
+    // const targetElement = baseStore.getElement(targetId);
+    const eventMetadata = Reflect.getMetadata('eventMetadata', baseStore.getElement(targetId)!) ?? [];
+    console.log(eventMetadata);
 
     sets.forEach((set) => {
       // @ts-ignore
@@ -79,6 +101,14 @@ class EventRelationStore {
       }
     });
 
+    const render2 =(
+      <div>
+        关联关系：
+
+      </div>
+
+    )
+
     const render = (
       <div>
         {linkEditor && (
@@ -96,7 +126,11 @@ class EventRelationStore {
             <span>关联组件</span>
             <ul>
               {Array.from(sourceElements).map((el) => (
-                <li key={el.id}>{parseText(el.elementName) ? parseText(el.elementName) + ' ( ' + el.id + ' )' : el.id}</li>
+                <li key={el.id}>
+                  <div>
+                    {parseText(el.elementName) ? parseText(el.elementName) + ' ( ' + el.id + ' )' : el.id}
+                  </div>
+                </li>
               ))}
             </ul>
           </div>
@@ -156,6 +190,10 @@ class EventRelationStore {
     return ModalConfirmPromisify({
       title: '此组件(含子组件)或服务有事件关联, 确认删除?',
       content: render,
+      bodyStyle: {
+        maxHeight: '500px',
+        overflow: 'auto',
+      },
       onOk() {
         const set = map.get(targetId);
         if (set) {
@@ -179,14 +217,14 @@ class EventRelationStore {
         : this.deleteRelation.bind(this);
 
     events.forEach((event) => {
-      const { eventTargets, eventType } = event;
+      const { eventTargets, eventType, eventAction } = event;
       eventTargets?.forEach((target) => {
         const { targetElementId, targetServiceId, sourceId, validateRange, validateFields } = target;
-        if (targetElementId) handleFn(targetElementId, sourceId);
-        if (targetServiceId) handleFn(targetServiceId, sourceId);
+        if (targetElementId) handleFn({ targetId: targetElementId, sourceId, eventAction, eventType });
+        if (targetServiceId) handleFn({ targetId: targetServiceId, sourceId, eventAction, eventType });
         if (eventType === EEventType.VALIDATE && validateRange === EValidateRange.CUSTOM && validateFields?.length) {
           validateFields.forEach((field) => {
-            handleFn(field, sourceId);
+            handleFn({ targetId: field, sourceId, eventAction, eventType});
           });
         }
       });
@@ -210,4 +248,4 @@ class EventRelationStore {
   }
 }
 
-export default new EventRelationStore();
+export default new eventStore();

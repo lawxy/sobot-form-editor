@@ -5,7 +5,7 @@ import store, { tabStore } from '@/store';
 import type { IBaseElement, TCustomEvents, TMode } from '@/types';
 import { EEventType, EValidateRange } from '@/types';
 import { useDesignEffect } from '@/hooks';
-import eventRelationStore from '@/store/eventRelationStore';
+import eventStore from '@/store/eventStore';
 import { prefixCls } from '@/const';
 import { SelectedActions } from './selected-actions';
 import { EventRelationModal } from '../event-relation-modal';
@@ -43,7 +43,7 @@ const EventIcon: React.FC<{
     });
   });
 
-  const hasEventRelation = eventRelationStore.eventRelationMap?.get(id)?.size > 0
+  const hasEventRelation = eventStore.eventRelationMap?.get(id) && Object.keys(eventStore.eventRelationMap?.get(id))?.length > 0
 
   return (
     <>
@@ -83,8 +83,8 @@ const WrapDesignEl: React.FC<
   const prevEvents = useRef<TCustomEvents>([]);
 
   useDesignEffect(() => {
-    eventRelationStore.clearEvents(prevEvents.current);
-    eventRelationStore.iterateEl(el);
+    eventStore.clearEvents(prevEvents.current);
+    eventStore.iterateEl(el);
     prevEvents.current = el.events ?? [];
   }, [el.events]);
 

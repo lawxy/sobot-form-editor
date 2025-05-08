@@ -11,7 +11,7 @@ import {
 import { EEventAction, EEventType, TCustomEvents, TDirection } from '@/types';
 import store from '@/store';
 import { prefixCls, DirectionOpions } from '@/const';
-import eventRelationStore from '@/store/eventRelationStore';
+import eventStore from '@/store/eventStore';
 import { useDesignEffect } from '@/hooks';
 
 const EditorSetting = () => {
@@ -22,8 +22,8 @@ const EditorSetting = () => {
 
     useDesignEffect(() => {
       // console.log('events', events);
-      eventRelationStore.clearEvents(prevEvents.current);
-      eventRelationStore.iterate(events, 'add');
+      eventStore.clearEvents(prevEvents.current);
+      eventStore.iterate(events, 'add');
       prevEvents.current = events ?? [];
     }, [events]);
 

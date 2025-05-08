@@ -23,3 +23,4 @@ export * from './get-element-options';
 export * from './get-element-tree';
 export * from './format-tooltip';
 export * from './parse-text';
+export * from './filter-duplicate-objects';

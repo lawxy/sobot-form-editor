@@ -3,7 +3,7 @@ import { Button, Form, Input, Modal, Select, Radio } from '@sobot/soil-ui';
 import { observer } from 'mobx-react-lite';
 import type { FC, PropsWithChildren } from 'react';
 import baseStore from '@/store';
-import eventRelationStore from '@/store/eventRelationStore';
+import eventStore from '@/store/eventStore';
 import type { TFormSerive, IBaseElement } from '@/types';
 import store from '@/store';
 import { parseText } from '@/utils';
@@ -15,8 +15,7 @@ const EventRelationModalContent: FC<
 > = ({ children, id }) => {
   const [open, setOpen] = useState(false);
 
-  // const sets = eventRelationStore.getSetsFromId(id);
-  const { sets, linkElement, linkEditor, render } = eventRelationStore.findRelationWhenDelete(id);
+  const { sets, linkElement, linkEditor, render } = eventStore.findRelationWhenDelete(id);
 
   // let linkElement = false;
   // let linkEditor = false;
